@@ -1,1 +1,13 @@
-<p>pickers works!</p>
+<div class="pickers">
+
+  <h2>Select</h2>
+  <ul>
+    <li *ngFor="let item of items" (click)="selectPicker(item)">
+      {{item.label}}
+    </li>
+  </ul>
+
+  <div>
+    <app-picker *ngIf="selectedPicker" [picker]="selectedPicker" (closePicker)="selectedPicker=null"></app-picker>
+  </div>
+</div>

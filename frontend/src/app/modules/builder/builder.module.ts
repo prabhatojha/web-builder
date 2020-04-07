@@ -5,6 +5,7 @@ import { BuilderComponent } from './builder/builder.component';
 import { PickerComponent } from './picker/picker.component';
 import { CanvasComponent } from './canvas/canvas.component';
 import { BuilderRoutingModule } from '../builder-routing.module';
+import { MatSliderModule } from '@angular/material/slider';
 
 @NgModule({
   declarations: [PickersComponent, BuilderComponent, PickerComponent, CanvasComponent],

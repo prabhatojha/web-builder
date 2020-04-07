@@ -1,0 +1,22 @@
+.pickers {
+  position: sticky;
+  top: 0;
+  color: white;
+
+  &-open {
+    background-color: #afafaf;
+    width: 300px;
+  }
+
+  ul {
+    li {
+      padding: 4px 10px;
+      cursor: pointer;
+    }
+
+    li:hover {
+      padding-left: 7px;
+      transition: padding ease-in;
+    }
+  }
+}
