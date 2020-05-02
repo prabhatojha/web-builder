@@ -1,4 +1,7 @@
-import { Component, OnInit, Input, HostListener, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component, OnInit, Input, HostListener, Output, EventEmitter, OnChanges,
+  SimpleChanges, ViewChild, ElementRef
+} from '@angular/core';
 
 @Component({
   selector: 'app-picker',
@@ -10,13 +13,15 @@ export class PickerComponent implements OnInit, OnChanges {
   @Input() picker;
   @Output() closePicker = new EventEmitter<any>();
 
+  @ViewChild('itemsRef', { static: true }) itemsRef: ElementRef;
+
   items = [{
     tag: 'div',
     text: null,
     children: [],
     style: {
-      width: '100%',
-      height: '100%',
+      width: '50%',
+      height: '100px',
       border: '1px solid grey'
     }
   }];
@@ -38,7 +43,18 @@ export class PickerComponent implements OnInit, OnChanges {
   }
 
   loadItems() {
-
+    this.items.forEach(item => {
+      const ele = document.createElement(item.tag);
+      ele.draggable = true;
+      ele.ondragstart = (ev: any) => {
+        ev.dataTransfer.setData('text', ev.target.id);
+      };
+      ele.id = 'myIddd';
+      Object.keys(item.style).forEach(key => {
+        ele.style[key] = item.style[key];
+      });
+      this.itemsRef.nativeElement.appendChild(ele);
+    });
   }
 
 }

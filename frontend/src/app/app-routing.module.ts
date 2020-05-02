@@ -6,6 +6,10 @@ const routes: Routes = [
   {
     path: 'build',
     loadChildren: () => import('./modules/builder/builder.module').then(m => m.BuilderModule)
+  },
+  {
+    path: 'mockup',
+    loadChildren: () => import('./modules/builder/builder.module').then(m => m.BuilderModule)
   }
 ];
 

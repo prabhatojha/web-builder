@@ -1,11 +1,6 @@
 <div class="picker">
   <h2>{{picker.label}}</h2>
-  <div class="picker-items">
-    <div *ngFor="let item of items" class="picker-item">
-      <ng-container [ngSwitch]="item.tag">
-        <div *ngSwitchCase="'div'" [style]="item.style"></div>
-        <button *ngSwitchCase="'button'" [style]="item.style">{{item.text}}</button>
-      </ng-container>
-    </div>
+  <div class="picker-items" #itemsRef>
+
   </div>
 </div>

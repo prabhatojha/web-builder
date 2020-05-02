@@ -1,1 +1,5 @@
-<p>canvas works!</p>
+<div #canvas (drop)="drop($event)" (dragover)="allowDrop($event)">canvas works!</div>
+<div>
+  <img id="drag1" src="img_logo.gif" draggable="true" (dragstart)="drag($event)" width="336" height="69">
+</div>
+<div id="div1" style="width: 199px; height: 200px; border: 1px solid red" (dragover)="allowDrop($event)"></div>
