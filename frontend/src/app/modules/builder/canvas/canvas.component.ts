@@ -1,45 +1,71 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { CONST_VAR } from 'src/app/constants/contants';
+import { Hasher } from 'src/app/constants/hasher';
 
 @Component({
   selector: 'app-canvas',
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss']
 })
-export class CanvasComponent implements OnInit {
+export class CanvasComponent implements OnInit, AfterViewInit {
 
   @ViewChild('canvas', { static: true }) canvas: ElementRef;
 
+  canvasOffsetLeft: number;
+  canvasOffsetTop: number;
+
   project = {
-    tag: 'button',
+    tag: 'div',
     style: {
-      width: '100px',
-      height: '100px',
-      background: 'red'
+      width: '100%',
+      height: '100%',
+      position: 'relative'
     },
     children: []
   };
 
   constructor() {
+
+  }
+
+  ngAfterViewInit(): void {
+    const bound = this.canvas.nativeElement.getBoundingClientRect();
+    this.canvasOffsetLeft = bound.left;
+    this.canvasOffsetTop = bound.top;
   }
 
   drag(ev) {
     ev.dataTransfer.setData('text', ev.target.id);
   }
 
-  drop(ev) {
-    ev.preventDefault();
-    const data = ev.dataTransfer.getData('text');
-    const newNode: any = document.getElementById(data).cloneNode(true);
-    newNode.id = 'adfasf';
-    ev.target.appendChild(newNode);
+  drop(e) {
+    e.preventDefault();
+    this.cloneNode(e);
   }
 
-  allowDrop(ev) {
-    ev.preventDefault();
+  cloneNode(e) {
+    console.log(e);
+    const data = JSON.parse(e.dataTransfer.getData(CONST_VAR.PICKER_ITEM));
+    console.log(data);
+    console.log(data.id);
+    const newNode: any = document.getElementById(data.id).cloneNode(true);
+    newNode.id = Hasher.getUuid();
+    this.setNodeLocation(e, newNode, data);
+    e.target.appendChild(newNode);
+  }
+
+  setNodeLocation(e, newNode: any, data) {
+
+    const canvasBound = e.srcElement.getBoundingClientRect();
+    newNode.style.left = (e.clientX - canvasBound.left - data.left) + 'px';
+    newNode.style.top = e.clientY - canvasBound.top - data.top + 'px';
+  }
+
+  allowDrop(e) {
+    e.preventDefault();
   }
 
   ngOnInit(): void {
-    this.createInitialView();
     this.createInitialView();
   }
 

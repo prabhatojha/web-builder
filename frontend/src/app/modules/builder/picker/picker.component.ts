@@ -2,6 +2,7 @@ import {
   Component, OnInit, Input, HostListener, Output, EventEmitter, OnChanges,
   SimpleChanges, ViewChild, ElementRef
 } from '@angular/core';
+import { CONST_VAR } from 'src/app/constants/contants';
 
 @Component({
   selector: 'app-picker',
@@ -15,16 +16,7 @@ export class PickerComponent implements OnInit, OnChanges {
 
   @ViewChild('itemsRef', { static: true }) itemsRef: ElementRef;
 
-  items = [{
-    tag: 'div',
-    text: null,
-    children: [],
-    style: {
-      width: '50%',
-      height: '100px',
-      border: '1px solid grey'
-    }
-  }];
+  items = [];
   constructor() { }
 
   @HostListener('document:keydown.esc')
@@ -33,7 +25,26 @@ export class PickerComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    this.loadItems();
+  }
 
+  /**
+   * will make api call to backend
+   */
+  loadItems() {
+    this.items = [{
+      tag: 'div',
+      text: null,
+      children: [],
+      style: {
+        width: '100px',
+        height: '100px',
+        border: '1px solid grey',
+        position: 'absolute'
+      }
+    }];
+
+    this.visuliseItems();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -42,12 +53,20 @@ export class PickerComponent implements OnInit, OnChanges {
     }
   }
 
-  loadItems() {
+  visuliseItems() {
     this.items.forEach(item => {
       const ele = document.createElement(item.tag);
       ele.draggable = true;
       ele.ondragstart = (ev: any) => {
-        ev.dataTransfer.setData('text', ev.target.id);
+        const bound = ev.target.getBoundingClientRect();
+
+        ev.dataTransfer.setData(CONST_VAR.PICKER_ITEM,
+          JSON.stringify({
+            id: ev.target.id,
+            left: ev.clientX - bound.left,
+            top: ev.clientY - bound.top
+          }));
+
       };
       ele.id = 'myIddd';
       Object.keys(item.style).forEach(key => {
