@@ -3,6 +3,7 @@ import {
   SimpleChanges, ViewChild, ElementRef
 } from '@angular/core';
 import { CONST_VAR } from 'src/app/constants/contants';
+import { PICKERS } from './picker.mock';
 
 @Component({
   selector: 'app-picker',
@@ -32,18 +33,7 @@ export class PickerComponent implements OnInit, OnChanges {
    * will make api call to backend
    */
   loadItems() {
-    this.items = [{
-      tag: 'div',
-      text: null,
-      children: [],
-      style: {
-        width: '100px',
-        height: '100px',
-        border: '1px solid grey',
-        position: 'absolute'
-      }
-    }];
-
+    this.items = PICKERS[this.picker.id];
     this.visuliseItems();
   }
 
@@ -69,6 +59,7 @@ export class PickerComponent implements OnInit, OnChanges {
 
       };
       ele.id = 'myIddd';
+      ele.innerText = item.text;
       Object.keys(item.style).forEach(key => {
         ele.style[key] = item.style[key];
       });

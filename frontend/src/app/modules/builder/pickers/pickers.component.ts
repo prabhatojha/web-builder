@@ -8,23 +8,23 @@ import { Component, OnInit } from '@angular/core';
 export class PickersComponent implements OnInit {
   items = [
     {
-      id: 1234,
+      id: 1,
       label: 'Containers'
     },
     {
-      id: 1234,
+      id: 2,
       label: 'Text'
     },
     {
-      id: 1234,
+      id: 3,
       label: 'Button'
     },
     {
-      id: 1234,
+      id: 4,
       label: 'Link'
     },
     {
-      id: 1234,
+      id: 5,
       label: 'Image'
     }
   ];

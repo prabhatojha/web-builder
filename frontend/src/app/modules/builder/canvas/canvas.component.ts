@@ -44,10 +44,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   cloneNode(e) {
-    console.log(e);
     const data = JSON.parse(e.dataTransfer.getData(CONST_VAR.PICKER_ITEM));
-    console.log(data);
-    console.log(data.id);
     const newNode: any = document.getElementById(data.id).cloneNode(true);
     newNode.id = Hasher.getUuid();
     this.setNodeLocation(e, newNode, data);
@@ -55,7 +52,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   setNodeLocation(e, newNode: any, data) {
-
     const canvasBound = e.srcElement.getBoundingClientRect();
     newNode.style.left = (e.clientX - canvasBound.left - data.left) + 'px';
     newNode.style.top = e.clientY - canvasBound.top - data.top + 'px';
@@ -82,5 +78,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   buildDom() {
 
+  }
+
+  onItemClick(e) {
+    console.log(e.target);
   }
 }
