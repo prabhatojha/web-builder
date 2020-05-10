@@ -1,15 +1,16 @@
-@import "../../../../style/colors.scss";
+@import "../../../../style/colors";
+@import "../../../../style/structure";
 
 .picker {
-  width: 250px;
+  width: 350px;
   z-index: 1;
-  position: absolute;
-  height: 600px;
-  background: #eee;
+  position: relative;
+  height: $contentHeight;
+  background: $leftExpandMenuBg;
   left: 0;
   top: 0;
   padding: 10px;
-  color: $primaryColor;
+  color: white;
 }
 
 .picker-item {

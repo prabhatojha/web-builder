@@ -1,6 +1,11 @@
 @import "../../../../style/structure";
 @import "../../../../style/colors";
 
+
+.pickers-container {
+  display: flex;
+}
+
 .pickers {
   position: relative;
   top: 0;

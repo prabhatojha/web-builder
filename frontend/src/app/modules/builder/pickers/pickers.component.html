@@ -1,10 +1,11 @@
-<div class="pickers">
-  <ul>
-    <li *ngFor="let item of items" (click)="selectPicker(item)">
-      <mat-icon aria-hidden="false" aria-label="Example home icon">{{item.icon}}</mat-icon>
-      <span>{{item.label}}</span>
-    </li>
-  </ul>
-
+<div class="pickers-container">
+  <div class="pickers">
+    <ul>
+      <li *ngFor="let item of items" (click)="selectPicker(item)">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">{{item.icon}}</mat-icon>
+        <span>{{item.label}}</span>
+      </li>
+    </ul>
+  </div>
   <app-picker *ngIf="selectedPicker" [picker]="selectedPicker" (closePicker)="selectedPicker=null"></app-picker>
 </div>
