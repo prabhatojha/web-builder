@@ -8,24 +8,19 @@ import { Component, OnInit } from '@angular/core';
 export class PickersComponent implements OnInit {
   items = [
     {
-      id: 1,
-      label: 'Containers'
-    },
-    {
       id: 2,
-      label: 'Text'
-    },
-    {
-      id: 3,
-      label: 'Button'
-    },
-    {
-      id: 4,
-      label: 'Link'
+      label: 'Text',
+      icon: 'text_fields'
     },
     {
       id: 5,
-      label: 'Image'
+      label: 'Photo',
+      icon: 'image_search'
+    },
+    {
+      id: 6,
+      label: 'Upload',
+      icon: 'cloud_upload'
     }
   ];
 

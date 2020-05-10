@@ -1,6 +1,7 @@
+@import "../../../../style/structure";
+
 .canvas {
   width: 100%;
-  height: 100vh;
-  border: 1px solid #dfdfdf;
+  height: $contentHeight;
   position: relative;
 }

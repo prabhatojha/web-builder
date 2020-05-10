@@ -1,24 +1,11 @@
+@import '../../../../style/structure';
+
 .canvas-container {
   display: flex;
   justify-content: space-between;
-  box-shadow: 0 0 3px #ccc;
-}
-
-.pickers-container {
-  width: 250px;
-  min-height: 800px;
-  background-color: #8f8f8f;
-  padding: 5px;
-
-  &-open {
-    background-color: #afafaf;
-    width: 300px;
-  }
 }
 
 .canvas {
   width: 100%;
   background-color: #fdfff8;
-  min-height: 800px;
-  padding: 5px;
 }

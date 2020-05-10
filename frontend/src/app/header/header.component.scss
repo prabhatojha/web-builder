@@ -1,5 +1,35 @@
-@import '../../style/structure';
+@import "../../style/structure";
+@import "../../style/colors";
 
 .app-header {
   height: $headerHeight;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 25px;
+
+
+  .header-logo {
+    display: flex;
+    align-items: center;
+
+    mat-icon {
+      font-size: 30px;
+    }
+  }
+
+  .header-right-menu {
+    ul {
+      display: flex;
+      li a {
+        padding: 10px 20px;
+        color: $primaryColor;
+        border-radius: 2px;
+      }
+      li a:hover {
+        background-color: $gray-50;
+      }
+    }
+  }
 }

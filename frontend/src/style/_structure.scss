@@ -1,4 +1,11 @@
 $headerHeight: 50px;
 
-$contentHeight: calc(100vh - $headerHeight);
-$leftMenu: 150px;
+$contentHeight: calc(100vh - #{$headerHeight});
+$leftMenu: 74px;
+
+$smallestFont: 0.6rem;
+$smallFont: 0.6rem;
+$mediumFont: 0.7rem;
+$largeFont: 0.6rem;
+$largerFont: 0.6rem;
+$largestFont: 0.6rem;

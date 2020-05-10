@@ -1,23 +1,30 @@
+@import "../../../../style/structure";
+@import "../../../../style/colors";
+
 .pickers {
-  position: sticky;
+  position: relative;
   top: 0;
   color: white;
-
-  &-open {
-    background-color: #afafaf;
-    width: 300px;
-  }
+  font-size: $smallFont;
+  width: $leftMenu;
+  height: $contentHeight;
+  background-color: $leftMenuBg;
+  padding: 5px;
+  overflow-y: auto;
 
   ul {
     li {
-      padding: 4px 10px;
+      text-align: center;
+      padding: 10px;
       cursor: pointer;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     li:hover {
-      padding-left: 7px;
       color: #eaeaea;
-      transition: padding ease-in;
     }
   }
 }
