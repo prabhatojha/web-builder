@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { LEFT_MENU_ITEMS } from '../picker/picker.mock';
 
 @Component({
   selector: 'app-pickers',
@@ -7,23 +7,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   styleUrls: ['./pickers.component.scss']
 })
 export class PickersComponent implements OnInit {
-  items = [
-    {
-      id: 2,
-      label: 'Text',
-      icon: 'text_fields'
-    },
-    {
-      id: 5,
-      label: 'Photo',
-      icon: 'image_search'
-    },
-    {
-      id: 6,
-      label: 'Upload',
-      icon: 'cloud_upload'
-    }
-  ];
+  items = LEFT_MENU_ITEMS;
 
   selectedItemIndex: number;
   showPicker = false;

@@ -9,20 +9,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 @Component({
   selector: 'app-picker',
   templateUrl: './picker.component.html',
-  styleUrls: ['./picker.component.scss'],
-  animations: [
-    trigger('inOutAnimation', [
-      transition(':enter', [
-        style({ width: 0, opacity: 0 }),
-        animate('1s ease-out', style({ width: 310, opacity: 1 }))
-      ]),
-      transition(':leave', [
-        style({ width: 310, opacity: 1 }),
-        animate('1s ease-in',
-          style({ width: 0, opacity: 0 }))
-      ])
-    ])
-  ]
+  styleUrls: ['./picker.component.scss']
 })
 export class PickerComponent implements OnChanges {
 
@@ -34,6 +21,7 @@ export class PickerComponent implements OnChanges {
   @ViewChild('itemsRef', { static: true }) itemsRef: ElementRef;
 
   items = [];
+  isLoading = true;
 
   constructor() { }
 
@@ -46,13 +34,18 @@ export class PickerComponent implements OnChanges {
    * will make api call to backend
    */
   loadItems() {
-    this.items = PICKERS[this.picker.id];
-    this.visuliseItems();
+    setTimeout(() => {
+      this.items = PICKERS[this.picker.id];
+      // this.isLoading = false;
+    }, 1000);
+
+    // this.visuliseItems();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.picker && this.picker) {
-      this.itemsRef.nativeElement.innerHTML = '';
+      // this.itemsRef.nativeElement.innerHTML = '';
+      this.isLoading = true;
       this.loadItems();
     }
   }

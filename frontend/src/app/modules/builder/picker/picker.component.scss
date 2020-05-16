@@ -1,21 +1,51 @@
 @import "../../../../style/colors";
 @import "../../../../style/structure";
 
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $gray-400;
+}
+
 .picker {
   width: 0;
-  transition: width 3s linear;
+  opacity: 0;
+  overflow-y: auto;
+  transition: width 0.4s ease-in;
   position: relative;
   height: $contentHeight;
   background: $leftExpandMenuBg;
   color: white;
 
   &.show-picker {
-    padding: 10px;
+    opacity: 1;
+    padding: 10px 15px;
     width: $pickerWidth;
     transition: width 0.3s ease-out;
   }
 }
 
 .picker-item {
-  cursor: pointer;
+  display: flex;
+  flex-wrap: wrap;
+
+  // common to all
+  li {
+    padding: 10px;
+    margin: 7px;
+    border-radius: 3px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+  }
+  .image-li {
+    width: calc(50% - 14px);
+  }
+
+  .text-li {
+    width: calc(100% - 14px);
+    color: $gray-500;
+  }
 }

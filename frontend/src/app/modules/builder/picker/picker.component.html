@@ -1,6 +1,25 @@
 <div class="picker" [class.show-picker]="showPicker">
-  <h2>{{picker?.label}}</h2>
-  <div class="picker-items" #itemsRef>
+  <!-- <h2>{{picker?.label}}</h2> -->
+  <!-- <div class="picker-items" #itemsRef>
 
-  </div>
+  </div> -->
+  <ul class="picker-item">
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <ng-container *ngFor="let item of items">
+      <ng-container [ngSwitch]="item.type">
+        <ng-container *ngSwitchCase="'image'">
+          <li class="image-li">
+            <img [src]="item.imageUrl" style="width: 100%;">
+          </li>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'text'">
+          <li class="text-li">
+            <label [style]="item.style">{{item.text}}</label>
+          </li>
+        </ng-container>
+
+      </ng-container>
+    </ng-container>
+  </ul>
 </div>
