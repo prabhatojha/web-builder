@@ -2,15 +2,18 @@
 @import "../../../../style/structure";
 
 .picker {
-  width: 350px;
-  z-index: 1;
+  width: 0;
+  transition: width 3s linear;
   position: relative;
   height: $contentHeight;
   background: $leftExpandMenuBg;
-  left: 0;
-  top: 0;
-  padding: 10px;
   color: white;
+
+  &.show-picker {
+    padding: 10px;
+    width: $pickerWidth;
+    transition: width 0.3s ease-out;
+  }
 }
 
 .picker-item {

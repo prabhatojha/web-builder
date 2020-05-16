@@ -1,11 +1,17 @@
-$headerHeight: 50px;
+$headerHeight: 65px;
 
 $contentHeight: calc(100vh - #{$headerHeight});
-$leftMenu: 74px;
 
+// Font size
 $smallestFont: 0.6rem;
 $smallFont: 0.6rem;
 $mediumFont: 0.7rem;
 $largeFont: 0.6rem;
 $largerFont: 0.6rem;
 $largestFont: 0.6rem;
+
+// Left menu
+$leftMenu: 74px;
+
+// Left Menu Pickers
+$pickerWidth: 310px;

@@ -1,5 +1,5 @@
-<div class="picker">
-  <h2>{{picker.label}}</h2>
+<div class="picker" [class.show-picker]="showPicker">
+  <h2>{{picker?.label}}</h2>
   <div class="picker-items" #itemsRef>
 
   </div>

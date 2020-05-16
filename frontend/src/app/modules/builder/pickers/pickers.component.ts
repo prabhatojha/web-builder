@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-pickers',
@@ -24,14 +25,27 @@ export class PickersComponent implements OnInit {
     }
   ];
 
+  selectedItemIndex: number;
+  showPicker = false;
+
   selectedPicker = null;
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  selectPicker(item) {
-    this.selectedPicker = item;
+  selectPicker(item, index) {
+    // this.selectedPicker = item;
+    // this.showPicker = !this.showPicker;
+    // this.selectedItemIndex = index;
+    if (this.selectedItemIndex === index) {
+      this.showPicker = false;
+      this.selectedItemIndex = -1;
+    } else {
+      this.selectedItemIndex = index;
+      this.selectedPicker = item;
+      this.showPicker = true;
+    }
   }
 
 }
