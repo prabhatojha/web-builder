@@ -4,7 +4,10 @@
 
   </div> -->
   <ul class="picker-item">
-    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <div class="w-100 text-center mt-3" *ngIf="isLoading">
+      <div class="spinner-border"></div>
+    </div>
+
     <ng-container *ngFor="let item of items">
       <ng-container [ngSwitch]="item.type">
         <ng-container *ngSwitchCase="'image'">

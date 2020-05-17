@@ -1,19 +1,19 @@
 @import "./style/colors.scss";
 @import "./style/structure";
 @import "./style/font.face";
-/* You can add global styles to this file, and also import other style files */
-
+@import "../node_modules/bootstrap/dist/css/bootstrap.css";
 
 html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
-  font-family: 'Muli', Roboto, "Helvetica Neue", sans-serif;
 }
 
 * {
+  font-family: 'Muli', Roboto, "Helvetica Neue", sans-serif;
   box-sizing: border-box;
 }
 

@@ -7,8 +7,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
-import { MatCommonModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
+
 
 @NgModule({
   declarations: [
@@ -16,7 +16,6 @@ import { MatIconModule } from '@angular/material/icon';
     HeaderComponent
   ],
   imports: [
-    MatCommonModule,
     MatIconModule,
     BrowserModule,
     AppRoutingModule,

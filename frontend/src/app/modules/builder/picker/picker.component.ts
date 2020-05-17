@@ -34,12 +34,11 @@ export class PickerComponent implements OnChanges {
    * will make api call to backend
    */
   loadItems() {
+    this.items = [];
     setTimeout(() => {
       this.items = PICKERS[this.picker.id];
-      // this.isLoading = false;
-    }, 1000);
-
-    // this.visuliseItems();
+      this.isLoading = false;
+    }, 1500);
   }
 
   ngOnChanges(changes: SimpleChanges): void {

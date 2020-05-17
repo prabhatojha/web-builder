@@ -21,6 +21,7 @@ export const PICKERS = {
     {
       tag: 'label',
       text: 'Add Heading',
+      keyword: 'text',
       elementId: 'my-first-element',
       style: {
         fontSize: '20px'
