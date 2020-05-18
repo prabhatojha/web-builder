@@ -38,15 +38,25 @@ export class PickerComponent implements OnChanges {
     setTimeout(() => {
       this.items = PICKERS[this.picker.id];
       this.isLoading = false;
-    }, 1500);
+    }, 100);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.picker && this.picker) {
-      // this.itemsRef.nativeElement.innerHTML = '';
       this.isLoading = true;
       this.loadItems();
     }
+  }
+
+  dragStart(ev, item) {
+    const bound = ev.target.getBoundingClientRect();
+
+    ev.dataTransfer.setData(CONST_VAR.PICKER_ITEM,
+      JSON.stringify({
+        left: ev.clientX - bound.left,
+        top: ev.clientY - bound.top,
+        item
+      }));
   }
 
   visuliseItems() {

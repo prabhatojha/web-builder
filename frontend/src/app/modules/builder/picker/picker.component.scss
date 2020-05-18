@@ -31,6 +31,9 @@
   display: flex;
   flex-wrap: wrap;
 
+  .spinner {
+    margin-top: 10rem;
+  }
   // common to all
   li {
     padding: 10px;

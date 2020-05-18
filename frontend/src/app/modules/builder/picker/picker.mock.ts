@@ -20,13 +20,28 @@ export const PICKERS = {
   2: [
     {
       tag: 'label',
-      text: 'Add Heading',
-      keyword: 'text',
+      text: 'Enter your text',
       elementId: 'my-first-element',
-      style: {
-        fontSize: '20px'
+      id: 'xzkljasf214assaf',
+      type: 'image',
+      canvaElement: {
+        tag: 'div',
+        style: {
+          'font-size': '20px',
+          'font-family': 'cursive',
+          'text-align': 'center',
+          position: 'absolute',
+          cursor: 'move'
+        },
+        children: [{
+          tag: 'label',
+          innerText: 'nice, good & great',
+          style: {
+            'font-family': 'cursive',
+            cursor: 'move'
+          }
+        }]
       },
-      type: 'text',
       imageUrl: '/assets/images/pickers/my-item2.png'
     },
     {
@@ -34,13 +49,22 @@ export const PICKERS = {
       text: 'Enter your text',
       elementId: 'my-first-element',
       type: 'image',
-      imageUrl: '/assets/images/pickers/my-item2.png'
-    },
-    {
-      tag: 'label',
-      text: 'Enter your text',
-      elementId: 'my-first-element',
-      type: 'image',
+      id: 'ali2i2i33k',
+      canvaElement: {
+        tag: 'div',
+        style: {
+          'font-size': '20px',
+          'font-family': 'cursive',
+          'text-align': 'center',
+          position: 'absolute'
+        },
+        children: [{
+          tag: 'label',
+          innerText: 'nice, good & great',
+          style: {
+          }
+        }]
+      },
       imageUrl: '/assets/images/pickers/my-item2.png'
     },
     {

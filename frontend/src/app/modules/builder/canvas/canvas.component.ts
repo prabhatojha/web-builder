@@ -17,9 +17,10 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   project = {
     tag: 'div',
     style: {
-      width: '100%',
-      height: '100%',
-      position: 'relative'
+      width: '400px',
+      height: '500px',
+      position: 'relative',
+      background: 'white'
     },
     children: []
   };
@@ -40,14 +41,20 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   drop(e) {
     e.preventDefault();
-    this.cloneNode(e);
+    this.addNewNode(e, e.dataTransfer.getData(CONST_VAR.PICKER_ITEM));
+    // this.cloneNode(e);
   }
 
-  cloneNode(e) {
-    const data = JSON.parse(e.dataTransfer.getData(CONST_VAR.PICKER_ITEM));
-    const newNode: any = document.getElementById(data.id).cloneNode(true);
-    newNode.id = Hasher.getUuid();
+  addNewNode(e, unparseData) {
+
+    if (!unparseData) {
+      return;
+    }
+
+    const data = JSON.parse(unparseData);
+    const newNode = this.buildDom(data.item.canvaElement);
     this.setNodeLocation(e, newNode, data);
+    this.attachEventListner(e, newNode, data.item);
     e.target.appendChild(newNode);
   }
 
@@ -76,11 +83,91 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     console.log(ele);
   }
 
-  buildDom() {
+  buildDom(node) {
+    const ele = document.createElement(node.tag);
+    this.addElementStyle(ele, node.style);
+    this.addInnerText(ele, node.innerText);
 
+    if (node.children) {
+      // tslint:disable-next-line: prefer-for-of
+      for (let i = 0; i < node.children.length; i++) {
+        ele.appendChild(this.buildDom(node.children[i]));
+      }
+    }
+
+    return ele;
+  }
+
+  addElementStyle(ele, style) {
+    if (style) {
+      Object.keys(style).forEach(key => {
+        ele.style[key] = style[key];
+      });
+    }
+  }
+
+  addInnerText(ele, innerText) {
+    if (innerText) {
+      ele.innerText = innerText;
+    }
   }
 
   onItemClick(e) {
     console.log(e.target);
+  }
+
+  attachEventListner(e, node, item) {
+
+    this.moveElementWithMouse(node);
+    // node.draggable = true;
+    // let initialClientX;
+    // let initialClientY;
+
+    // node.ondragstart = (de: any) => {
+    //   initialClientX = de.clientX;
+    //   initialClientY = de.clientY;
+    //   // const bound = de.target.getBoundingClientRect();
+
+    //   // de.dataTransfer.setData(CONST_VAR.PICKER_ITEM,
+    //   //   JSON.stringify({
+    //   //     left: de.clientX - bound.left,
+    //   //     top: de.clientY - bound.top,
+    //   //     item
+    //   //   }));
+    // };
+
+    // node.ondrag = (ode: any) => {
+    //   node.left = initialClientX - ode.clientX;
+    //   node.top = initialClientY - ode.clientY;
+    // }
+  }
+
+  moveElementWithMouse(node) {
+    let initialX;
+    let initialY;
+    let isDragging = false;
+
+    const mouseMoveListner = (mm) => {
+      if (isDragging) {
+        const canvasBound = this.canvas.nativeElement.getBoundingClientRect();
+        console.log(initialX, initialY);
+        node.style.left = mm.clientX - canvasBound.left - initialX + 'px';
+        node.style.top = mm.clientY - canvasBound.top - initialY + 'px';
+      }
+    };
+
+    node.addEventListener('mousedown', (ce) => {
+      isDragging = true;
+
+      const targeBound = ce.target.getBoundingClientRect();
+      initialX = ce.clientX - targeBound.left;
+      initialY = ce.clientY - targeBound.top;
+      this.canvas.nativeElement.addEventListener('mousemove', mouseMoveListner);
+    });
+
+    document.addEventListener('mouseup', (mu) => {
+      isDragging = false;
+      this.canvas.nativeElement.removeEventListener('mousemove', mouseMoveListner);
+    });
   }
 }

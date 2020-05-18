@@ -4,7 +4,7 @@
 
   </div> -->
   <ul class="picker-item">
-    <div class="w-100 text-center mt-3" *ngIf="isLoading">
+    <div class="w-100 text-center spinner" *ngIf="isLoading">
       <div class="spinner-border"></div>
     </div>
 
@@ -12,13 +12,15 @@
       <ng-container [ngSwitch]="item.type">
         <ng-container *ngSwitchCase="'image'">
           <li class="image-li">
-            <img [src]="item.imageUrl" style="width: 100%;">
+            <img [src]="item.imageUrl" style="width: 100%;" [attr.id]="item.id" draggable
+              (dragstart)="dragStart($event, item)">
           </li>
         </ng-container>
 
         <ng-container *ngSwitchCase="'text'">
           <li class="text-li">
-            <label [style]="item.style">{{item.text}}</label>
+            <label [style]="item.style" [attr.id]="item.id" draggable
+              (dragstart)="dragStart($event, item)">{{item.text}}</label>
           </li>
         </ng-container>
 
