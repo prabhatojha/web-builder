@@ -1,0 +1,10 @@
+<div class="toolbar-items">
+  <ng-container *ngFor="let option of AVA_TOOLBAR_OPTIONS">
+    <div class="ml-2">
+      <app-single-select>
+        <input onclick="myFunction()" type="number" placeholder="Search Font Family" class="myInput"
+          onkeyup="filterFunction()">
+      </app-single-select>
+    </div>
+  </ng-container>
+</div>

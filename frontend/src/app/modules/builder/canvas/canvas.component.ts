@@ -1,11 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { CONST_VAR } from 'src/app/constants/contants';
 import { Hasher } from 'src/app/constants/hasher';
 
 @Component({
   selector: 'app-canvas',
   templateUrl: './canvas.component.html',
-  styleUrls: ['./canvas.component.scss']
+  styleUrls: ['./canvas.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CanvasComponent implements OnInit, AfterViewInit {
 
@@ -13,6 +14,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   canvasOffsetLeft: number;
   canvasOffsetTop: number;
+  selectedItem: any;
+  selectedNode: any;
+  toolbarOptions = [];
 
   project = {
     tag: 'div',
@@ -87,6 +91,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     const ele = document.createElement(node.tag);
     this.addElementStyle(ele, node.style);
     this.addInnerText(ele, node.innerText);
+    this.addAttributes(ele, node.attribute);
 
     if (node.children) {
       // tslint:disable-next-line: prefer-for-of
@@ -96,6 +101,14 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     }
 
     return ele;
+  }
+
+  addAttributes(ele, attrs) {
+    if (attrs) {
+      Object.keys(attrs).forEach(key => {
+        ele.setAttribute(key, attrs[key]);
+      });
+    }
   }
 
   addElementStyle(ele, style) {
@@ -114,32 +127,26 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   onItemClick(e) {
     console.log(e.target);
+
+    // TODO: remove toolbar options
   }
 
   attachEventListner(e, node, item) {
-
     this.moveElementWithMouse(node);
-    // node.draggable = true;
-    // let initialClientX;
-    // let initialClientY;
+    this.selectElement(node, item);
+  }
 
-    // node.ondragstart = (de: any) => {
-    //   initialClientX = de.clientX;
-    //   initialClientY = de.clientY;
-    //   // const bound = de.target.getBoundingClientRect();
+  selectElement(node, item) {
+    node.addEventListener('click', () => {
+      this.showToolBar(node, item);
+    });
+  }
 
-    //   // de.dataTransfer.setData(CONST_VAR.PICKER_ITEM,
-    //   //   JSON.stringify({
-    //   //     left: de.clientX - bound.left,
-    //   //     top: de.clientY - bound.top,
-    //   //     item
-    //   //   }));
-    // };
-
-    // node.ondrag = (ode: any) => {
-    //   node.left = initialClientX - ode.clientX;
-    //   node.top = initialClientY - ode.clientY;
-    // }
+  showToolBar(node, item) {
+    console.log(item.toolbarOptions);
+    this.toolbarOptions = item.toolbarOptions;
+    this.selectedNode = node;
+    // this.selectedItem = item;
   }
 
   moveElementWithMouse(node) {

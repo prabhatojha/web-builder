@@ -6,13 +6,16 @@ import { PickerComponent } from './picker/picker.component';
 import { CanvasComponent } from './canvas/canvas.component';
 import { BuilderRoutingModule } from '../builder-routing.module';
 import { MatIconModule } from '@angular/material/icon';
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [PickersComponent, BuilderComponent, PickerComponent, CanvasComponent],
+  declarations: [PickersComponent, BuilderComponent, PickerComponent, CanvasComponent, ToolbarComponent],
   imports: [
     CommonModule,
     MatIconModule,
-    BuilderRoutingModule
+    BuilderRoutingModule,
+    SharedModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

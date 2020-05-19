@@ -3,12 +3,12 @@ $headerHeight: 65px;
 $contentHeight: calc(100vh - #{$headerHeight});
 
 // Font size
-$smallestFont: 0.6rem;
-$smallFont: 0.6rem;
-$mediumFont: 0.7rem;
-$largeFont: 0.6rem;
-$largerFont: 0.6rem;
-$largestFont: 0.6rem;
+$smallestFont: 0.625rem;
+$smallFont: 0.75rem;
+$mediumFont: 0.813rem;
+$largeFont: 0.938rem;
+$largerFont: 1rem;
+$largestFont: 1.25rem;
 
 // Left menu
 $leftMenu: 74px;

@@ -2,7 +2,8 @@ export const LEFT_MENU_ITEMS = [
   {
     id: 2,
     label: 'Text',
-    icon: 'text_fields'
+    icon: 'text_fields',
+    type: 'text'
   },
   {
     id: 5,
@@ -24,14 +25,19 @@ export const PICKERS = {
       elementId: 'my-first-element',
       id: 'xzkljasf214assaf',
       type: 'image',
+      toolbarOptions: ['FONT', 'COLOR', 'BACKGROUND'],
+      searchKeywords: [],
       canvaElement: {
         tag: 'div',
+        attribute: {
+          tabindex: '-1'
+        },
         style: {
           'font-size': '20px',
           'font-family': 'cursive',
           'text-align': 'center',
-          position: 'absolute',
-          cursor: 'move'
+          'position': 'absolute',
+          'cursor': 'move'
         },
         children: [{
           tag: 'label',
