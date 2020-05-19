@@ -1,8 +1,17 @@
 @import "../../../../style/structure";
+@import "../../../../style/colors.scss";
 
 .toolbar-items {
   display: flex;
   height: 100%;
   align-items: center;
   font-size: $mediumFont;
+}
+
+.toolbar-input {
+  padding: 4px 6px;
+}
+
+.toolbar-input:focus {
+  outline: 1px solid $gray-50;
 }

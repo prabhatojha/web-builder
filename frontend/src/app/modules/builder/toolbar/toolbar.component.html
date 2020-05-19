@@ -1,10 +1,14 @@
 <div class="toolbar-items">
-  <ng-container *ngFor="let option of AVA_TOOLBAR_OPTIONS">
+  <ng-container *ngFor="let option of filterConfig">
     <div class="ml-2">
-      <app-single-select>
-        <input onclick="myFunction()" type="number" placeholder="Search Font Family" class="myInput"
-          onkeyup="filterFunction()">
-      </app-single-select>
+      <ng-container [ngSwitch]="option.filterType">
+        <ng-container *ngSwitchCase="FILTER_TYPES.SINGLE_SELECT">
+          <app-single-select (itemSelect)="onItemSelect(options, $event)">
+            <input onclick="myFunction()" [attr.type]="option.inputType" placeholder="Search Font Family"
+              class="toolbar-input" value="I am" onkeyup="filterFunction()">
+          </app-single-select>
+        </ng-container>
+      </ng-container>
     </div>
   </ng-container>
 </div>

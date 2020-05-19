@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { CONST_VAR } from 'src/app/constants/contants';
 import { Hasher } from 'src/app/constants/hasher';
+import { AVA_TOOLBAR_OPTIONS } from '../toolbar/toolbar.config';
 
 @Component({
   selector: 'app-canvas',
@@ -25,6 +26,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       height: '500px',
       position: 'relative',
       background: 'white'
+    },
+    attribute: {
+      class: 'canvas-template'
     },
     children: []
   };
@@ -77,14 +81,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   createInitialView() {
-    const ele = document.createElement(this.project.tag);
-
-    Object.keys(this.project.style).forEach(key => {
-      ele.style[key] = this.project.style[key];
-    });
-
-    this.canvas.nativeElement.appendChild(ele);
-    console.log(ele);
+    const node = this.buildDom(this.project);
+    this.canvas.nativeElement.appendChild(node);
   }
 
   buildDom(node) {
@@ -125,10 +123,11 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onItemClick(e) {
-    console.log(e.target);
-
-    // TODO: remove toolbar options
+  onCanvasClick(e) {
+    const isEmptyClick = e.target.className.includes('canvas-template');
+    if (isEmptyClick) {
+      this.toolbarOptions = [];
+    }
   }
 
   attachEventListner(e, node, item) {

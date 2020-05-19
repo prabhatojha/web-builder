@@ -1,3 +1,6 @@
+@import "../../../../../style/structure";
+@import "../../../../../style/colors.scss";
+
 .myInput {
   box-sizing: border-box;
   // background-image: url(searchicon.png);
@@ -19,26 +22,22 @@
 }
 
 .dropdown-content {
-  display: none;
+  display: block;
   position: absolute;
   background-color: #f6f6f6;
   min-width: 230px;
   overflow: auto;
   border: 1px solid #ddd;
   z-index: 1;
+  height: 250px;
+  overflow-y: auto;
 }
 
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
+.dropdown-content li {
+  cursor: pointer;
+  padding: 3px 8px;
 }
 
-.dropdown a:hover {
-  background-color: #ddd;
-}
-
-.show {
-  display: block;
+.dropdown-content li:hover {
+  background: $gray-50;
 }

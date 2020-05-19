@@ -25,12 +25,12 @@ export const PICKERS = {
       elementId: 'my-first-element',
       id: 'xzkljasf214assaf',
       type: 'image',
-      toolbarOptions: ['FONT', 'COLOR', 'BACKGROUND'],
+      toolbarOptions: [0, 1, 3],
       searchKeywords: [],
       canvaElement: {
         tag: 'div',
         attribute: {
-          tabindex: '-1'
+          tabindex: '-1',
         },
         style: {
           'font-size': '20px',
