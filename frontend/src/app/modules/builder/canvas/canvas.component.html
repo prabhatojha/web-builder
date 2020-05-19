@@ -1,5 +1,7 @@
 <div class="tool-bar">
-  <app-toolbar [options]="toolbarOptions"></app-toolbar>
+  <app-toolbar [options]="toolbarOptions" [selectedNode]="selectedNode" [selectedItem]="selectedItem"
+    (selectItem)="onItemSelect($event)">
+  </app-toolbar>
 </div>
 
 <div class="canvas-container">

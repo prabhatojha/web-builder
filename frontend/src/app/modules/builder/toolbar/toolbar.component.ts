@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, ElementRef } from '@angular/core';
 import { AVA_TOOLBAR_OPTIONS, FilterConfig } from './toolbar.config';
 import { FILTER_TYPES } from '../../../constants/contants';
+
 
 @Component({
   selector: 'app-toolbar',
@@ -10,6 +11,11 @@ import { FILTER_TYPES } from '../../../constants/contants';
 export class ToolbarComponent implements OnInit, OnChanges {
 
   @Input() options = [];
+  @Input() selectedNode: any;
+  @Input() selectedItem: any;
+
+  @Output() hoverItem = new EventEmitter();
+  @Output() selectItem = new EventEmitter();
 
   filterConfig = [];
   FILTER_TYPES = FILTER_TYPES;
@@ -17,17 +23,31 @@ export class ToolbarComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.options);
-    this.filterConfig = FilterConfig.filter(conf => this.options.includes(conf.id));
-    console.log(this.filterConfig);
+    if (changes.options && this.options) {
+      this.filterConfig = FilterConfig.filter(conf => this.options.includes(conf.id));
+    }
   }
 
   ngOnInit(): void {
     console.log(this.options);
   }
 
-  onItemSelect(option, e) {
-    console.log(option, e);
+  onItemSelect(filter, e) {
+    this.applyNodeChanges(filter, e);
   }
 
+  onItemHover(filter, e) {
+    this.applyNodeChanges(filter, e);
+    filter.selectedValue = e.value;
+  }
+
+  applyNodeChanges(filter, selectedItem) {
+    switch (filter.id) {
+      case AVA_TOOLBAR_OPTIONS.FONT_FAMILY:
+        this.selectedNode.style[filter.updateCss] = selectedItem.value;
+        break;
+      case AVA_TOOLBAR_OPTIONS.FONT_SIZE:
+        this.selectedNode.style.fontFamily = selectedItem.value;
+    }
+  }
 }

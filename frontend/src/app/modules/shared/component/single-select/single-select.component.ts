@@ -7,15 +7,11 @@ import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitte
 })
 export class SingleSelectComponent implements OnInit, OnChanges {
 
-  @Input() list = [
-    { label: 'Abc', value: 'abc' }, { label: 'Xyz', value: 'xyz' }, { label: 'Abc', value: 'abc' },
-    { label: 'Xyz', value: 'xyz' }, { label: 'Abc', value: 'abc' }, { label: 'Xyz', value: 'xyz' },
-    { label: 'Abc', value: 'abc' }, { label: 'Xyz', value: 'xyz' }, { label: 'Abc', value: 'abc' },
-    { label: 'Xyz', value: 'xyz' }, { label: 'Abc', value: 'abc' }, { label: 'Xyz', value: 'xyz' },
-    { label: 'Abc', value: 'abc' }, { label: 'Xyz', value: 'xyz' }
-  ];
+  @Input() list = [];
+  @Input() changeFontFamily = false;
 
   @Output() itemSelect = new EventEmitter();
+  @Output() itemHover = new EventEmitter();
   showList = false;
   constructor() { }
 
@@ -36,5 +32,9 @@ export class SingleSelectComponent implements OnInit, OnChanges {
   selectItem(opt) {
     this.itemSelect.emit(opt);
     this.closeDropdown();
+  }
+
+  hoverItem(opt) {
+    this.itemHover.emit(opt);
   }
 }

@@ -1,13 +1,19 @@
 <div class="toolbar-items">
-  <ng-container *ngFor="let option of filterConfig">
+  <ng-container *ngFor="let filter of filterConfig">
     <div class="ml-2">
-      <ng-container [ngSwitch]="option.filterType">
+      <ng-container [ngSwitch]="filter.filterType">
+
+        <!-- Single Select Filter -->
         <ng-container *ngSwitchCase="FILTER_TYPES.SINGLE_SELECT">
-          <app-single-select (itemSelect)="onItemSelect(options, $event)">
-            <input onclick="myFunction()" [attr.type]="option.inputType" placeholder="Search Font Family"
-              class="toolbar-input" value="I am" onkeyup="filterFunction()">
+          <app-single-select (itemSelect)="onItemSelect(filter, $event)" [list]="filter.options"
+            (itemHover)="onItemHover(filter, $event)" [changeFontFamily]="filter.changeFontFamily">
+            <input [attr.type]="filter.inputType" placeholder="Search Font Family" class="toolbar-input"
+              [value]="filter.selectedValue">
           </app-single-select>
         </ng-container>
+
+        <!-- Bold -->
+
       </ng-container>
     </div>
   </ng-container>

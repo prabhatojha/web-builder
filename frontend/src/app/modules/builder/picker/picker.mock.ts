@@ -33,7 +33,7 @@ export const PICKERS = {
           tabindex: '-1',
         },
         style: {
-          'font-size': '20px',
+          'font-size': '40px',
           'font-family': 'cursive',
           'text-align': 'center',
           'position': 'absolute',
@@ -43,7 +43,6 @@ export const PICKERS = {
           tag: 'label',
           innerText: 'nice, good & great',
           style: {
-            'font-family': 'cursive',
             cursor: 'move'
           }
         }]

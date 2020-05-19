@@ -176,4 +176,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       this.canvas.nativeElement.removeEventListener('mousemove', mouseMoveListner);
     });
   }
+
+  onItemSelect(e) {
+    console.log(e);
+  }
 }
