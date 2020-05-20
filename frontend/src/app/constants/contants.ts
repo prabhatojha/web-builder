@@ -3,5 +3,7 @@ export const CONST_VAR = {
 };
 
 export enum FILTER_TYPES {
-  SINGLE_SELECT
+  SINGLE_SELECT,
+  FONT_WEIGHT_BOLD,
+  FONT_STYLE_ITALIC
 }

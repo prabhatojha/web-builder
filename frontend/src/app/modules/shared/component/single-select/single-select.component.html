@@ -1,8 +1,9 @@
 <div class="dropdown">
-  <div (click)="openDropdown()">
+  <div (click)="openDropdown()" #inputContainer>
     <ng-content></ng-content>
   </div>
-  <ul id="myDropdown" class="dropdown-content" *ngIf="showList" (keydown.escape)="closeDropdown()">
+  <ul id="myDropdown" class="dropdown-content" *ngIf="showList" (keydown.escape)="closeDropdown()"
+    (appClickOutside)="onClickOutside()" [srcElement]="inputContainer">
     <li *ngFor="let opt of list" (click)="selectItem(opt)" (mouseenter)="hoverItem(opt)"
       [style.font-family]="changeFontFamily ? opt.value : 'inherit'">
       {{opt.label}}

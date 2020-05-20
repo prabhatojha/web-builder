@@ -6,14 +6,24 @@
         <!-- Single Select Filter -->
         <ng-container *ngSwitchCase="FILTER_TYPES.SINGLE_SELECT">
           <app-single-select (itemSelect)="onItemSelect(filter, $event)" [list]="filter.options"
-            (itemHover)="onItemHover(filter, $event)" [changeFontFamily]="filter.changeFontFamily">
-            <input [attr.type]="filter.inputType" placeholder="Search Font Family" class="toolbar-input"
+            (itemHover)="onItemHover(filter, $event)" [changeFontFamily]="filter.changeFontFamily"
+            (closeWithoutSelect)="onCloseWithoutSelect(filter)">
+            <input [attr.type]="filter.inputType" placeholder="{{filter.placeholder}}" class="toolbar-input"
               [value]="filter.selectedValue">
           </app-single-select>
         </ng-container>
 
-        <!-- Bold -->
+        <!-- Font Weigth Bold -->
+        <ng-container *ngSwitchCase="FILTER_TYPES.FONT_WEIGHT_BOLD">
+          <button class="toolbar-single-char-btn " [class.font-weight-bold]="filter.isSelected"
+            (click)="onBoldClick(filter)">B</button>
+        </ng-container>
 
+        <!-- Font Weigth Bold -->
+        <ng-container *ngSwitchCase="FILTER_TYPES.FONT_STYLE_ITALIC">
+          <button class="toolbar-single-char-btn toolbar-font-italic" [class.font-weight-bold]="filter.isSelected"
+            (click)="onItalicClick(filter)">I</button>
+        </ng-container>
       </ng-container>
     </div>
   </ng-container>

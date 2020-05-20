@@ -15,3 +15,17 @@
 .toolbar-input:focus {
   outline: 1px solid $gray-50;
 }
+
+.toolbar-single-char-btn {
+  background: white;
+  border: 1px solid #c0c0c0;
+  border-radius: 3px;
+  padding: 1px 9px;
+  outline: none;
+  font-size: 18px;
+}
+
+.toolbar-font-italic {
+  font-style: italic;
+  padding: 1px 12px;
+}

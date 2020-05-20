@@ -145,7 +145,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     console.log(item.toolbarOptions);
     this.toolbarOptions = item.toolbarOptions;
     this.selectedNode = node;
-    // this.selectedItem = item;
+    this.selectedItem = item;
   }
 
   moveElementWithMouse(node) {

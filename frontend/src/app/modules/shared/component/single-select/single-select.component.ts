@@ -12,6 +12,7 @@ export class SingleSelectComponent implements OnInit, OnChanges {
 
   @Output() itemSelect = new EventEmitter();
   @Output() itemHover = new EventEmitter();
+  @Output() closeWithoutSelect = new EventEmitter();
   showList = false;
   constructor() { }
 
@@ -27,6 +28,11 @@ export class SingleSelectComponent implements OnInit, OnChanges {
 
   closeDropdown() {
     this.showList = false;
+  }
+
+  onClickOutside() {
+    this.closeWithoutSelect.emit();
+    this.closeDropdown();
   }
 
   selectItem(opt) {
