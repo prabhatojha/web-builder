@@ -5,9 +5,9 @@
 
         <!-- Single Select Filter - Font Family-->
         <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.FONT_FAMILY">
-          <app-single-select #singleSelect (itemSelect)="onFontFamilySelect(filter, $event, true)" [list]="filter.options"
-            (itemHover)="onFontFamilySelect(filter, $event, false)" [changeFontFamily]="filter.changeFontFamily"
-            (closeWithoutSelect)="onCloseWithoutSelect(filter)">
+          <app-single-select #singleSelect (itemSelect)="onFontFamilySelect(filter, $event, true)"
+            [list]="filter.options" (itemHover)="onFontFamilySelect(filter, $event, false)"
+            [changeFontFamily]="filter.changeFontFamily" (closeWithoutSelect)="onCloseWithoutSelect(filter)">
             <input #singleSelectSearch [attr.type]="filter.inputType" placeholder="{{filter.placeholder}}"
               class="toolbar-input" [value]="filter.selectedValue"
               (keyup)="filter.isSearchEnabled && singleSelect.search(singleSelectSearch.value)">
@@ -20,7 +20,8 @@
             (itemHover)="onFontSizeSelect(filter, $event, false)" [changeFontFamily]="filter.changeFontFamily"
             (closeWithoutSelect)="onCloseWithoutSelect(filter)">
             <input #fontSizeInput [attr.type]="filter.inputType" placeholder="{{filter.placeholder}}"
-              class="toolbar-input" [value]="filter.selectedValue" (change)="setFontSize(filter, fontSizeInput.value)">
+              class="toolbar-input" [value]="filter.selectedValue" (keyup)="setFontSize(filter, fontSizeInput.value)"
+              (mouseup)="setFontSize(filter, fontSizeInput.value)" (keydown.enter)="singleSelect.closeDropdown()">
           </app-single-select>
         </ng-container>
 

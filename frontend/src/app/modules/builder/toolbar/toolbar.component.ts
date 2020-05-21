@@ -83,7 +83,9 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   setFontSize(filter, value) {
-    this.onFontSizeSelect(filter, { value: value + 'px' }, true);
+    if (value) {
+      this.onFontSizeSelect(filter, { value: value + 'px' }, true);
+    }
   }
 
   applySelectedItemChanes(filter, value) {
@@ -98,10 +100,12 @@ export class ToolbarComponent implements OnInit, OnChanges {
   onBoldClick(filter) {
     filter.isSelected = !filter.isSelected;
     this.applyNodeChanges(filter, filter.isSelected ? 'bold' : 'normal');
+    this.applySelectedItemChanes(filter, filter.isSelected ? 'bold' : 'normal');
   }
 
   onItalicClick(filter) {
     filter.isSelected = !filter.isSelected;
     this.applyNodeChanges(filter, filter.isSelected ? 'italic' : 'normal');
+    this.applySelectedItemChanes(filter, filter.isSelected ? 'italic' : 'normal');
   }
 }
