@@ -50,7 +50,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   drop(e) {
     e.preventDefault();
     this.addNewNode(e, e.dataTransfer.getData(CONST_VAR.PICKER_ITEM));
-    // this.cloneNode(e);
   }
 
   addNewNode(e, unparseData) {
@@ -60,16 +59,30 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     }
 
     const data = JSON.parse(unparseData);
-    const newNode = this.buildDom(data.item.canvaElement);
-    this.setNodeLocation(e, newNode, data);
-    this.attachEventListner(e, newNode, data.item);
+    const canvasElement = data.item.canvaElement;
+    const newNode = this.buildDom(canvasElement);
+
+    this.setNodeLocation(e, newNode, data, canvasElement);
+    this.attachEventListner(newNode, data.item, canvasElement);
+
     e.target.appendChild(newNode);
+
+    this.addItemInProject(canvasElement);
   }
 
-  setNodeLocation(e, newNode: any, data) {
+  addItemInProject(item) {
+    this.project.children.push(item);
+    console.log(this.project);
+  }
+
+  setNodeLocation(e, newNode: any, data, canvasElement) {
     const canvasBound = e.srcElement.getBoundingClientRect();
-    newNode.style.left = (e.clientX - canvasBound.left - data.left) + 'px';
-    newNode.style.top = e.clientY - canvasBound.top - data.top + 'px';
+    const posX = e.clientX - canvasBound.left - data.left + 'px';
+    const posY = e.clientY - canvasBound.top - data.top + 'px';
+    newNode.style.left = posX;
+    newNode.style.top = posY;
+    canvasElement.style.left = posX;
+    canvasElement.style.top = posY;
   }
 
   allowDrop(e) {
@@ -130,8 +143,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     }
   }
 
-  attachEventListner(e, node, item) {
-    this.moveElementWithMouse(node);
+  attachEventListner(node, item, canvasElement) {
+    this.moveElementWithMouse(node, canvasElement);
     this.selectElement(node, item);
   }
 
@@ -142,29 +155,22 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   showToolBar(node, item) {
-    console.log(item.toolbarOptions);
     this.toolbarOptions = item.toolbarOptions;
     this.selectedNode = node;
     this.selectedItem = item;
   }
 
-  moveElementWithMouse(node) {
+  moveElementWithMouse(node, canvasElement) {
     let initialX;
     let initialY;
-    let isDragging = false;
 
     const mouseMoveListner = (mm) => {
-      if (isDragging) {
-        const canvasBound = this.canvas.nativeElement.getBoundingClientRect();
-        console.log(initialX, initialY);
-        node.style.left = mm.clientX - canvasBound.left - initialX + 'px';
-        node.style.top = mm.clientY - canvasBound.top - initialY + 'px';
-      }
+      const canvasBound = this.canvas.nativeElement.getBoundingClientRect();
+      node.style.left = mm.clientX - canvasBound.left - initialX + 'px';
+      node.style.top = mm.clientY - canvasBound.top - initialY + 'px';
     };
 
     node.addEventListener('mousedown', (ce) => {
-      isDragging = true;
-
       const targeBound = ce.target.getBoundingClientRect();
       initialX = ce.clientX - targeBound.left;
       initialY = ce.clientY - targeBound.top;
@@ -172,12 +178,12 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     });
 
     document.addEventListener('mouseup', (mu) => {
-      isDragging = false;
+      canvasElement.style.left = node.style.left;
+      canvasElement.style.top = node.style.top;
       this.canvas.nativeElement.removeEventListener('mousemove', mouseMoveListner);
     });
   }
 
   onItemSelect(e) {
-    console.log(e);
   }
 }
