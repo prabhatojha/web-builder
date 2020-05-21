@@ -5,5 +5,6 @@ export const CONST_VAR = {
 export enum FILTER_TYPES {
   SINGLE_SELECT,
   FONT_WEIGHT_BOLD,
+  TOGGABLE,
   FONT_STYLE_ITALIC
 }

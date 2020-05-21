@@ -184,6 +184,11 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onItemSelect(e) {
+  onItemRemove() {
+    const itemIndex = this.project.children.findIndex(t => t === this.selectedItem.canvaElement);
+    if (itemIndex > -1) {
+      this.project.children.splice(itemIndex, 1);
+      this.selectedNode.remove();
+    }
   }
 }

@@ -27,14 +27,23 @@
 
         <!-- Font Weigth Bold -->
         <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.FONT_WEIGHT_BOLD">
-          <button class="toolbar-single-char-btn " [class.font-weight-bold]="filter.isSelected"
-            (click)="onBoldClick(filter)">B</button>
+          <div class="toolbar-icons" (click)="onBoldClick(filter)" [class.toolbar-icons-selected]="filter.isSelected">
+            <mat-icon aria-hidden="false" aria-label="item.label">format_bold</mat-icon>
+          </div>
         </ng-container>
 
         <!-- Font Style Italic -->
         <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.FONT_STYLE_ITALIC">
-          <button class="toolbar-single-char-btn toolbar-font-italic" [class.font-weight-bold]="filter.isSelected"
-            (click)="onItalicClick(filter)">I</button>
+          <div class="toolbar-icons" (click)="onItalicClick(filter)" [class.toolbar-icons-selected]="filter.isSelected">
+            <mat-icon aria-hidden="false" aria-label="item.label">format_italic</mat-icon>
+          </div>
+        </ng-container>
+
+        <!-- Delete Item -->
+        <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.DELETE">
+          <div class="toolbar-icons" (click)="removeItem()">
+            <mat-icon aria-hidden="false" aria-label="item.label">delete</mat-icon>
+          </div>
         </ng-container>
       </ng-container>
     </div>

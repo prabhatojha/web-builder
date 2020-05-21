@@ -16,7 +16,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
   @Input() selectedItem: any;
 
   @Output() hoverItem = new EventEmitter();
-  @Output() selectItem = new EventEmitter();
+  @Output() removeSelectedItem = new EventEmitter();
 
   filterConfig = [];
   FILTER_TYPES = FILTER_TYPES;
@@ -49,7 +49,11 @@ export class ToolbarComponent implements OnInit, OnChanges {
   setInitialState(style) {
     if (style) {
       this.filterConfig.forEach(filter => {
-        this.changeSelectedValue(filter, style[filter.updateCss]);
+        if (filter.filterType === FILTER_TYPES.TOGGABLE) {
+          filter.isSelected = style[filter.cssField] === filter.cssValue;
+        } else {
+          this.changeSelectedValue(filter, style[filter.cssField]);
+        }
       });
     }
   }
@@ -74,8 +78,8 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
   onCloseWithoutSelect(filter) {
     const style = this.getOriginalItemStyle();
-    this.applyNodeChanges(filter, style[filter.updateCss]);
-    this.changeSelectedValue(filter, style[filter.updateCss]);
+    this.applyNodeChanges(filter, style[filter.cssField]);
+    this.changeSelectedValue(filter, style[filter.cssField]);
   }
 
   changeSelectedValue(filter, value) {
@@ -90,11 +94,11 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
   applySelectedItemChanes(filter, value) {
     const style = this.getOriginalItemStyle();
-    style[filter.updateCss] = value;
+    style[filter.cssField] = value;
   }
 
   applyNodeChanges(filter, value) {
-    this.selectedNode.style[filter.updateCss] = value;
+    this.selectedNode.style[filter.cssField] = value;
   }
 
   onBoldClick(filter) {
@@ -107,5 +111,9 @@ export class ToolbarComponent implements OnInit, OnChanges {
     filter.isSelected = !filter.isSelected;
     this.applyNodeChanges(filter, filter.isSelected ? 'italic' : 'normal');
     this.applySelectedItemChanes(filter, filter.isSelected ? 'italic' : 'normal');
+  }
+
+  removeItem() {
+    this.removeSelectedItem.emit();
   }
 }

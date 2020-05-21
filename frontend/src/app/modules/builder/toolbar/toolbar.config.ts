@@ -9,7 +9,8 @@ export const AVA_TOOLBAR_OPTIONS = {
   OPACITY: 4,
   LETTER_SPACING: 5,
   FONT_WEIGHT_BOLD: 6,
-  FONT_STYLE_ITALIC: 7
+  FONT_STYLE_ITALIC: 7,
+  DELETE: 8
 };
 
 // const AVAILABLE_FONT_SIZE = [];
@@ -27,7 +28,7 @@ export const FilterConfig = [
     inputType: 'text',
     changeFontFamily: true,
     selectedValue: '',
-    updateCss: 'font-family',
+    cssField: 'font-family',
     isSearchEnabled: true,
     options: AVAILABLE_FONTS,
     placeholder: 'Select Font Family'
@@ -40,24 +41,29 @@ export const FilterConfig = [
     changeFontFamily: false,
     isSearchEnabled: false,
     selectedValue: '',
-    updateCss: 'font-size',
+    cssField: 'font-size',
     options: AVAILABLE_FONT_SIZE,
     placeholder: 'Select Font Size'
   },
   {
     id: AVA_TOOLBAR_OPTIONS.FONT_WEIGHT_BOLD,
-    filterType: FILTER_TYPES.FONT_WEIGHT_BOLD,
+    filterType: FILTER_TYPES.TOGGABLE,
     field: 'fontWeight',
     selectedValue: '',
     isSelected: false,
-    updateCss: 'font-weight',
+    cssField: 'font-weight',
+    cssValue: 'bold',
   },
   {
     id: AVA_TOOLBAR_OPTIONS.FONT_STYLE_ITALIC,
-    filterType: FILTER_TYPES.FONT_STYLE_ITALIC,
+    filterType: FILTER_TYPES.TOGGABLE,
     field: 'fontStyle',
     selectedValue: '',
     isSelected: false,
-    updateCss: 'font-style',
+    cssField: 'font-style',
+    cssValue: 'italic',
+  },
+  {
+    id: AVA_TOOLBAR_OPTIONS.DELETE,
   }
 ];
