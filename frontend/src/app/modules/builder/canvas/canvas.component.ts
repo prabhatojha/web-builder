@@ -17,6 +17,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   canvasOffsetTop: number;
   selectedItem: any;
   selectedNode: any;
+  projectNode: any;
   toolbarOptions = [];
 
   project = {
@@ -38,9 +39,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const bound = this.canvas.nativeElement.getBoundingClientRect();
-    this.canvasOffsetLeft = bound.left;
-    this.canvasOffsetTop = bound.top;
   }
 
   drag(ev) {
@@ -65,7 +63,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this.setNodeLocation(e, newNode, data, canvasElement);
     this.attachEventListner(newNode, data.item, canvasElement);
 
-    e.target.appendChild(newNode);
+    this.projectNode.appendChild(newNode);
 
     this.addItemInProject(canvasElement);
   }
@@ -76,7 +74,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   setNodeLocation(e, newNode: any, data, canvasElement) {
-    const canvasBound = e.srcElement.getBoundingClientRect();
+    const canvasBound = this.projectNode.getBoundingClientRect();
     const posX = e.clientX - canvasBound.left - data.left + 'px';
     const posY = e.clientY - canvasBound.top - data.top + 'px';
     newNode.style.left = posX;
@@ -95,6 +93,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   createInitialView() {
     const node = this.buildDom(this.project);
+    this.projectNode = node;
     this.canvas.nativeElement.appendChild(node);
   }
 
@@ -149,6 +148,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   selectElement(node, item) {
+    this.showToolBar(node, item);
     node.addEventListener('click', () => {
       this.showToolBar(node, item);
     });
