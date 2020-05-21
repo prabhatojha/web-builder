@@ -16,7 +16,7 @@ export const AVA_TOOLBAR_OPTIONS = {
 
 const AVAILABLE_FONT_SIZE = [];
 for (let i = 5; i < 150; i++) {
-  AVAILABLE_FONT_SIZE.push({ label: i, value: i + 'px' });
+  AVAILABLE_FONT_SIZE.push({ label: i + '', value: i + 'px' });
 }
 
 export const FilterConfig = [
@@ -28,6 +28,7 @@ export const FilterConfig = [
     changeFontFamily: true,
     selectedValue: '',
     updateCss: 'font-family',
+    isSearchEnabled: true,
     options: AVAILABLE_FONTS,
     placeholder: 'Select Font Family'
   },
@@ -37,6 +38,7 @@ export const FilterConfig = [
     field: 'fontSize',
     inputType: 'number',
     changeFontFamily: false,
+    isSearchEnabled: false,
     selectedValue: '',
     updateCss: 'font-size',
     options: AVAILABLE_FONT_SIZE,
@@ -51,7 +53,7 @@ export const FilterConfig = [
     updateCss: 'font-weight',
   },
   {
-    id: AVA_TOOLBAR_OPTIONS.FONT_WEIGHT_BOLD,
+    id: AVA_TOOLBAR_OPTIONS.FONT_STYLE_ITALIC,
     filterType: FILTER_TYPES.FONT_STYLE_ITALIC,
     field: 'fontStyle',
     selectedValue: '',

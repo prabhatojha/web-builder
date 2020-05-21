@@ -13,7 +13,10 @@ export class SingleSelectComponent implements OnInit, OnChanges {
   @Output() itemSelect = new EventEmitter();
   @Output() itemHover = new EventEmitter();
   @Output() closeWithoutSelect = new EventEmitter();
+
   showList = false;
+  searchStr = '';
+  searching = false;
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -23,7 +26,17 @@ export class SingleSelectComponent implements OnInit, OnChanges {
   }
 
   openDropdown() {
+    this.searching = false;
     this.showList = true;
+  }
+
+  search(value) {
+    this.searching = true;
+    this.searchStr = value;
+  }
+
+  doesStringContains(label) {
+    return label.toLowerCase().includes(this.searchStr);
   }
 
   closeDropdown() {
@@ -38,6 +51,9 @@ export class SingleSelectComponent implements OnInit, OnChanges {
   selectItem(opt) {
     this.itemSelect.emit(opt);
     this.closeDropdown();
+  }
+
+  updateSearch(e) {
   }
 
   hoverItem(opt) {

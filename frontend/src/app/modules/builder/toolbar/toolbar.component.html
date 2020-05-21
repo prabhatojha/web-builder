@@ -1,26 +1,37 @@
 <div class="toolbar-items">
   <ng-container *ngFor="let filter of filterConfig">
     <div class="ml-2">
-      <ng-container [ngSwitch]="filter.filterType">
+      <ng-container [ngSwitch]="filter.id">
 
-        <!-- Single Select Filter -->
-        <ng-container *ngSwitchCase="FILTER_TYPES.SINGLE_SELECT">
-          <app-single-select (itemSelect)="onItemSelect(filter, $event)" [list]="filter.options"
-            (itemHover)="onItemHover(filter, $event)" [changeFontFamily]="filter.changeFontFamily"
+        <!-- Single Select Filter - Font Family-->
+        <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.FONT_FAMILY">
+          <app-single-select #singleSelect (itemSelect)="onFontFamilySelect(filter, $event, true)" [list]="filter.options"
+            (itemHover)="onFontFamilySelect(filter, $event, false)" [changeFontFamily]="filter.changeFontFamily"
             (closeWithoutSelect)="onCloseWithoutSelect(filter)">
-            <input [attr.type]="filter.inputType" placeholder="{{filter.placeholder}}" class="toolbar-input"
-              [value]="filter.selectedValue">
+            <input #singleSelectSearch [attr.type]="filter.inputType" placeholder="{{filter.placeholder}}"
+              class="toolbar-input" [value]="filter.selectedValue"
+              (keyup)="filter.isSearchEnabled && singleSelect.search(singleSelectSearch.value)">
+          </app-single-select>
+        </ng-container>
+
+        <!-- Single Select Filter - Font Size-->
+        <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.FONT_SIZE">
+          <app-single-select #singleSelect (itemSelect)="onFontSizeSelect(filter, $event, true)" [list]="filter.options"
+            (itemHover)="onFontSizeSelect(filter, $event, false)" [changeFontFamily]="filter.changeFontFamily"
+            (closeWithoutSelect)="onCloseWithoutSelect(filter)">
+            <input #fontSizeInput [attr.type]="filter.inputType" placeholder="{{filter.placeholder}}"
+              class="toolbar-input" [value]="filter.selectedValue" (change)="setFontSize(filter, fontSizeInput.value)">
           </app-single-select>
         </ng-container>
 
         <!-- Font Weigth Bold -->
-        <ng-container *ngSwitchCase="FILTER_TYPES.FONT_WEIGHT_BOLD">
+        <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.FONT_WEIGHT_BOLD">
           <button class="toolbar-single-char-btn " [class.font-weight-bold]="filter.isSelected"
             (click)="onBoldClick(filter)">B</button>
         </ng-container>
 
-        <!-- Font Weigth Bold -->
-        <ng-container *ngSwitchCase="FILTER_TYPES.FONT_STYLE_ITALIC">
+        <!-- Font Style Italic -->
+        <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.FONT_STYLE_ITALIC">
           <button class="toolbar-single-char-btn toolbar-font-italic" [class.font-weight-bold]="filter.isSelected"
             (click)="onItalicClick(filter)">I</button>
         </ng-container>

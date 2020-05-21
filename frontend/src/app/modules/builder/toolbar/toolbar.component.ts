@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, ElementRef } from '@angular/core';
 import { AVA_TOOLBAR_OPTIONS, FilterConfig } from './toolbar.config';
 import { FILTER_TYPES } from '../../../constants/contants';
+import { CommonUtils } from '../../../utils/common.utils';
 
 
 @Component({
@@ -19,64 +20,88 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
   filterConfig = [];
   FILTER_TYPES = FILTER_TYPES;
+  AVA_TOOLBAR_OPTIONS = AVA_TOOLBAR_OPTIONS;
 
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.options && this.options) {
-      this.filterConfig = FilterConfig.filter(conf => this.options.includes(conf.id));
+      this.filterConfig = this.getFilterConfig();
     }
 
     if (changes.selectedItem && this.selectedItem) {
-      this.setInitialState(this.selectedItem.canvaElement.style);
+      this.setInitialState(this.getOriginalItemStyle());
     }
   }
 
   ngOnInit(): void {
-    console.log(this.options);
+
+  }
+
+  getOriginalItemStyle() {
+    return this.selectedItem.canvaElement.style;
+  }
+
+  getFilterConfig() {
+    return CommonUtils.cloneDeep(FilterConfig.filter(conf => this.options.includes(conf.id)));
   }
 
   setInitialState(style) {
     if (style) {
       this.filterConfig.forEach(filter => {
-        filter.selectedValue = style[filter.updateCss];
+        this.changeSelectedValue(filter, style[filter.updateCss]);
       });
     }
   }
 
-  onItemSelect(filter, e) {
-    this.applyNodeChanges(filter, e);
+  onFontFamilySelect(filter, e, updateSelectedItem) {
+    this.changeSelectedValue(filter, e.value);
+    this.applyNodeChanges(filter, e.value);
+
+    if (updateSelectedItem) {
+      this.applySelectedItemChanes(filter, e.value);
+    }
   }
 
-  onItemHover(filter, e) {
-    console.log(this.selectedItem);
-    this.applyNodeChanges(filter, e);
-    filter.selectedValue = e.value;
+  onFontSizeSelect(filter, e, updateSelectedItem) {
+    this.changeSelectedValue(filter, e.value);
+    this.applyNodeChanges(filter, e.value);
+
+    if (updateSelectedItem) {
+      this.applySelectedItemChanes(filter, e.value);
+    }
   }
 
   onCloseWithoutSelect(filter) {
-    const style = this.selectedItem.canvaElement.style;
-    this.selectedNode.style[filter.updateCss] = style[filter.updateCss];
-    filter.selectedValue = style[filter.updateCss];
+    const style = this.getOriginalItemStyle();
+    this.applyNodeChanges(filter, style[filter.updateCss]);
+    this.changeSelectedValue(filter, style[filter.updateCss]);
   }
 
-  applyNodeChanges(filter, selectedItem) {
-    switch (filter.id) {
-      case AVA_TOOLBAR_OPTIONS.FONT_FAMILY:
-      case AVA_TOOLBAR_OPTIONS.FONT_SIZE:
-      case AVA_TOOLBAR_OPTIONS.FONT_WEIGHT_BOLD:
-        this.selectedNode.style[filter.updateCss] = selectedItem.value;
-        break;
-    }
+  changeSelectedValue(filter, value) {
+    filter.selectedValue = filter.id === AVA_TOOLBAR_OPTIONS.FONT_SIZE ? parseInt(value, 10) : value;
+  }
+
+  setFontSize(filter, value) {
+    this.onFontSizeSelect(filter, { value: value + 'px' }, true);
+  }
+
+  applySelectedItemChanes(filter, value) {
+    const style = this.getOriginalItemStyle();
+    style[filter.updateCss] = value;
+  }
+
+  applyNodeChanges(filter, value) {
+    this.selectedNode.style[filter.updateCss] = value;
   }
 
   onBoldClick(filter) {
     filter.isSelected = !filter.isSelected;
-    this.applyNodeChanges(filter, { value: (filter.isSelected ? 'bold' : 'normal') });
+    this.applyNodeChanges(filter, filter.isSelected ? 'bold' : 'normal');
   }
 
   onItalicClick(filter) {
     filter.isSelected = !filter.isSelected;
-    this.applyNodeChanges(filter, { value: (filter.isSelected ? 'italic' : 'normal') });
+    this.applyNodeChanges(filter, filter.isSelected ? 'italic' : 'normal');
   }
 }
