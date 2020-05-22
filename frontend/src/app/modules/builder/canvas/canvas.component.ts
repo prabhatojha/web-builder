@@ -139,6 +139,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     const isEmptyClick = e.target.className.includes('canvas-template');
     if (isEmptyClick) {
       this.toolbarOptions = [];
+      this.removeResizeHandleAndBorder();
+      this.selectedNode = null;
+      this.selectedItem = null;
     }
   }
 
@@ -147,11 +150,44 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this.selectElement(node, item);
   }
 
+  attachResizeHandler(node) {
+    const resizeHandler = document.createElement('div');
+    resizeHandler.classList.add(CONST_VAR.RESIZE_HANDLER_CLASS);
+    resizeHandler.style.cssText = 'position: absolute;width: 15px;height: 15px;border-bottom: 5px solid gray;' +
+      'border-right: 5px solid gray;right: -5px;bottom: -5px;cursor: nwse-resize';
+
+    resizeHandler.addEventListener('mousedown', (e) => e.stopPropagation());
+    node.appendChild(resizeHandler);
+  }
+
   selectElement(node, item) {
+    this.removeResizeHandleAndBorder();
     this.showToolBar(node, item);
-    node.addEventListener('click', () => {
+    this.addSelectedNodeBoarder();
+    this.attachResizeHandler(node);
+    node.addEventListener('mousedown', () => {
+      this.removeResizeHandleAndBorder();
       this.showToolBar(node, item);
+      this.addSelectedNodeBoarder();
+      this.attachResizeHandler(node);
     });
+  }
+
+  addSelectedNodeBoarder() {
+    if (this.selectedNode) {
+      this.selectedNode.style.outline = '1px solid gray';
+    }
+  }
+
+  removeResizeHandleAndBorder() {
+    if (this.selectedNode) {
+      this.selectedNode.style.removeProperty('outline');
+      const resizeHandlers = this.selectedNode.getElementsByClassName(CONST_VAR.RESIZE_HANDLER_CLASS);
+      console.log(resizeHandlers);
+      if (resizeHandlers && resizeHandlers[0]) {
+        resizeHandlers[0].remove();
+      }
+    }
   }
 
   showToolBar(node, item) {
@@ -189,6 +225,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     if (itemIndex > -1) {
       this.project.children.splice(itemIndex, 1);
       this.selectedNode.remove();
+      this.toolbarOptions = [];
     }
   }
 }

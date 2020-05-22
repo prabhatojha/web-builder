@@ -30,7 +30,6 @@ export const PICKERS = {
       canvaElement: {
         tag: 'div',
         attribute: {
-          tabindex: '-1',
         },
         style: {
           'font-size': '40px',
@@ -39,13 +38,15 @@ export const PICKERS = {
           'position': 'absolute',
           'cursor': 'move'
         },
-        children: [{
-          tag: 'label',
-          innerText: 'nice, good & great',
-          style: {
-            cursor: 'move'
+        children: [
+          {
+            tag: 'label',
+            innerText: 'nice, good & great',
+            style: {
+              cursor: 'move'
+            }
           }
-        }]
+        ]
       },
       imageUrl: '/assets/images/pickers/my-item2.png'
     }],

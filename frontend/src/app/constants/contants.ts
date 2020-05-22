@@ -1,5 +1,6 @@
 export const CONST_VAR = {
-  PICKER_ITEM: 'pickerItem'
+  PICKER_ITEM: 'pickerItem',
+  RESIZE_HANDLER_CLASS: 'resize-handler'
 };
 
 export enum FILTER_TYPES {
