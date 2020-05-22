@@ -147,30 +147,57 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   attachEventListner(node, item, canvasElement) {
     this.moveElementWithMouse(node, canvasElement);
-    this.selectElement(node, item);
+    this.selectElement(node, item, canvasElement);
   }
 
-  attachResizeHandler(node) {
+  attachResizeHandler(node, canvasElement) {
     const resizeHandler = document.createElement('div');
     resizeHandler.classList.add(CONST_VAR.RESIZE_HANDLER_CLASS);
     resizeHandler.style.cssText = 'position: absolute;width: 15px;height: 15px;border-bottom: 5px solid gray;' +
       'border-right: 5px solid gray;right: -5px;bottom: -5px;cursor: nwse-resize';
 
-    resizeHandler.addEventListener('mousedown', (e) => e.stopPropagation());
+    let initialWidth = 0;
+    let initialHeight = 0;
+    let initialX = 0;
+    let initialY = 0;
+
+    const mouseMoveListner = (e) => {
+      this.selectedNode.style.width = initialWidth + e.clientX - initialX + 'px';
+      this.selectedNode.style.height = initialHeight + e.clientY - initialY + 'px';
+    };
+
+    resizeHandler.addEventListener('mousedown', (e) => {
+      e.stopPropagation();
+      initialWidth = this.selectedNode.offsetWidth;
+      initialHeight = this.selectedNode.offsetHeight;
+      initialX = e.clientX;
+      initialY = e.clientY;
+      console.log(initialX, initialWidth);
+      this.canvas.nativeElement.addEventListener('mousemove', mouseMoveListner);
+    });
+
+    document.addEventListener('mouseup', (e) => {
+      e.stopPropagation();
+      canvasElement.style.width = this.selectedNode.style.width;
+      canvasElement.style.height = this.selectedNode.style.height;
+      this.canvas.nativeElement.removeEventListener('mousemove', mouseMoveListner);
+    });
+
     node.appendChild(resizeHandler);
   }
 
-  selectElement(node, item) {
+  selectElement(node, item, canvasElement) {
+    this._selectElement(node, item, canvasElement);
+    node.addEventListener('mousedown', () => {
+      this._selectElement(node, item, canvasElement);
+    });
+  }
+
+  _selectElement(node, item, canvasElement) {
     this.removeResizeHandleAndBorder();
     this.showToolBar(node, item);
     this.addSelectedNodeBoarder();
-    this.attachResizeHandler(node);
-    node.addEventListener('mousedown', () => {
-      this.removeResizeHandleAndBorder();
-      this.showToolBar(node, item);
-      this.addSelectedNodeBoarder();
-      this.attachResizeHandler(node);
-    });
+    this.attachResizeHandler(node, canvasElement);
   }
 
   addSelectedNodeBoarder() {

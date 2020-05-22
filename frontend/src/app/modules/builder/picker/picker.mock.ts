@@ -36,7 +36,8 @@ export const PICKERS = {
           'font-family': 'cursive',
           'text-align': 'center',
           'position': 'absolute',
-          'cursor': 'move'
+          'cursor': 'move',
+          'user-select': 'none'
         },
         children: [
           {
