@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { CONST_VAR } from 'src/app/constants/contants';
+import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
 import { Hasher } from 'src/app/constants/hasher';
 import { AVA_TOOLBAR_OPTIONS } from '../toolbar/toolbar.config';
 
@@ -195,14 +196,28 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   _selectElement(node, item, canvasElement) {
     this.removeResizeHandleAndBorder();
+    this.removeZIndex();
     this.showToolBar(node, item);
     this.addSelectedNodeBoarder();
+    this.addZIndex();
     this.attachResizeHandler(node, canvasElement);
   }
 
   addSelectedNodeBoarder() {
     if (this.selectedNode) {
       this.selectedNode.style.outline = '1px solid gray';
+    }
+  }
+
+  removeZIndex() {
+    if (this.selectedNode) {
+      this.selectedNode.style[CSS_PROPERTIES.Z_INDEX] = 0;
+    }
+  }
+
+  addZIndex() {
+    if (this.selectedNode) {
+      this.selectedNode.style[CSS_PROPERTIES.Z_INDEX] = 101;
     }
   }
 
