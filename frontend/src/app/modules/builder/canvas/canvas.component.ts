@@ -24,8 +24,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   project = {
     tag: 'div',
     style: {
-      width: '400px',
-      height: '500px',
+      width: '500px',
+      height: '250px',
       position: 'relative',
       background: 'white'
     },
@@ -36,14 +36,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   };
 
   constructor() {
-
   }
 
   ngAfterViewInit(): void {
-  }
-
-  drag(ev) {
-    ev.dataTransfer.setData('text', ev.target.id);
   }
 
   drop(e) {
@@ -163,11 +158,13 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     let initialY = 0;
 
     const mouseMoveListner = (e) => {
+      console.log('mouse move - resize');
       this.selectedNode.style.width = initialWidth + e.clientX - initialX + 'px';
       this.selectedNode.style.height = initialHeight + e.clientY - initialY + 'px';
     };
 
     resizeHandler.addEventListener('mousedown', (e) => {
+      console.log('mouse down - resize');
       e.stopPropagation();
       initialWidth = this.selectedNode.offsetWidth;
       initialHeight = this.selectedNode.offsetHeight;
@@ -178,6 +175,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     });
 
     document.addEventListener('mouseup', (e) => {
+      console.log('mouse up - resize');
       e.stopPropagation();
       canvasElement.style.width = this.selectedNode.style.width;
       canvasElement.style.height = this.selectedNode.style.height;
@@ -243,12 +241,14 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     let initialY;
 
     const mouseMoveListner = (mm) => {
+      console.log('mouse move');
       const canvasBound = this.canvas.nativeElement.getBoundingClientRect();
       node.style.left = mm.clientX - canvasBound.left - initialX + 'px';
       node.style.top = mm.clientY - canvasBound.top - initialY + 'px';
     };
 
     node.addEventListener('mousedown', (ce) => {
+      console.log('mouse down');
       const targeBound = ce.target.getBoundingClientRect();
       initialX = ce.clientX - targeBound.left;
       initialY = ce.clientY - targeBound.top;
@@ -256,6 +256,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     });
 
     document.addEventListener('mouseup', (mu) => {
+      console.log('mouse up');
       canvasElement.style.left = node.style.left;
       canvasElement.style.top = node.style.top;
       this.canvas.nativeElement.removeEventListener('mousemove', mouseMoveListner);

@@ -69,17 +69,73 @@ export const PICKERS = {
       position: 'absolute'
     }
   }],
-  5: [{
-    tag: 'img',
-    text: null,
-    children: [],
-    style: {
-      width: '100px',
-      height: '100px',
-      border: '1px solid grey',
-      position: 'absolute'
-    }
-  }]
+  5: [
+    {
+      tag: 'label',
+      elementId: 'my-first-element',
+      id: 'askfljkjasf;askls',
+      type: 'image',
+      toolbarOptions: [8],
+      searchKeywords: [],
+      imageUrl: '/assets/images/pickers/resize-1590238348409394631girl5352511920.jpg',
+      canvaElement: {
+        tag: 'div',
+        attribute: {
+        },
+        style: {
+          'text-align': 'center',
+          'position': 'absolute',
+          'cursor': 'move',
+          'user-select': 'none'
+        },
+        children: [
+          {
+            tag: 'img',
+            style: {
+              cursor: 'move',
+              'max-width': '100%',
+              'max-height': '100%'
+            },
+            attribute: {
+              src: '/assets/images/pickers/girl-535251_1920.jpg'
+            }
+          }
+        ]
+      }
+    },
+    {
+      tag: 'label',
+      elementId: 'my-first-element',
+      id: 'askfljkjasf;askls',
+      type: 'image',
+      toolbarOptions: [8],
+      searchKeywords: [],
+      imageUrl: '/assets/images/pickers/resize-1590238397581797230sky51860161920.jpg',
+      canvaElement: {
+        tag: 'div',
+        attribute: {
+        },
+        style: {
+          'text-align': 'center',
+          'position': 'absolute',
+          'cursor': 'move',
+          'user-select': 'none'
+        },
+        children: [
+          {
+            tag: 'img',
+            style: {
+              cursor: 'move',
+              'max-width': '100%',
+              'max-height': '100%'
+            },
+            attribute: {
+              src: '/assets/images/pickers/sky-5186016_1920.jpg'
+            }
+          }
+        ]
+      }
+    }]
 };
 
 

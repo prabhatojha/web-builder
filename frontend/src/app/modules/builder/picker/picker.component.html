@@ -11,16 +11,16 @@
     <ng-container *ngFor="let item of items">
       <ng-container [ngSwitch]="item.type">
         <ng-container *ngSwitchCase="'image'">
-          <li class="image-li">
-            <img [src]="item.imageUrl" style="width: 100%;" [attr.id]="item.id" draggable
-              (dragstart)="dragStart($event, item)">
+          <li class="image-li" draggable
+          (dragstart)="dragStart($event, item)">
+            <img [src]="item.imageUrl" style="width: 100%;" [attr.id]="item.id" >
           </li>
         </ng-container>
 
         <ng-container *ngSwitchCase="'text'">
-          <li class="text-li">
-            <label [style]="item.style" [attr.id]="item.id" draggable
-              (dragstart)="dragStart($event, item)">{{item.text}}</label>
+          <li class="text-li" draggable
+          (dragstart)="dragStart($event, item)">
+            <label [style]="item.style" [attr.id]="item.id" >{{item.text}}</label>
           </li>
         </ng-container>
 
