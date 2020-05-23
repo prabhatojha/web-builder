@@ -4,7 +4,7 @@
   </app-toolbar>
 </div>
 
-<div class="canvas-container">
+<div class="canvas-container" #canvasContainer>
   <div class="canvas" #canvas (drop)="drop($event)" (dragover)="allowDrop($event)" (click)="onCanvasClick($event)">
 
   </div>

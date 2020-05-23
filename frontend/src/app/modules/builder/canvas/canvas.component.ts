@@ -13,13 +13,28 @@ import { AVA_TOOLBAR_OPTIONS } from '../toolbar/toolbar.config';
 export class CanvasComponent implements OnInit, AfterViewInit {
 
   @ViewChild('canvas', { static: true }) canvas: ElementRef;
+  @ViewChild('canvasContainer', { static: true }) canvasContainer: ElementRef;
 
   canvasOffsetLeft: number;
   canvasOffsetTop: number;
+
+  // Is the object reprentation of the selected item
   selectedItem: any;
+
+  // Actual dom element of the selected item
   selectedNode: any;
+
   projectNode: any;
   toolbarOptions = [];
+
+
+  // Selected dom element's variables
+  initialWidth = 0;
+  initialHeight = 0;
+  initialClientX = 0;
+  initialClientY = 0;
+  initialLeft = 0;
+  initialTop = 0;
 
   project = {
     tag: 'div',
@@ -35,10 +50,59 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     children: []
   };
 
+  isDragging = false;
+  isResizing = false;
+
   constructor() {
   }
 
+  ngOnInit(): void {
+    this.createInitialView();
+    this.subscribeToEvent();
+  }
+
   ngAfterViewInit(): void {
+  }
+
+
+  subscribeToEvent() {
+    document.addEventListener('mouseup', (e) => {
+
+      if (this.selectedNode) {
+        this.canvasContainer.nativeElement.removeEventListener('mousemove', this.mouseMoveListner);
+
+        this.isResizing = false;
+        this.isDragging = false;
+
+        // TODO: Persist the values from `selectedNode` to `selectedItem`
+        const style = this.selectedItem.canvaElement.style;
+        const targetStyle = this.selectedNode.style;
+        style.width = targetStyle.width;
+        style.height = targetStyle.height;
+        style.left = targetStyle.left;
+        style.top = targetStyle.top;
+
+        console.log(this.project);
+      }
+    });
+  }
+
+  mouseMoveListner = (e) => {
+    if (this.isDragging) {
+      this.onItemDrag(e);
+    } else if (this.isResizing) {
+      this.onItemResize(e);
+    }
+  }
+
+  onItemDrag(e) {
+    this.selectedNode.style.left = this.initialLeft + (e.clientX - this.initialClientX) + 'px';
+    this.selectedNode.style.top = this.initialTop + (e.clientY - this.initialClientY) + 'px';
+  }
+
+  onItemResize(e) {
+    this.selectedNode.style.width = this.initialWidth + e.clientX - this.initialClientX + 'px';
+    this.selectedNode.style.height = this.initialHeight + e.clientY - this.initialClientY + 'px';
   }
 
   drop(e) {
@@ -66,7 +130,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   addItemInProject(item) {
     this.project.children.push(item);
-    console.log(this.project);
   }
 
   setNodeLocation(e, newNode: any, data, canvasElement) {
@@ -81,10 +144,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   allowDrop(e) {
     e.preventDefault();
-  }
-
-  ngOnInit(): void {
-    this.createInitialView();
   }
 
   createInitialView() {
@@ -142,8 +201,38 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   attachEventListner(node, item, canvasElement) {
-    this.moveElementWithMouse(node, canvasElement);
     this.selectElement(node, item, canvasElement);
+  }
+
+  selectElement(node, item, canvasElement) {
+    this._selectElement(node, item, canvasElement);
+    node.addEventListener('mousedown', (e) => {
+      this._selectElement(node, item, canvasElement);
+      this.moveElementWithMouse(e);
+    });
+  }
+
+  moveElementWithMouse(ce) {
+    this.isDragging = true;
+    this.initialLeft = parseInt(this.selectedNode.style.left, 10);
+    this.initialTop = parseInt(this.selectedNode.style.top, 10);
+    this.initialClientX = ce.clientX;
+    this.initialClientY = ce.clientY;
+    this.canvasContainer.nativeElement.addEventListener('mousemove', this.mouseMoveListner);
+  }
+
+  _selectElement(node, item, canvasElement) {
+    // Remove handler from previous selected item
+    this.removeResizeHandleAndBorder();
+    this.removeZIndex();
+
+    // Store the selected element ref and show toobar
+    this.showToolBar(node, item);
+
+    // Add handler to current selected item
+    this.addSelectedNodeBoarder();
+    this.addZIndex();
+    this.attachResizeHandler(node, canvasElement);
   }
 
   attachResizeHandler(node, canvasElement) {
@@ -152,53 +241,17 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     resizeHandler.style.cssText = 'position: absolute;width: 15px;height: 15px;border-bottom: 5px solid gray;' +
       'border-right: 5px solid gray;right: -5px;bottom: -5px;cursor: nwse-resize';
 
-    let initialWidth = 0;
-    let initialHeight = 0;
-    let initialX = 0;
-    let initialY = 0;
-
-    const mouseMoveListner = (e) => {
-      console.log('mouse move - resize');
-      this.selectedNode.style.width = initialWidth + e.clientX - initialX + 'px';
-      this.selectedNode.style.height = initialHeight + e.clientY - initialY + 'px';
-    };
-
     resizeHandler.addEventListener('mousedown', (e) => {
-      console.log('mouse down - resize');
+      this.isResizing = true;
       e.stopPropagation();
-      initialWidth = this.selectedNode.offsetWidth;
-      initialHeight = this.selectedNode.offsetHeight;
-      initialX = e.clientX;
-      initialY = e.clientY;
-      console.log(initialX, initialWidth);
-      this.canvas.nativeElement.addEventListener('mousemove', mouseMoveListner);
-    });
-
-    document.addEventListener('mouseup', (e) => {
-      console.log('mouse up - resize');
-      e.stopPropagation();
-      canvasElement.style.width = this.selectedNode.style.width;
-      canvasElement.style.height = this.selectedNode.style.height;
-      this.canvas.nativeElement.removeEventListener('mousemove', mouseMoveListner);
+      this.initialWidth = this.selectedNode.offsetWidth;
+      this.initialHeight = this.selectedNode.offsetHeight;
+      this.initialClientX = e.clientX;
+      this.initialClientY = e.clientY;
+      this.canvasContainer.nativeElement.addEventListener('mousemove', this.mouseMoveListner);
     });
 
     node.appendChild(resizeHandler);
-  }
-
-  selectElement(node, item, canvasElement) {
-    this._selectElement(node, item, canvasElement);
-    node.addEventListener('mousedown', () => {
-      this._selectElement(node, item, canvasElement);
-    });
-  }
-
-  _selectElement(node, item, canvasElement) {
-    this.removeResizeHandleAndBorder();
-    this.removeZIndex();
-    this.showToolBar(node, item);
-    this.addSelectedNodeBoarder();
-    this.addZIndex();
-    this.attachResizeHandler(node, canvasElement);
   }
 
   addSelectedNodeBoarder() {
@@ -223,7 +276,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     if (this.selectedNode) {
       this.selectedNode.style.removeProperty('outline');
       const resizeHandlers = this.selectedNode.getElementsByClassName(CONST_VAR.RESIZE_HANDLER_CLASS);
-      console.log(resizeHandlers);
       if (resizeHandlers && resizeHandlers[0]) {
         resizeHandlers[0].remove();
       }
@@ -234,33 +286,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this.toolbarOptions = item.toolbarOptions;
     this.selectedNode = node;
     this.selectedItem = item;
-  }
-
-  moveElementWithMouse(node, canvasElement) {
-    let initialX;
-    let initialY;
-
-    const mouseMoveListner = (mm) => {
-      console.log('mouse move');
-      const canvasBound = this.canvas.nativeElement.getBoundingClientRect();
-      node.style.left = mm.clientX - canvasBound.left - initialX + 'px';
-      node.style.top = mm.clientY - canvasBound.top - initialY + 'px';
-    };
-
-    node.addEventListener('mousedown', (ce) => {
-      console.log('mouse down');
-      const targeBound = ce.target.getBoundingClientRect();
-      initialX = ce.clientX - targeBound.left;
-      initialY = ce.clientY - targeBound.top;
-      this.canvas.nativeElement.addEventListener('mousemove', mouseMoveListner);
-    });
-
-    document.addEventListener('mouseup', (mu) => {
-      console.log('mouse up');
-      canvasElement.style.left = node.style.left;
-      canvasElement.style.top = node.style.top;
-      this.canvas.nativeElement.removeEventListener('mousemove', mouseMoveListner);
-    });
   }
 
   onItemRemove() {
