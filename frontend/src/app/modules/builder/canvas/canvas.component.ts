@@ -37,17 +37,24 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   initialTop = 0;
 
   project = {
-    tag: 'div',
-    style: {
-      width: '500px',
-      height: '250px',
-      position: 'relative',
-      background: 'white'
-    },
-    attribute: {
-      class: 'canvas-template'
-    },
-    children: []
+    elementId: 'my-first-element',
+    id: 'jfaslj12o4u12oi',
+    type: 'image',
+    toolbarOptions: [2],
+    searchKeywords: [],
+    canvaElement: {
+      tag: 'div',
+      style: {
+        width: '500px',
+        height: '250px',
+        position: 'relative',
+        background: 'white'
+      },
+      attribute: {
+        class: 'canvas-template'
+      },
+      children: []
+    }
   };
 
   isDragging = false;
@@ -121,7 +128,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     const newNode = this.buildDom(canvasElement);
 
     this.setNodeLocation(e, newNode, data, canvasElement);
-    this.attachEventListner(newNode, data.item, canvasElement);
+    this.attachEventListner(newNode, data.item);
 
     this.projectNode.appendChild(newNode);
 
@@ -129,7 +136,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   addItemInProject(item) {
-    this.project.children.push(item);
+    this.project.canvaElement.children.push(item);
   }
 
   setNodeLocation(e, newNode: any, data, canvasElement) {
@@ -147,7 +154,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   createInitialView() {
-    const node = this.buildDom(this.project);
+    const node = this.buildDom(this.project.canvaElement);
+    this.attachEventListner(node, this.project);
     this.projectNode = node;
     this.canvas.nativeElement.appendChild(node);
   }
@@ -191,23 +199,27 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   onCanvasClick(e) {
-    const isEmptyClick = e.target.className.includes('canvas-template');
-    if (isEmptyClick) {
-      this.toolbarOptions = [];
-      this.removeResizeHandleAndBorder();
-      this.selectedNode = null;
-      this.selectedItem = null;
-    }
+    // const isEmptyClick = e.target.className.includes('canvas-template');
+    // if (isEmptyClick) {
+    //   this.toolbarOptions = [];
+    //   this.removeResizeHandleAndBorder();
+    //   this.selectedNode = null;
+    //   this.selectedItem = null;
+    // }
   }
 
-  attachEventListner(node, item, canvasElement) {
-    this.selectElement(node, item, canvasElement);
+  attachEventListner(node, item) {
+    this.selectElement(node, item);
   }
 
-  selectElement(node, item, canvasElement) {
-    this._selectElement(node, item, canvasElement);
+  selectElement(node, item) {
+
+    // When user add a new item, we are slecting it by default
+    this._selectElement(node, item);
+
     node.addEventListener('mousedown', (e) => {
-      this._selectElement(node, item, canvasElement);
+      e.stopPropagation();
+      this._selectElement(node, item);
       this.moveElementWithMouse(e);
     });
   }
@@ -221,7 +233,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this.canvasContainer.nativeElement.addEventListener('mousemove', this.mouseMoveListner);
   }
 
-  _selectElement(node, item, canvasElement) {
+  _selectElement(node, item) {
     // Remove handler from previous selected item
     this.removeResizeHandleAndBorder();
     this.removeZIndex();
@@ -232,10 +244,10 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     // Add handler to current selected item
     this.addSelectedNodeBoarder();
     this.addZIndex();
-    this.attachResizeHandler(node, canvasElement);
+    this.attachResizeHandler(node);
   }
 
-  attachResizeHandler(node, canvasElement) {
+  attachResizeHandler(node) {
     const resizeHandler = document.createElement('div');
     resizeHandler.classList.add(CONST_VAR.RESIZE_HANDLER_CLASS);
     resizeHandler.style.cssText = 'position: absolute;width: 15px;height: 15px;border-bottom: 5px solid gray;' +
@@ -289,9 +301,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   onItemRemove() {
-    const itemIndex = this.project.children.findIndex(t => t === this.selectedItem.canvaElement);
+    const itemIndex = this.project.canvaElement.children.findIndex(t => t === this.selectedItem.canvaElement);
     if (itemIndex > -1) {
-      this.project.children.splice(itemIndex, 1);
+      this.project.canvaElement.children.splice(itemIndex, 1);
       this.selectedNode.remove();
       this.toolbarOptions = [];
     }

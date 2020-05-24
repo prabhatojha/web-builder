@@ -18,7 +18,7 @@ $toolBarHeight: 50px;
   position: relative;
   display: flex;
   justify-content: center;
-  overflow-y: auto;
+  overflow: auto;
   background-color: $gray-20;
 }
 
