@@ -8,9 +8,11 @@ import { BuilderRoutingModule } from '../builder-routing.module';
 import { MatIconModule } from '@angular/material/icon';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { SharedModule } from '../shared/shared.module';
+import { ToolbarPanelComponent } from './toolbar/toolbar-panel/toolbar-panel.component';
+import { ColorPickerComponent } from './toolbar/color-picker/color-picker.component';
 
 @NgModule({
-  declarations: [PickersComponent, BuilderComponent, PickerComponent, CanvasComponent, ToolbarComponent],
+  declarations: [PickersComponent, BuilderComponent, PickerComponent, CanvasComponent, ToolbarComponent, ToolbarPanelComponent, ColorPickerComponent],
   imports: [
     CommonModule,
     MatIconModule,

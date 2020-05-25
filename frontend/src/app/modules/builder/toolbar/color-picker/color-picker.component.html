@@ -1,0 +1,16 @@
+<div class="color-picker" id="colorPalette" *ngIf="showDropdown">
+  <div *ngFor="let opt of options">
+    <label>{{opt.label}}</label>
+    <div>
+      <div class="color-pallete" *ngFor="let color of opt.colors" [style.background-color]="color"
+        [class.selected-color]="color === selectedColor">
+
+      </div>
+    </div>
+  </div>
+
+  <button>Add New Color <input type="color"></button>
+  <div>
+
+  </div>
+</div>

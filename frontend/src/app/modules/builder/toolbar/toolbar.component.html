@@ -45,6 +45,16 @@
             <mat-icon aria-hidden="false" aria-label="item.label">delete</mat-icon>
           </div>
         </ng-container>
+
+
+        <!-- Background color -->
+        <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.BACKGROUND_COLOR">
+          <div class="position-relative">
+            <div class="toolbar-bg-color" (click)="backgroundPicker.open()">
+            </div>
+            <app-color-picker #backgroundPicker></app-color-picker>
+          </div>
+        </ng-container>
       </ng-container>
     </div>
   </ng-container>

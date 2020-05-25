@@ -4,13 +4,14 @@ import { AVAILABLE_FONTS } from '../../../constants/font-family-list';
 export const AVA_TOOLBAR_OPTIONS = {
   FONT_FAMILY: 0,
   COLOR: 1,
-  BACKGROUND: 2,
+  BACKGROUND_COLOR: 2,
   FONT_SIZE: 3,
   OPACITY: 4,
   LETTER_SPACING: 5,
   FONT_WEIGHT_BOLD: 6,
   FONT_STYLE_ITALIC: 7,
-  DELETE: 8
+  DELETE: 8,
+  FONT_COLOR: 9
 };
 
 // const AVAILABLE_FONT_SIZE = [];
@@ -65,5 +66,8 @@ export const FilterConfig = [
   },
   {
     id: AVA_TOOLBAR_OPTIONS.DELETE,
+  },
+  {
+    id: AVA_TOOLBAR_OPTIONS.BACKGROUND_COLOR,
   }
 ];

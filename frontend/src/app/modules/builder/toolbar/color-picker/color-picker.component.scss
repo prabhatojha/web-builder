@@ -1,0 +1,19 @@
+@import "../../../../../style/colors.scss";
+
+.color-picker {
+  position: absolute;
+  width: 255px;
+  height: 300px;
+  padding: 10px;
+  background-color: white;
+  overflow-y: auto;
+
+  .color-pallete {
+    border: 1px solid $gray-200;
+    width: 15px;
+    height: 15px;
+    margin: 1px 3px;
+    display: inline-block;
+    cursor: pointer;
+  }
+}
