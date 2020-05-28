@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-color-picker',
@@ -30,6 +30,9 @@ export class ColorPickerComponent implements OnInit {
     ]
   }];
 
+  @Output() colorHover = new EventEmitter();
+  @Output() colorSelect = new EventEmitter();
+
   constructor() { }
 
   ngOnInit(): void {
@@ -39,4 +42,16 @@ export class ColorPickerComponent implements OnInit {
     this.showDropdown = true;
   }
 
+  onHover(color) {
+    this.colorHover.emit(color);
+  }
+
+  onClick(color) {
+    this.colorSelect.emit(color);
+    this.close();
+  }
+
+  close() {
+    this.showDropdown = false;
+  }
 }

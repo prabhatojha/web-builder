@@ -15,7 +15,7 @@ export const LEFT_MENU_ITEMS = [
     label: 'Upload',
     icon: 'cloud_upload'
   }
-]
+];
 
 export const PICKERS = {
   2: [

@@ -1,5 +1,6 @@
 import { FILTER_TYPES } from '../../../constants/contants';
 import { AVAILABLE_FONTS } from '../../../constants/font-family-list';
+import {CSS_PROPERTIES} from '../../../constants/css-constants';
 
 export const AVA_TOOLBAR_OPTIONS = {
   FONT_FAMILY: 0,
@@ -22,6 +23,14 @@ for (let i = 5; i < 150; i++) {
 }
 
 export const FilterConfig = [
+  {
+    id: AVA_TOOLBAR_OPTIONS.BACKGROUND_COLOR,
+    cssField: CSS_PROPERTIES.BG_COLOR
+  },
+  {
+    id: AVA_TOOLBAR_OPTIONS.COLOR,
+    cssField: CSS_PROPERTIES.COLOR
+  },
   {
     id: AVA_TOOLBAR_OPTIONS.FONT_FAMILY,
     filterType: FILTER_TYPES.SINGLE_SELECT,
@@ -65,9 +74,6 @@ export const FilterConfig = [
     cssValue: 'italic',
   },
   {
-    id: AVA_TOOLBAR_OPTIONS.DELETE,
-  },
-  {
-    id: AVA_TOOLBAR_OPTIONS.BACKGROUND_COLOR,
+    id: AVA_TOOLBAR_OPTIONS.DELETE
   }
 ];
