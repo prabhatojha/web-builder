@@ -35,7 +35,6 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-
   }
 
   getOriginalItemStyle() {

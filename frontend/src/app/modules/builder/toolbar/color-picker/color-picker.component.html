@@ -1,18 +1,29 @@
 <div #srcElement>
   <ng-content></ng-content>
 </div>
-<div class="color-picker" id="colorPalette" *ngIf="showDropdown" (appClickOutside)="close()" [srcElement]="srcElement">
+<div id="toolbarNewColorPicker" #toolbarNewColorPicker></div>
+<div class="color-picker" id="colorPalette" *ngIf="showDropdown">
   <div *ngFor="let opt of options">
-    <label>{{opt.label}}</label>
+    <div>
+      <label>{{opt.label}}</label>
+    </div>
+    <div *ngIf="opt.customColors.length">
+      <div class="color-pallete" *ngFor="let color of opt.customColors" [style.background-color]="color"
+        (mouseenter)="onHover(color)" (click)="onClick(color);" [class.selected-color]="color === selectedColor">
+      </div>
+    </div>
+    <div class="add-color-pallete color-pallete" (click)="showColorPicker = true">
+      <mat-icon>add</mat-icon>
+    </div>
     <div>
       <div class="color-pallete" *ngFor="let color of opt.colors" [style.background-color]="color"
         (mouseenter)="onHover(color)" (click)="onClick(color)" [class.selected-color]="color === selectedColor">
       </div>
     </div>
   </div>
-
-  <button>Add New Color <input type="color"></button>
-  <div>
-
+  <div class="color-sketch" *ngIf="showColorPicker">
+    <color-chrome></color-chrome>
+    <div><button (click)="showColorPicker = false">Cancel</button></div>
+    <div><button (click)="onPick()">Save</button></div>
   </div>
 </div>

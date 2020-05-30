@@ -1,22 +1,26 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import Pickr from '@simonwep/pickr';
 
 @Component({
   selector: 'app-color-picker',
   templateUrl: './color-picker.component.html',
   styleUrls: ['./color-picker.component.scss']
 })
-export class ColorPickerComponent implements OnInit {
+export class ColorPickerComponent implements OnInit, AfterViewInit {
 
   showDropdown = false;
   selectedColor = '';
+  pickr: any;
   options = [{
     label: 'My Colors',
     id: 'myColor',
+    customColors: [],
     colors: []
   },
   {
     label: 'Standard Colors',
     id: 'myColor',
+    customColors: [],
     colors: [
       '#000000', '#191919', '#323232', '#4b4b4b', '#646464', '#7d7d7d', '#969696', '#afafaf', '#c8c8c8', '#e1e1e1', '#ffffff',
       '#820000', '#9b0000', '#b40000', '#cd0000', '#e60000', '#ff0000', '#ff1919', '#ff3232', '#ff4b4b', '#ff6464', '#ff7d7d',
@@ -30,12 +34,24 @@ export class ColorPickerComponent implements OnInit {
     ]
   }];
 
+  showColorPicker = false;
+
   @Output() colorHover = new EventEmitter();
   @Output() colorSelect = new EventEmitter();
+  @ViewChild('toolbarNewColorPicker', { static: true }) toolbarNewColorPicker: ElementRef;
 
   constructor() { }
 
   ngOnInit(): void {
+    // this.createPicker();
+  }
+
+  ngAfterViewInit() {
+    // this.createPicker();
+  }
+
+  onPick() {
+    this.showColorPicker = false;
   }
 
   open() {
@@ -53,5 +69,6 @@ export class ColorPickerComponent implements OnInit {
 
   close() {
     this.showDropdown = false;
+    this.pickr.hide();
   }
 }

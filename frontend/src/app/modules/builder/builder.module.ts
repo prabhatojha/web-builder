@@ -10,14 +10,28 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { SharedModule } from '../shared/shared.module';
 import { ToolbarPanelComponent } from './toolbar/toolbar-panel/toolbar-panel.component';
 import { ColorPickerComponent } from './toolbar/color-picker/color-picker.component';
+import {ColorSketchModule} from 'ngx-color/sketch';
+import { ColorSwatchesModule } from 'ngx-color/swatches'; // <color-swatches></color-swatches>
+import { ColorPhotoshopModule } from 'ngx-color/photoshop'; // <color-photoshop></color-photoshop>
+import { ColorBlockModule } from 'ngx-color/block'; // <color-block></color-block>
+import { ColorChromeModule } from 'ngx-color/chrome'; // <color-chrome></color-chrome>
+
+
+
 
 @NgModule({
-  declarations: [PickersComponent, BuilderComponent, PickerComponent, CanvasComponent, ToolbarComponent, ToolbarPanelComponent, ColorPickerComponent],
+  declarations: [PickersComponent, BuilderComponent, PickerComponent, CanvasComponent, ToolbarComponent,
+    ToolbarPanelComponent, ColorPickerComponent],
   imports: [
     CommonModule,
     MatIconModule,
+    ColorSketchModule,
     BuilderRoutingModule,
-    SharedModule
+    SharedModule,
+    ColorSwatchesModule,
+    ColorPhotoshopModule,
+    ColorBlockModule,
+    ColorChromeModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

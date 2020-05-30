@@ -1,11 +1,11 @@
-import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter, ViewChild, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-single-select',
   templateUrl: './single-select.component.html',
   styleUrls: ['./single-select.component.scss']
 })
-export class SingleSelectComponent implements OnInit, OnChanges {
+export class SingleSelectComponent implements OnInit, OnChanges, AfterViewInit {
 
   @Input() list = [];
   @Input() changeFontFamily = false;
@@ -14,15 +14,24 @@ export class SingleSelectComponent implements OnInit, OnChanges {
   @Output() itemHover = new EventEmitter();
   @Output() closeWithoutSelect = new EventEmitter();
 
+  @ViewChild('inputContainer') inputContainer;
+
   showList = false;
   searchStr = '';
   searching = false;
+  dropdownWidth = '';
+
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
   }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit() {
+    this.dropdownWidth = this.inputContainer.nativeElement.offsetWidth + 'px';
+    console.log(this.inputContainer.nativeElement, this.dropdownWidth);
   }
 
   openDropdown() {

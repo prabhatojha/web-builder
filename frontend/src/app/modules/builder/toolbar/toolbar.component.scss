@@ -15,6 +15,9 @@
 .toolbar-input:focus {
   outline: 1px solid $gray-50;
 }
+input[type="number"] {
+  width: 60px;
+}
 
 .toolbar-icons {
   display: flex;

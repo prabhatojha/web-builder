@@ -2,19 +2,45 @@
 
 .color-picker {
   position: absolute;
-  width: 255px;
+  width: 275px;
   height: 300px;
   padding: 10px;
   background-color: white;
   overflow-y: auto;
-  box-shadow: 1px 1px 3px grey;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.3);
 
   .color-pallete {
-    border: 1px solid $gray-200;
-    width: 15px;
-    height: 15px;
-    margin: 1px 3px;
     display: inline-block;
+    /* cursor: pointer; */
+    width: calc(1.75em - 5px);
+    height: calc(1.75em - 5px);
+    border-radius: 0.15em;
     cursor: pointer;
+    margin: 2.5px;
+    flex-shrink: 0;
+    justify-self: center;
+    transition: all 0.15s;
+    overflow: hidden;
+    background: transparent;
+
+    &.add-color-pallete {
+      background: white;
+      font-size: 19px;
+    }
+  }
+}
+
+.color-sketch {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  border-radius: 2px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  background: white;
+
+  ::ng-deep .chrome-picker {
+    border-radius: 0;
+    box-shadow: 0 0 0;
   }
 }

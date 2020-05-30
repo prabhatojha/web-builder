@@ -3,6 +3,7 @@
     <ng-content></ng-content>
   </div>
   <ul id="myDropdown" class="dropdown-content" *ngIf="showList" (keydown.escape)="closeDropdown()"
+    [style.min-width]="dropdownWidth"
     (appClickOutside)="onClickOutside()" [srcElement]="inputContainer">
     <ng-container *ngFor="let opt of list">
       <li *ngIf="!searching || doesStringContains(opt.label)"
