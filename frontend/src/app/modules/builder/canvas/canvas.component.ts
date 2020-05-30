@@ -3,6 +3,8 @@ import { CONST_VAR } from 'src/app/constants/contants';
 import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
 import { Hasher } from 'src/app/constants/hasher';
 import { AVA_TOOLBAR_OPTIONS } from '../toolbar/toolbar.config';
+import { EventerService, EventModal, EventTypes } from '../../shared/services/eventer.service';
+import { map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-canvas',
@@ -14,6 +16,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   @ViewChild('canvas', { static: true }) canvas: ElementRef;
   @ViewChild('canvasContainer', { static: true }) canvasContainer: ElementRef;
+  CANVAS_EVENTS = [EventTypes.CANVAS_PREVIEW, EventTypes.CANVAS_DOWNLOAD];
 
   canvasOffsetLeft: number;
   canvasOffsetTop: number;
@@ -59,13 +62,15 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   isDragging = false;
   isResizing = false;
+  showPreview = false;
 
-  constructor() {
+  constructor(private eventer: EventerService) {
   }
 
   ngOnInit(): void {
     this.createInitialView();
     this.subscribeToEvent();
+    this.subscribeEventer();
   }
 
   ngAfterViewInit(): void {
@@ -307,5 +312,16 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       this.selectedNode.remove();
       this.toolbarOptions = [];
     }
+  }
+
+  // Preview Canvas
+
+  subscribeEventer() {
+    this.eventer.get().pipe(filter((t: EventModal) => this.CANVAS_EVENTS.includes(t.type))).subscribe((event: EventModal) => {
+
+      if (event.type === EventTypes.CANVAS_PREVIEW) {
+        this.showPreview = true;
+      }
+    });
   }
 }

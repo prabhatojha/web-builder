@@ -10,7 +10,6 @@ export class ColorPickerComponent implements OnInit, AfterViewInit {
 
   showDropdown = false;
   selectedColor = '';
-  pickr: any;
   options = [{
     label: 'My Colors',
     id: 'myColor',
@@ -82,6 +81,5 @@ export class ColorPickerComponent implements OnInit, AfterViewInit {
   close() {
     this.showDropdown = false;
     this.showColorPicker = false;
-    this.pickr.hide();
   }
 }

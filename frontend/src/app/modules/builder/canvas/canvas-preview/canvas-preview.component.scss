@@ -1,0 +1,18 @@
+@import "../../../../../style/colors.scss";
+
+.my-modal-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.canvas-preview {
+  width: calc(100vw - 60px);
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+  background-color: $gray-20;
+  border: 1px solid gainsboro;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}

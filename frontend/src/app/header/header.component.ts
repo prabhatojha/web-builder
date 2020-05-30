@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EventTypes, EventerService } from '../modules/shared/services/eventer.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private eventer: EventerService) { }
 
   ngOnInit(): void {
   }
 
+  previewCanvas() {
+    this.eventer.send({ type: EventTypes.CANVAS_PREVIEW, value: '' });
+  }
 }
