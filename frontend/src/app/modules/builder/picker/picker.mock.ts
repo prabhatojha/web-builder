@@ -37,7 +37,9 @@ export const PICKERS = {
           'text-align': 'center',
           'position': 'absolute',
           'cursor': 'move',
-          'user-select': 'none'
+          'user-select': 'none',
+          'width': '320px',
+          'height': '68px'
         },
         children: [
           {
@@ -86,7 +88,9 @@ export const PICKERS = {
           'text-align': 'center',
           'position': 'absolute',
           'cursor': 'move',
-          'user-select': 'none'
+          'user-select': 'none',
+          'width': '279px',
+          'height': '185px'
         },
         children: [
           {
@@ -119,7 +123,9 @@ export const PICKERS = {
           'text-align': 'center',
           'position': 'absolute',
           'cursor': 'move',
-          'user-select': 'none'
+          'user-select': 'none',
+          'width': '288px',
+          'height': '192px'
         },
         children: [
           {

@@ -35,6 +35,8 @@ export class ColorPickerComponent implements OnInit, AfterViewInit {
   }];
 
   showColorPicker = false;
+  selectedOption: any = {};
+  unsavedColor: any;
 
   @Output() colorHover = new EventEmitter();
   @Output() colorSelect = new EventEmitter();
@@ -50,8 +52,18 @@ export class ColorPickerComponent implements OnInit, AfterViewInit {
     // this.createPicker();
   }
 
-  onPick() {
+  openColorPicker(opt) {
+    this.selectedOption = opt;
+    this.showColorPicker = true;
+  }
+
+  onPick(e) {
+    e.stopPropagation();
     this.showColorPicker = false;
+    console.log(this.unsavedColor);
+    if (this.unsavedColor && this.selectedOption) {
+      this.selectedOption.customColors.push(this.unsavedColor.hex);
+    }
   }
 
   open() {
@@ -59,16 +71,17 @@ export class ColorPickerComponent implements OnInit, AfterViewInit {
   }
 
   onHover(color) {
-    this.colorHover.emit(color);
+    // this.colorHover.emit(color);
   }
 
   onClick(color) {
     this.colorSelect.emit(color);
-    this.close();
+    // this.close();
   }
 
   close() {
     this.showDropdown = false;
+    this.showColorPicker = false;
     this.pickr.hide();
   }
 }
