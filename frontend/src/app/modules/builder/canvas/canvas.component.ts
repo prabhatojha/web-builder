@@ -42,16 +42,17 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   project = {
     elementId: 'my-first-element',
     id: 'jfaslj12o4u12oi',
-    type: 'image',
     toolbarOptions: [2],
     searchKeywords: [],
     canvaElement: {
       tag: 'div',
       style: {
         width: '500px',
-        height: '250px',
+        height: '500px',
         position: 'relative',
-        background: 'white'
+        'background-color': 'rgb(180, 72, 0, 0.4)',
+        '-webkit-print-color-adjust': 'exact'
+
       },
       attribute: {
         class: 'canvas-template'

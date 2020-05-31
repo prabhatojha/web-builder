@@ -8,7 +8,7 @@ import { CanvasUtils } from 'src/app/utils/canvas.utils';
 })
 export class CanvasPreviewComponent implements OnInit {
 
-  @Input() project: any;
+  @Input() canvaElement: any;
   @Output() closePreview = new EventEmitter();
 
   @ViewChild('canvasPreview', { static: true }) canvasPreview: ElementRef;
@@ -18,8 +18,9 @@ export class CanvasPreviewComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.project);
-    this.canvasPreview.nativeElement.appendChild(CanvasUtils.buildDom(this.project.canvaElement));
+    console.log(this.canvaElement);
+
+    this.canvasPreview.nativeElement.appendChild(CanvasUtils.buildDom(this.canvaElement));
   }
 
   updatePreview() {
