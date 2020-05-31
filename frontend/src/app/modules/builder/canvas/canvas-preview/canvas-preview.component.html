@@ -1,7 +1,9 @@
 <div class='my-modal-header'>
   <h5 class="modal-title">Modal Header</h5>
-  <button type="button" (click)="print()" data-dismiss="modal">Print</button>
-  <button type="button" (click)="close()" data-dismiss="modal">Close</button>
+  <div>
+    <button class="mr-3" type="button" (click)="print()" data-dismiss="modal">Print</button>
+    <button type="button" (click)="close()" data-dismiss="modal">Close</button>
+  </div>
 </div>
 <div class="canvas-preview">
   <div #canvasPreview style="margin: 20px;" class="fit-content">

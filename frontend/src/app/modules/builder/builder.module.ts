@@ -15,14 +15,15 @@ import { ColorSwatchesModule } from 'ngx-color/swatches'; // <color-swatches></c
 import { ColorPhotoshopModule } from 'ngx-color/photoshop'; // <color-photoshop></color-photoshop>
 import { ColorBlockModule } from 'ngx-color/block'; // <color-block></color-block>
 import { ColorChromeModule } from 'ngx-color/chrome';
-import { CanvasPreviewComponent } from './canvas/canvas-preview/canvas-preview.component'; // <color-chrome></color-chrome>
+import { CanvasPreviewComponent } from './canvas/canvas-preview/canvas-preview.component';
+import { CanvasScaleComponent } from './canvas/canvas-scale/canvas-scale.component'; // <color-chrome></color-chrome>
 
 
 
 
 @NgModule({
   declarations: [PickersComponent, BuilderComponent, PickerComponent, CanvasComponent, ToolbarComponent,
-    ToolbarPanelComponent, ColorPickerComponent, CanvasPreviewComponent],
+    ToolbarPanelComponent, ColorPickerComponent, CanvasPreviewComponent, CanvasScaleComponent],
   imports: [
     CommonModule,
     MatIconModule,

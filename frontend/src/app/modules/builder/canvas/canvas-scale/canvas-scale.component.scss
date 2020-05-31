@@ -1,0 +1,32 @@
+@import "../../../../../style/colors.scss";
+@import "../../../../../style/structure";
+.canvas-scaler {
+  position: fixed;
+  bottom: 80px;
+  right: 80px;
+  background-color: rgba(83, 47, 47, 0.8);
+  border-radius: 6px;
+  z-index: 10001;
+
+  div {
+    text-align: center;
+
+    button {
+      background: none;
+      border: none;
+      padding: 7px 15px;
+      color: $brightFontColor;
+      outline: none;
+      // border-radius: 6px;
+    }
+
+    button:hover {
+      // background-color: $gray-400;
+    }
+  }
+}
+
+.scale-value {
+  color: $brightFontColor;
+  font-size: $smallestFont;
+}
