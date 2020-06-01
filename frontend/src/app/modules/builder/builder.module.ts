@@ -10,16 +10,14 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { SharedModule } from '../shared/shared.module';
 import { ToolbarPanelComponent } from './toolbar/toolbar-panel/toolbar-panel.component';
 import { ColorPickerComponent } from './toolbar/color-picker/color-picker.component';
-import {ColorSketchModule} from 'ngx-color/sketch';
+import { ColorSketchModule } from 'ngx-color/sketch';
 import { ColorSwatchesModule } from 'ngx-color/swatches'; // <color-swatches></color-swatches>
 import { ColorPhotoshopModule } from 'ngx-color/photoshop'; // <color-photoshop></color-photoshop>
 import { ColorBlockModule } from 'ngx-color/block'; // <color-block></color-block>
 import { ColorChromeModule } from 'ngx-color/chrome';
 import { CanvasPreviewComponent } from './canvas/canvas-preview/canvas-preview.component';
 import { CanvasScaleComponent } from './canvas/canvas-scale/canvas-scale.component'; // <color-chrome></color-chrome>
-
-
-
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [PickersComponent, BuilderComponent, PickerComponent, CanvasComponent, ToolbarComponent,
@@ -33,7 +31,8 @@ import { CanvasScaleComponent } from './canvas/canvas-scale/canvas-scale.compone
     ColorSwatchesModule,
     ColorPhotoshopModule,
     ColorBlockModule,
-    ColorChromeModule
+    ColorChromeModule,
+    MatTooltipModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
