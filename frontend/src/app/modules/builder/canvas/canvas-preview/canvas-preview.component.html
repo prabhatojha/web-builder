@@ -1,11 +1,12 @@
 <div class='my-modal-header'>
   <h5 class="modal-title">Preview</h5>
   <div>
-    <button class="mr-3" type="button" (click)="print()" data-dismiss="modal">Print</button>
-    <button type="button" (click)="close()" data-dismiss="modal">Close</button>
+    <button mat-stroked-button (click)="print()" color="primary" class="mr-3">Print</button>
+    <button mat-stroked-button (click)="close()" color="primary">Close</button>
   </div>
 </div>
-<div class="canvas-preview">
-  <div #canvasPreview style="margin: 20px;" class="fit-content">
+<div class="canvas-preview-container">
+  <div #canvasPreview class="canvas-preview fit-content">
   </div>
 </div>
+<app-canvas-scale [node]="canvasPreview"></app-canvas-scale>

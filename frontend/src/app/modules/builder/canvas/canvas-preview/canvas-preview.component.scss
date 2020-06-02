@@ -6,7 +6,7 @@
   margin-bottom: 10px;
 }
 
-.canvas-preview {
+.canvas-preview-container {
   width: calc(100vw - 60px);
   height: calc(100vh - 100px);
   overflow-y: auto;
@@ -14,4 +14,9 @@
   border: 1px solid gainsboro;
   display: flex;
   justify-content: center;
+}
+
+.canvas-preview {
+  transform-origin: top;
+  margin: 30px;
 }

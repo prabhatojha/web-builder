@@ -18,6 +18,7 @@ import { ColorChromeModule } from 'ngx-color/chrome';
 import { CanvasPreviewComponent } from './canvas/canvas-preview/canvas-preview.component';
 import { CanvasScaleComponent } from './canvas/canvas-scale/canvas-scale.component'; // <color-chrome></color-chrome>
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [PickersComponent, BuilderComponent, PickerComponent, CanvasComponent, ToolbarComponent,
@@ -32,7 +33,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ColorPhotoshopModule,
     ColorBlockModule,
     ColorChromeModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatButtonModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

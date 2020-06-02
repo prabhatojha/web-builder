@@ -26,16 +26,9 @@
         margin-left: 20px;
       }
 
-      li a {
-        padding: 10px 20px;
-        color: $primaryColor;
-        border-radius: 2px;
-        border: 1px solid $gray-50;
-      }
-
-      li a:hover {
-        background-color: $gray-50;
-        transition: background-color 0.3s;
+      li a, li button {
+        background-color: white;
+        text-decoration: none;
       }
     }
   }
