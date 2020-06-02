@@ -11,18 +11,20 @@
   div {
     text-align: center;
 
-    button {
-      background: none;
-      border: none;
-      padding: 7px 15px;
-      color: $brightFontColor;
+    button:focus {
       outline: none;
-      // border-radius: 6px;
     }
+    //   background: none;
+    //   border: none;
+    //   padding: 7px 15px;
+    //   color: $brightFontColor;
+    //   outline: none;
+    //   border-radius: 6px;
+    // }
 
-    button:hover {
-      // background-color: $gray-400;
-    }
+    // button:hover {
+    // background-color: $gray-400;
+    // }
   }
 }
 
