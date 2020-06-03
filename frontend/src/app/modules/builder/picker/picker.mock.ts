@@ -29,6 +29,7 @@ export const PICKERS = {
       searchKeywords: [],
       canvaElement: {
         tag: 'div',
+        type: 'text',
         attribute: {
         },
         style: {

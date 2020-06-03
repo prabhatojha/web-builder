@@ -87,7 +87,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.isResizing = false;
         this.isDragging = false;
 
-        // TODO: Persist the values from `selectedNode` to `selectedItem`
         const style = this.selectedItem.canvaElement.style;
         const targetStyle = this.selectedNode.style;
         style.width = targetStyle.width;
@@ -216,6 +215,27 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   attachEventListner(node, item) {
     this.selectElement(node, item);
+    this.doubleClickListener(node, item);
+  }
+
+  doubleClickListener(node, item) {
+    if (this.selectedItem.canvaElement.type === 'text') {
+      node.addEventListener('dblclick', (e) => {
+        node.setAttribute(CSS_PROPERTIES.CONTENT_EDITABLE, true);
+        node.focus();
+      });
+
+      node.addEventListener('blur', (e) => {
+        node.setAttribute(CSS_PROPERTIES.CONTENT_EDITABLE, false);
+        console.log(node.innerText);
+        this.updateInnerText(node.innerText, item);
+      });
+    }
+  }
+
+  updateInnerText(innerText, item) {
+    const span = item.canvaElement.children[0];
+    span.innerText = innerText;
   }
 
   selectElement(node, item) {

@@ -23,9 +23,10 @@
   </div>
   <div class="color-sketch" *ngIf="showColorPicker">
     <color-chrome (onChangeComplete)="unsavedColor = $event.color"></color-chrome>
-    <div>
-      <button (click)="$event.stopPropagation(); showColorPicker = false">Cancel</button>
-      <button (click)="onPick($event)">Save</button>
+    <div class="text-right">
+      <button mat-stroked-button (click)="$event.stopPropagation(); showColorPicker = false"
+        color="primary" class="mr-3">Cancel</button>
+      <button mat-stroked-button (click)="onPick($event)" color="primary">Save</button>
     </div>
   </div>
 </div>
