@@ -8,6 +8,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class PopupComponent implements OnInit {
 
   @Input() centerAlign = true;
+  @Input() backdropClass = 'dark-backdrop';
+
   constructor() { }
 
   ngOnInit(): void {

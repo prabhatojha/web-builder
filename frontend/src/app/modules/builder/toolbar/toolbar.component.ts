@@ -124,4 +124,9 @@ export class ToolbarComponent implements OnInit, OnChanges {
     this.applyNodeChanges(filter, color);
     this.applySelectedItemChanes(filter, color);
   }
+
+  onCssChange(filter, cssValue) {
+    this.applyNodeChanges(filter, cssValue);
+    this.applySelectedItemChanes(filter, cssValue);
+  }
 }

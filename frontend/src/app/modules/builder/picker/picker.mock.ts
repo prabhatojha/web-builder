@@ -25,7 +25,7 @@ export const PICKERS = {
       elementId: 'my-first-element',
       id: 'xzkljasf214assaf',
       type: 'image',
-      toolbarOptions: [0, 1, 3, 6, 7, 8],
+      toolbarOptions: [0, 1, 3, 6, 7, 8, 10],
       searchKeywords: [],
       canvaElement: {
         tag: 'div',

@@ -18,11 +18,14 @@ import { ColorChromeModule } from 'ngx-color/chrome';
 import { CanvasPreviewComponent } from './canvas/canvas-preview/canvas-preview.component';
 import { CanvasScaleComponent } from './canvas/canvas-scale/canvas-scale.component'; // <color-chrome></color-chrome>
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
+import { TextAlignmentComponent } from './toolbar/text-alignment/text-alignment.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+
 
 @NgModule({
   declarations: [PickersComponent, BuilderComponent, PickerComponent, CanvasComponent, ToolbarComponent,
-    ToolbarPanelComponent, ColorPickerComponent, CanvasPreviewComponent, CanvasScaleComponent],
+    ToolbarPanelComponent, ColorPickerComponent, CanvasPreviewComponent, CanvasScaleComponent, TextAlignmentComponent],
   imports: [
     CommonModule,
     MatIconModule,
@@ -34,7 +37,8 @@ import {MatButtonModule} from '@angular/material/button';
     ColorBlockModule,
     ColorChromeModule,
     MatTooltipModule,
-    MatButtonModule
+    MatButtonModule,
+    MatButtonToggleModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

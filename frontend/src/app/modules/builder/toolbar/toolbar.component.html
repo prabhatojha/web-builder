@@ -72,6 +72,20 @@
             </app-color-picker>
           </div>
         </ng-container>
+
+        <!-- Delete Item -->
+        <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.TEXT_ALIGNMENT">
+          <!-- <div class="toolbar-icons" (click)="removeItem()"> -->
+          <div class="position-relative" (mouseenter)="filter.open = true" (mouseleave)="filter.open = false">
+            <mat-button-toggle>
+              <mat-icon>subject</mat-icon>
+            </mat-button-toggle>
+            <app-text-alignment (selction)="onCssChange(filter, $event)" *ngIf="filter.open">
+
+            </app-text-alignment>
+          </div>
+          <!-- </div> -->
+        </ng-container>
       </ng-container>
     </div>
   </ng-container>
