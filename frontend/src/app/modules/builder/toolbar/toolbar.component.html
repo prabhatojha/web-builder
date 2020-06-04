@@ -27,23 +27,23 @@
 
         <!-- Font Weigth Bold -->
         <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.FONT_WEIGHT_BOLD">
-          <div class="toolbar-icons" (click)="onBoldClick(filter)" [class.toolbar-icons-selected]="filter.isSelected">
-            <mat-icon aria-hidden="false" aria-label="item.label">format_bold</mat-icon>
-          </div>
+          <button mat-icon-button (click)="onBoldClick(filter)">
+            <i class="material-icons">format_bold</i>
+          </button>
         </ng-container>
 
         <!-- Font Style Italic -->
         <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.FONT_STYLE_ITALIC">
-          <div class="toolbar-icons" (click)="onItalicClick(filter)" [class.toolbar-icons-selected]="filter.isSelected">
-            <mat-icon aria-hidden="false" aria-label="item.label">format_italic</mat-icon>
-          </div>
+          <button mat-icon-button (click)="onItalicClick(filter)">
+            <i class="material-icons">format_italic</i>
+          </button>
         </ng-container>
 
         <!-- Delete Item -->
         <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.DELETE">
-          <div class="toolbar-icons" (click)="removeItem()">
-            <mat-icon aria-hidden="false" aria-label="item.label">delete</mat-icon>
-          </div>
+          <button mat-icon-button (click)="removeItem()">
+            <i class="material-icons">delete</i>
+          </button>
         </ng-container>
 
 
@@ -77,15 +77,20 @@
         <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.TEXT_ALIGNMENT">
           <!-- <div class="toolbar-icons" (click)="removeItem()"> -->
           <div class="position-relative" (mouseenter)="filter.open = true" (mouseleave)="filter.open = false">
-            <mat-button-toggle>
+            <!-- <mat-button-toggle>
               <mat-icon>subject</mat-icon>
-            </mat-button-toggle>
+            </mat-button-toggle> -->
+            <button mat-icon-button>
+              <i class="material-icons">subject</i>
+            </button>
             <app-text-alignment (selction)="onCssChange(filter, $event)" *ngIf="filter.open">
 
             </app-text-alignment>
           </div>
           <!-- </div> -->
         </ng-container>
+
+
       </ng-container>
     </div>
   </ng-container>
