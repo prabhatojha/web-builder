@@ -25,8 +25,8 @@
     <color-chrome (onChangeComplete)="unsavedColor = $event.color"></color-chrome>
     <div class="text-right">
       <button mat-stroked-button (click)="$event.stopPropagation(); showColorPicker = false"
-        color="primary" class="mr-3">Cancel</button>
-      <button mat-stroked-button (click)="onPick($event)" color="primary">Save</button>
+        class="mr-3">Cancel</button>
+      <button mat-stroked-button (click)="onPick($event)">Save</button>
     </div>
   </div>
 </div>

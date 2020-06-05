@@ -1,0 +1,15 @@
+@import "./colors.scss";
+
+.mat-stroked-button {
+  color: $primaryColor;
+  background-color: $primaryBgColor;
+  border-radius: 2px;
+  outline: none;
+  :focus {
+    outline: none;
+  }
+}
+
+button:focus {
+  outline: none;
+}
