@@ -8,7 +8,7 @@ $toolBarHeight: 50px;
   width: 100%;
   height: $toolBarHeight;
   background-color: $gray-20;
-  z-index: 1;
+  z-index: $toolbarZ;
   box-shadow: 0px 1px 1px grey;
 }
 

@@ -44,6 +44,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     id: 'jfaslj12o4u12oi',
     toolbarOptions: [2],
     searchKeywords: [],
+    currentZindex: 1,
     canvaElement: {
       tag: 'div',
       style: {
@@ -227,7 +228,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
       node.addEventListener('blur', (e) => {
         node.setAttribute(CSS_PROPERTIES.CONTENT_EDITABLE, false);
-        console.log(node.innerText);
         this.updateInnerText(node.innerText, item);
       });
     }
@@ -262,7 +262,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   _selectElement(node, item) {
     // Remove handler from previous selected item
     this.removeResizeHandleAndBorder();
-    this.removeZIndex();
 
     // Store the selected element ref and show toobar
     this.showToolBar(node, item);
@@ -298,15 +297,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     }
   }
 
-  removeZIndex() {
-    if (this.selectedNode) {
-      this.selectedNode.style[CSS_PROPERTIES.Z_INDEX] = 0;
-    }
-  }
-
   addZIndex() {
     if (this.selectedNode) {
-      this.selectedNode.style[CSS_PROPERTIES.Z_INDEX] = 101;
+      this.selectedNode.style[CSS_PROPERTIES.Z_INDEX] = this.project.currentZindex++;
     }
   }
 

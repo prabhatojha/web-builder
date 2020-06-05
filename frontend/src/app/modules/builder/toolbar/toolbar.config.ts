@@ -13,6 +13,7 @@ export const AVA_TOOLBAR_OPTIONS = {
   FONT_STYLE_ITALIC: 7,
   DELETE: 8,
   TEXT_ALIGNMENT: 10,
+  LOCK: 11
 };
 
 // const AVAILABLE_FONT_SIZE = [];
@@ -80,6 +81,12 @@ export const FilterConfig = [
     selectedValue: '',
     isSelected: false,
     cssField: 'text-align'
+  },
+  {
+    id: AVA_TOOLBAR_OPTIONS.LOCK,
+    filterType: FILTER_TYPES.TOGGABLE,
+    field: 'isLocked',
+    isSelected: false
   },
   {
     id: AVA_TOOLBAR_OPTIONS.DELETE,

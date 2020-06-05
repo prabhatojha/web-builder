@@ -14,6 +14,11 @@ export const LEFT_MENU_ITEMS = [
     id: 6,
     label: 'Upload',
     icon: 'cloud_upload'
+  },
+  {
+    id: 7,
+    label: 'Shapes',
+    icon: 'design_services'
   }
 ];
 

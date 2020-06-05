@@ -116,6 +116,10 @@ export class ToolbarComponent implements OnInit, OnChanges {
     this.removeSelectedItem.emit();
   }
 
+  lockItem() {
+    this.selectedItem.locked = !this.selectedItem.locked;
+  }
+
   onColorHover(filter, color) {
     this.applyNodeChanges(filter, color);
   }

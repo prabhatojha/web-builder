@@ -18,3 +18,9 @@ $pickerWidth: 310px;
 
 // Canvas
 $canvasInitialHeight: calc($contentHeight - 150px);
+
+
+// Z-index
+
+$modalZ: 10000;
+$toolbarZ: 9999;
