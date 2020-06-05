@@ -1,13 +1,11 @@
 <div class="dropdown">
-  <div (click)="openDropdown()" #inputContainer>
+  <div (click)="openDropdown()" #inputContainer [class.p-none]="disabled">
     <ng-content></ng-content>
   </div>
   <ul id="myDropdown" class="dropdown-content" *ngIf="showList" (keydown.escape)="closeDropdown()"
-    [style.min-width]="dropdownWidth"
-    (appClickOutside)="onClickOutside()" [srcElement]="inputContainer">
+    [style.min-width]="dropdownWidth" (appClickOutside)="onClickOutside()" [srcElement]="inputContainer">
     <ng-container *ngFor="let opt of list">
-      <li *ngIf="!searching || doesStringContains(opt.label)"
-      (click)="selectItem(opt)" (mouseenter)="hoverItem(opt)"
+      <li *ngIf="!searching || doesStringContains(opt.label)" (click)="selectItem(opt)" (mouseenter)="hoverItem(opt)"
         [style.font-family]="changeFontFamily ? opt.value : 'inherit'">
         {{opt.label}}
       </li>

@@ -118,6 +118,9 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
   lockItem() {
     this.selectedItem.locked = !this.selectedItem.locked;
+
+    // This will trigger changes to selected element, such as removing the Resize Handle
+    this.selectedNode.dispatchEvent(new Event('mousedown'));
   }
 
   onColorHover(filter, color) {

@@ -222,11 +222,17 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   doubleClickListener(node, item) {
     if (this.selectedItem.canvaElement.type === 'text') {
       node.addEventListener('dblclick', (e) => {
+        if (this.isElementLocked()) {
+          return;
+        }
         node.setAttribute(CSS_PROPERTIES.CONTENT_EDITABLE, true);
         node.focus();
       });
 
       node.addEventListener('blur', (e) => {
+        if (this.isElementLocked()) {
+          return;
+        }
         node.setAttribute(CSS_PROPERTIES.CONTENT_EDITABLE, false);
         this.updateInnerText(node.innerText, item);
       });
@@ -251,6 +257,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   moveElementWithMouse(ce) {
+    if (this.isElementLocked()) {
+      return;
+    }
     this.isDragging = true;
     this.initialLeft = parseInt(this.selectedNode.style.left, 10);
     this.initialTop = parseInt(this.selectedNode.style.top, 10);
@@ -273,6 +282,10 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   attachResizeHandler(node) {
+    if (this.isElementLocked()) {
+      return;
+    }
+
     const resizeHandler = document.createElement('div');
     resizeHandler.classList.add(CONST_VAR.RESIZE_HANDLER_CLASS);
     resizeHandler.style.cssText = 'position: absolute;width: 15px;height: 15px;border-bottom: 5px solid gray;' +
@@ -298,7 +311,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   addZIndex() {
-    if (this.selectedNode) {
+    if (this.selectedNode && !this.isElementLocked()) {
       this.selectedNode.style[CSS_PROPERTIES.Z_INDEX] = this.project.currentZindex++;
     }
   }
@@ -337,5 +350,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.showPreview = true;
       }
     });
+  }
+
+  isElementLocked() {
+    return this.selectedItem ? this.selectedItem.locked : false;
   }
 }

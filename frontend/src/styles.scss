@@ -1,5 +1,5 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.css";
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 @import "./style/colors.scss";
 @import "./style/structure";
@@ -46,4 +46,13 @@ button {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
+}
+
+.p-none {
+  pointer-events: none;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
 }

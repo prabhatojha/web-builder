@@ -9,6 +9,7 @@ export class SingleSelectComponent implements OnInit, OnChanges, AfterViewInit {
 
   @Input() list = [];
   @Input() changeFontFamily = false;
+  @Input() disabled = false;
 
   @Output() itemSelect = new EventEmitter();
   @Output() itemHover = new EventEmitter();

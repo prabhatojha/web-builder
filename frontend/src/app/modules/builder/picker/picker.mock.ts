@@ -30,7 +30,7 @@ export const PICKERS = {
       elementId: 'my-first-element',
       id: 'xzkljasf214assaf',
       type: 'image',
-      toolbarOptions: [0, 1, 3, 6, 7, 8, 10],
+      toolbarOptions: [0, 1, 3, 6, 7, 8, 10, 11],
       searchKeywords: [],
       canvaElement: {
         tag: 'div',
@@ -83,7 +83,7 @@ export const PICKERS = {
       elementId: 'my-first-element',
       id: 'askfljkjasf;askls',
       type: 'image',
-      toolbarOptions: [8],
+      toolbarOptions: [8, 11],
       searchKeywords: [],
       imageUrl: '/assets/images/pickers/resize-1590238348409394631girl5352511920.jpg',
       canvaElement: {

@@ -7,10 +7,12 @@
         <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.FONT_FAMILY">
           <app-single-select #singleSelect (itemSelect)="onFontFamilySelect(filter, $event, true)"
             [list]="filter.options" (itemHover)="onFontFamilySelect(filter, $event, false)"
-            [changeFontFamily]="filter.changeFontFamily" (closeWithoutSelect)="onCloseWithoutSelect(filter)">
+            [changeFontFamily]="filter.changeFontFamily" (closeWithoutSelect)="onCloseWithoutSelect(filter)"
+            [disabled]="selectedItem?.locked">
             <input #singleSelectSearch [attr.type]="filter.inputType" placeholder="{{filter.placeholder}}"
               class="toolbar-input" [value]="filter.selectedValue"
-              (keyup)="filter.isSearchEnabled && singleSelect.search(singleSelectSearch.value)">
+              (keyup)="filter.isSearchEnabled && singleSelect.search(singleSelectSearch.value)"
+              [disabled]="selectedItem?.locked">
           </app-single-select>
         </ng-container>
 
@@ -18,30 +20,34 @@
         <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.FONT_SIZE">
           <app-single-select #singleSelect (itemSelect)="onFontSizeSelect(filter, $event, true)" [list]="filter.options"
             (itemHover)="onFontSizeSelect(filter, $event, false)" [changeFontFamily]="filter.changeFontFamily"
-            (closeWithoutSelect)="onCloseWithoutSelect(filter)">
+            (closeWithoutSelect)="onCloseWithoutSelect(filter)" [disabled]="selectedItem?.locked">
             <input #fontSizeInput [attr.type]="filter.inputType" placeholder="{{filter.placeholder}}"
               class="toolbar-input" [value]="filter.selectedValue" (keyup)="setFontSize(filter, fontSizeInput.value)"
-              (mouseup)="setFontSize(filter, fontSizeInput.value)" (keydown.enter)="singleSelect.closeDropdown()">
+              (mouseup)="setFontSize(filter, fontSizeInput.value)" (keydown.enter)="singleSelect.closeDropdown()"
+              [disabled]="selectedItem?.locked">
           </app-single-select>
         </ng-container>
 
         <!-- Font Weigth Bold -->
         <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.FONT_WEIGHT_BOLD">
-          <button mat-icon-button (click)="onBoldClick(filter)">
+          <button mat-icon-button (click)="onBoldClick(filter)" matTooltip="Text Bold" matTooltipPosition="above"
+            [disabled]="selectedItem?.locked">
             <i class="material-icons">format_bold</i>
           </button>
         </ng-container>
 
         <!-- Font Style Italic -->
         <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.FONT_STYLE_ITALIC">
-          <button mat-icon-button (click)="onItalicClick(filter)">
+          <button mat-icon-button (click)="onItalicClick(filter)" matTooltip="Text Italic" matTooltipPosition="above"
+            [disabled]="selectedItem?.locked">
             <i class="material-icons">format_italic</i>
           </button>
         </ng-container>
 
         <!-- Delete Item -->
         <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.DELETE">
-          <button mat-icon-button (click)="removeItem()">
+          <button mat-icon-button (click)="removeItem()" matTooltip="Delete Element" matTooltipPosition="above"
+            [disabled]="selectedItem?.locked">
             <i class="material-icons">delete</i>
           </button>
         </ng-container>
@@ -52,7 +58,8 @@
           <div class="position-relative">
             <app-color-picker #backgroundPicker (colorHover)="onColorHover(filter, $event)"
               (colorSelect)="onColorSelect(filter, $event)">
-              <div class="toolbar-bg-color" (click)="backgroundPicker.open()">
+              <div class="toolbar-bg-color" (click)="backgroundPicker.open()" matTooltip="Background Color"
+                matTooltipPosition="above">
               </div>
             </app-color-picker>
           </div>
@@ -63,7 +70,8 @@
           <div class="position-relative">
             <app-color-picker #backgroundPicker (colorHover)="onColorHover(filter, $event)"
               (colorSelect)="onColorSelect(filter, $event)">
-              <div class="toolbar-text-color" (click)="backgroundPicker.open()">
+              <div class="toolbar-text-color" (click)="backgroundPicker.open()" matTooltip="Text Color"
+                [class.disabled]="selectedItem?.locked" matTooltipPosition="above">
                 A
                 <div>
 
@@ -75,8 +83,9 @@
 
         <!-- Delete Item -->
         <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.TEXT_ALIGNMENT">
-          <div class="position-relative" (mouseenter)="filter.open = true" (mouseleave)="filter.open = false">
-            <button mat-icon-button>
+          <div class="position-relative" (mouseleave)="filter.open = false">
+            <button mat-icon-button matTooltip="Unlock Element" matTooltipPosition="above"
+              [disabled]="selectedItem?.locked" (mouseenter)="filter.open = true">
               <i class="material-icons">subject</i>
             </button>
             <app-text-alignment (selction)="onCssChange(filter, $event)" *ngIf="filter.open">
@@ -86,8 +95,9 @@
         </ng-container>
 
         <!-- Lock provider -->
-        <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.DELETE">
-          <button mat-icon-button (click)="lockItem()">
+        <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.LOCK">
+          <button mat-icon-button (click)="lockItem()"
+            [matTooltip]="selectedItem?.locked ? 'Unlock Eelement': 'Lock Element'" matTooltipPosition="above">
             <i class="material-icons" *ngIf="selectedItem?.locked">lock</i>
             <i class="material-icons" *ngIf="!selectedItem?.locked">lock_open</i>
           </button>
