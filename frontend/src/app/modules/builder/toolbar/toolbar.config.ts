@@ -89,6 +89,11 @@ export const FilterConfig = [
     isSelected: false
   },
   {
+    id: AVA_TOOLBAR_OPTIONS.OPACITY,
+    filterType: FILTER_TYPES.TOGGABLE,
+    cssField: 'opacity'
+  },
+  {
     id: AVA_TOOLBAR_OPTIONS.DELETE,
   }
 ];

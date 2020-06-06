@@ -103,6 +103,19 @@
           </button>
         </ng-container>
 
+        <!-- Delete Item -->
+        <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.OPACITY">
+          <div class="position-relative" (mouseleave)="filter.open = false">
+            <button mat-icon-button matTooltip="Change Opacity" matTooltipPosition="above"
+              [disabled]="selectedItem?.locked" (mouseenter)="filter.open = true">
+              <i class="material-icons">opacity</i>
+            </button>
+            <app-slider (slideChange)="updateOpacity(filter, $event)" [selectedOpacity]="styles[filter.cssField]"
+              *ngIf="filter.open">
+            </app-slider>
+          </div>
+        </ng-container>
+
       </ng-container>
     </div>
   </ng-container>

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitte
 import { AVA_TOOLBAR_OPTIONS, FilterConfig } from './toolbar.config';
 import { FILTER_TYPES } from '../../../constants/contants';
 import { CommonUtils } from '../../../utils/common.utils';
+import { filter } from 'rxjs/operators';
 
 
 @Component({
@@ -21,6 +22,8 @@ export class ToolbarComponent implements OnInit, OnChanges {
   filterConfig = [];
   FILTER_TYPES = FILTER_TYPES;
   AVA_TOOLBAR_OPTIONS = AVA_TOOLBAR_OPTIONS;
+  initialOpacity = 0;
+  styles = {};
 
   constructor() { }
 
@@ -30,7 +33,8 @@ export class ToolbarComponent implements OnInit, OnChanges {
     }
 
     if (changes.selectedItem && this.selectedItem) {
-      this.setInitialState(this.getOriginalItemStyle());
+      this.styles = this.getOriginalItemStyle();
+      this.setInitialState(this.styles);
     }
   }
 
@@ -135,5 +139,9 @@ export class ToolbarComponent implements OnInit, OnChanges {
   onCssChange(filter, cssValue) {
     this.applyNodeChanges(filter, cssValue);
     this.applySelectedItemChanes(filter, cssValue);
+  }
+
+  updateOpacity(filter, cssValue) {
+    this.onCssChange(filter, cssValue);
   }
 }
