@@ -32,6 +32,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
 
   // Selected dom element's variables
+  initialRotation = 0;
   initialWidth = 0;
   initialHeight = 0;
   initialClientX = 0;
@@ -96,8 +97,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         style.height = targetStyle.height;
         style.left = targetStyle.left;
         style.top = targetStyle.top;
-
-        console.log(this.project);
+        style.transform = targetStyle.transform;
       }
     });
   }
@@ -108,7 +108,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     } else if (this.isResizing) {
       this.onItemResize(e);
     } else if (this.isRoating) {
-      this.onItemResize(e);
+      this.onItemRotate(e);
     }
   }
 
@@ -123,7 +123,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   onItemRotate(e) {
-
+    const rotation = this.initialRotation + (e.clientX - this.initialClientX);
+    this.selectedNode.style.transform = `rotate(${rotation}deg)`;
   }
 
   drop(e) {
@@ -169,7 +170,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   createInitialView() {
     const node = this.buildDom(this.project.canvaElement);
-    this.attachEventListner(node, this.project);
+    this.attachEventListner(node, this.project, false);
     this.projectNode = node;
     this.canvas.nativeElement.appendChild(node);
   }
@@ -222,8 +223,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     // }
   }
 
-  attachEventListner(node, item) {
-    this.selectElement(node, item);
+  attachEventListner(node, item, enableRotate = true) {
+    this.selectElement(node, item, enableRotate);
     this.doubleClickListener(node, item);
   }
 
@@ -252,14 +253,14 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     span.innerText = innerText;
   }
 
-  selectElement(node, item) {
+  selectElement(node, item, enableRotate) {
 
     // When user add a new item, we are slecting it by default
-    this._selectElement(node, item);
+    this._selectElement(node, item, enableRotate);
 
     node.addEventListener('mousedown', (e) => {
       e.stopPropagation();
-      this._selectElement(node, item);
+      this._selectElement(node, item, enableRotate);
       this.moveElementWithMouse(e);
     });
   }
@@ -276,9 +277,10 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this.canvasContainer.nativeElement.addEventListener('mousemove', this.mouseMoveListner);
   }
 
-  _selectElement(node, item) {
+  _selectElement(node, item, enableRotate) {
     // Remove handler from previous selected item
     this.removeResizeHandleAndBorder();
+    this.removeRotateHandle();
 
     // Store the selected element ref and show toobar
     this.showToolBar(node, item);
@@ -287,7 +289,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this.addSelectedNodeBoarder();
     this.addZIndex();
     this.attachResizeHandler(node);
-    this.attachRotateHandler(node);
+    if (enableRotate) {
+      this.attachRotateHandler(node);
+    }
   }
 
   attachResizeHandler(node) {
@@ -299,7 +303,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     resizeHandler.classList.add(CONST_VAR.RESIZE_HANDLER_CLASS);
 
     resizeHandler.addEventListener('mousedown', (e) => {
-      console.log('Resize');
       this.isResizing = true;
       e.stopPropagation();
       this.initialWidth = this.selectedNode.offsetWidth;
@@ -323,17 +326,23 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     resizeHandler.classList.add(CONST_VAR.ROTATE_HANDLER_CLASS);
 
     resizeHandler.addEventListener('mousedown', (e) => {
-      console.log('Rotate');
       this.isRoating = true;
       e.stopPropagation();
       this.initialWidth = this.selectedNode.offsetWidth;
       this.initialHeight = this.selectedNode.offsetHeight;
+      this.initialRotation = this.getInitialRotateDeg();
       this.initialClientX = e.clientX;
       this.initialClientY = e.clientY;
+
       this.canvasContainer.nativeElement.addEventListener('mousemove', this.mouseMoveListner);
     });
 
     node.appendChild(resizeHandler);
+  }
+
+  getInitialRotateDeg() {
+    const val = this.selectedNode.style.transform;
+    return val ? parseInt(val.split('rotate(')[1], 10) : 0;
   }
 
   addSelectedNodeBoarder() {
@@ -354,6 +363,15 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       const resizeHandlers = this.selectedNode.getElementsByClassName(CONST_VAR.RESIZE_HANDLER_CLASS);
       if (resizeHandlers && resizeHandlers[0]) {
         resizeHandlers[0].remove();
+      }
+    }
+  }
+
+  removeRotateHandle() {
+    if (this.selectedNode) {
+      const rotateHandlers = this.selectedNode.getElementsByClassName(CONST_VAR.ROTATE_HANDLER_CLASS);
+      if (rotateHandlers && rotateHandlers[0]) {
+        rotateHandlers[0].remove();
       }
     }
   }
