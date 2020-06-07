@@ -64,6 +64,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   isDragging = false;
   isResizing = false;
+  isRoating = false;
   showPreview = false;
 
   constructor(private eventer: EventerService) {
@@ -87,6 +88,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
         this.isResizing = false;
         this.isDragging = false;
+        this.isRoating = false;
 
         const style = this.selectedItem.canvaElement.style;
         const targetStyle = this.selectedNode.style;
@@ -105,6 +107,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       this.onItemDrag(e);
     } else if (this.isResizing) {
       this.onItemResize(e);
+    } else if (this.isRoating) {
+      this.onItemResize(e);
     }
   }
 
@@ -116,6 +120,10 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   onItemResize(e) {
     this.selectedNode.style.width = this.initialWidth + e.clientX - this.initialClientX + 'px';
     this.selectedNode.style.height = this.initialHeight + e.clientY - this.initialClientY + 'px';
+  }
+
+  onItemRotate(e) {
+
   }
 
   drop(e) {
@@ -279,6 +287,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this.addSelectedNodeBoarder();
     this.addZIndex();
     this.attachResizeHandler(node);
+    this.attachRotateHandler(node);
   }
 
   attachResizeHandler(node) {
@@ -288,11 +297,34 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
     const resizeHandler = document.createElement('div');
     resizeHandler.classList.add(CONST_VAR.RESIZE_HANDLER_CLASS);
-    resizeHandler.style.cssText = 'position: absolute;width: 15px;height: 15px;border-bottom: 5px solid gray;' +
-      'border-right: 5px solid gray;right: -5px;bottom: -5px;cursor: nwse-resize';
 
     resizeHandler.addEventListener('mousedown', (e) => {
+      console.log('Resize');
       this.isResizing = true;
+      e.stopPropagation();
+      this.initialWidth = this.selectedNode.offsetWidth;
+      this.initialHeight = this.selectedNode.offsetHeight;
+      this.initialClientX = e.clientX;
+      this.initialClientY = e.clientY;
+      this.canvasContainer.nativeElement.addEventListener('mousemove', this.mouseMoveListner);
+    });
+
+    node.appendChild(resizeHandler);
+  }
+
+  attachRotateHandler(node) {
+    if (this.isElementLocked()) {
+      return;
+    }
+
+    const resizeHandler = document.createElement('i');
+    resizeHandler.innerText = 'rotate_left';
+    resizeHandler.classList.add(CONST_VAR.ROTATE_HANDLER_ICON);
+    resizeHandler.classList.add(CONST_VAR.ROTATE_HANDLER_CLASS);
+
+    resizeHandler.addEventListener('mousedown', (e) => {
+      console.log('Rotate');
+      this.isRoating = true;
       e.stopPropagation();
       this.initialWidth = this.selectedNode.offsetWidth;
       this.initialHeight = this.selectedNode.offsetHeight;

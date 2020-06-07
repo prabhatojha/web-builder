@@ -1,6 +1,8 @@
 export const CONST_VAR = {
   PICKER_ITEM: 'pickerItem',
-  RESIZE_HANDLER_CLASS: 'resize-handler'
+  RESIZE_HANDLER_CLASS: 'resize-handler',
+  ROTATE_HANDLER_CLASS: 'rotate-handler',
+  ROTATE_HANDLER_ICON: 'material-icons'
 };
 
 export enum FILTER_TYPES {

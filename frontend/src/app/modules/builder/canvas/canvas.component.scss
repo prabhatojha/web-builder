@@ -42,3 +42,22 @@ $toolBarHeight: 50px;
     user-drag: none;
   }
 }
+
+.resize-handler {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-bottom: 5px solid rgba(0, 0, 0, 0.842);
+  border-right: 5px solid rgba(0, 0, 0, 0.842);
+  right: -5px;
+  bottom: -5px;
+  cursor: nwse-resize !important;
+}
+
+.rotate-handler {
+  position: absolute;
+  left: calc(50% - 10px);
+  top: -40px;
+  color: rgba(0, 0, 0, 0.842);
+  cursor: grab;
+}

@@ -38,8 +38,8 @@ export const PICKERS = {
         attribute: {
         },
         style: {
-          'font-size': '40px',
-          'font-family': 'cursive',
+          'font-size': '24px',
+          'font-family': 'monospace',
           'text-align': 'center',
           'position': 'absolute',
           'cursor': 'move',
@@ -50,14 +50,14 @@ export const PICKERS = {
         children: [
           {
             tag: 'label',
-            innerText: 'nice, good & great',
+            innerText: 'Double click to type',
             style: {
               cursor: 'move'
             }
           }
         ]
       },
-      imageUrl: '/assets/images/pickers/my-item2.png'
+      imageUrl: '/assets/images/pickers/add-text.png'
     }],
   3: [{
     tag: 'button',
@@ -102,9 +102,11 @@ export const PICKERS = {
           {
             tag: 'img',
             style: {
-              cursor: 'move',
-              'max-width': '100%',
-              'max-height': '100%'
+              'cursor': 'move',
+              'width': '100%',
+              'height': '100%',
+              'object-fit': 'cover'
+
             },
             attribute: {
               src: '/assets/images/pickers/girl-535251_1920.jpg'
@@ -137,9 +139,10 @@ export const PICKERS = {
           {
             tag: 'img',
             style: {
-              cursor: 'move',
-              'max-width': '100%',
-              'max-height': '100%'
+              'cursor': 'move',
+              'width': '100%',
+              'height': '100%',
+              'object-fit': 'cover'
             },
             attribute: {
               src: '/assets/images/pickers/sky-5186016_1920.jpg'
