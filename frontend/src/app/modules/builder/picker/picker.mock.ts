@@ -1,3 +1,5 @@
+import { DEFAULT_IMAGE_ELEMENT } from '../canvas/canvas.config';
+
 export const LEFT_MENU_ITEMS = [
   {
     id: 2,
@@ -81,78 +83,15 @@ export const PICKERS = {
     {
       tag: 'label',
       elementId: 'my-first-element',
-      id: 'askfljkjasf;askls',
+      id: 'askfljkjasfaskls',
       type: 'image',
       toolbarOptions: [8, 4, 11],
       searchKeywords: [],
       imageUrl: '/assets/images/pickers/resize-1590238348409394631girl5352511920.jpg',
-      canvaElement: {
-        tag: 'div',
-        attribute: {
-        },
-        style: {
-          'text-align': 'center',
-          'position': 'absolute',
-          'cursor': 'move',
-          'user-select': 'none',
-          'width': '279px',
-          'height': '185px'
-        },
-        children: [
-          {
-            tag: 'img',
-            style: {
-              'cursor': 'move',
-              'width': '100%',
-              'height': '100%',
-              'object-fit': 'cover'
-
-            },
-            attribute: {
-              src: '/assets/images/pickers/girl-535251_1920.jpg'
-            }
-          }
-        ]
-      }
-    },
-    {
-      tag: 'label',
-      elementId: 'my-first-element',
-      id: 'askfljkjasf;askls',
-      type: 'image',
-      toolbarOptions: [8],
-      searchKeywords: [],
-      imageUrl: '/assets/images/pickers/resize-1590238397581797230sky51860161920.jpg',
-      canvaElement: {
-        tag: 'div',
-        attribute: {
-        },
-        style: {
-          'text-align': 'center',
-          'position': 'absolute',
-          'cursor': 'move',
-          'user-select': 'none',
-          'width': '288px',
-          'height': '192px'
-        },
-        children: [
-          {
-            tag: 'img',
-            style: {
-              'cursor': 'move',
-              'width': '100%',
-              'height': '100%',
-              'object-fit': 'cover'
-            },
-            attribute: {
-              src: '/assets/images/pickers/sky-5186016_1920.jpg'
-            }
-          }
-        ]
-      }
-    }]
+      canvaElement: DEFAULT_IMAGE_ELEMENT
+    }
+  ]
 };
-
 
 export const CANVAS_ELEMENTS = [
   {

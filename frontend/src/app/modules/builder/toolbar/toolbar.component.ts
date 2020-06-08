@@ -125,6 +125,10 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
     // This will trigger changes to selected element, such as removing the Resize Handle
     this.selectedNode.dispatchEvent(new Event('mousedown'));
+
+    setTimeout(() => {
+      this.selectedNode.dispatchEvent(new Event('mouseup'));
+    }, 50);
   }
 
   onColorHover(filter, color) {
