@@ -1,3 +1,4 @@
+<app-search-box [placeholder]="'Search photos'"></app-search-box>
 <ul class="picker-item">
   <ng-container *ngFor="let item of items">
     <li class="image-li" draggable (dragstart)="dragStart($event, item)">

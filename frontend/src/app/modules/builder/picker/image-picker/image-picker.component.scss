@@ -1,7 +1,9 @@
+$contentMargin: 7px;
+
 .picker-item {
   li {
     padding: 10px;
-    margin: 7px;
+    margin: $contentMargin;
     border-radius: 3px;
     background-color: white;
     display: flex;
