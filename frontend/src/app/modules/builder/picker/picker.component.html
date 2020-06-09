@@ -3,28 +3,32 @@
   <!-- <div class="picker-items" #itemsRef>
 
   </div> -->
-  <ul class="picker-item">
-    <div class="w-100 text-center spinner" *ngIf="isLoading">
-      <div class="spinner-border"></div>
-    </div>
+  <!-- <ul class="picker-item"> -->
+  <div class="w-100 text-center spinner" *ngIf="isLoading">
+    <div class="spinner-border"></div>
+  </div>
 
-    <ng-container *ngFor="let item of items">
-      <ng-container [ngSwitch]="item.type">
-        <ng-container *ngSwitchCase="'image'">
-          <li class="image-li" draggable
+  <!-- <ng-container *ngFor="let item of items"> -->
+  <ng-container [ngSwitch]="picker?.id">
+    <ng-container *ngSwitchCase="LEFT_MENU_CONST.PHOTO_MENU_ID">
+      <!-- <li class="image-li" draggable
           (dragstart)="dragStart($event, item)">
             <img [src]="item.imageUrl" style="width: 100%;" [attr.id]="item.id" >
-          </li>
-        </ng-container>
+          </li> -->
 
-        <ng-container *ngSwitchCase="'text'">
-          <li class="text-li" draggable
+
+      <app-image-picker></app-image-picker>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="LEFT_MENU_CONST.TEXT_MENU_ID">
+      <!-- <li class="text-li" draggable
           (dragstart)="dragStart($event, item)">
             <label [style]="item.style" [attr.id]="item.id" >{{item.text}}</label>
-          </li>
-        </ng-container>
-
-      </ng-container>
+          </li> -->
+      <app-text-picker></app-text-picker>
     </ng-container>
-  </ul>
+
+  </ng-container>
+  <!-- </ng-container> -->
+  <!-- </ul> -->
 </div>

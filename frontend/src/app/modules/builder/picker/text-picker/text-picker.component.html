@@ -1,0 +1,7 @@
+<ul class="picker-item">
+  <ng-container *ngFor="let item of items">
+    <li class="text-li" draggable (dragstart)="dragStart($event, item)">
+      <img [src]="item.imageUrl" style="width: 100%;" [attr.id]="item.id">
+    </li>
+  </ng-container>
+</ul>

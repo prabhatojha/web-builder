@@ -1,29 +1,5 @@
 import { DEFAULT_IMAGE_ELEMENT } from '../canvas/canvas.config';
 
-export const LEFT_MENU_ITEMS = [
-  {
-    id: 2,
-    label: 'Text',
-    icon: 'text_fields',
-    type: 'text'
-  },
-  {
-    id: 5,
-    label: 'Photo',
-    icon: 'image_search'
-  },
-  {
-    id: 6,
-    label: 'Upload',
-    icon: 'cloud_upload'
-  },
-  {
-    id: 7,
-    label: 'Shapes',
-    icon: 'design_services'
-  }
-];
-
 export const PICKERS = {
   2: [
     {

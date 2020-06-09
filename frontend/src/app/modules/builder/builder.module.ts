@@ -21,11 +21,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { TextAlignmentComponent } from './toolbar/text-alignment/text-alignment.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { ImagePickerComponent } from './picker/image-picker/image-picker.component';
+import { TextPickerComponent } from './picker/text-picker/text-picker.component';
 
 
 @NgModule({
   declarations: [PickersComponent, BuilderComponent, PickerComponent, CanvasComponent, ToolbarComponent,
-    ToolbarPanelComponent, ColorPickerComponent, CanvasPreviewComponent, CanvasScaleComponent, TextAlignmentComponent],
+    ToolbarPanelComponent, ColorPickerComponent, CanvasPreviewComponent, CanvasScaleComponent, TextAlignmentComponent, ImagePickerComponent, TextPickerComponent],
   imports: [
     CommonModule,
     MatIconModule,

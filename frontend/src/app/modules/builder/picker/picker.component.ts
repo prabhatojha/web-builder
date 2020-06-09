@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import { CONST_VAR } from 'src/app/constants/contants';
 import { PICKERS } from './picker.mock';
+import { LEFT_MENU_CONST } from './picker.config';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
@@ -22,6 +23,7 @@ export class PickerComponent implements OnChanges {
 
   items = [];
   isLoading = true;
+  LEFT_MENU_CONST = LEFT_MENU_CONST;
 
   constructor() { }
 

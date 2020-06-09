@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LEFT_MENU_ITEMS } from '../picker/picker.mock';
+import { LEFT_MENU_ITEMS } from '../picker/picker.config';
 
 @Component({
   selector: 'app-pickers',

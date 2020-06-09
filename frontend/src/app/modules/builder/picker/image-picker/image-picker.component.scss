@@ -1,0 +1,14 @@
+.picker-item {
+  li {
+    padding: 10px;
+    margin: 7px;
+    border-radius: 3px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  .image-li {
+    width: calc(50% - 14px);
+  }
+}
