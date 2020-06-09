@@ -2,6 +2,8 @@ import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { PICKERS } from '../picker.mock';
 import { LEFT_MENU_CONST } from '../picker.config';
 import { CONST_VAR } from 'src/app/constants/contants';
+import { ImagesService } from './images.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-image-picker',
@@ -11,15 +13,15 @@ import { CONST_VAR } from 'src/app/constants/contants';
 export class ImagePickerComponent implements OnInit, OnChanges {
 
   items = [];
+  imagesSub: Subscription;
 
-  constructor() { }
+  constructor(private imageService: ImagesService) { }
 
   ngOnInit() {
     this.getInitialImages();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-
   }
 
   getInitialImages() {
@@ -35,5 +37,14 @@ export class ImagePickerComponent implements OnInit, OnChanges {
         top: ev.clientY - bound.top,
         item
       }));
+  }
+
+  onSearch(query) {
+    console.log('API call', query);
+    // tslint:disable-next-line: no-unused-expression
+    this.imagesSub && this.imagesSub.unsubscribe();
+    this.imagesSub = this.imageService.getPhotos(query).subscribe(data => {
+      console.log(data);
+    });
   }
 }

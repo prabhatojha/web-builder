@@ -1,7 +1,8 @@
 <div class="search-box">
-  <input type="search" [placeholder]="placeholder">
+  <input type="search" [placeholder]="placeholder" [(ngModel)]="query" (keydown.enter)="doSearch()">
+
   <div class="search-box-button">
-    <button mat-icon-button>
+    <button mat-icon-button (click)="doSearch()" [disabled]="query?.length < 2">
       <i class="material-icons">search</i>
     </button>
   </div>
