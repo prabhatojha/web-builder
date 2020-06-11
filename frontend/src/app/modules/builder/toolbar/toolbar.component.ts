@@ -67,6 +67,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
     if (updateSelectedItem) {
       this.applySelectedItemChanes(filter, e.value);
+      console.log(this.filterConfig);
     }
   }
 
@@ -80,6 +81,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   onCloseWithoutSelect(filter) {
+    console.log('On Close without select');
     const style = this.getOriginalItemStyle();
     this.applyNodeChanges(filter, style[filter.cssField]);
     this.changeSelectedValue(filter, style[filter.cssField]);

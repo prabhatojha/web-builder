@@ -16,7 +16,7 @@ export class SingleSelectComponent implements OnInit, OnChanges, AfterViewInit {
   @Output() closeWithoutSelect = new EventEmitter();
 
   @ViewChild('inputContainer') inputContainer;
-  items = Array.from({length: 100000}).map((_, i) => `Item #${i}`);
+  items = Array.from({ length: 100000 }).map((_, i) => `Item #${i}`);
 
   showList = false;
   searchStr = '';
@@ -55,6 +55,7 @@ export class SingleSelectComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   onClickOutside() {
+    console.log('onClickOutside');
     this.closeWithoutSelect.emit();
     this.closeDropdown();
   }

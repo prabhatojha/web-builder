@@ -6,7 +6,8 @@
         <!-- Single Select Filter - Font Family-->
         <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.FONT_FAMILY">
           <app-font-family [selectedFont]="filter.selectedValue" (fontHover)="onFontFamilySelect(filter, $event, false)"
-            (fontSelect)="onFontFamilySelect(filter, $event, true)" (revertFontSelect)="onCloseWithoutSelect(filter)">
+            (fontSelect)="onFontFamilySelect(filter, $event, true)" (revertFontSelect)="onCloseWithoutSelect(filter)"
+            [disabled]="selectedItem?.locked">
           </app-font-family>
         </ng-container>
 

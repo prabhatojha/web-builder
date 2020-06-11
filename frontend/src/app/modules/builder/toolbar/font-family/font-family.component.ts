@@ -23,10 +23,15 @@ export class FontFamilyComponent implements OnInit {
   }
 
   onSelect($event) {
-    this.fontHover.emit($event);
+    this.fontSelect.emit($event);
   }
 
   onHover($event) {
     this.fontHover.emit($event);
+  }
+
+  onCloseWithoutSelect() {
+    console.log('Font Comp');
+    this.revertFontSelect.emit();
   }
 }
