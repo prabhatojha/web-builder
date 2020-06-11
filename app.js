@@ -11,6 +11,8 @@ mongoose.connect('mongodb://localhost/First');
 mongoose.Promise=global.Promise;
 
 var indexRouter = require('./routes/project');
+var imageRouter = require('./routes/image');
+
 
 app.use(bodyparser.json());
 
@@ -26,6 +28,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/projects', indexRouter);
+app.use('/api/images', imageRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

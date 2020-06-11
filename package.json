@@ -13,6 +13,12 @@
     "http-errors": "^1.6.3",
     "jade": "~1.11.0",
     "mongoose": "^5.9.17",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "node-fetch": "^2.6.0",
+    "query-string": "^6.13.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5",
+    "unsplash-api": "^1.2.0",
+    "unsplash-js": "^6.0.0"
   }
 }
