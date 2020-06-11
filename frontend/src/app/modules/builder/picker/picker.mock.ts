@@ -1,5 +1,3 @@
-import { DEFAULT_IMAGE_ELEMENT } from '../canvas/canvas.config';
-
 export const PICKERS = {
   2: [
     {
@@ -55,18 +53,7 @@ export const PICKERS = {
       position: 'absolute'
     }
   }],
-  5: [
-    {
-      tag: 'label',
-      elementId: 'my-first-element',
-      id: 'askfljkjasfaskls',
-      type: 'image',
-      toolbarOptions: [8, 4, 11],
-      searchKeywords: [],
-      imageUrl: '/assets/images/pickers/resize-1590238348409394631girl5352511920.jpg',
-      canvaElement: DEFAULT_IMAGE_ELEMENT
-    }
-  ]
+  5: []
 };
 
 export const CANVAS_ELEMENTS = [

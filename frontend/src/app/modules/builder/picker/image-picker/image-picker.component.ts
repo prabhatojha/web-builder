@@ -4,6 +4,7 @@ import { LEFT_MENU_CONST } from '../picker.config';
 import { CONST_VAR } from 'src/app/constants/contants';
 import { ImagesService } from './images.service';
 import { Subscription } from 'rxjs';
+import { getImageElementInstance } from '../../canvas/canvas.config';
 
 @Component({
   selector: 'app-image-picker',
@@ -43,8 +44,22 @@ export class ImagePickerComponent implements OnInit, OnChanges {
     console.log('API call', query);
     // tslint:disable-next-line: no-unused-expression
     this.imagesSub && this.imagesSub.unsubscribe();
-    this.imagesSub = this.imageService.getPhotos(query).subscribe(data => {
-      console.log(data);
+    this.imagesSub = this.imageService.getPhotos(query).subscribe(photos => {
+      console.log(photos);
+      this.processPhotos(photos);
     });
+  }
+
+  processPhotos(photos: Array<any>) {
+
+    photos.forEach(photo => {
+      const image = getImageElementInstance();
+      image.id = photo.id;
+      image.imageUrl = photo.thumb;
+      image.canvaElement.attribute.src = photo.regular;
+      this.items.push(image);
+    });
+
+    console.log(this.items);
   }
 }

@@ -13,15 +13,24 @@ router.get('/', function (req, res, next) {
 
         case 'unsplash':
             unsplashSource.getPhotos(query, page, limit).then(toJson).then((data) => {
-                res.send(data);
+                res.send(formatImageData(data.results));
             });
             break;
         default: res.send({ "warning": "route not defined" });
             break;
 
     };
-
-
 });
+
+function formatImageData(images) {
+    return images.map((image) => {
+        return {
+            id: image.id,
+            thumb: image.urls.thumb,
+            regular: image.urls.regular,
+            full: image.urls.full
+        }
+    })
+}
 
 module.exports = router;
