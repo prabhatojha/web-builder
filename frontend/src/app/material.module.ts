@@ -4,23 +4,19 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 
 @NgModule({
   imports: [
-    MatTooltipModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatIconModule,
-    MatSliderModule,
-
   ],
   exports: [
     MatTooltipModule,
     MatButtonModule,
     MatButtonToggleModule,
     MatIconModule,
-    MatSliderModule
+    MatSliderModule,
+    ScrollingModule
   ]
 })
 export class MaterialModule { }

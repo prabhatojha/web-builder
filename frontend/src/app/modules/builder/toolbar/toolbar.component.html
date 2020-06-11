@@ -5,15 +5,9 @@
 
         <!-- Single Select Filter - Font Family-->
         <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.FONT_FAMILY">
-          <app-single-select #singleSelect (itemSelect)="onFontFamilySelect(filter, $event, true)"
-            [list]="filter.options" (itemHover)="onFontFamilySelect(filter, $event, false)"
-            [changeFontFamily]="filter.changeFontFamily" (closeWithoutSelect)="onCloseWithoutSelect(filter)"
-            [disabled]="selectedItem?.locked">
-            <input #singleSelectSearch [attr.type]="filter.inputType" placeholder="{{filter.placeholder}}"
-              class="toolbar-input" [value]="filter.selectedValue"
-              (keyup)="filter.isSearchEnabled && singleSelect.search(singleSelectSearch.value)"
-              [disabled]="selectedItem?.locked">
-          </app-single-select>
+          <app-font-family [selectedFont]="filter.selectedValue" (fontHover)="onFontFamilySelect(filter, $event, false)"
+            (fontSelect)="onFontFamilySelect(filter, $event, true)" (revertFontSelect)="onCloseWithoutSelect(filter)">
+          </app-font-family>
         </ng-container>
 
         <!-- Single Select Filter - Font Size-->

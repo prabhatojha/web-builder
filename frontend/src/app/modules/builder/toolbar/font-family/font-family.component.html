@@ -1,0 +1,6 @@
+<app-single-select #singleSelect (itemSelect)="onSelect($event)" [list]="options" (itemHover)="onHover($event)"
+  [changeFontFamily]="true">
+  <input #singleSelectSearch type="text" placeholder="Seach Font" class="toolbar-input" [value]="selectedFont"
+    (itemHover)="fontHover.emit($event)" (itemSelect)="fontSelect.emit($event)"
+    (closeWithoutSelect)="revertFontSelect.emit()" [disabled]="disabled">
+</app-single-select>

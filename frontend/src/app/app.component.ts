@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { FontFamilyService } from './modules/shared/services/font/font-family.service';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppComponent {
   title = 'frontend';
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private fontService: FontFamilyService) {
+    this.fontService.loadFonts();
   }
 }

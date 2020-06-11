@@ -16,12 +16,13 @@ import { TextAlignmentComponent } from './toolbar/text-alignment/text-alignment.
 import { ImagePickerComponent } from './picker/image-picker/image-picker.component';
 import { TextPickerComponent } from './picker/text-picker/text-picker.component';
 import { MaterialModule } from 'src/app/material.module';
+import { FontFamilyComponent } from './toolbar/font-family/font-family.component';
 
 
 @NgModule({
   declarations: [PickersComponent, BuilderComponent, PickerComponent, CanvasComponent, ToolbarComponent,
     ToolbarPanelComponent, ColorPickerComponent, CanvasPreviewComponent, CanvasScaleComponent, TextAlignmentComponent,
-    ImagePickerComponent, TextPickerComponent],
+    ImagePickerComponent, TextPickerComponent, FontFamilyComponent],
   imports: [
     CommonModule,
     BuilderRoutingModule,

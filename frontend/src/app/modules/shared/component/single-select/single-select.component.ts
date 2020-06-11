@@ -16,6 +16,7 @@ export class SingleSelectComponent implements OnInit, OnChanges, AfterViewInit {
   @Output() closeWithoutSelect = new EventEmitter();
 
   @ViewChild('inputContainer') inputContainer;
+  items = Array.from({length: 100000}).map((_, i) => `Item #${i}`);
 
   showList = false;
   searchStr = '';
