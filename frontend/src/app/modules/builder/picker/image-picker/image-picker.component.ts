@@ -40,12 +40,12 @@ export class ImagePickerComponent implements OnInit, OnChanges {
   }
 
   onNewSearch(query) {
-    this.imageService.resetPage();
-    this.getNextSet(query);
+    this.imageService.resetPage(query);
+    this.getNextSet();
   }
 
-  getNextSet(query) {
-    this.imageService.getPhotos(query);
+  getNextSet() {
+    this.imageService.getPhotos();
   }
 
   onScroll(e) {
@@ -60,7 +60,7 @@ export class ImagePickerComponent implements OnInit, OnChanges {
 
       const el = this.photoContainer.nativeElement;
       if ((el.scrollTop + el.offsetHeight + 50) > el.scrollHeight) {
-        this.imageService.getPhotos('corona');
+        this.imageService.getPhotos();
       }
 
     }, 150);
