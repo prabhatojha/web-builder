@@ -12,7 +12,6 @@
 .picker {
   width: 0;
   opacity: 0;
-  overflow-y: auto;
   transition: width 0.4s ease-in;
   position: relative;
   height: $contentHeight;
@@ -21,7 +20,6 @@
 
   &.show-picker {
     opacity: 1;
-    padding: 10px 15px;
     width: $pickerWidth;
     transition: width 0.3s ease-out;
   }

@@ -1,5 +1,6 @@
 import { ImageCanvasElement } from 'src/app/models/image.element.model';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
+import { CommonUtils } from 'src/app/utils/common.utils';
 
 export const IMAGE_TOOLBAR_OPTIONS = [8, 4, 11];
 export const IMAGE_CONTAINER_DEFAULT_STYLE = {
@@ -23,8 +24,12 @@ export const IMAGE_TAG_DEFAULT_ATTRIBUTE = {
 };
 
 export function getImageElementInstance(): ImageCanvasElement {
-  const child = new CanvasElement('img', IMAGE_TAG_DEFAULT_ATTRIBUTE, IMAGE_TAG_DEFAULT_STYLE, []);
-  const canvasElement = new CanvasElement('div', {}, IMAGE_CONTAINER_DEFAULT_STYLE, [child]);
+  const attr = CommonUtils.cloneDeep(IMAGE_TAG_DEFAULT_ATTRIBUTE);
+  const imgStyle = CommonUtils.cloneDeep(IMAGE_TAG_DEFAULT_STYLE);
+  const containerStyle = CommonUtils.cloneDeep(IMAGE_CONTAINER_DEFAULT_STYLE);
+
+  const child = new CanvasElement('img', attr, imgStyle, []);
+  const canvasElement = new CanvasElement('div', {}, containerStyle, [child]);
 
   return new ImageCanvasElement('', IMAGE_TOOLBAR_OPTIONS, '', canvasElement);
 }

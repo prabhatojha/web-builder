@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { PICKERS } from '../picker.mock';
 import { LEFT_MENU_CONST } from '../picker.config';
 import { CONST_VAR } from 'src/app/constants/contants';
@@ -14,19 +14,18 @@ import { getImageElementInstance } from '../../canvas/canvas.config';
 export class ImagePickerComponent implements OnInit, OnChanges {
 
   items = [];
+  rows = [[], []];
   imagesSub: Subscription;
+  scrollTimer = null;
 
-  constructor(private imageService: ImagesService) { }
+  @ViewChild('photoContainer', { static: true }) photoContainer: ElementRef;
+
+  constructor(public imageService: ImagesService) { }
 
   ngOnInit() {
-    this.getInitialImages();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-  }
-
-  getInitialImages() {
-    this.items = PICKERS[LEFT_MENU_CONST.PHOTO_MENU_ID];
   }
 
   dragStart(ev, item) {
@@ -40,26 +39,30 @@ export class ImagePickerComponent implements OnInit, OnChanges {
       }));
   }
 
-  onSearch(query) {
-    console.log('API call', query);
-    // tslint:disable-next-line: no-unused-expression
-    this.imagesSub && this.imagesSub.unsubscribe();
-    this.imagesSub = this.imageService.getPhotos(query).subscribe(photos => {
-      console.log(photos);
-      this.processPhotos(photos);
-    });
+  onNewSearch(query) {
+    this.imageService.resetPage();
+    this.getNextSet(query);
   }
 
-  processPhotos(photos: Array<any>) {
+  getNextSet(query) {
+    this.imageService.getPhotos(query);
+  }
 
-    photos.forEach(photo => {
-      const image = getImageElementInstance();
-      image.id = photo.id;
-      image.imageUrl = photo.thumb;
-      image.canvaElement.attribute.src = photo.regular;
-      this.items.push(image);
-    });
+  onScroll(e) {
+    if (this.imageService.isLoading) {
+      return;
+    }
 
-    console.log(this.items);
+    if (this.scrollTimer !== null) {
+      clearTimeout(this.scrollTimer);
+    }
+    this.scrollTimer = setTimeout(() => {
+
+      const el = this.photoContainer.nativeElement;
+      if ((el.scrollTop + el.offsetHeight + 50) > el.scrollHeight) {
+        this.imageService.getPhotos('corona');
+      }
+
+    }, 150);
   }
 }

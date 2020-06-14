@@ -9,6 +9,7 @@ export class SearchBoxComponent implements OnInit {
 
   @Input() placeholder = 'Search';
   @Input() minQueryLength = 2;
+  @Input() value = '';
 
   @Output() searchQuery = new EventEmitter();
 

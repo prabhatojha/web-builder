@@ -11,3 +11,7 @@ export enum FILTER_TYPES {
   TOGGABLE,
   FONT_STYLE_ITALIC
 }
+
+export const HOT_KEYWORD = {
+  images: 'corona'
+};
