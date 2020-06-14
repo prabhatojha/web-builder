@@ -15,3 +15,7 @@ export enum FILTER_TYPES {
 export const HOT_KEYWORD = {
   images: 'corona'
 };
+
+export enum ELEMENT_TYPES {
+  PHOTO
+}

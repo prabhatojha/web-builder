@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
-import { CONST_VAR } from 'src/app/constants/contants';
+import { CONST_VAR, ELEMENT_TYPES } from 'src/app/constants/contants';
 import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
 import { Hasher } from 'src/app/constants/hasher';
 import { AVA_TOOLBAR_OPTIONS } from '../toolbar/toolbar.config';
 import { EventerService, EventModal, EventTypes } from '../../shared/services/eventer.service';
 import { map, filter } from 'rxjs/operators';
+import { CanvasElement } from 'src/app/models/canvas.element.model';
+import { ImageUtils } from 'src/app/utils/image.utils';
 
 @Component({
   selector: 'app-canvas',
@@ -44,7 +46,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     elementId: 'my-first-element',
     id: 'jfaslj12o4u12oi',
     toolbarOptions: [2],
-    searchKeywords: [],
     currentZindex: 1,
     canvaElement: {
       tag: 'div',
@@ -139,15 +140,32 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     }
 
     const data = JSON.parse(unparseData);
-    const canvasElement = data.item.canvaElement;
+    const canvasElement: CanvasElement = data.item.canvaElement;
+    this.adjustWidthHeight(canvasElement);
+
     const newNode = this.buildDom(canvasElement);
 
     this.setNodeLocation(e, newNode, data, canvasElement);
     this.attachEventListner(newNode, data.item);
 
+
     this.projectNode.appendChild(newNode);
 
+    // This has to be last statement
     this.addItemInProject(canvasElement);
+  }
+
+  adjustWidthHeight(canvasElement: CanvasElement) {
+    if (canvasElement.type === ELEMENT_TYPES.PHOTO) {
+      ImageUtils.setInitialWidthAndHeight(this.getProjectWidthHeight(), canvasElement);
+    }
+  }
+
+  getProjectWidthHeight() {
+    return {
+      width: parseInt(this.project.canvaElement.style.width, 10),
+      height: parseInt(this.project.canvaElement.style.height, 10)
+    };
   }
 
   addItemInProject(item) {

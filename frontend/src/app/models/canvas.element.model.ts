@@ -1,4 +1,13 @@
+import { ELEMENT_TYPES } from '../constants/contants';
+
 export class CanvasElement {
+  type: ELEMENT_TYPES;
+  width: number;
+  height: number;
+  ratio: {
+    x: string,
+    y: string
+  };
   tag: string;
   attribute: {
     [attr: string]: string | string[]

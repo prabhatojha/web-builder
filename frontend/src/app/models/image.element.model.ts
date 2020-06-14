@@ -5,12 +5,6 @@ export class ImageCanvasElement {
   toolbarOptions: Array<number>;
   imageUrl: string;
   canvaElement: CanvasElement;
-  width: number;
-  height: number;
-  ratio: {
-    x: string,
-    y: string
-  };
 
   constructor(toolbarOptions: Array<number>, canvaElement: CanvasElement) {
     this.toolbarOptions = toolbarOptions;

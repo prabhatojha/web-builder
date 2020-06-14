@@ -4,7 +4,7 @@ import { MyHttpRequest } from '../../../shared/services/http-service/http.servic
 import { of } from 'rxjs';
 import { getImageElementInstance } from '../../canvas/canvas.config';
 import { delay } from 'rxjs/operators';
-import { HOT_KEYWORD } from 'src/app/constants/contants';
+import { HOT_KEYWORD, ELEMENT_TYPES } from 'src/app/constants/contants';
 import { ImageCanvasElement } from 'src/app/models/image.element.model';
 
 @Injectable({
@@ -66,8 +66,9 @@ export class ImagesService {
       image.id = photo.id;
       image.imageUrl = photo.thumb;
       image.canvaElement.children[0].attribute.src = photo.regular;
-      image.width = photo.width;
-      image.height = photo.height;
+      image.canvaElement.width = photo.width;
+      image.canvaElement.height = photo.height;
+      image.canvaElement.type = ELEMENT_TYPES.PHOTO;
       alternate ? this.rows[0].push(image) : this.rows[1].push(image);
       alternate = !alternate;
     });
