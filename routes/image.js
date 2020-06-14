@@ -28,7 +28,9 @@ function formatImageData(images) {
             id: image.id,
             thumb: image.urls.thumb,
             regular: image.urls.regular,
-            full: image.urls.full
+            full: image.urls.full,
+            width: image.width,
+            height: image.height
         }
     })
 }

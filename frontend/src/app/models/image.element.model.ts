@@ -5,11 +5,15 @@ export class ImageCanvasElement {
   toolbarOptions: Array<number>;
   imageUrl: string;
   canvaElement: CanvasElement;
+  width: number;
+  height: number;
+  ratio: {
+    x: string,
+    y: string
+  };
 
-  constructor(id: string, toolbarOptions: Array<number>, imageUrl: string, canvaElement: CanvasElement) {
-    this.id = id;
+  constructor(toolbarOptions: Array<number>, canvaElement: CanvasElement) {
     this.toolbarOptions = toolbarOptions;
-    this.imageUrl = imageUrl;
     this.canvaElement = canvaElement;
   }
 }

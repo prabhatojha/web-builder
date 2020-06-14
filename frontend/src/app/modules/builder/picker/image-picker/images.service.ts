@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 import { getImageElementInstance } from '../../canvas/canvas.config';
 import { delay } from 'rxjs/operators';
 import { HOT_KEYWORD } from 'src/app/constants/contants';
+import { ImageCanvasElement } from 'src/app/models/image.element.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class ImagesService {
   GET_IMAGES = '/api/images';
   PAGE = 0;
   LIMIT = '10';
-  withMock = true;
+  withMock = false;
   isLoading = true;
   query = '';
   EXTRA_DELAY = 1000;
@@ -59,15 +60,18 @@ export class ImagesService {
   processPhotos(photos: Array<any>) {
     let alternate = true;
     photos.forEach(photo => {
-      const image = getImageElementInstance();
+      const image: ImageCanvasElement = getImageElementInstance();
       image.id = photo.id;
       image.imageUrl = photo.thumb;
       image.canvaElement.children[0].attribute.src = photo.regular;
+      image.width = photo.width;
+      image.height = photo.height;
       alternate ? this.rows[0].push(image) : this.rows[1].push(image);
       alternate = !alternate;
     });
 
     this.isLoading = false;
+    console.log(photos);
   }
 
   mock() {
