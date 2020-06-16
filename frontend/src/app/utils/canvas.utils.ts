@@ -68,6 +68,8 @@ export class CanvasUtils {
 
     const style = this.getOriginalItemStyle(item);
     style[cssField] = cssValue;
+
+    console.log(cssField, cssValue);
   }
 
   private static getOriginalItemStyle(item) {

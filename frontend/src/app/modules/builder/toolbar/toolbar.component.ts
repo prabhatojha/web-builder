@@ -4,6 +4,7 @@ import { FILTER_TYPES } from '../../../constants/contants';
 import { CommonUtils } from '../../../utils/common.utils';
 import { filter } from 'rxjs/operators';
 import { CanvasUtils } from 'src/app/utils/canvas.utils';
+import { UndoRedoUtil } from 'src/app/utils/undo-redo.util';
 
 
 @Component({
@@ -140,7 +141,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   onCssChange(filter, cssValue) {
-    CanvasUtils.addStyle(this.selectedItem, this.selectedNode, filter.cssField, cssValue);
+    UndoRedoUtil.addStyle(this.selectedItem, this.selectedNode, filter.cssField, cssValue);
   }
 
   updateOpacity(filter, cssValue) {
