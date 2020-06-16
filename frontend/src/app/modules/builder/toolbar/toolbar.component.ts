@@ -3,6 +3,7 @@ import { AVA_TOOLBAR_OPTIONS, FilterConfig } from './toolbar.config';
 import { FILTER_TYPES } from '../../../constants/contants';
 import { CommonUtils } from '../../../utils/common.utils';
 import { filter } from 'rxjs/operators';
+import { CanvasUtils } from 'src/app/utils/canvas.utils';
 
 
 @Component({
@@ -66,8 +67,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
     this.applyNodeChanges(filter, e.value);
 
     if (updateSelectedItem) {
-      this.applySelectedItemChanes(filter, e.value);
-      console.log(this.filterConfig);
+      this.onCssChange(filter, e.value);
     }
   }
 
@@ -76,7 +76,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
     this.applyNodeChanges(filter, e.value);
 
     if (updateSelectedItem) {
-      this.applySelectedItemChanes(filter, e.value);
+      this.onCssChange(filter, e.value);
     }
   }
 
@@ -108,14 +108,12 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
   onBoldClick(filter) {
     filter.isSelected = !filter.isSelected;
-    this.applyNodeChanges(filter, filter.isSelected ? 'bold' : 'normal');
-    this.applySelectedItemChanes(filter, filter.isSelected ? 'bold' : 'normal');
+    this.onCssChange(filter, filter.isSelected ? 'bold' : 'normal');
   }
 
   onItalicClick(filter) {
     filter.isSelected = !filter.isSelected;
-    this.applyNodeChanges(filter, filter.isSelected ? 'italic' : 'normal');
-    this.applySelectedItemChanes(filter, filter.isSelected ? 'italic' : 'normal');
+    this.onCssChange(filter, filter.isSelected ? 'italic' : 'normal');
   }
 
   removeItem() {
@@ -138,16 +136,18 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   onColorSelect(filter, color) {
-    this.applyNodeChanges(filter, color);
-    this.applySelectedItemChanes(filter, color);
+    this.onCssChange(filter, color);
   }
 
   onCssChange(filter, cssValue) {
-    this.applyNodeChanges(filter, cssValue);
-    this.applySelectedItemChanes(filter, cssValue);
+    CanvasUtils.addStyle(this.selectedItem, this.selectedNode, filter.cssField, cssValue);
   }
 
   updateOpacity(filter, cssValue) {
+    this.applyNodeChanges(filter, cssValue);
+  }
+
+  updateOpacityOnStop(filter, cssValue) {
     this.onCssChange(filter, cssValue);
   }
 }

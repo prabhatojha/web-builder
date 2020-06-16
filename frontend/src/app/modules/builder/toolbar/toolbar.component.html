@@ -105,8 +105,8 @@
               [disabled]="selectedItem?.locked" (mouseenter)="filter.open = true">
               <i class="material-icons">opacity</i>
             </button>
-            <app-slider (slideChange)="updateOpacity(filter, $event)" [selectedOpacity]="styles[filter.cssField]"
-              *ngIf="filter.open">
+            <app-slider (slideChange)="updateOpacity(filter, $event)" (slideStop)="updateOpacityOnStop(filter,$event)"
+              [selectedOpacity]="styles[filter.cssField]" *ngIf="filter.open">
             </app-slider>
           </div>
         </ng-container>

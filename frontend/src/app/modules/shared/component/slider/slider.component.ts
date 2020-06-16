@@ -9,6 +9,7 @@ export class SliderComponent implements OnChanges {
 
   @Input() selectedOpacity = 1;
   @Output() slideChange = new EventEmitter();
+  @Output() slideStop = new EventEmitter();
 
   selectedValue = 100;
   constructor() { }
@@ -21,6 +22,12 @@ export class SliderComponent implements OnChanges {
   onValueChange(e) {
     if (e) {
       this.slideChange.emit(e.value / 100);
+    }
+  }
+
+  onSliderStop(e) {
+    if (e) {
+      this.slideStop.emit(e.value / 100);
     }
   }
 }
