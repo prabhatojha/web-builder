@@ -1,31 +1,12 @@
 <div class="picker" [class.show-picker]="showPicker">
-  <!-- <h2>{{picker?.label}}</h2> -->
-  <!-- <div class="picker-items" #itemsRef>
-
-  </div> -->
-  <!-- <ul class="picker-item"> -->
-
-  <!-- <ng-container *ngFor="let item of items"> -->
   <ng-container [ngSwitch]="picker?.id">
     <ng-container *ngSwitchCase="LEFT_MENU_CONST.PHOTO_MENU_ID">
-      <!-- <li class="image-li" draggable
-          (dragstart)="dragStart($event, item)">
-            <img [src]="item.imageUrl" style="width: 100%;" [attr.id]="item.id" >
-          </li> -->
-
-
       <app-image-picker></app-image-picker>
     </ng-container>
 
     <ng-container *ngSwitchCase="LEFT_MENU_CONST.TEXT_MENU_ID">
-      <!-- <li class="text-li" draggable
-          (dragstart)="dragStart($event, item)">
-            <label [style]="item.style" [attr.id]="item.id" >{{item.text}}</label>
-          </li> -->
       <app-text-picker></app-text-picker>
     </ng-container>
 
   </ng-container>
-  <!-- </ng-container> -->
-  <!-- </ul> -->
 </div>

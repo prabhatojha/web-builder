@@ -24,30 +24,3 @@
     transition: width 0.3s ease-out;
   }
 }
-
-.picker-item {
-  display: flex;
-  flex-wrap: wrap;
-
-  .spinner {
-    margin-top: 10rem;
-  }
-  // common to all
-  li {
-    padding: 10px;
-    margin: 7px;
-    border-radius: 3px;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-  }
-  .image-li {
-    width: calc(50% - 14px);
-  }
-
-  .text-li {
-    width: calc(100% - 14px);
-    color: $gray-500;
-  }
-}

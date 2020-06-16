@@ -1,8 +1,14 @@
-<app-search-box [placeholder]="'Search for text'"></app-search-box>
-<ul class="picker-item">
-  <ng-container *ngFor="let item of items">
-    <li class="text-li" draggable (dragstart)="dragStart($event, item)">
-      <img [src]="item.imageUrl" style="width: 100%;" [attr.id]="item.id">
-    </li>
-  </ng-container>
-</ul>
+<div class="text-picker-container">
+  <div class="search-box-wrapper">
+    <app-search-box [placeholder]="'Search for text'"></app-search-box>
+  </div>
+  <div class="text-container">
+    <ul class="picker-item">
+      <ng-container *ngFor="let item of items">
+        <li class="text-li" draggable (dragstart)="dragStart($event, item)">
+          <img [src]="item.imageUrl" style="width: 100%;" [attr.id]="item.id">
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</div>
