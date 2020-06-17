@@ -13,7 +13,8 @@ export const AVA_TOOLBAR_OPTIONS = {
   FONT_STYLE_ITALIC: 7,
   DELETE: 8,
   TEXT_ALIGNMENT: 10,
-  LOCK: 11
+  LOCK: 11,
+  UNDO_REDO: 12
 };
 
 // const AVAILABLE_FONT_SIZE = [];
@@ -95,5 +96,8 @@ export const FilterConfig = [
   },
   {
     id: AVA_TOOLBAR_OPTIONS.DELETE,
+  },
+  {
+    id: AVA_TOOLBAR_OPTIONS.UNDO_REDO,
   }
 ];

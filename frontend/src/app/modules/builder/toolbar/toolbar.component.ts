@@ -151,4 +151,12 @@ export class ToolbarComponent implements OnInit, OnChanges {
   updateOpacityOnStop(filter, cssValue) {
     this.onCssChange(filter, cssValue);
   }
+
+  undoItem() {
+    UndoRedoUtil.undo(this.selectedItem, this.selectedNode);
+  }
+
+  redoItem() {
+    UndoRedoUtil.redo(this.selectedItem, this.selectedNode);
+  }
 }

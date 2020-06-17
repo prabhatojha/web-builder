@@ -1,7 +1,3 @@
-export const UNDO_REDO_CONST = {
-
-}
-
 export enum UndoRedoTypes {
   CSS,
   NODE
@@ -9,8 +5,9 @@ export enum UndoRedoTypes {
 
 class UndoRedoModel {
   type: UndoRedoTypes;
-  cssFiled: string;
-  cssValue: string;
+  cssField: string;
+  oldCssValue: string;
+  newCssValue: string;
 }
 
 export class UndoRedoUtil {
@@ -26,32 +23,65 @@ export class UndoRedoUtil {
 
   }
 
-  static addStyle(item, node, cssField, cssValue) {
-    node.style[cssField] = cssValue;
+  static addStyle(item, node, cssField, newCssValue, saveToList = true) {
+    node.style[cssField] = newCssValue || '';
 
     const style = this.getOriginalItemStyle(item);
 
-    this.addCssItemToList(cssField, cssValue, style[cssField]);
+    // tslint:disable-next-line: no-unused-expression
+    saveToList && this.addCssItemToList(cssField, newCssValue, style[cssField]);
 
-    style[cssField] = cssValue;
-
-    console.log(cssField, cssValue);
-    console.log(this.list);
+    style[cssField] = newCssValue;
   }
 
   private static getOriginalItemStyle(item) {
     return item.canvaElement.style;
   }
 
-  private static addCssItemToList(cssField, cssValue, oldCssValue) {
+  private static addCssItemToList(cssField, newCssValue, oldCssValue) {
 
-    if (this.index === -1 || this.list[this.index].cssFiled !== cssField) {
+    if (this.list.length > this.index + 1) {
+      this.list.length = this.index + 1;
+    }
+
+    if (this.index === -1 || this.list[this.index].cssField !== cssField) {
       const item = new UndoRedoModel();
       item.type = UndoRedoTypes.CSS;
-      item.cssFiled = cssField;
-      item.cssValue = oldCssValue;
+      item.cssField = cssField;
+      item.oldCssValue = oldCssValue;
+      item.newCssValue = newCssValue;
 
       this.list.push(item);
+      this.index += 1;
+    }
+  }
+
+  static undo(item, node) {
+    console.log(this.list, this.index);
+    const undoItem = this.list[this.index];
+
+    switch (undoItem.type) {
+      case UndoRedoTypes.CSS:
+        this.addStyle(item, node, undoItem.cssField, undoItem.oldCssValue, false);
+        break;
+    }
+
+    if (this.index > 0) {
+      this.index -= 1;
+    }
+  }
+
+  static redo(item, node) {
+    console.log(this.list, this.index);
+    const redoItem = this.list[this.index];
+
+    switch (redoItem.type) {
+      case UndoRedoTypes.CSS:
+        this.addStyle(item, node, redoItem.cssField, redoItem.newCssValue, false);
+        break;
+    }
+
+    if (this.index < this.list.length - 1) {
       this.index += 1;
     }
   }

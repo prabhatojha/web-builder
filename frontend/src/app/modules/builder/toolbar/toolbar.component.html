@@ -111,6 +111,17 @@
           </div>
         </ng-container>
 
+        <!-- Undo Redo -->
+        <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.LOCK">
+          <button mat-icon-button (click)="undoItem()" matTooltip='Undo' matTooltipPosition="above">
+            <i class="material-icons">undo</i>
+          </button>
+
+          <button mat-icon-button (click)="redoItem()" matTooltip="Redo" matTooltipPosition="above">
+            <i class="material-icons">redo</i>
+          </button>
+        </ng-container>
+
       </ng-container>
     </div>
   </ng-container>

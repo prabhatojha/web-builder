@@ -54,25 +54,4 @@ export class CanvasUtils {
     );
     popupWin.document.close();
   }
-
-
-  /**
-   * Maintaining the node update at one place
-   */
-  static addAttribute(item, node, attr, attrValue) {
-
-  }
-
-  static addStyle(item, node, cssField, cssValue) {
-    node.style[cssField] = cssValue;
-
-    const style = this.getOriginalItemStyle(item);
-    style[cssField] = cssValue;
-
-    console.log(cssField, cssValue);
-  }
-
-  private static getOriginalItemStyle(item) {
-    return item.canvaElement.style;
-  }
 }
