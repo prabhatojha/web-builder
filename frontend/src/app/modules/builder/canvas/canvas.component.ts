@@ -53,7 +53,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         width: '500px',
         height: '500px',
         position: 'relative',
-        'background-color': 'rgb(180, 72, 0, 0.4)',
+        'background-color': 'white',
         '-webkit-print-color-adjust': 'exact'
 
       },
@@ -247,7 +247,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   doubleClickListener(node, item) {
-    if (this.selectedItem.canvaElement.type === 'text') {
+    if (this.selectedItem.canvaElement.type === ELEMENT_TYPES.TEXT) {
       node.addEventListener('dblclick', (e) => {
         if (this.isElementLocked()) {
           return;

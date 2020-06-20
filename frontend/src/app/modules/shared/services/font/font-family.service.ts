@@ -44,15 +44,17 @@ export class FontFamilyService {
       };
       this.availableFonts.push(item);
 
-      this.createFontFamily(item);
+      this.createFontFamily(item.label, item.url);
     }
+
+    console.log(this.availableFonts);
   }
 
-  createFontFamily(item) {
+  createFontFamily(family, url) {
     const newStyle = document.createElement('style');
     newStyle.appendChild(document.createTextNode('\@font-face {\
-      font-family: ' + item.label + ';\
-      src: url(\'' + item.url + '\')}'));
+      font-family: ' + family + ';\
+      src: url(\'' + url + '\')}'));
 
     document.head.appendChild(newStyle);
   }

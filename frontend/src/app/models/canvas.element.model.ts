@@ -15,6 +15,7 @@ export class CanvasElement {
   style: {
     [attr: string]: string | string[]
   };
+  innerText = 'Double click to type';
   children: Array<CanvasElement>;
 
   constructor(tag, attribute, style, children) {

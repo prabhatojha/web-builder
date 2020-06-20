@@ -16,7 +16,7 @@ export class ImagesService {
   GET_IMAGES = '/api/images';
   PAGE = 0;
   LIMIT = '20';
-  withMock = true;
+  withMock = false;
   isLoading = true;
   query = '';
   EXTRA_DELAY = 1000;
@@ -52,7 +52,7 @@ export class ImagesService {
         this.processPhotos(photos);
       });
     } else {
-      this.mock().pipe(delay(3000)).subscribe(photos => {
+      this.mock().pipe(delay(500)).subscribe(photos => {
         console.log(photos);
         this.processPhotos(photos);
       });

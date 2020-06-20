@@ -63,6 +63,6 @@ export class ImagePickerComponent implements OnInit, OnChanges {
         this.imageService.getPhotos();
       }
 
-    }, 150);
+    }, 50);
   }
 }

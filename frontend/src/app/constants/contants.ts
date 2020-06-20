@@ -17,5 +17,6 @@ export const HOT_KEYWORD = {
 };
 
 export enum ELEMENT_TYPES {
-  PHOTO
+  PHOTO,
+  TEXT
 }

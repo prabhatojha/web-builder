@@ -4,10 +4,18 @@
   </div>
   <div class="text-container">
     <ul class="picker-item">
-      <ng-container *ngFor="let item of items">
-        <li class="text-li" draggable (dragstart)="dragStart($event, item)">
-          <img [src]="item.imageUrl" style="width: 100%;" [attr.id]="item.id">
-        </li>
+      <ng-container *ngFor="let item of textPickerService.list">
+        <ng-container *ngIf="item.type === TextPickerTypes.IMAGE">
+          <li class="text-li" draggable="true" (dragstart)="dragStart($event, item)">
+            <img [src]="item.imageUrl" style="width: 100%;" [attr.id]="item.id">
+          </li>
+        </ng-container>
+
+        <ng-container *ngIf="item.type === TextPickerTypes.TEXT">
+          <li class="text-li custom-text-li" draggable="true" (dragstart)="dragStart($event, item)">
+            <p [style.fontFamily]="item.fontFamily" [style.fontSize]="item.fontSize">{{item.innerText}}</p>
+          </li>
+        </ng-container>
       </ng-container>
     </ul>
   </div>

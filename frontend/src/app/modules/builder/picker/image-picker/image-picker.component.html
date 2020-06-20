@@ -13,7 +13,7 @@
         </ng-container>
       </ul>
     </div>
-    <div class="w-100 text-center spinner my-4" *ngIf="imageService.isLoading">
+    <div class="w-100 text-center spinner my-4" [class.invisible]="!imageService.isLoading">
       <div class="spinner-border"></div>
     </div>
   </div>

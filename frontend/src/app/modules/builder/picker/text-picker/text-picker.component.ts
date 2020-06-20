@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PICKERS } from '../picker.mock';
-import { LEFT_MENU_CONST } from '../picker.config';
+import { TextPickerTypes } from './text-picker.config';
 import { CONST_VAR } from 'src/app/constants/contants';
+import { TextPickerService } from './text-picker.service';
 
 @Component({
   selector: 'app-text-picker',
@@ -10,7 +11,8 @@ import { CONST_VAR } from 'src/app/constants/contants';
 })
 export class TextPickerComponent implements OnInit {
 
-  constructor() { }
+  TextPickerTypes = TextPickerTypes;
+  constructor(public textPickerService: TextPickerService) { }
   items = [];
 
   ngOnInit(): void {
@@ -19,13 +21,13 @@ export class TextPickerComponent implements OnInit {
 
 
   getInitialImages() {
-    this.items = PICKERS[LEFT_MENU_CONST.TEXT_MENU_ID];
+    // this.items = PICKERS[LEFT_MENU_CONST.TEXT_MENU_ID];
   }
 
 
   dragStart(ev, item) {
     const bound = ev.target.getBoundingClientRect();
-
+    console.log('Drag start');
     ev.dataTransfer.setData(CONST_VAR.PICKER_ITEM,
       JSON.stringify({
         left: ev.clientX - bound.left,
