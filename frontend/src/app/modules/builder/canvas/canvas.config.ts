@@ -30,7 +30,7 @@ export function getImageElementInstance(): ImageCanvasElement {
 
   const child = new CanvasElement('img', attr, imgStyle, []);
   const canvasElement = new CanvasElement('div', {}, containerStyle, [child]);
-
+  canvasElement.increaseZIndex = false;
   return new ImageCanvasElement(IMAGE_TOOLBAR_OPTIONS, canvasElement);
 }
 

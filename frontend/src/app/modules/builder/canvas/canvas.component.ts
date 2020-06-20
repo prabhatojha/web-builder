@@ -248,27 +248,31 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   doubleClickListener(node, item) {
     if (this.selectedItem.canvaElement.type === ELEMENT_TYPES.TEXT) {
-      node.addEventListener('dblclick', (e) => {
+      const label = node.getElementsByTagName('label')[0];
+
+      node.addEventListener('dblclick', () => {
         if (this.isElementLocked()) {
           return;
         }
-        node.setAttribute(CSS_PROPERTIES.CONTENT_EDITABLE, true);
-        node.focus();
+
+        label.setAttribute(CSS_PROPERTIES.CONTENT_EDITABLE, true);
+        label.focus();
       });
 
-      node.addEventListener('blur', (e) => {
+      label.addEventListener('blur', () => {
         if (this.isElementLocked()) {
           return;
         }
-        node.setAttribute(CSS_PROPERTIES.CONTENT_EDITABLE, false);
+        label.setAttribute(CSS_PROPERTIES.CONTENT_EDITABLE, false);
         this.updateInnerText(node.innerText, item);
       });
     }
   }
 
   updateInnerText(innerText, item) {
-    const span = item.canvaElement.children[0];
-    span.innerText = innerText;
+    // const span = item.canvaElement.children[0];
+    item.canvaElement.innerText = innerText;
+    // span.innerText = innerText;
   }
 
   selectElement(node, item, enableRotate) {
@@ -313,7 +317,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   attachResizeHandler(node) {
-    if (this.isElementLocked()) {
+    if (this.isElementLocked() || !this.selectedItem.canvaElement.resizable) {
       return;
     }
 
@@ -370,7 +374,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   addZIndex() {
-    if (this.selectedNode && !this.isElementLocked()) {
+    if (this.selectedNode && !this.isElementLocked() && this.selectedItem.canvaElement.increaseZIndex) {
       this.selectedNode.style[CSS_PROPERTIES.Z_INDEX] = this.project.currentZindex++;
     }
   }

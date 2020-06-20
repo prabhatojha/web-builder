@@ -15,8 +15,11 @@ export class CanvasElement {
   style: {
     [attr: string]: string | string[]
   };
-  innerText = 'Double click to type';
+  innerText: string;
   children: Array<CanvasElement>;
+
+  resizable = true;
+  increaseZIndex = true;
 
   constructor(tag, attribute, style, children) {
     this.tag = tag;

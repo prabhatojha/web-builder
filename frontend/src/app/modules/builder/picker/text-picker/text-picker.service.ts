@@ -66,7 +66,7 @@ export class TextPickerService {
     const picker = getTextPickerInstance();
     picker.type = TextPickerTypes.IMAGE;
     picker.imageUrl = '/assets/images/pickers/add-text.png';
-
+    picker.canvaElement.children[0].innerText = 'Double click to edit';
     this.list.push(picker);
   }
 

@@ -12,7 +12,7 @@ export const TEXT_CONTAINER_DEFAULT_STYLE = {
   'cursor': 'move',
   'user-select': 'none',
   'width': '320px',
-  'height': '68px'
+  'word-break': 'break-all'
 };
 
 export const TEXT_TAG_DEFAULT_STYLE = {
@@ -29,6 +29,7 @@ export function getTextPickerInstance(): TextPickerModel {
   const child = new CanvasElement('label', attr, imgStyle, []);
   const canvasElement = new CanvasElement('div', {}, containerStyle, [child]);
   canvasElement.type = ELEMENT_TYPES.TEXT;
+  canvasElement.resizable = false;
 
   return new TextPickerModel(TEXT_TOOLBAR_OPTIONS, canvasElement);
 }
