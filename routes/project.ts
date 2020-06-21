@@ -2,7 +2,7 @@ import { NextFunction, Response, Request } from "express";
 
 var express = require('express');
 var router = express.Router();
-const Project = require('../Model/project');
+const Project = require('../models/project.model');
 
 router.post('/', function (req: Request, res: Response, next: any) {
   Project.create(req.body).then(function (project) {

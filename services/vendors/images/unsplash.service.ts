@@ -5,15 +5,16 @@ import { ImageModel } from '../../../models/image.model';
 export class UnsplashService {
     accessKey = "6Zq9RxSM-a6jXZx8yQkw4bXjBnztKnpwwmOUFbEWH2M";
     unsplash = new Unsplash({
-        accessKey: "6Zq9RxSM-a6jXZx8yQkw4bXjBnztKnpwwmOUFbEWH2M"
+        accessKey: this.accessKey
     });
 
     constructor() {
-        console.log('Construct UnsplashService');
     }
 
     getPhotos(query: string, page: number, limit: number) {
-        return unsplash.search.photos(query, page, limit);
+        return this.unsplash.search.photos(query, page, limit).then(toJson).then(((d) => {
+            return Promise.resolve(this.formatImageData(d.results));
+        }));
     }
 
     formatImageData(images: any) {

@@ -12,7 +12,7 @@ mongoose.Promise=global.Promise;
 
 var indexRouter = require('./routes/project');
 var imageRouter = require('./routes/image');
-
+global.fetch = require('node-fetch');
 
 app.use(bodyparser.json());
 

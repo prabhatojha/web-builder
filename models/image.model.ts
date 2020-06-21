@@ -7,9 +7,9 @@ export class ImageModel {
 
     constructor(id: string, thumb: string, imageUrl: string, width: string, height: string) {
         this.id = id;
-        this.thumb = id;
-        this.imageUrl = id;
-        this.width = id;
-        this.height = id;
+        this.thumb = thumb;
+        this.imageUrl = imageUrl;
+        this.width = width;
+        this.height = height;
     }
 }

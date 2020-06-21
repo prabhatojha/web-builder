@@ -9,10 +9,14 @@ const imageService = new ImageService();
 
 router.get('/', function (req: Request, res: Response, next: any) {
     const { query, page, limit, source } = req.query;
-    imageService.getPhotos(query, page, limit, source).then(toJson).then((images: ImageModel[]) => {
-        res.send(images);
-    })
-
+    try {
+        imageService.getPhotos(query, page, limit, source).then((images: ImageModel[]) => {
+            res.send(images);
+        })
+    } catch (e) {
+        console.log(e);
+        res.send([]);
+    }
 });
 
 module.exports = router;
