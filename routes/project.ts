@@ -1,8 +1,10 @@
+import { NextFunction, Response, Request } from "express";
+
 var express = require('express');
 var router = express.Router();
 const Project = require('../Model/project');
 
-router.post('/', function (req, res, next) {
+router.post('/', function (req: Request, res: Response, next: any) {
   Project.create(req.body).then(function (project) {
     res.send(project);
   });
@@ -14,10 +16,10 @@ router.delete('/', function (req, res, next) {
   });
 });
 
-router.get('/', function (req, res, next) {
-  Project.find({}).then(function (projects) {
-    res.send(projects);
-  });
+router.get('/', function (req: Request, res: Response, next: any) {
+  // Project.find({}).then(function (projects) {
+    res.send('hello dear, what are you doing');
+  // });
 
 });
 

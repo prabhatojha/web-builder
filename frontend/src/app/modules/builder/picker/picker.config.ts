@@ -24,7 +24,7 @@ export const LEFT_MENU_ITEMS = [
   },
   {
     id: 7,
-    label: 'Shapes',
+    label: 'Vectors',
     icon: 'design_services'
   }
 ];
