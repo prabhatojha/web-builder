@@ -11,6 +11,6 @@ export class ImageService {
     }
 
     getVectors(query: string, page: number, limit: number, source: string) {
-
+        return Promise.resolve('Not Implemented');
     }
 }

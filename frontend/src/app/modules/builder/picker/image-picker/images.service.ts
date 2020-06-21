@@ -48,12 +48,10 @@ export class ImagesService {
 
     if (!this.withMock) {
       this.httpService.get(this.GET_IMAGES, options).pipe(delay(this.EXTRA_DELAY)).subscribe((photos: any) => {
-        console.log(photos);
         this.processPhotos(photos);
       });
     } else {
       this.mock().pipe(delay(500)).subscribe(photos => {
-        console.log(photos);
         this.processPhotos(photos);
       });
     }
@@ -65,7 +63,7 @@ export class ImagesService {
       const image: ImageCanvasElement = getImageElementInstance();
       image.id = photo.id;
       image.imageUrl = photo.thumb;
-      image.canvaElement.children[0].attribute.src = photo.regular;
+      image.canvaElement.children[0].attribute.src = photo.imageUrl;
       image.canvaElement.width = photo.width;
       image.canvaElement.height = photo.height;
       image.canvaElement.type = ELEMENT_TYPES.PHOTO;

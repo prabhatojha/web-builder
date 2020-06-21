@@ -7,7 +7,6 @@ const unsplash = new Unsplash({
 });
 var getPhotos = function (query, page, limit) {
     return unsplash.search.photos(query, page, limit).then(toJson);
-
 };
 
 module.exports = { getPhotos };
