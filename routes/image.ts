@@ -22,8 +22,10 @@ router.get('/', function (req: Request, res: Response, next: any) {
 router.get('/vectors', function (req: Request, res: Response, next: any) {
     const { query, page, limit, source } = req.query;
     try {
-        imageService.getVectors(query, page, limit, source).then((images: any) => {
+        imageService.getVectors(query, page, limit, source).then((images: ImageModel[]) => {
             res.send(images);
+        }).catch((err) => {
+            res.send([]);
         })
     } catch (e) {
         console.error(e);
