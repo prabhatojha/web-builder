@@ -1,12 +1,22 @@
-const Unsplash = require('unsplash-js').default;
-const { toJson } = require('unsplash-js');
-global.fetch = require('node-fetch');
+import { ImageModel } from '../../../models/image.model';
 
-const unsplash = new Unsplash({
-    accessKey: "6Zq9RxSM-a6jXZx8yQkw4bXjBnztKnpwwmOUFbEWH2M"
-});
-var getPhotos = function (query, page, limit) {
-    return unsplash.search.photos(query, page, limit).then(toJson);
-};
+export class PixabayService {
+    accessKey = "4249382-87a9e4940455958fb0aeb112c";
+    url = `https://pixabay.com/api`
 
-module.exports = { getPhotos };
+    constructor() {
+    }
+
+    getPhotos(query: string, page: number, limit: number) {
+            fetch(this.url,{
+                
+            })
+        }));
+    }
+
+    formatImageData(images: any) {
+        return images.map((image: any) => {
+            return new ImageModel(image.id, image.urls.thumb, image.urls.regular, image.width, image.height);
+        })
+    }
+}
