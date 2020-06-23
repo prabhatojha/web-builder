@@ -10,10 +10,10 @@ import { ImageCanvasElement } from 'src/app/models/image.element.model';
 @Injectable({
   providedIn: 'root'
 })
-export class ImagesService {
+export class VectorService {
 
-  rows = [[], []];
-  GET_IMAGES = '/api/images';
+  vectors = [];
+  GET_IMAGES = '/api/images/vectors';
   PAGE = 0;
   LIMIT = '20';
   withMock = false;
@@ -28,7 +28,7 @@ export class ImagesService {
 
   resetPage(query) {
     this.query = query;
-    this.rows = [[], []];
+    this.vectors = [];
     this.PAGE = 0;
   }
 
@@ -58,7 +58,6 @@ export class ImagesService {
   }
 
   processPhotos(photos: Array<any>) {
-    let alternate = true;
     photos.forEach(photo => {
       const image: ImageCanvasElement = getImageElementInstance();
       image.id = photo.id;
@@ -67,13 +66,12 @@ export class ImagesService {
       image.canvaElement.width = photo.width;
       image.canvaElement.height = photo.height;
       image.canvaElement.type = ELEMENT_TYPES.PHOTO;
-      image.canvaElement.increaseZIndex = false;
-      alternate ? this.rows[0].push(image) : this.rows[1].push(image);
-      alternate = !alternate;
+      image.canvaElement.increaseZIndex = true;
+      this.vectors.push(image);
     });
 
     this.isLoading = false;
-    console.log(photos);
+    console.log(photos, this.vectors);
   }
 
   mock() {

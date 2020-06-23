@@ -2,7 +2,7 @@ export const LEFT_MENU_CONST = {
   TEXT_MENU_ID: 2,
   PHOTO_MENU_ID: 5,
   UPLOAD_MENU_ID: 6,
-  SHAPES_MENU_ID: 7
+  VECTOR_MENU_ID: 7
 };
 
 export const LEFT_MENU_ITEMS = [
