@@ -82,7 +82,6 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   onCloseWithoutSelect(filter) {
-    console.log('On Close without select');
     const style = this.getOriginalItemStyle();
     this.applyNodeChanges(filter, style[filter.cssField]);
     this.changeSelectedValue(filter, style[filter.cssField]);

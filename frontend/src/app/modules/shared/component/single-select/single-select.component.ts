@@ -33,7 +33,6 @@ export class SingleSelectComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngAfterViewInit() {
     this.dropdownWidth = this.inputContainer.nativeElement.offsetWidth + 'px';
-    console.log(this.inputContainer.nativeElement, this.dropdownWidth);
   }
 
   openDropdown() {
@@ -55,7 +54,6 @@ export class SingleSelectComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   onClickOutside() {
-    console.log('onClickOutside');
     this.closeWithoutSelect.emit();
     this.closeDropdown();
   }

@@ -16,7 +16,6 @@ export class SliderComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.selectedValue = this.selectedOpacity ? this.selectedOpacity * 100 : 100;
-    console.log('Opacity', this.selectedValue);
   }
 
   onValueChange(e) {

@@ -19,7 +19,7 @@ export class VectorService {
   withMock = false;
   isLoading = true;
   query = '';
-  EXTRA_DELAY = 1000;
+  EXTRA_DELAY = 10;
 
   constructor(private httpService: HttpService) {
     this.query = HOT_KEYWORD.images;
@@ -43,8 +43,6 @@ export class VectorService {
         source: 'unsplash'
       }
     };
-
-    console.log(options);
 
     if (!this.withMock) {
       this.httpService.get(this.GET_IMAGES, options).pipe(delay(this.EXTRA_DELAY)).subscribe((photos: any) => {
@@ -71,7 +69,6 @@ export class VectorService {
     });
 
     this.isLoading = false;
-    console.log(photos, this.vectors);
   }
 
   mock() {

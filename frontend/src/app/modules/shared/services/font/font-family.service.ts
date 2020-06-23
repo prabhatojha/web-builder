@@ -46,8 +46,6 @@ export class FontFamilyService {
 
       this.createFontFamily(item.label, item.url);
     }
-
-    console.log(this.availableFonts);
   }
 
   createFontFamily(family, url) {

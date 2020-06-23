@@ -38,7 +38,6 @@ export class CanvasUtils {
   }
 
   static print(printContents): void {
-    console.log(printContents);
     const popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
     popupWin.document.open();
     popupWin.document.write(`

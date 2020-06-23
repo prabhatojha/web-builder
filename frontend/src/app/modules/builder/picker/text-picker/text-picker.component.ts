@@ -27,7 +27,6 @@ export class TextPickerComponent implements OnInit {
 
   dragStart(ev, item) {
     const bound = ev.target.getBoundingClientRect();
-    console.log('Drag start');
     ev.dataTransfer.setData(CONST_VAR.PICKER_ITEM,
       JSON.stringify({
         left: ev.clientX - bound.left,

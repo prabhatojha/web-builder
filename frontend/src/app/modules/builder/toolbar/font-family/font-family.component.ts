@@ -31,7 +31,6 @@ export class FontFamilyComponent implements OnInit {
   }
 
   onCloseWithoutSelect() {
-    console.log('Font Comp');
     this.revertFontSelect.emit();
   }
 }

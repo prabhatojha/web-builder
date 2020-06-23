@@ -22,7 +22,6 @@ export class SearchBoxComponent implements OnInit {
 
   doSearch() {
     if (this.query.length >= this.minQueryLength) {
-      console.log('emiting');
       this.searchQuery.emit(this.query);
     }
   }

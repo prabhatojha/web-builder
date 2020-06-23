@@ -18,13 +18,13 @@ export const LEFT_MENU_ITEMS = [
     icon: 'image_search'
   },
   {
-    id: 6,
-    label: 'Upload',
-    icon: 'cloud_upload'
-  },
-  {
     id: 7,
     label: 'Vectors',
     icon: 'design_services'
+  },
+  {
+    id: 6,
+    label: 'Upload',
+    icon: 'cloud_upload'
   }
 ];

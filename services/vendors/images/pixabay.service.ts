@@ -19,7 +19,6 @@ export class PixabayService {
             key: this.accessKey
         }
         return this.httpService.get(this.url, options).then((data: any) => {
-            console.log('=====> Data ', data);
             return Promise.resolve(this.formatImageData(data.hits));
         });
     };

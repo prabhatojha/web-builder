@@ -57,7 +57,6 @@ export class UndoRedoUtil {
   }
 
   static undo(item, node) {
-    console.log(this.list, this.index);
     const undoItem = this.list[this.index];
 
     switch (undoItem.type) {
@@ -72,7 +71,6 @@ export class UndoRedoUtil {
   }
 
   static redo(item, node) {
-    console.log(this.list, this.index);
     const redoItem = this.list[this.index];
 
     switch (redoItem.type) {

@@ -29,7 +29,6 @@ export class CanvasScaleComponent implements OnChanges {
   setIntialScale() {
     // var element = document.querySelector('...');
     // var scaleX = element.getBoundingClientRect().width / element.offsetWidth;
-    // console.log(this.node.ko);
   }
 
   zoomIn() {

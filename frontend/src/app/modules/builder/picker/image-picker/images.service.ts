@@ -44,8 +44,6 @@ export class ImagesService {
       }
     };
 
-    console.log(options);
-
     if (!this.withMock) {
       this.httpService.get(this.GET_IMAGES, options).pipe(delay(this.EXTRA_DELAY)).subscribe((photos: any) => {
         this.processPhotos(photos);
@@ -73,7 +71,6 @@ export class ImagesService {
     });
 
     this.isLoading = false;
-    console.log(photos);
   }
 
   mock() {

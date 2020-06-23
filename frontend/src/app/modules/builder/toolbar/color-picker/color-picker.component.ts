@@ -59,7 +59,6 @@ export class ColorPickerComponent implements OnInit, AfterViewInit {
   onPick(e) {
     e.stopPropagation();
     this.showColorPicker = false;
-    console.log(this.unsavedColor);
     if (this.unsavedColor && this.selectedOption) {
       this.selectedOption.customColors.push(this.unsavedColor.hex);
     }
