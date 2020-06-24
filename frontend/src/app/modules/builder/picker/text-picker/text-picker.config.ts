@@ -16,7 +16,8 @@ export const TEXT_CONTAINER_DEFAULT_STYLE = {
 };
 
 export const TEXT_TAG_DEFAULT_STYLE = {
-  cursor: 'move'
+  cursor: 'move',
+  outline: 'none'
 };
 
 export const TEXT_TAG_DEFAULT_ATTRIBUTE = {};
