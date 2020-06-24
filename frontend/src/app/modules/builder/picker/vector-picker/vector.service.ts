@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpService } from 'src/app/modules/shared/services/http-service/http.service';
 import { MyHttpRequest } from '../../../shared/services/http-service/http.service';
 import { of } from 'rxjs';
-import { getImageElementInstance } from '../../canvas/canvas.config';
 import { delay } from 'rxjs/operators';
 import { HOT_KEYWORD, ELEMENT_TYPES } from 'src/app/constants/contants';
 import { ImageCanvasElement } from 'src/app/models/image.element.model';
+import { getVectorElementInstance } from '../image-picker/image.config';
+import { CanvasElement } from 'src/app/models/canvas.element.model';
 
 @Injectable({
   providedIn: 'root'
@@ -57,18 +58,24 @@ export class VectorService {
 
   processPhotos(photos: Array<any>) {
     photos.forEach(photo => {
-      const image: ImageCanvasElement = getImageElementInstance();
+      const image: ImageCanvasElement = getVectorElementInstance();
       image.id = photo.id;
       image.imageUrl = photo.thumb;
       image.canvaElement.children[0].attribute.src = photo.imageUrl;
-      image.canvaElement.width = photo.width;
-      image.canvaElement.height = photo.height;
-      image.canvaElement.type = ELEMENT_TYPES.PHOTO;
+      // image.canvaElement.width = photo.width;
+      // image.canvaElement.height = photo.height;
+      image.canvaElement.type = ELEMENT_TYPES.VECTOR;
       image.canvaElement.increaseZIndex = true;
+      this.updateWidth(image.canvaElement, photo.thumbWidth, photo.thumbHeight);
       this.vectors.push(image);
     });
 
     this.isLoading = false;
+  }
+
+  updateWidth(canvasElement: CanvasElement, width, height) {
+    canvasElement.style.width = width * 1.5 + 'px';
+    canvasElement.style.height = height * 1.5 + 'px';
   }
 
   mock() {

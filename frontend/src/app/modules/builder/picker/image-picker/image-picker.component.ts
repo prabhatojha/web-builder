@@ -1,10 +1,7 @@
 import { Component, OnInit, OnChanges, SimpleChanges, ElementRef, ViewChild, HostListener } from '@angular/core';
-import { PICKERS } from '../picker.mock';
-import { LEFT_MENU_CONST } from '../picker.config';
 import { CONST_VAR } from 'src/app/constants/contants';
 import { ImagesService } from './images.service';
 import { Subscription } from 'rxjs';
-import { getImageElementInstance } from '../../canvas/canvas.config';
 
 @Component({
   selector: 'app-image-picker',

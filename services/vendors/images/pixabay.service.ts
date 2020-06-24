@@ -26,7 +26,8 @@ export class PixabayService {
 
     formatImageData(images: any) {
         return images.map((image: any) => {
-            return new ImageModel(image.id, image.previewURL, image.largeImageURL, image.imageWidth, image.imageHeight);
+            return new ImageModel(image.id, image.previewURL, image.largeImageURL, image.imageWidth, image.imageHeight,
+                image.previewWidth, image.previewHeight);
         })
     }
 }

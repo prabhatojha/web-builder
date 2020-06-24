@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpService } from 'src/app/modules/shared/services/http-service/http.service';
 import { MyHttpRequest } from '../../../shared/services/http-service/http.service';
 import { of } from 'rxjs';
-import { getImageElementInstance } from '../../canvas/canvas.config';
 import { delay } from 'rxjs/operators';
 import { HOT_KEYWORD, ELEMENT_TYPES } from 'src/app/constants/contants';
 import { ImageCanvasElement } from 'src/app/models/image.element.model';
+import { getImageElementInstance } from './image.config';
 
 @Injectable({
   providedIn: 'root'
