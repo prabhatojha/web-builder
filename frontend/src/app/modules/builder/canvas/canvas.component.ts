@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewEncapsulat
 import { CONST_VAR, ELEMENT_TYPES } from 'src/app/constants/contants';
 import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
 import { Hasher } from 'src/app/constants/hasher';
-import { AVA_TOOLBAR_OPTIONS } from '../toolbar/toolbar.config';
+import { AVA_TOOLBAR_OPTIONS, ELEMENT_TYPE_VS_TOOLBAR_OPT } from '../toolbar/toolbar.config';
 import { EventerService, EventModal, EventTypes } from '../../shared/services/eventer.service';
 import { map, filter } from 'rxjs/operators';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
@@ -45,9 +45,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   project = {
     elementId: 'my-first-element',
     id: 'jfaslj12o4u12oi',
-    toolbarOptions: [2],
     currentZindex: 1,
     canvaElement: {
+      type: ELEMENT_TYPES.BACKGROUND,
       tag: 'div',
       style: {
         width: '500px',
@@ -399,7 +399,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   showToolBar(node, item) {
-    this.toolbarOptions = item.toolbarOptions;
+    this.toolbarOptions = ELEMENT_TYPE_VS_TOOLBAR_OPT[item.canvaElement.type];
     this.selectedNode = node;
     this.selectedItem = item;
   }

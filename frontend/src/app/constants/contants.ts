@@ -17,6 +17,7 @@ export const HOT_KEYWORD = {
 };
 
 export enum ELEMENT_TYPES {
+  BACKGROUND,
   PHOTO,
   TEXT,
   VECTOR
