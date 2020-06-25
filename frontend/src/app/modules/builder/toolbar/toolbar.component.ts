@@ -20,6 +20,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
   @Output() hoverItem = new EventEmitter();
   @Output() removeSelectedItem = new EventEmitter();
+  @Output() duplicateSelectedItem = new EventEmitter();
 
   filterConfig = [];
   FILTER_TYPES = FILTER_TYPES;
@@ -157,5 +158,10 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
   redoItem() {
     UndoRedoUtil.redo(this.selectedItem, this.selectedNode);
+  }
+
+  duplicate() {
+    this.duplicateSelectedItem.emit();
+    // UndoRedoUtil.redo(this.selectedItem, this.selectedNode);
   }
 }

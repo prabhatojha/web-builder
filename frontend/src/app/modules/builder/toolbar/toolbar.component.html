@@ -122,6 +122,13 @@
           </button>
         </ng-container>
 
+        <!-- Duplicate Item -->
+        <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.DUPLICATE">
+          <button mat-icon-button (click)="duplicate()" matTooltip='Duplicate Item' matTooltipPosition="above">
+            <i class="material-icons">file_copy</i>
+          </button>
+        </ng-container>
+
       </ng-container>
     </div>
   </ng-container>

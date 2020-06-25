@@ -133,6 +133,10 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this.addNewNode(e, e.dataTransfer.getData(CONST_VAR.PICKER_ITEM));
   }
 
+  onDuplicateSelectedItem() {
+
+  }
+
   addNewNode(e, unparseData) {
 
     if (!unparseData) {
@@ -140,6 +144,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     }
 
     const data = JSON.parse(unparseData);
+    console.log('DATA - ', data);
     const canvasElement: CanvasElement = data.item.canvaElement;
     this.adjustWidthHeight(canvasElement);
 
@@ -153,6 +158,22 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
     // This has to be last statement
     this.addItemInProject(canvasElement);
+  }
+
+  _addNewNode(e, data, canvasElement) {
+    this.adjustWidthHeight(canvasElement);
+
+    const newNode = this.buildDom(canvasElement);
+
+    this.setNodeLocation(e, newNode, data, canvasElement);
+    this.attachEventListner(newNode, data.item);
+
+
+    this.projectNode.appendChild(newNode);
+
+    // This has to be last statement
+    this.addItemInProject(canvasElement);
+
   }
 
   adjustWidthHeight(canvasElement: CanvasElement) {

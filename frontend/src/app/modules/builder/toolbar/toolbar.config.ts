@@ -111,5 +111,8 @@ export const FilterConfig = [
   },
   {
     id: AVA_TOOLBAR_OPTIONS.UNDO_REDO,
+  },
+  {
+    id: AVA_TOOLBAR_OPTIONS.DUPLICATE,
   }
 ];
