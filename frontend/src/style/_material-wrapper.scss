@@ -1,5 +1,11 @@
 @import "./colors.scss";
 
+.mat-button {
+  color: white;
+  :hover {
+    color: white;
+  }
+}
 .mat-stroked-button {
   color: $primaryColor;
   background-color: $primaryBgColor;

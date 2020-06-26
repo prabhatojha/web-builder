@@ -6,13 +6,26 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: $gray-300;
+  background-color: rgba(54, 60, 68, 0.94);
 
   padding: 0 25px;
 
   .header-logo {
     display: flex;
     align-items: center;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin-left: -15px;
+    padding: 4px 0 10px;
+
+    a {
+      height: 100%;
+    }
+
+    img {
+      max-height: 100%;
+    }
 
     mat-icon {
       font-size: 30px;
@@ -26,7 +39,8 @@
         margin-left: 20px;
       }
 
-      li a, li button {
+      li a,
+      li button {
         // background-color: white;
         text-decoration: none;
       }
