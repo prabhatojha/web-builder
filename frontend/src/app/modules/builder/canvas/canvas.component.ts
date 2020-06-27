@@ -18,7 +18,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   @ViewChild('canvas', { static: true }) canvas: ElementRef;
   @ViewChild('canvasContainer', { static: true }) canvasContainer: ElementRef;
-  CANVAS_EVENTS = [EventTypes.CANVAS_PREVIEW, EventTypes.CANVAS_DOWNLOAD];
+  CANVAS_EVENTS = [EventTypes.CANVAS_PREVIEW, EventTypes.CANVAS_DOWNLOAD, EventTypes.CANVAS_ADD_ITEM];
 
   canvasOffsetLeft: number;
   canvasOffsetTop: number;
@@ -130,20 +130,19 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   drop(e) {
     e.preventDefault();
-    this.addNewNode(e, e.dataTransfer.getData(CONST_VAR.PICKER_ITEM));
+    const unparseData = e.dataTransfer.getData(CONST_VAR.PICKER_ITEM)
+    if (!unparseData) {
+      return;
+    }
+
+    this.addNewNode(e, JSON.parse(unparseData));
   }
 
   onDuplicateSelectedItem() {
 
   }
 
-  addNewNode(e, unparseData) {
-
-    if (!unparseData) {
-      return;
-    }
-
-    const data = JSON.parse(unparseData);
+  addNewNode(e, data) {
     console.log('DATA - ', data);
     const canvasElement: CanvasElement = data.item.canvaElement;
     this.adjustWidthHeight(canvasElement);
@@ -438,11 +437,20 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   subscribeEventer() {
     this.eventer.get().pipe(filter((t: EventModal) => this.CANVAS_EVENTS.includes(t.type))).subscribe((event: EventModal) => {
-
-      if (event.type === EventTypes.CANVAS_PREVIEW) {
-        this.showPreview = true;
-      }
+      this.processEventer(event);
     });
+  }
+
+  processEventer(event: EventModal) {
+    console.log('getting event', event);
+    switch (event.type) {
+      case EventTypes.CANVAS_PREVIEW:
+        this.showPreview = true;
+        break;
+      case EventTypes.CANVAS_ADD_ITEM:
+        this.addNewNode(event, event.value);
+        break;
+    }
   }
 
   isElementLocked() {

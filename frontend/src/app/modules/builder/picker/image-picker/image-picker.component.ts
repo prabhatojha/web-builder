@@ -2,13 +2,15 @@ import { Component, OnInit, OnChanges, SimpleChanges, ElementRef, ViewChild, Hos
 import { CONST_VAR } from 'src/app/constants/contants';
 import { ImagesService } from './images.service';
 import { Subscription } from 'rxjs';
+import { EventerService, EventTypes } from 'src/app/modules/shared/services/eventer.service';
+import { PickerActions } from '../picker.actions';
 
 @Component({
   selector: 'app-image-picker',
   templateUrl: './image-picker.component.html',
   styleUrls: ['./image-picker.component.scss']
 })
-export class ImagePickerComponent implements OnInit, OnChanges {
+export class ImagePickerComponent extends PickerActions implements OnInit, OnChanges {
 
   items = [];
   rows = [[], []];
@@ -17,23 +19,14 @@ export class ImagePickerComponent implements OnInit, OnChanges {
 
   @ViewChild('photoContainer', { static: true }) photoContainer: ElementRef;
 
-  constructor(public imageService: ImagesService) { }
+  constructor(public imageService: ImagesService, protected eventer: EventerService) {
+    super(eventer);
+  }
 
   ngOnInit() {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-  }
-
-  dragStart(ev, item) {
-    const bound = ev.target.getBoundingClientRect();
-
-    ev.dataTransfer.setData(CONST_VAR.PICKER_ITEM,
-      JSON.stringify({
-        left: ev.clientX - bound.left,
-        top: ev.clientY - bound.top,
-        item
-      }));
   }
 
   onNewSearch(query) {

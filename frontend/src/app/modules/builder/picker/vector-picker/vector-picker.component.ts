@@ -2,36 +2,29 @@ import { Component, OnInit, OnChanges, SimpleChanges, ElementRef, ViewChild } fr
 import { CONST_VAR } from 'src/app/constants/contants';
 import { VectorService } from './vector.service';
 import { Subscription } from 'rxjs';
+import { PickerActions } from '../picker.actions';
+import { EventerService } from 'src/app/modules/shared/services/eventer.service';
 
 @Component({
   selector: 'app-vector-picker',
   templateUrl: './vector-picker.component.html',
   styleUrls: ['./vector-picker.component.scss']
 })
-export class VectorPickerComponent implements OnInit, OnChanges {
+export class VectorPickerComponent extends PickerActions implements OnInit, OnChanges {
 
   imagesSub: Subscription;
   scrollTimer = null;
 
   @ViewChild('photoContainer', { static: true }) photoContainer: ElementRef;
 
-  constructor(public vectorService: VectorService) { }
+  constructor(public vectorService: VectorService, protected eventer: EventerService) {
+    super(eventer);
+  }
 
   ngOnInit() {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-  }
-
-  dragStart(ev, item) {
-    const bound = ev.target.getBoundingClientRect();
-
-    ev.dataTransfer.setData(CONST_VAR.PICKER_ITEM,
-      JSON.stringify({
-        left: ev.clientX - bound.left,
-        top: ev.clientY - bound.top,
-        item
-      }));
   }
 
   onNewSearch(query) {

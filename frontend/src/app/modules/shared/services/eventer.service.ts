@@ -2,8 +2,11 @@ import { Injectable } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
 
 export enum EventTypes {
+
+  // Canvas related events
   CANVAS_PREVIEW,
-  CANVAS_DOWNLOAD
+  CANVAS_DOWNLOAD,
+  CANVAS_ADD_ITEM
 }
 
 export class EventModal {

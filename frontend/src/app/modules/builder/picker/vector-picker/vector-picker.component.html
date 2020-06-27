@@ -7,7 +7,7 @@
     <div class="d-flex">
       <ul class="picker-item">
         <ng-container *ngFor="let item of vectorService.vectors">
-          <li class="image-li" draggable (dragstart)="dragStart($event, item)">
+          <li class="image-li" draggable (dragstart)="dragStart($event, item)" (click)="onClick($event, item)">
             <img [src]="item.imageUrl" [attr.id]="item.id">
           </li>
         </ng-container>

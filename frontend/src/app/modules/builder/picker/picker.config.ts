@@ -23,6 +23,11 @@ export const LEFT_MENU_ITEMS = [
     icon: 'design_services'
   },
   {
+    id: 7,
+    label: 'Background',
+    icon: 'wallpaper'
+  },
+  {
     id: 6,
     label: 'Upload',
     icon: 'cloud_upload'
