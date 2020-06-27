@@ -8,7 +8,7 @@ export const PICKERS = {
       type: 'image',
       toolbarOptions: [0, 1, 3, 4, 6, 7, 8, 10, 11],
       searchKeywords: [],
-      canvaElement: {
+      canvasElement: {
         tag: 'div',
         type: 'text',
         attribute: {

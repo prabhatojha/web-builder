@@ -10,10 +10,10 @@ export class CanvasElement {
   };
   tag: string;
   attribute: {
-    [attr: string]: string | string[]
+    [attr: string]: string
   };
   style: {
-    [attr: string]: string | string[]
+    [style: string]: string
   };
   innerText: string;
   children: Array<CanvasElement>;

@@ -45,7 +45,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   getOriginalItemStyle() {
-    return this.selectedItem.canvaElement.style;
+    return this.selectedItem.canvasElement.style;
   }
 
   getFilterConfig() {

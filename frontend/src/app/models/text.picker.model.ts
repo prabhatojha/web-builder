@@ -10,10 +10,10 @@ export class TextPickerModel {
   fontFamily: string;
 
   innerText: string;
-  canvaElement: CanvasElement;
+  canvasElement: CanvasElement;
 
-  constructor(toolbarOptions: Array<number>, canvaElement: CanvasElement) {
+  constructor(toolbarOptions: Array<number>, canvasElement: CanvasElement) {
     this.toolbarOptions = toolbarOptions;
-    this.canvaElement = canvaElement;
+    this.canvasElement = canvasElement;
   }
 }

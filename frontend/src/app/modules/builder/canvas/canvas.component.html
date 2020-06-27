@@ -11,7 +11,7 @@
 </div>
 
 <app-popup *ngIf="showPreview">
-  <app-canvas-preview [canvaElement]="project?.canvaElement" (closePreview)="showPreview = false"></app-canvas-preview>
+  <app-canvas-preview [canvasElement]="project?.canvasElement" (closePreview)="showPreview = false"></app-canvas-preview>
 
 </app-popup>
 

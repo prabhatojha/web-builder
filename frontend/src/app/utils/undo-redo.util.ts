@@ -35,7 +35,7 @@ export class UndoRedoUtil {
   }
 
   private static getOriginalItemStyle(item) {
-    return item.canvaElement.style;
+    return item.canvasElement.style;
   }
 
   private static addCssItemToList(cssField, newCssValue, oldCssValue) {

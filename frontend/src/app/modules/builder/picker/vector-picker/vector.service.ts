@@ -61,10 +61,10 @@ export class VectorService {
       const image: ImageCanvasElement = getVectorElementInstance();
       image.id = photo.id;
       image.imageUrl = photo.thumb;
-      image.canvaElement.children[0].attribute.src = photo.imageUrl;
-      image.canvaElement.type = ELEMENT_TYPES.VECTOR;
-      image.canvaElement.increaseZIndex = true;
-      this.updateWidth(image.canvaElement, photo.thumbWidth, photo.thumbHeight);
+      image.canvasElement.children[0].attribute.src = photo.imageUrl;
+      image.canvasElement.type = ELEMENT_TYPES.VECTOR;
+      image.canvasElement.increaseZIndex = true;
+      this.updateWidth(image.canvasElement, photo.thumbWidth, photo.thumbHeight);
       this.vectors.push(image);
     });
 

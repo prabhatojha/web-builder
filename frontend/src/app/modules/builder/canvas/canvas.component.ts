@@ -7,6 +7,7 @@ import { EventerService, EventModal, EventTypes } from '../../shared/services/ev
 import { map, filter } from 'rxjs/operators';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { ImageUtils } from 'src/app/utils/image.utils';
+import { CanvasUtils } from 'src/app/utils/canvas.utils';
 
 @Component({
   selector: 'app-canvas',
@@ -24,6 +25,11 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   canvasOffsetTop: number;
 
   // Is the object reprentation of the selected item
+  /**
+   * {
+   *  canvasElement: {}
+   * }
+   */
   selectedItem: any;
 
   // Actual dom element of the selected item
@@ -46,7 +52,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     elementId: 'my-first-element',
     id: 'jfaslj12o4u12oi',
     currentZindex: 1,
-    canvaElement: {
+    canvasElement: {
       type: ELEMENT_TYPES.BACKGROUND,
       tag: 'div',
       style: {
@@ -92,7 +98,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.isDragging = false;
         this.isRoating = false;
 
-        const style = this.selectedItem.canvaElement.style;
+        const style = this.selectedItem.canvasElement.style;
         const targetStyle = this.selectedNode.style;
         style.width = targetStyle.width;
         style.height = targetStyle.height;
@@ -130,49 +136,41 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   drop(e) {
     e.preventDefault();
-    const unparseData = e.dataTransfer.getData(CONST_VAR.PICKER_ITEM)
+    const unparseData = e.dataTransfer.getData(CONST_VAR.PICKER_ITEM);
     if (!unparseData) {
       return;
     }
 
-    this.addNewNode(e, JSON.parse(unparseData));
+    const data = JSON.parse(unparseData);
+
+    const canvasBound = this.projectNode.getBoundingClientRect();
+    const nodeLocation = CanvasUtils.getInitialNodeLocation(e, data.left, data.top, canvasBound);
+
+    this.addNewNode(nodeLocation, data.item);
   }
 
   onDuplicateSelectedItem() {
-
+    console.log('duplicate', this.selectedItem);
+    const nodeLocation = CanvasUtils.getDuplicateNodeLocation(this.selectedItem.canvasElement);
+    this.addNewNode(nodeLocation, this.selectedItem);
   }
 
-  addNewNode(e, data) {
-    console.log('DATA - ', data);
-    const canvasElement: CanvasElement = data.item.canvaElement;
+  addNewNode(nodeLocation, item) {
+    console.log('DATA - ', item);
+
+    const canvasElement: CanvasElement = item.canvasElement;
     this.adjustWidthHeight(canvasElement);
 
     const newNode = this.buildDom(canvasElement);
 
-    this.setNodeLocation(e, newNode, data, canvasElement);
-    this.attachEventListner(newNode, data.item);
+    this.setNodeLocation(nodeLocation, newNode, canvasElement);
+    this.attachEventListner(newNode, item);
 
 
     this.projectNode.appendChild(newNode);
 
     // This has to be last statement
     this.addItemInProject(canvasElement);
-  }
-
-  _addNewNode(e, data, canvasElement) {
-    this.adjustWidthHeight(canvasElement);
-
-    const newNode = this.buildDom(canvasElement);
-
-    this.setNodeLocation(e, newNode, data, canvasElement);
-    this.attachEventListner(newNode, data.item);
-
-
-    this.projectNode.appendChild(newNode);
-
-    // This has to be last statement
-    this.addItemInProject(canvasElement);
-
   }
 
   adjustWidthHeight(canvasElement: CanvasElement) {
@@ -183,23 +181,20 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   getProjectWidthHeight() {
     return {
-      width: parseInt(this.project.canvaElement.style.width, 10),
-      height: parseInt(this.project.canvaElement.style.height, 10)
+      width: parseInt(this.project.canvasElement.style.width, 10),
+      height: parseInt(this.project.canvasElement.style.height, 10)
     };
   }
 
   addItemInProject(item) {
-    this.project.canvaElement.children.push(item);
+    this.project.canvasElement.children.push(item);
   }
 
-  setNodeLocation(e, newNode: any, data, canvasElement) {
-    const canvasBound = this.projectNode.getBoundingClientRect();
-    const posX = e.clientX - canvasBound.left - data.left + 'px';
-    const posY = e.clientY - canvasBound.top - data.top + 'px';
-    newNode.style.left = posX;
-    newNode.style.top = posY;
-    canvasElement.style.left = posX;
-    canvasElement.style.top = posY;
+  setNodeLocation(location, newNode: any, canvasElement) {
+    newNode.style.left = location.x;
+    newNode.style.top = location.y;
+    canvasElement.style.left = location.x;
+    canvasElement.style.top = location.y;
   }
 
   allowDrop(e) {
@@ -207,7 +202,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   createInitialView() {
-    const node = this.buildDom(this.project.canvaElement);
+    const node = this.buildDom(this.project.canvasElement);
     this.attachEventListner(node, this.project, false);
     this.projectNode = node;
     this.canvas.nativeElement.appendChild(node);
@@ -267,7 +262,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   doubleClickListener(node, item) {
-    if (this.selectedItem.canvaElement.type === ELEMENT_TYPES.TEXT) {
+    if (this.selectedItem.canvasElement.type === ELEMENT_TYPES.TEXT) {
       const label = node.getElementsByTagName('label')[0];
 
       node.addEventListener('dblclick', () => {
@@ -290,8 +285,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   updateInnerText(innerText, item) {
-    // const span = item.canvaElement.children[0];
-    item.canvaElement.innerText = innerText;
+    // const span = item.canvasElement.children[0];
+    item.canvasElement.innerText = innerText;
     // span.innerText = innerText;
   }
 
@@ -337,7 +332,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   attachResizeHandler(node) {
-    if (this.isElementLocked() || !this.selectedItem.canvaElement.resizable) {
+    if (this.isElementLocked() || !this.selectedItem.canvasElement.resizable) {
       return;
     }
 
@@ -394,7 +389,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   addZIndex() {
-    if (this.selectedNode && !this.isElementLocked() && this.selectedItem.canvaElement.increaseZIndex) {
+    if (this.selectedNode && !this.isElementLocked() && this.selectedItem.canvasElement.increaseZIndex) {
       this.selectedNode.style[CSS_PROPERTIES.Z_INDEX] = this.project.currentZindex++;
     }
   }
@@ -419,15 +414,15 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   showToolBar(node, item) {
-    this.toolbarOptions = ELEMENT_TYPE_VS_TOOLBAR_OPT[item.canvaElement.type];
+    this.toolbarOptions = ELEMENT_TYPE_VS_TOOLBAR_OPT[item.canvasElement.type];
     this.selectedNode = node;
     this.selectedItem = item;
   }
 
   onItemRemove() {
-    const itemIndex = this.project.canvaElement.children.findIndex(t => t === this.selectedItem.canvaElement);
+    const itemIndex = this.project.canvasElement.children.findIndex(t => t === this.selectedItem.canvasElement);
     if (itemIndex > -1) {
-      this.project.canvaElement.children.splice(itemIndex, 1);
+      this.project.canvasElement.children.splice(itemIndex, 1);
       this.selectedNode.remove();
       this.toolbarOptions = [];
     }
@@ -442,7 +437,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   processEventer(event: EventModal) {
-    console.log('getting event', event);
     switch (event.type) {
       case EventTypes.CANVAS_PREVIEW:
         this.showPreview = true;

@@ -14,30 +14,12 @@ import { EventerService } from 'src/app/modules/shared/services/eventer.service'
 export class TextPickerComponent extends PickerActions implements OnInit {
 
   TextPickerTypes = TextPickerTypes;
+  items = [];
+
   constructor(public textPickerService: TextPickerService, protected eventer: EventerService) {
     super(eventer);
   }
-  items = [];
 
   ngOnInit(): void {
-    this.getInitialImages();
   }
-
-
-  getInitialImages() {
-    // this.items = PICKERS[LEFT_MENU_CONST.TEXT_MENU_ID];
-  }
-
-
-  dragStart(ev, item) {
-    const bound = ev.target.getBoundingClientRect();
-    ev.dataTransfer.setData(CONST_VAR.PICKER_ITEM,
-      JSON.stringify({
-        left: ev.clientX - bound.left,
-        top: ev.clientY - bound.top,
-        item
-      }));
-  }
-
-
 }

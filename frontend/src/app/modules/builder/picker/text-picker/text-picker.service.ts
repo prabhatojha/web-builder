@@ -55,16 +55,16 @@ export class TextPickerService {
 
     this.buildImageTypeText();
     // tslint:disable-next-line: prefer-for-of
-    for (let i = 0; i < this.fontService.customTextFonts.length; i++) {
-      this.buildTextPickerItem(this.fontService.customTextFonts[i]);
-    }
+    // for (let i = 0; i < this.fontService.customTextFonts.length; i++) {
+    //   this.buildTextPickerItem(this.fontService.customTextFonts[i]);
+    // }
   }
 
   buildImageTypeText() {
     const picker = getTextPickerInstance();
     picker.type = TextPickerTypes.IMAGE;
     picker.imageUrl = '/assets/images/pickers/add-text.png';
-    picker.canvaElement.children[0].innerText = 'Double click to edit';
+    picker.canvasElement.children[0].innerText = 'Double click to edit';
     this.list.push(picker);
   }
 
@@ -74,8 +74,8 @@ export class TextPickerService {
     picker.fontFamily = item.family;
     picker.type = TextPickerTypes.TEXT;
     picker.innerText = item.innerText; // Picker element text
-    picker.canvaElement.children[0].innerText = 'Double click to edit'; // Canvas element text
-    picker.canvaElement.style[CSS_PROPERTIES.FONT_FAMILY] = item.family;
+    picker.canvasElement.children[0].innerText = 'Double click to edit'; // Canvas element text
+    picker.canvasElement.style[CSS_PROPERTIES.FONT_FAMILY] = item.family;
 
     this.list.push(picker);
 

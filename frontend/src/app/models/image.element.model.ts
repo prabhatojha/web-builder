@@ -3,9 +3,9 @@ import { CanvasElement } from './canvas.element.model';
 export class ImageCanvasElement {
   id: string;
   imageUrl: string;
-  canvaElement: CanvasElement;
+  canvasElement: CanvasElement;
 
-  constructor(canvaElement: CanvasElement) {
-    this.canvaElement = canvaElement;
+  constructor(canvasElement: CanvasElement) {
+    this.canvasElement = canvasElement;
   }
 }

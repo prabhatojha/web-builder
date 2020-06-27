@@ -9,7 +9,7 @@ import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
 })
 export class CanvasPreviewComponent implements OnInit {
 
-  @Input() canvaElement: any;
+  @Input() canvasElement: any;
   @Output() closePreview = new EventEmitter();
 
   @ViewChild('canvasPreview', { static: true }) canvasPreview: ElementRef;
@@ -19,8 +19,8 @@ export class CanvasPreviewComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.canvaElement.style[CSS_PROPERTIES.OVERFLOW] = CSS_PROPERTIES.OVERFLOW_HIDDEN;
-    this.canvasPreview.nativeElement.appendChild(CanvasUtils.buildDom(this.canvaElement));
+    this.canvasElement.style[CSS_PROPERTIES.OVERFLOW] = CSS_PROPERTIES.OVERFLOW_HIDDEN;
+    this.canvasPreview.nativeElement.appendChild(CanvasUtils.buildDom(this.canvasElement));
   }
 
   close() {
