@@ -1,5 +1,32 @@
-<app-single-select #singleSelect (itemSelect)="onSelect($event)" [list]="options" (itemHover)="onHover($event)"
+<!-- <app-single-select #singleSelect (itemSelect)="onSelect($event)" [list]="options" (itemHover)="onHover($event)"
   [disabled]="disabled" (closeWithoutSelect)="onCloseWithoutSelect()" [changeFontFamily]="true">
   <input #singleSelectSearch type="text" placeholder="Seach Font" class="toolbar-input" [value]="selectedFont"
     (itemHover)="fontHover.emit($event)" (itemSelect)="fontSelect.emit($event)" [disabled]="disabled">
-</app-single-select>
+</app-single-select> -->
+
+<button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" #buttonSource
+  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="isVisible = !isVisible">
+  {{selectedFont}}
+</button>
+
+<div class="left-raiser-container" *ngIf="isVisible" (appClickOutside)="isVisible = false" [srcElement]="buttonSource">
+  <div>
+    <div class="mb-4 search-box-continare">
+      <app-search-box [minQueryLength]="0"></app-search-box>
+    </div>
+    <div class="font-container">
+      <ul>
+        <cdk-virtual-scroll-viewport itemSize="38">
+          <li class="add-your-font">
+            <button type="button" class="btn btn-primary btn-sm">+ Add your font</button>
+          </li>
+          <ng-container *cdkVirtualFor="let item of options">
+            <li [style.fontFamily]="item.value" (click)="onSelect(item)" [class.selected]="item.value === selectedFont">
+              {{item.label}}
+            </li>
+          </ng-container>
+        </cdk-virtual-scroll-viewport>
+      </ul>
+    </div>
+  </div>
+</div>

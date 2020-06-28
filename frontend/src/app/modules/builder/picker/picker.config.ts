@@ -23,22 +23,22 @@ export const LEFT_MENU_ITEMS = [
     icon: 'design_services'
   },
   {
-    id: 7,
+    id: 8,
     label: 'Background',
     icon: 'wallpaper'
   },
   {
-    id: 6,
+    id: 9,
     label: 'Upload',
     icon: 'cloud_upload'
   },
   {
-    id: 7,
+    id: 10,
     label: 'Stickers',
     icon: 'star_rate'
   },
   {
-    id: 7,
+    id: 11,
     label: 'Gif',
     icon: 'gif'
   },

@@ -72,7 +72,8 @@ export class FontFamilyService {
       this.processFonts(data.items);
     });
 
-    this.loadCustomFonts();
+    // This add few fonts on top of the list
+    // this.loadCustomFonts();
   }
 
   loadCustomFonts() {

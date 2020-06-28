@@ -8,12 +8,13 @@ import { FontFamilyService } from 'src/app/modules/shared/services/font/font-fam
 })
 export class FontFamilyComponent implements OnInit {
 
-  @Input() selectedFont;
+  @Input() selectedFont: string;
   @Input() disabled: boolean;
 
   @Output() fontHover = new EventEmitter();
   @Output() fontSelect = new EventEmitter();
   @Output() revertFontSelect = new EventEmitter();
+  isVisible = false;
 
   options = [];
   constructor(private fontService: FontFamilyService) { }

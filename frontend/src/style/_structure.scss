@@ -1,3 +1,5 @@
+@import "./colors.scss";
+
 $headerHeight: 65px;
 
 $contentHeight: calc(100vh - #{$headerHeight});
@@ -19,8 +21,20 @@ $pickerWidth: 310px;
 // Canvas
 $canvasInitialHeight: calc($contentHeight - 150px);
 
-
 // Z-index
 
 $modalZ: 10000;
 $toolbarZ: 9999;
+
+// Application
+
+.left-raiser-container {
+  position: fixed;
+  left: $leftMenu;
+  top: $headerHeight;
+  width: $pickerWidth;
+  height: $contentHeight;
+  background: $gray-30;
+  padding: 20px;
+  box-shadow: 0 0 3px;
+}
