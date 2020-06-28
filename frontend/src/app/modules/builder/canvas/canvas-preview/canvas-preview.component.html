@@ -1,8 +1,13 @@
 <div class='my-modal-header'>
   <h5 class="modal-title">Preview</h5>
   <div>
-    <button mat-stroked-button (click)="print()" class="mr-3">Print</button>
-    <button mat-stroked-button (click)="close()">Close</button>
+    <button mat-icon-button matTooltip="Close" matTooltipPosition="above" (click)="print()">
+      <i class="material-icons">print</i>
+    </button>
+
+    <button mat-icon-button matTooltip="Close" matTooltipPosition="above" (click)="close()">
+      <i class="material-icons">close</i>
+    </button>
   </div>
 </div>
 <div class="canvas-preview-container">

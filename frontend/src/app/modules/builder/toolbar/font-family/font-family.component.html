@@ -11,12 +11,12 @@
 
 <div class="left-raiser-container" *ngIf="isVisible" (appClickOutside)="isVisible = false" [srcElement]="buttonSource">
   <div>
-    <div class="mb-4 search-box-continare">
+    <div class="mb-4 search-box-container">
       <app-search-box [minQueryLength]="0"></app-search-box>
     </div>
     <div class="font-container">
-      <ul>
-        <cdk-virtual-scroll-viewport itemSize="38">
+      <cdk-virtual-scroll-viewport itemSize="38">
+        <ul>
           <li class="add-your-font">
             <button type="button" class="btn btn-primary btn-sm">+ Add your font</button>
           </li>
@@ -25,8 +25,8 @@
               {{item.label}}
             </li>
           </ng-container>
-        </cdk-virtual-scroll-viewport>
-      </ul>
+        </ul>
+      </cdk-virtual-scroll-viewport>
     </div>
   </div>
 </div>
