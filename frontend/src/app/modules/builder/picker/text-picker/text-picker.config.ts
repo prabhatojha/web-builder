@@ -39,12 +39,6 @@ export const TEXT_PICKER_CONST = {
 
 };
 
-export enum TextPickerTypes {
-
-  TEXT,
-  IMAGE
-}
-
 
 // const vsss = {
 //   tag: 'label',

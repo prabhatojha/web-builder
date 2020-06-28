@@ -1,5 +1,4 @@
 import { CanvasElement } from './canvas.element.model';
-import { TextPickerTypes } from '../modules/builder/picker/text-picker/text-picker.config';
 
 export class TextPickerModel {
   id: string;
@@ -16,4 +15,9 @@ export class TextPickerModel {
     this.toolbarOptions = toolbarOptions;
     this.canvasElement = canvasElement;
   }
+}
+
+export enum TextPickerTypes {
+  TEXT,
+  IMAGE
 }

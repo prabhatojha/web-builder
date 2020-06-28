@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FontFamilyService } from 'src/app/modules/shared/services/font/font-family.service';
-import { TextPickerModel } from 'src/app/models/text.picker.model';
-import { getTextPickerInstance, TextPickerTypes } from './text-picker.config';
+import { TextPickerModel, TextPickerTypes } from 'src/app/models/text.picker.model';
+import { getTextPickerInstance } from './text-picker.config';
 import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
 
 @Injectable({
@@ -52,12 +52,12 @@ export class TextPickerService {
   }
 
   init() {
-
-    this.buildImageTypeText();
     // tslint:disable-next-line: prefer-for-of
     // for (let i = 0; i < this.fontService.customTextFonts.length; i++) {
     //   this.buildTextPickerItem(this.fontService.customTextFonts[i]);
     // }
+
+    this.buildImageTypeText();
   }
 
   buildImageTypeText() {

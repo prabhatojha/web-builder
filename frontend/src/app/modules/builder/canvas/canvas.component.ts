@@ -442,7 +442,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.showPreview = true;
         break;
       case EventTypes.CANVAS_ADD_ITEM:
-        this.addNewNode(event, event.value);
+        this.addNewNode({ x: '0px', y: '0px' }, event.value.item);
         break;
     }
   }

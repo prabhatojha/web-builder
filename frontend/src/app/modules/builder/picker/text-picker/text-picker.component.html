@@ -12,8 +12,9 @@
         </ng-container>
 
         <ng-container *ngIf="item.type === TextPickerTypes.TEXT">
-          <li class="text-li custom-text-li" draggable="true" (dragstart)="dragStart($event, item)" (click)="onClick($event, item)">
-            <p [style.fontFamily]="item.fontFamily" [style.fontSize]="item.fontSize">{{item.innerText}}</p>
+          <li class="text-li custom-text-li" draggable="true" (dragstart)="dragStart($event, item)"
+            (click)="onClick($event, item)">
+            <p [style.fontFamily]="item.fontFamily">Almost before we knew it, we had left the ground</p>
           </li>
         </ng-container>
       </ng-container>

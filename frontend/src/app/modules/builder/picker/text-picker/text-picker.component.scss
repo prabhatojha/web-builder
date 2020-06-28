@@ -36,9 +36,9 @@
   }
 
   .custom-text-li {
-    height: 120px;
-    justify-content: center;
-    text-align: center;
+    width: calc(100% - 7px);
+    opacity: 0.9;
+    padding: 7px 10px;
   }
 }
 
