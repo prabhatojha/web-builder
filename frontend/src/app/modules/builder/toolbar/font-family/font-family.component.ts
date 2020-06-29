@@ -17,6 +17,7 @@ export class FontFamilyComponent implements OnInit {
   isVisible = false;
 
   options = [];
+  filteredOptions = [];
   constructor(private fontService: FontFamilyService) { }
 
   ngOnInit(): void {
@@ -33,5 +34,17 @@ export class FontFamilyComponent implements OnInit {
 
   onCloseWithoutSelect() {
     this.revertFontSelect.emit();
+  }
+
+  toggleOptions() {
+    this.isVisible = !this.isVisible;
+    if (this.isVisible) {
+      this.filteredOptions = this.options;
+    }
+  }
+
+  filterResult(query) {
+    console.log('Query', query);
+    this.filteredOptions = this.options.filter(t => t.value.toLowerCase().includes(query));
   }
 }

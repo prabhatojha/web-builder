@@ -12,6 +12,7 @@ export class SearchBoxComponent implements OnInit {
   @Input() value = '';
 
   @Output() searchQuery = new EventEmitter();
+  @Output() searchValueChange = new EventEmitter();
 
   query = '';
 
@@ -23,6 +24,13 @@ export class SearchBoxComponent implements OnInit {
   doSearch() {
     if (this.query.length >= this.minQueryLength) {
       this.searchQuery.emit(this.query);
+    }
+  }
+
+  onChange() {
+    console.log('ng On change', this.query, this.minQueryLength);
+    if (this.query.length >= this.minQueryLength) {
+      this.searchValueChange.emit(this.query.toLowerCase());
     }
   }
 

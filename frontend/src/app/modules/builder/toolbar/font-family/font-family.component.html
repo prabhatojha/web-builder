@@ -5,14 +5,14 @@
 </app-single-select> -->
 
 <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" #buttonSource
-  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="isVisible = !isVisible">
+  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="toggleOptions()">
   {{selectedFont}}
 </button>
 
-<div class="left-raiser-container" *ngIf="isVisible" (appClickOutside)="isVisible = false" [srcElement]="buttonSource">
+<div class="left-raiser-container" *ngIf="isVisible" (appClickOutside)="toggleOptions()" [srcElement]="buttonSource">
   <div>
     <div class="mb-4 search-box-container">
-      <app-search-box [minQueryLength]="0"></app-search-box>
+      <app-search-box [minQueryLength]="0" (searchValueChange)="filterResult($event)"></app-search-box>
     </div>
     <div class="font-container">
       <cdk-virtual-scroll-viewport itemSize="38">
@@ -20,7 +20,7 @@
           <li class="add-your-font">
             <button type="button" class="btn btn-primary btn-sm">+ Add your font</button>
           </li>
-          <ng-container *cdkVirtualFor="let item of options">
+          <ng-container *cdkVirtualFor="let item of filteredOptions">
             <li [style.fontFamily]="item.value" (click)="onSelect(item)" [class.selected]="item.value === selectedFont">
               {{item.label}}
             </li>
