@@ -73,12 +73,12 @@ export class ToolbarComponent implements OnInit, OnChanges {
     }
   }
 
-  onFontSizeSelect(filter, e, updateSelectedItem) {
-    this.changeSelectedValue(filter, e.value);
-    this.applyNodeChanges(filter, e.value);
+  onFontSizeSelect(filter, value, updateSelectedItem) {
+    this.changeSelectedValue(filter, value);
+    this.applyNodeChanges(filter, value);
 
     if (updateSelectedItem) {
-      this.onCssChange(filter, e.value);
+      this.onCssChange(filter, value);
     }
   }
 

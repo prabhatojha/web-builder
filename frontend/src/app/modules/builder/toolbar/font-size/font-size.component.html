@@ -1,0 +1,26 @@
+<!-- <app-single-select #singleSelect (itemSelect)="onFontSizeSelect(filter, $event, true)" [list]="filter.options"
+            (itemHover)="onFontSizeSelect(filter, $event, false)" [changeFontFamily]="filter.changeFontFamily"
+            (closeWithoutSelect)="onCloseWithoutSelect(filter)" [disabled]="selectedItem?.locked">
+            <input #fontSizeInput [attr.type]="filter.inputType" placeholder="{{filter.placeholder}}"
+              class="toolbar-input" [value]="filter.selectedValue" (keyup)="setFontSize(filter, fontSizeInput.value)"
+              (mouseup)="setFontSize(filter, fontSizeInput.value)" (keydown.enter)="singleSelect.closeDropdown()"
+              [disabled]="selectedItem?.locked">
+          </app-single-select> -->
+
+<div class="input-group input-group-sm">
+  <input #fontSizeInput type="number" class="form-control font-size-input" [(ngModel)]="selectedValue"
+    (change)="onInputChange()" [disabled]="disabled">
+
+  <div class="input-group-append" #fontSizeButton>
+    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+      aria-expanded="false" (click)="toggleOptions()"></button>
+  </div>
+
+  <div class="font-size-dropdown" *ngIf="showOptions" (appClickOutside)="toggleOptions()" [srcElement]="fontSizeButton">
+    <ul>
+      <li class="dropdown-item" *ngFor="let item of AVAILABLE_FONT_SIZE" (click)="onValueChange(item.value)">
+        {{item.label}}
+      </li>
+    </ul>
+  </div>
+</div>

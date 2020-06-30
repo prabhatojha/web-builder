@@ -1,12 +1,6 @@
-<!-- <app-single-select #singleSelect (itemSelect)="onSelect($event)" [list]="options" (itemHover)="onHover($event)"
-  [disabled]="disabled" (closeWithoutSelect)="onCloseWithoutSelect()" [changeFontFamily]="true">
-  <input #singleSelectSearch type="text" placeholder="Seach Font" class="toolbar-input" [value]="selectedFont"
-    (itemHover)="fontHover.emit($event)" (itemSelect)="fontSelect.emit($event)" [disabled]="disabled">
-</app-single-select> -->
-
-<button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" #buttonSource
-  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="toggleOptions()">
-  {{selectedFont}}
+<button class="btn btn-outline-secondary dropdown-toggle btn-sm font-family-button" type="button" #buttonSource
+  [disabled]="disabled" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="toggleOptions()">
+  <span>{{selectedFont}}</span>
 </button>
 
 <div class="left-raiser-container" *ngIf="isVisible" (appClickOutside)="toggleOptions()" [srcElement]="buttonSource">

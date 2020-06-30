@@ -8,36 +8,15 @@
 
         <!-- Single Select Filter - Font Family-->
         <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.FONT_FAMILY">
-          <app-font-family [selectedFont]="filter.selectedValue" (fontHover)="onFontFamilySelect(filter, $event, false)"
-            (fontSelect)="onFontFamilySelect(filter, $event, true)" (revertFontSelect)="onCloseWithoutSelect(filter)"
-            [disabled]="selectedItem?.locked">
+          <app-font-family [selectedFont]="filter.selectedValue" (fontSelect)="onFontFamilySelect(filter, $event, true)"
+            (revertFontSelect)="onCloseWithoutSelect(filter)" [disabled]="selectedItem?.locked">
           </app-font-family>
         </ng-container>
 
         <!-- Single Select Filter - Font Size-->
         <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.FONT_SIZE">
-          <!-- <app-single-select #singleSelect (itemSelect)="onFontSizeSelect(filter, $event, true)" [list]="filter.options"
-            (itemHover)="onFontSizeSelect(filter, $event, false)" [changeFontFamily]="filter.changeFontFamily"
-            (closeWithoutSelect)="onCloseWithoutSelect(filter)" [disabled]="selectedItem?.locked">
-            <input #fontSizeInput [attr.type]="filter.inputType" placeholder="{{filter.placeholder}}"
-              class="toolbar-input" [value]="filter.selectedValue" (keyup)="setFontSize(filter, fontSizeInput.value)"
-              (mouseup)="setFontSize(filter, fontSizeInput.value)" (keydown.enter)="singleSelect.closeDropdown()"
-              [disabled]="selectedItem?.locked">
-          </app-single-select> -->
-          <div class="input-group input-group-sm">
-            <input type="number" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <div role="separator" class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
-              </div>
-            </div>
-          </div>
+          <app-font-size (valueChange)="onFontSizeSelect(filter, $event, true)" [selectedValue]="filter.selectedValue">
+          </app-font-size>
         </ng-container>
 
         <!-- Font Weigth Bold -->

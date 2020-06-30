@@ -4,10 +4,24 @@
 $searchBoxHeight: 70px;
 $fontListHeight: calc(#{$contentHeight} - 40px - 70px);
 
+.font-family-button {
+  display: flex;
+  align-items: center;
+
+  span {
+    display: inline-block;
+    width: 80px;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
 .search-box-container {
   width: 100%;
   padding: 0 10px;
 }
+
 .font-container {
   font-size: $largerFont;
 

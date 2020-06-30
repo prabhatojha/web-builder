@@ -25,6 +25,7 @@ const components = [
     MaterialModule
   ],
   declarations: [...components],
-  exports: [...components]
+  exports: [...components, FormsModule,
+    ReactiveFormsModule]
 })
 export class SharedModule { }

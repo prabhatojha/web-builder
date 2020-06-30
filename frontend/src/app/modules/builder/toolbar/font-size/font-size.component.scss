@@ -1,0 +1,22 @@
+@import "../../../../../style/colors.scss";
+
+.font-size-input {
+  width: 60px;
+}
+
+.font-size-dropdown {
+  position: absolute;
+  left: 2px;
+  top: 100%;
+  width: 82px;
+  height: 200px;
+  overflow-y: auto;
+  background-color: $gray-20;
+  box-shadow: 0 0 2px black;
+  cursor: pointer;
+
+  li:hover {
+    background-color: $gray-50;
+  }
+}
+
