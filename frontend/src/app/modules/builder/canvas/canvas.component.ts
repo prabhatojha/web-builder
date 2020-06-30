@@ -415,6 +415,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   showToolBar(node, item) {
     this.toolbarOptions = ELEMENT_TYPE_VS_TOOLBAR_OPT[item.canvasElement.type];
+    debugger
     this.selectedNode = node;
     this.selectedItem = item;
   }
@@ -427,8 +428,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       this.toolbarOptions = [];
     }
   }
-
-  // Preview Canvas
 
   subscribeEventer() {
     this.eventer.get().pipe(filter((t: EventModal) => this.CANVAS_EVENTS.includes(t.type))).subscribe((event: EventModal) => {

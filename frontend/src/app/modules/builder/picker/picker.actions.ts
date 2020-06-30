@@ -1,5 +1,6 @@
 import { CONST_VAR } from 'src/app/constants/contants';
 import { EventerService, EventTypes } from '../../shared/services/eventer.service';
+import { CommonUtils } from 'src/app/utils/common.utils';
 
 export class PickerActions {
 
@@ -8,13 +9,15 @@ export class PickerActions {
 
   dragStart(ev, item) {
     ev.dataTransfer.setData(CONST_VAR.PICKER_ITEM,
+
+      // Json. stringify will also clone the item.
       JSON.stringify(this.buildData(ev, item)));
   }
 
   onClick(ev, item) {
     this.eventer.send({
       type: EventTypes.CANVAS_ADD_ITEM,
-      value: this.buildData(ev, item)
+      value: CommonUtils.cloneDeep(this.buildData(ev, item))
     });
   }
 
