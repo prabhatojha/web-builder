@@ -8,6 +8,7 @@ import { map, filter } from 'rxjs/operators';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { ImageUtils } from 'src/app/utils/image.utils';
 import { CanvasUtils } from 'src/app/utils/canvas.utils';
+import { CommonUtils } from 'src/app/utils/common.utils';
 
 @Component({
   selector: 'app-canvas',
@@ -150,9 +151,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   onDuplicateSelectedItem() {
-    console.log('duplicate', this.selectedItem);
     const nodeLocation = CanvasUtils.getDuplicateNodeLocation(this.selectedItem.canvasElement);
-    this.addNewNode(nodeLocation, this.selectedItem);
+    this.addNewNode(nodeLocation, CommonUtils.cloneDeep(this.selectedItem));
   }
 
   addNewNode(nodeLocation, item) {
