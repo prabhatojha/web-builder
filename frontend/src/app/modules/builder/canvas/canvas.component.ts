@@ -415,7 +415,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   showToolBar(node, item) {
     this.toolbarOptions = ELEMENT_TYPE_VS_TOOLBAR_OPT[item.canvasElement.type];
-    debugger
     this.selectedNode = node;
     this.selectedItem = item;
   }

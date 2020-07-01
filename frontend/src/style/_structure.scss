@@ -30,6 +30,7 @@ $toolbarZ: 9999;
 
 .left-raiser-container {
   position: fixed;
+  z-index: 10;
   left: $leftMenu;
   top: $headerHeight;
   width: $pickerWidth;

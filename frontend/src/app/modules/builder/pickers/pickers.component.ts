@@ -19,14 +19,10 @@ export class PickersComponent implements OnInit {
   }
 
   selectPicker(item, index) {
-    if (this.selectedItemIndex === index) {
-      this.showPicker = false;
-      this.selectedItemIndex = -1;
-    } else {
+    this.showPicker = true;
+    if (this.selectedItemIndex !== index) {
       this.selectedItemIndex = index;
       this.selectedPicker = item;
-      this.showPicker = true;
     }
   }
-
 }

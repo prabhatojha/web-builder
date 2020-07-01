@@ -1,4 +1,4 @@
-<div class="pickers-container">
+<div class="pickers-container position-relative">
   <div class="pickers">
     <ul>
       <li *ngFor="let item of items; let i = index" (click)="selectPicker(item, i)"
@@ -8,6 +8,5 @@
       </li>
     </ul>
   </div>
-  <app-picker [picker]="selectedPicker" [showPicker]="showPicker"
-    (closePicker)="selectedPicker=null; selectedItemIndex = null"></app-picker>
+  <app-picker [picker]="selectedPicker" [(showPicker)]="showPicker"></app-picker>
 </div>

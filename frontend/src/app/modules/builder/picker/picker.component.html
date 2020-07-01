@@ -1,4 +1,7 @@
 <div class="picker" [class.show-picker]="showPicker">
+  <div class="picker-close" (click)="onClose()">
+    <i class="material-icons">arrow_left</i>
+  </div>
   <ng-container [ngSwitch]="picker?.id">
     <ng-container *ngSwitchCase="LEFT_MENU_CONST.PHOTO_MENU_ID">
       <app-image-picker></app-image-picker>

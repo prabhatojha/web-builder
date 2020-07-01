@@ -27,9 +27,8 @@ export class PickerComponent implements OnChanges {
 
   constructor() { }
 
-  @HostListener('document:keydown.esc')
-  onEsc() {
-    this.closePicker.emit();
+  onClose() {
+    this.showPickerChange.emit(false);
   }
 
   /**
