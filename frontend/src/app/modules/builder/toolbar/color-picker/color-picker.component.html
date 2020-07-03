@@ -1,32 +1,36 @@
 <div #srcElement>
   <ng-content></ng-content>
 </div>
-<div id="toolbarNewColorPicker" #toolbarNewColorPicker></div>
-<div class="color-picker" id="colorPalette" *ngIf="showDropdown" (appClickOutside)="close()" [srcElement]="srcElement">
-  <div *ngFor="let opt of options">
-    <div>
-      <label>{{opt.label}}</label>
+
+<div class="left-raiser-container" *ngIf="showDropdown" (appClickOutside)="toggleOptions()" [srcElement]="srcElement">
+  <div id="toolbarNewColorPicker" #toolbarNewColorPicker></div>
+  <div class="color-picker" id="colorPalette" *ngIf="showDropdown" (appClickOutside)="close()"
+    [srcElement]="srcElement">
+    <div class="my-color-header position-relative">
+      <h5>My Colors</h5>
+      <button type="button" class="btn btn-outline-info btn-sm" (click)="showColorPicker = true;">+ Add</button>
+      <div class="color-sketch" *ngIf="showColorPicker">
+        <color-chrome (onChangeComplete)="unsavedColor = $event.color"></color-chrome>
+        <div class="text-right">
+          <button mat-stroked-button (click)="$event.stopPropagation(); showColorPicker = false"
+            class="mr-3">Cancel</button>
+          <button mat-stroked-button (click)="onPick($event)">Save</button>
+        </div>
+      </div>
     </div>
     <div>
-      <div class="color-pallete" *ngFor="let color of opt.customColors" [style.background-color]="color"
+      <div class="color-pallete" *ngFor="let color of customColors" [style.background-color]="color"
         (mouseenter)="onHover(color)" (click)="onClick(color);" [class.selected-color]="color === selectedColor">
       </div>
-      <div class="add-color-pallete color-pallete" (click)="openColorPicker(opt)">
-        <mat-icon>add</mat-icon>
-      </div>
+    </div>
+
+    <div class="standard-color-header">
+      <h5>Standard Colors</h5>
     </div>
     <div>
-      <div class="color-pallete" *ngFor="let color of opt.colors" [style.background-color]="color"
+      <div class="color-pallete" *ngFor="let color of standeardColors" [style.background-color]="color"
         (mouseenter)="onHover(color)" (click)="onClick(color)" [class.selected-color]="color === selectedColor">
       </div>
-    </div>
-  </div>
-  <div class="color-sketch" *ngIf="showColorPicker">
-    <color-chrome (onChangeComplete)="unsavedColor = $event.color"></color-chrome>
-    <div class="text-right">
-      <button mat-stroked-button (click)="$event.stopPropagation(); showColorPicker = false"
-        class="mr-3">Cancel</button>
-      <button mat-stroked-button (click)="onPick($event)">Save</button>
     </div>
   </div>
 </div>

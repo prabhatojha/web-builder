@@ -18,8 +18,8 @@
   font-size: $smallestFont;
   width: $leftMenu;
   height: $contentHeight;
-  background-color: $leftMenuBg;
-  // padding: 5px;
+  background-color: $pickersBg;
+  box-shadow: 2px 0 0 $gray-200;
   overflow-y: auto;
 
   ul {

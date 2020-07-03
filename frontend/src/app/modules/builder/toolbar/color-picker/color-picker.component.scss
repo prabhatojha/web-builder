@@ -1,19 +1,16 @@
 @import "../../../../../style/colors.scss";
+@import "../../../../../style/structure";
 
 .color-picker {
-  position: absolute;
-  width: 275px;
-  height: 300px;
-  padding: 10px;
-  background-color: white;
+  width: 100%;
+  height: $contentHeight;
   overflow-y: auto;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.3);
 
   .color-pallete {
     display: inline-block;
     /* cursor: pointer; */
-    width: calc(1.75em - 5px);
-    height: calc(1.75em - 5px);
+    width: calc(1.75em - 2px);
+    height: calc(1.75em - 2px);
     border-radius: 0.15em;
     cursor: pointer;
     margin: 2.5px;
@@ -24,16 +21,18 @@
     background: transparent;
 
     &.add-color-pallete {
-      background: white;
-      font-size: 19px;
+      mat-icon {
+        font-size: 20px;
+        width: 20px;
+      }
     }
   }
 }
 
 .color-sketch {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 100%;
+  right: 0;
   border-radius: 2px;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.3);
   padding: 10px;
@@ -42,5 +41,25 @@
   ::ng-deep .chrome-picker {
     border-radius: 0;
     box-shadow: 0 0 0;
+  }
+}
+
+.my-color-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h5 {
+    font-size: $mediumFont;
+  }
+}
+
+.standard-color-header {
+  margin-top: 5rem;
+  border-top: 1px solid $gray-100;
+  padding-top: 20px;
+
+  h5 {
+    font-size: $mediumFont;
   }
 }

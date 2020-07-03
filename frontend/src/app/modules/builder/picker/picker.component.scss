@@ -18,7 +18,7 @@
   height: 50px;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
-  background-color: $leftExpandMenuBg;
+  background-color: $pickersBg;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,16 +27,13 @@
 
 .picker {
   width: 0;
-  opacity: 0;
   transition: width 0.4s ease-in;
   position: relative;
   height: $contentHeight;
-  background: $leftExpandMenuBg;
+  background: $pickersBg;
   color: white;
 
   &.show-picker {
-    opacity: 1;
     width: $pickerWidth;
-    transition: width 0.3s ease-out;
   }
 }

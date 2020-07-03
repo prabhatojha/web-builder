@@ -1,5 +1,5 @@
 <div class="picker" [class.show-picker]="showPicker">
-  <div class="picker-close" (click)="onClose()">
+  <div class="picker-close" (click)="onClose()" *ngIf="showPicker">
     <i class="material-icons">arrow_left</i>
   </div>
   <ng-container [ngSwitch]="picker?.id">

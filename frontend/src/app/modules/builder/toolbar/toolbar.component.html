@@ -47,8 +47,7 @@
         <!-- Background color -->
         <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.BACKGROUND_COLOR">
           <div class="position-relative">
-            <app-color-picker #backgroundPicker (colorHover)="onColorHover(filter, $event)"
-              (colorSelect)="onColorSelect(filter, $event)">
+            <app-color-picker #backgroundPicker (colorSelect)="onColorSelect(filter, $event)">
               <div class="toolbar-bg-color" (click)="backgroundPicker.open()" matTooltip="Background Color"
                 matTooltipPosition="above">
               </div>
@@ -59,8 +58,7 @@
         <!-- Background color -->
         <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.COLOR">
           <div class="position-relative">
-            <app-color-picker #backgroundPicker (colorHover)="onColorHover(filter, $event)"
-              (colorSelect)="onColorSelect(filter, $event)">
+            <app-color-picker #backgroundPicker (colorSelect)="onColorSelect(filter, $event)">
               <div class="toolbar-text-color" (click)="backgroundPicker.open()" matTooltip="Text Color"
                 [class.disabled]="selectedItem?.locked" matTooltipPosition="above">
                 A

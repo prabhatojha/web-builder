@@ -7,6 +7,18 @@ export const LEFT_MENU_CONST = {
 
 export const LEFT_MENU_ITEMS = [
   {
+    id: 0,
+    label: 'Template',
+    icon: 'text_fields',
+    type: 'text'
+  },
+  {
+    id: 1,
+    label: 'Layouts',
+    icon: 'view_comfy',
+    type: 'text'
+  },
+  {
     id: 2,
     label: 'Text',
     icon: 'text_fields',
