@@ -30,6 +30,7 @@ $toolBarHeight: 50px;
   width: fit-content;
   height: fit-content;
   transform-origin: top;
+  overflow: hidden;
   div {
     cursor: pointer;
   }

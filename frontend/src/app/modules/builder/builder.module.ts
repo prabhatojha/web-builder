@@ -19,12 +19,13 @@ import { MaterialModule } from 'src/app/material.module';
 import { FontFamilyComponent } from './toolbar/font-family/font-family.component';
 import { VectorPickerComponent } from './picker/vector-picker/vector-picker.component';
 import { FontSizeComponent } from './toolbar/font-size/font-size.component';
+import { SelectElementComponent } from './canvas/select-element/select-element.component';
 
 
 @NgModule({
   declarations: [PickersComponent, BuilderComponent, PickerComponent, CanvasComponent, ToolbarComponent,
     ToolbarPanelComponent, ColorPickerComponent, CanvasPreviewComponent, CanvasScaleComponent, TextAlignmentComponent,
-    ImagePickerComponent, TextPickerComponent, FontFamilyComponent, VectorPickerComponent, FontSizeComponent],
+    ImagePickerComponent, TextPickerComponent, FontFamilyComponent, VectorPickerComponent, FontSizeComponent, SelectElementComponent],
   imports: [
     CommonModule,
     BuilderRoutingModule,
