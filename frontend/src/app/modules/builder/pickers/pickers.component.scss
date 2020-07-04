@@ -32,6 +32,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      transition: background-color 0.25s ease-in-out;
 
       mat-icon {
         font-size: 25px;
@@ -43,7 +44,7 @@
       }
 
       &.selected {
-        background-color: rgb(96, 108, 121);
+        background-color: $leftMenuSelected;
       }
     }
 
