@@ -24,15 +24,21 @@
     padding: 10px;
     margin: 7px;
     border-radius: 3px;
-    background-color: white;
     display: flex;
     align-items: center;
-    cursor: pointer;
+    cursor: move;
+    transition: color 0.2s ease-in;
+    transition: background-color 0.2s ease-in;
+  }
+
+  li:hover {
+    color: $gray-400;
+    background-color: $gray-70;
   }
 
   .text-li {
     width: calc(50% - 14px);
-    color: $gray-500;
+    color: $gray-200;
   }
 
   .custom-text-li {
