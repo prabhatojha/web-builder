@@ -1,3 +1,5 @@
+import { CanvasElement } from '../models/canvas.element.model';
+
 export enum UndoRedoTypes {
   CSS,
   NODE
@@ -23,10 +25,10 @@ export class UndoRedoUtil {
 
   }
 
-  static addStyle(item, node, cssField, newCssValue, saveToList = true) {
+  static addStyle(canvasElement: CanvasElement, node, cssField, newCssValue, saveToList = true) {
     node.style[cssField] = newCssValue || '';
 
-    const style = this.getOriginalItemStyle(item);
+    const style = this.getOriginalItemStyle(canvasElement);
 
     // tslint:disable-next-line: no-unused-expression
     saveToList && this.addCssItemToList(cssField, newCssValue, style[cssField]);
@@ -34,8 +36,8 @@ export class UndoRedoUtil {
     style[cssField] = newCssValue;
   }
 
-  private static getOriginalItemStyle(item) {
-    return item.canvasElement.style;
+  private static getOriginalItemStyle(canvasElement: CanvasElement) {
+    return canvasElement.style;
   }
 
   private static addCssItemToList(cssField, newCssValue, oldCssValue) {

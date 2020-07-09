@@ -147,7 +147,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     const canvasBound = this.projectNode.getBoundingClientRect();
     const nodeLocation = CanvasUtils.getInitialNodeLocation(e, data.left, data.top, canvasBound);
 
-    this.addNewNode(nodeLocation, data.item);
+    this.addNewNode(nodeLocation, data.item.canvasElement);
   }
 
   onDuplicateSelectedItem() {
@@ -155,9 +155,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this.addNewNode(nodeLocation, CommonUtils.cloneDeep(this.selectedCanvasElement));
   }
 
-  addNewNode(nodeLocation, item) {
+  addNewNode(nodeLocation, canvasElement: CanvasElement) {
 
-    const canvasElement: CanvasElement = item.canvasElement;
     this.adjustWidthHeight(canvasElement);
 
     const newNode = this.buildDom(canvasElement);

@@ -17,7 +17,7 @@ export class PickerActions {
   onClick(ev, item) {
     this.eventer.send({
       type: EventTypes.CANVAS_ADD_ITEM,
-      value: CommonUtils.cloneDeep(this.buildData(ev, item))
+      value: CommonUtils.cloneDeep(this.buildData(ev, item.canvasElement))
     });
   }
 
