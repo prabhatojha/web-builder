@@ -156,7 +156,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   addNewNode(nodeLocation, item) {
-    console.log('DATA - ', item);
 
     const canvasElement: CanvasElement = item.canvasElement;
     this.adjustWidthHeight(canvasElement);
@@ -384,7 +383,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   addSelectedNodeBoarder() {
     if (this.selectedNode) {
-      this.selectedNode.style.outline = '1px solid gray';
+      // this.selectedNode.style.outline = '1px solid gray';
     }
   }
 

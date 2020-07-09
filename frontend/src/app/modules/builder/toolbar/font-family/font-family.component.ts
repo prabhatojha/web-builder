@@ -44,7 +44,6 @@ export class FontFamilyComponent implements OnInit {
   }
 
   filterResult(query) {
-    console.log('Query', query);
     this.filteredOptions = this.options.filter(t => t.value.toLowerCase().includes(query));
   }
 }

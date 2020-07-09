@@ -6,7 +6,8 @@ export enum EventTypes {
   // Canvas related events
   CANVAS_PREVIEW,
   CANVAS_DOWNLOAD,
-  CANVAS_ADD_ITEM
+  CANVAS_ADD_ITEM,
+  SELECT_ITEM_DIMENTION
 }
 
 export class EventModal {
@@ -19,8 +20,8 @@ export class EventModal {
 })
 export class EventerService {
 
-  subject = new Subject();
-  behaviourSubject = new BehaviorSubject(null);
+  private subject = new Subject();
+  private behaviourSubject = new BehaviorSubject(null);
 
   constructor() { }
 

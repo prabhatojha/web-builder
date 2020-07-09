@@ -1,0 +1,6 @@
+@import "../../../../../style/colors.scss";
+
+.selected-element {
+  position: absolute;
+  border: 1px solid $selectedCanvasItemBorder;
+}

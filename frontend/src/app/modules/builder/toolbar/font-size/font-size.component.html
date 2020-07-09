@@ -1,12 +1,3 @@
-<!-- <app-single-select #singleSelect (itemSelect)="onFontSizeSelect(filter, $event, true)" [list]="filter.options"
-            (itemHover)="onFontSizeSelect(filter, $event, false)" [changeFontFamily]="filter.changeFontFamily"
-            (closeWithoutSelect)="onCloseWithoutSelect(filter)" [disabled]="selectedItem?.locked">
-            <input #fontSizeInput [attr.type]="filter.inputType" placeholder="{{filter.placeholder}}"
-              class="toolbar-input" [value]="filter.selectedValue" (keyup)="setFontSize(filter, fontSizeInput.value)"
-              (mouseup)="setFontSize(filter, fontSizeInput.value)" (keydown.enter)="singleSelect.closeDropdown()"
-              [disabled]="selectedItem?.locked">
-          </app-single-select> -->
-
 <div class="input-group input-group-sm">
   <input #fontSizeInput type="number" class="form-control font-size-input" [(ngModel)]="selectedValue"
     (change)="onInputChange()" [disabled]="disabled">

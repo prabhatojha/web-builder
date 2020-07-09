@@ -5,13 +5,18 @@
 </div>
 
 <div class="canvas-container" #canvasContainer>
-  <div class="canvas" #canvas (drop)="drop($event)" (dragover)="allowDrop($event)" (click)="onCanvasClick($event)">
+  <div class="canvas-wrapper position-relative">
+    <div class="canvas" #canvas (drop)="drop($event)" (dragover)="allowDrop($event)" (click)="onCanvasClick($event)">
 
+    </div>
+    <app-select-element [selectedNode]="selectedNode"></app-select-element>
+    <!-- <app-drag-element></app-drag-element> -->
   </div>
 </div>
 
 <app-popup *ngIf="showPreview">
-  <app-canvas-preview [canvasElement]="project?.canvasElement" (closePreview)="showPreview = false"></app-canvas-preview>
+  <app-canvas-preview [canvasElement]="project?.canvasElement" (closePreview)="showPreview = false">
+  </app-canvas-preview>
 
 </app-popup>
 

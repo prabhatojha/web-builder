@@ -28,7 +28,6 @@ export class SearchBoxComponent implements OnInit {
   }
 
   onChange() {
-    console.log('ng On change', this.query, this.minQueryLength);
     if (this.query.length >= this.minQueryLength) {
       this.searchValueChange.emit(this.query.trim().toLowerCase());
     }

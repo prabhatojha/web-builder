@@ -25,12 +25,10 @@ export class FontSizeComponent implements OnInit {
   }
 
   onInputChange() {
-    console.log('Font size Input Change', this.selectedValue);
     this.onValueChange(this.selectedValue + 'px');
   }
 
   onValueChange(value) {
-    console.log('Font size', this.selectedValue);
     this.valueChange.emit(value);
   }
 
