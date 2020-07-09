@@ -16,14 +16,12 @@ export class SelectElementComponent implements OnChanges {
   resizeObserver = new ResizeObserver((entries: any) => {
     const rect = entries[0].contentRect;
     this.styles = Object.assign(this.styles, { height: rect.height + 'px' });
-    console.log('EO', this.styles);
     this.cd.detectChanges();
   });
 
   mutationObserver = new MutationObserver((entries: any) => {
     const target = entries[0] && entries[0].target;
     if (target) {
-      console.log(target);
       this.styles = Object.assign(this.styles, { top: target.offsetTop + 'px', left: target.offsetLeft + 'px' });
       this.cd.detectChanges();
     }

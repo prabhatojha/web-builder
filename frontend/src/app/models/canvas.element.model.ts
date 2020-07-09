@@ -17,7 +17,7 @@ export class CanvasElement {
   };
   innerText: string;
   children: Array<CanvasElement>;
-
+  locked: boolean;
   resizable = true;
   increaseZIndex = true;
 

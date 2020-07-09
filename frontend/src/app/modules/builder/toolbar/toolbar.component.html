@@ -9,7 +9,7 @@
         <!-- Single Select Filter - Font Family-->
         <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.FONT_FAMILY">
           <app-font-family [selectedFont]="filter.selectedValue" (fontSelect)="onFontFamilySelect(filter, $event, true)"
-            (revertFontSelect)="onCloseWithoutSelect(filter)" [disabled]="selectedItem?.locked">
+            (revertFontSelect)="onCloseWithoutSelect(filter)" [disabled]="selectedCanvasElement?.locked">
           </app-font-family>
         </ng-container>
 
@@ -22,7 +22,7 @@
         <!-- Font Weigth Bold -->
         <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.FONT_WEIGHT_BOLD">
           <button mat-icon-button (click)="onBoldClick(filter)" matTooltip="Text Bold" matTooltipPosition="above"
-            [disabled]="selectedItem?.locked">
+            [disabled]="selectedCanvasElement?.locked">
             <i class="material-icons">format_bold</i>
           </button>
         </ng-container>
@@ -30,7 +30,7 @@
         <!-- Font Style Italic -->
         <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.FONT_STYLE_ITALIC">
           <button mat-icon-button (click)="onItalicClick(filter)" matTooltip="Text Italic" matTooltipPosition="above"
-            [disabled]="selectedItem?.locked">
+            [disabled]="selectedCanvasElement?.locked">
             <i class="material-icons">format_italic</i>
           </button>
         </ng-container>
@@ -38,7 +38,7 @@
         <!-- Delete Item -->
         <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.DELETE">
           <button mat-icon-button (click)="removeItem()" matTooltip="Delete Element" matTooltipPosition="above"
-            [disabled]="selectedItem?.locked">
+            [disabled]="selectedCanvasElement?.locked">
             <i class="material-icons">delete</i>
           </button>
         </ng-container>
@@ -60,7 +60,7 @@
           <div class="position-relative">
             <app-color-picker #backgroundPicker (colorSelect)="onColorSelect(filter, $event)">
               <div class="toolbar-text-color" (click)="backgroundPicker.open()" matTooltip="Text Color"
-                [class.disabled]="selectedItem?.locked" matTooltipPosition="above">
+                [class.disabled]="selectedCanvasElement?.locked" matTooltipPosition="above">
                 A
                 <div>
 
@@ -74,7 +74,7 @@
         <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.TEXT_ALIGNMENT">
           <div class="position-relative" (mouseleave)="filter.open = false">
             <button mat-icon-button matTooltip="Unlock Element" matTooltipPosition="above"
-              [disabled]="selectedItem?.locked" (mouseenter)="filter.open = true">
+              [disabled]="selectedCanvasElement?.locked" (mouseenter)="filter.open = true">
               <i class="material-icons">subject</i>
             </button>
             <app-text-alignment (selction)="onCssChange(filter, $event)" *ngIf="filter.open">
@@ -86,9 +86,9 @@
         <!-- Lock provider -->
         <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.LOCK">
           <button mat-icon-button (click)="lockItem()"
-            [matTooltip]="selectedItem?.locked ? 'Unlock Eelement': 'Lock Element'" matTooltipPosition="above">
-            <i class="material-icons" *ngIf="selectedItem?.locked">lock</i>
-            <i class="material-icons" *ngIf="!selectedItem?.locked">lock_open</i>
+            [matTooltip]="selectedCanvasElement?.locked ? 'Unlock Eelement': 'Lock Element'" matTooltipPosition="above">
+            <i class="material-icons" *ngIf="selectedCanvasElement?.locked">lock</i>
+            <i class="material-icons" *ngIf="!selectedCanvasElement?.locked">lock_open</i>
           </button>
         </ng-container>
 
@@ -96,7 +96,7 @@
         <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.OPACITY">
           <div class="position-relative" (mouseleave)="filter.open = false">
             <button mat-icon-button matTooltip="Change Opacity" matTooltipPosition="above"
-              [disabled]="selectedItem?.locked" (mouseenter)="filter.open = true">
+              [disabled]="selectedCanvasElement?.locked" (mouseenter)="filter.open = true">
               <i class="material-icons">opacity</i>
             </button>
             <app-slider (slideChange)="updateOpacity(filter, $event)" (slideStop)="updateOpacityOnStop(filter,$event)"

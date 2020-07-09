@@ -31,7 +31,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
    *  canvasElement: {}
    * }
    */
-  selectedItem: any;
+  selectedCanvasElement: CanvasElement;
 
   // Actual dom element of the selected item
   selectedNode: any;
@@ -99,7 +99,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.isDragging = false;
         this.isRoating = false;
 
-        const style = this.selectedItem.canvasElement.style;
+        const style = this.selectedCanvasElement.style;
         const targetStyle = this.selectedNode.style;
         style.width = targetStyle.width;
         style.height = targetStyle.height;
@@ -151,8 +151,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   onDuplicateSelectedItem() {
-    const nodeLocation = CanvasUtils.getDuplicateNodeLocation(this.selectedItem.canvasElement);
-    this.addNewNode(nodeLocation, CommonUtils.cloneDeep(this.selectedItem));
+    const nodeLocation = CanvasUtils.getDuplicateNodeLocation(this.selectedCanvasElement);
+    this.addNewNode(nodeLocation, CommonUtils.cloneDeep(this.selectedCanvasElement));
   }
 
   addNewNode(nodeLocation, item) {
@@ -163,7 +163,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     const newNode = this.buildDom(canvasElement);
 
     this.setNodeLocation(nodeLocation, newNode, canvasElement);
-    this.attachEventListner(newNode, item);
+    this.attachEventListner(newNode, canvasElement);
 
 
     this.projectNode.appendChild(newNode);
@@ -202,7 +202,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   createInitialView() {
     const node = this.buildDom(this.project.canvasElement);
-    this.attachEventListner(node, this.project, false);
+    // We need to iterate throug all the element and attach mouse down listener to all
+    // this.attachEventListner(node, this.project, false);
     this.projectNode = node;
     this.canvas.nativeElement.appendChild(node);
   }
@@ -251,7 +252,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     //   this.toolbarOptions = [];
     //   this.removeResizeHandleAndBorder();
     //   this.selectedNode = null;
-    //   this.selectedItem = null;
+    //   this.selectedCanvasElement = null;
     // }
   }
 
@@ -261,7 +262,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   doubleClickListener(node, item) {
-    if (this.selectedItem.canvasElement.type === ELEMENT_TYPES.TEXT) {
+    if (this.selectedCanvasElement.type === ELEMENT_TYPES.TEXT) {
       const label = node.getElementsByTagName('label')[0];
 
       node.addEventListener('dblclick', () => {
@@ -331,7 +332,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   attachResizeHandler(node) {
-    if (this.isElementLocked() || !this.selectedItem.canvasElement.resizable) {
+    if (this.isElementLocked() || !this.selectedCanvasElement.resizable) {
       return;
     }
 
@@ -388,7 +389,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   addZIndex() {
-    if (this.selectedNode && !this.isElementLocked() && this.selectedItem.canvasElement.increaseZIndex) {
+    if (this.selectedNode && !this.isElementLocked() && this.selectedCanvasElement.increaseZIndex) {
       this.selectedNode.style[CSS_PROPERTIES.Z_INDEX] = this.project.currentZindex++;
     }
   }
@@ -412,14 +413,14 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     }
   }
 
-  showToolBar(node, item) {
-    this.toolbarOptions = ELEMENT_TYPE_VS_TOOLBAR_OPT[item.canvasElement.type];
+  showToolBar(node, canvasElement) {
+    this.toolbarOptions = ELEMENT_TYPE_VS_TOOLBAR_OPT[canvasElement.type];
     this.selectedNode = node;
-    this.selectedItem = item;
+    this.selectedCanvasElement = canvasElement;
   }
 
   onItemRemove() {
-    const itemIndex = this.project.canvasElement.children.findIndex(t => t === this.selectedItem.canvasElement);
+    const itemIndex = this.project.canvasElement.children.findIndex(t => t === this.selectedCanvasElement);
     if (itemIndex > -1) {
       this.project.canvasElement.children.splice(itemIndex, 1);
       this.selectedNode.remove();
@@ -445,6 +446,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   isElementLocked() {
-    return this.selectedItem ? this.selectedItem.locked : false;
+    return this.selectedCanvasElement ? this.selectedCanvasElement.locked : false;
   }
 }

@@ -16,7 +16,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
   @Input() options = [];
   @Input() selectedNode: any;
-  @Input() selectedItem: any;
+  @Input() selectedCanvasElement: any;
 
   @Output() hoverItem = new EventEmitter();
   @Output() removeSelectedItem = new EventEmitter();
@@ -35,7 +35,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
       this.filterConfig = this.getFilterConfig();
     }
 
-    if (changes.selectedItem && this.selectedItem) {
+    if (changes.selectedCanvasElement && this.selectedCanvasElement) {
       this.styles = this.getOriginalItemStyle();
       this.setInitialState(this.styles);
     }
@@ -45,7 +45,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   getOriginalItemStyle() {
-    return this.selectedItem.canvasElement.style;
+    return this.selectedCanvasElement.style;
   }
 
   getFilterConfig() {
@@ -122,7 +122,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   lockItem() {
-    this.selectedItem.locked = !this.selectedItem.locked;
+    this.selectedCanvasElement.locked = !this.selectedCanvasElement.locked;
 
     // This will trigger changes to selected element, such as removing the Resize Handle
     this.selectedNode.dispatchEvent(new Event('mousedown'));
@@ -141,7 +141,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   onCssChange(filter, cssValue) {
-    UndoRedoUtil.addStyle(this.selectedItem, this.selectedNode, filter.cssField, cssValue);
+    UndoRedoUtil.addStyle(this.selectedCanvasElement, this.selectedNode, filter.cssField, cssValue);
   }
 
   updateOpacity(filter, cssValue) {
@@ -153,15 +153,15 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   undoItem() {
-    UndoRedoUtil.undo(this.selectedItem, this.selectedNode);
+    UndoRedoUtil.undo(this.selectedCanvasElement, this.selectedNode);
   }
 
   redoItem() {
-    UndoRedoUtil.redo(this.selectedItem, this.selectedNode);
+    UndoRedoUtil.redo(this.selectedCanvasElement, this.selectedNode);
   }
 
   duplicate() {
     this.duplicateSelectedItem.emit();
-    // UndoRedoUtil.redo(this.selectedItem, this.selectedNode);
+    // UndoRedoUtil.redo(this.selectedCanvasElement, this.selectedNode);
   }
 }
