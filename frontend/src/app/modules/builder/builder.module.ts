@@ -21,18 +21,21 @@ import { VectorPickerComponent } from './picker/vector-picker/vector-picker.comp
 import { FontSizeComponent } from './toolbar/font-size/font-size.component';
 import { SelectElementComponent } from './canvas/select-element/select-element.component';
 import { DragElementComponent } from './canvas/drag-element/drag-element.component';
+import { AngularDraggableModule } from 'angular2-draggable';
 
 
 @NgModule({
   declarations: [PickersComponent, BuilderComponent, PickerComponent, CanvasComponent, ToolbarComponent,
     ToolbarPanelComponent, ColorPickerComponent, CanvasPreviewComponent, CanvasScaleComponent, TextAlignmentComponent,
-    ImagePickerComponent, TextPickerComponent, FontFamilyComponent, VectorPickerComponent, FontSizeComponent, SelectElementComponent, DragElementComponent],
+    ImagePickerComponent, TextPickerComponent, FontFamilyComponent, VectorPickerComponent, FontSizeComponent,
+    SelectElementComponent, DragElementComponent],
   imports: [
     CommonModule,
     BuilderRoutingModule,
     SharedModule,
     ColorChromeModule,
-    MaterialModule
+    MaterialModule,
+    AngularDraggableModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

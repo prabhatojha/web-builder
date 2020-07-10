@@ -4,3 +4,32 @@
   position: absolute;
   border: 1px solid $selectedCanvasItemBorder;
 }
+
+.resizable-props {
+  border: 1px solid darkgray;
+  background: white;
+}
+
+.ng-resizable-handle.ng-resizable-ne {
+  @extend .resizable-props;
+  top: -6px;
+  right: -6px;
+}
+
+.ng-resizable-handle.ng-resizable-nw {
+  @extend .resizable-props;
+  top: -6px;
+  left: -6px;
+}
+
+.ng-resizable-handle.ng-resizable-sw {
+  @extend .resizable-props;
+  bottom: -6px;
+  left: -6px;
+}
+
+.ng-resizable-handle.ng-resizable-se {
+  @extend .resizable-props;
+  bottom: -6px;
+  right: -6px;
+}

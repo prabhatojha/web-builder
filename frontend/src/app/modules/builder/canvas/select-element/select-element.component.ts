@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { EventerService, EventTypes, EventModal } from 'src/app/modules/shared/services/eventer.service';
 import { filter } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
@@ -7,7 +7,8 @@ import ResizeObserver from 'resize-observer-polyfill';
 @Component({
   selector: 'app-select-element',
   templateUrl: './select-element.component.html',
-  styleUrls: ['./select-element.component.scss']
+  styleUrls: ['./select-element.component.scss', './select-element.resize.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SelectElementComponent implements OnChanges {
 

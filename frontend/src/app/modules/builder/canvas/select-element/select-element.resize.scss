@@ -1,0 +1,57 @@
+@import "../../../../../style/structure";
+
+$myResizeHandlerLength: 20px;
+$myResizeHandlerWidth: 6px;
+$myResizeHandlerMargin: -10px;
+$myResizeHandlerPos: -3px;
+
+.resizable-props {
+  border: 1px solid $resizeHandlerBorder;
+  background: $resizeHandlerBg;
+}
+
+.my-resize-handle {
+  position: absolute;
+}
+
+ew {
+  top: 50%;
+
+  .my-resize-handle-inner {
+    @extend .resizable-props;
+    margin-top: $myResizeHandlerMargin;
+    width: $myResizeHandlerWidth;
+    height: $myResizeHandlerLength;
+  }
+}
+
+.my-resize-handle-e {
+  right: $myResizeHandlerPos;
+  @extend ew;
+}
+
+.my-resize-handle-w {
+  left: $myResizeHandlerPos;
+  @extend ew;
+}
+
+ns {
+  left: 50%;
+
+  .my-resize-handle-inner {
+    @extend .resizable-props;
+    margin-left: $myResizeHandlerMargin;
+    width: $myResizeHandlerLength;
+    height: $myResizeHandlerWidth;
+  }
+}
+
+.my-resize-handle-n {
+  top: $myResizeHandlerPos;
+  @extend ns;
+}
+
+.my-resize-handle-s {
+  bottom: $myResizeHandlerPos;
+  @extend ns;
+}
