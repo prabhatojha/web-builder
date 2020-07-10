@@ -63,4 +63,16 @@ export class SelectElementComponent implements OnChanges {
     this.resizeObserver.observe(this.selectedNode);
     this.mutationObserver.observe(this.selectedNode, { attributes: true });
   }
+
+  resizing(e) {
+    const { left, top } = e.position;
+    const { width, height } = e.size;
+
+    const style = this.selectedNode.style;
+
+    style.top = top + 'px';
+    style.left = left + 'px';
+    style.width = width + 'px';
+    style.height = height + 'px';
+  }
 }

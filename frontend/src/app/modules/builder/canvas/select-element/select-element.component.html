@@ -1,4 +1,4 @@
-<div class="selected-element" [ngStyle]="styles" ngResizable rzHandles="all">
+<div class="selected-element" [ngStyle]="styles" ngResizable rzHandles="all" (rzResizing)='resizing($event)'>
 
   <div class="my-resize-handle my-resize-handle-e">
     <div class="my-resize-handle-inner"></div>
