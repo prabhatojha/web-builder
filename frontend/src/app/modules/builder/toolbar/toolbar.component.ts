@@ -5,6 +5,7 @@ import { CommonUtils } from '../../../utils/common.utils';
 import { filter } from 'rxjs/operators';
 import { CanvasUtils } from 'src/app/utils/canvas.utils';
 import { UndoRedoUtil } from 'src/app/utils/undo-redo.util';
+import { CanvasElement } from 'src/app/models/canvas.element.model';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
   @Input() options = [];
   @Input() selectedNode: any;
-  @Input() selectedCanvasElement: any;
+  @Input() selectedCanvasElement: CanvasElement;
 
   @Output() hoverItem = new EventEmitter();
   @Output() removeSelectedItem = new EventEmitter();

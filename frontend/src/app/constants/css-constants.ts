@@ -5,7 +5,23 @@ export const CSS_PROPERTIES = {
   OVERFLOW: 'overflow',
   OVERFLOW_HIDDEN: 'hidden',
   FONT_FAMILY: 'font-family',
-
+  WIDTH: 'width',
+  HEIGHT: 'height',
+  TOP: 'top',
+  LEFT: 'left',
   // Attributes
   CONTENT_EDITABLE: 'contentEditable'
 };
+
+export const CSS_PROPERTY_VALUES = {
+  OVERFLOW_HIDDEN: 'hidden'
+};
+
+
+
+export const PX_APPLICABLE_CSS_PROPS = [
+  CSS_PROPERTIES.WIDTH,
+  CSS_PROPERTIES.HEIGHT,
+  CSS_PROPERTIES.TOP,
+  CSS_PROPERTIES.LEFT,
+];

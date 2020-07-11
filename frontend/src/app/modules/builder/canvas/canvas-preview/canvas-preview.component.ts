@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { CanvasUtils } from 'src/app/utils/canvas.utils';
-import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
+import { CSS_PROPERTIES, CSS_PROPERTY_VALUES } from 'src/app/constants/css-constants';
 
 @Component({
   selector: 'app-canvas-preview',
@@ -19,7 +19,7 @@ export class CanvasPreviewComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.canvasElement.style[CSS_PROPERTIES.OVERFLOW] = CSS_PROPERTIES.OVERFLOW_HIDDEN;
+    this.canvasElement.style[CSS_PROPERTIES.OVERFLOW] = CSS_PROPERTY_VALUES.OVERFLOW_HIDDEN;
     this.canvasPreview.nativeElement.appendChild(CanvasUtils.buildDom(this.canvasElement));
   }
 

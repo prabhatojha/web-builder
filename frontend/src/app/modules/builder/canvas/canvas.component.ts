@@ -297,7 +297,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     node.addEventListener('mousedown', (e) => {
       e.stopPropagation();
       this._selectElement(node, item, enableRotate);
-      this.moveElementWithMouse(e);
+      // this.moveElementWithMouse(e);
     });
   }
 
@@ -315,18 +315,18 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   _selectElement(node, item, enableRotate) {
     // Remove handler from previous selected item
-    this.removeResizeHandleAndBorder();
-    this.removeRotateHandle();
+    // this.removeResizeHandleAndBorder();
+    // this.removeRotateHandle();
 
     // Store the selected element ref and show toobar
     this.showToolBar(node, item);
 
     // Add handler to current selected item
-    this.addSelectedNodeBoarder();
+    // this.addSelectedNodeBoarder();
     this.addZIndex();
-    this.attachResizeHandler(node);
+    // this.attachResizeHandler(node);
     if (enableRotate) {
-      this.attachRotateHandler(node);
+      // this.attachRotateHandler(node);
     }
   }
 

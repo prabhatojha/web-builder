@@ -1,4 +1,5 @@
 import { CanvasElement } from '../models/canvas.element.model';
+import { PX_APPLICABLE_CSS_PROPS } from '../constants/css-constants';
 
 export class CanvasUtils {
 
@@ -89,4 +90,34 @@ export class CanvasUtils {
     };
   }
   // Element Duplicate/placement end ------------------------
+
+
+  static applyCss(node: HTMLElement, item: CanvasElement, styles, permanent?: boolean) {
+
+    Object.keys(styles).forEach(prop => {
+      const value = this._getStyleValue(prop, styles[prop]);
+      node.style[prop] = value;
+
+      if (permanent) {
+        item.style.style[prop] = value;
+      }
+    });
+  }
+
+  static _getStyleValue(key: string, value: string | number) {
+    // handle zero
+    if (!value && value !== 0) {
+      return '';
+    }
+
+    if (typeof value === 'string' && value.endsWith('px')) {
+      return value;
+    }
+
+    if (PX_APPLICABLE_CSS_PROPS.includes(key)) {
+      return value + 'px';
+    }
+
+    return value;
+  }
 }
