@@ -13,11 +13,14 @@ export const CSS_PROPERTIES = {
   CONTENT_EDITABLE: 'contentEditable'
 };
 
+export const CSS_ELEMENT_PROPS = {
+  offsetLeft: 'offsetLeft',
+  offsetTop: 'offsetTop'
+}
+
 export const CSS_PROPERTY_VALUES = {
   OVERFLOW_HIDDEN: 'hidden'
 };
-
-
 
 export const PX_APPLICABLE_CSS_PROPS = [
   CSS_PROPERTIES.WIDTH,

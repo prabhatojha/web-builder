@@ -1,6 +1,9 @@
-<div class="selected-element" [ngStyle]="styles" ngResizable rzHandles="all" (rzResizing)='resizing($event)'>
+<!-- <div class="selected-element" [ngStyle]="styles" ngResizable rzHandles="all" (rzResizing)='resizing($event)' ngDraggable
+  (movingOffset)="onDragging($event)" [zIndex]="zIndex" (rzStop)="resizingStop($event)" #handleRef> -->
 
-  <div class="my-resize-handle my-resize-handle-e">
+<div class="selected-element" [ngStyle]="styles" #handleRef>
+
+  <!-- <div class="my-resize-handle my-resize-handle-e">
     <div class="my-resize-handle-inner"></div>
   </div>
   <div class="my-resize-handle my-resize-handle-w">
@@ -11,5 +14,10 @@
   </div>
   <div class="my-resize-handle my-resize-handle-s">
     <div class="my-resize-handle-inner"></div>
-  </div>
+  </div> -->
 </div>
+
+<ngx-moveable #moveable [target]="selectedNode" [draggable]="true" [container]="container" [origin]="false"
+  [rotatable]="true" [resizable]="true" [scalable]="false" [warpable]="false" [pinchable]="false" [keepRatio]="false"
+  (resize)="onResize($event)" (drag)="dragging($event)" (rotate)="rotating($event)" [throttleResize]="1">
+</ngx-moveable>

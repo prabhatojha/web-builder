@@ -3,6 +3,7 @@
 .selected-element {
   position: absolute;
   border: 1px solid $selectedCanvasItemBorder;
+  z-index: 99999;
 }
 
 .resizable-props {

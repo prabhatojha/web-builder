@@ -22,7 +22,7 @@ import { FontSizeComponent } from './toolbar/font-size/font-size.component';
 import { SelectElementComponent } from './canvas/select-element/select-element.component';
 import { DragElementComponent } from './canvas/drag-element/drag-element.component';
 import { AngularDraggableModule } from 'angular2-draggable';
-
+import { NgxMoveableModule } from 'ngx-moveable';
 
 @NgModule({
   declarations: [PickersComponent, BuilderComponent, PickerComponent, CanvasComponent, ToolbarComponent,
@@ -35,7 +35,8 @@ import { AngularDraggableModule } from 'angular2-draggable';
     SharedModule,
     ColorChromeModule,
     MaterialModule,
-    AngularDraggableModule
+    AngularDraggableModule,
+    NgxMoveableModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

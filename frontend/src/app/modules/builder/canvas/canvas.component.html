@@ -9,7 +9,8 @@
     <div class="canvas" #canvas (drop)="drop($event)" (dragover)="allowDrop($event)" (click)="onCanvasClick($event)">
 
     </div>
-    <app-select-element [selectedNode]="selectedNode" [selectedCanvasElement]="selectedCanvasElement">
+    <app-select-element *ngIf="selectedNode" [selectedNode]="selectedNode"
+      [selectedCanvasElement]="selectedCanvasElement" [container]="canvas">
     </app-select-element>
     <!-- <app-drag-element></app-drag-element> -->
   </div>
