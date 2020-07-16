@@ -1,8 +1,6 @@
-<div class="selected-element" [ngStyle]="styles" #handleRef>
-</div>
-
 <ngx-moveable #moveable [target]="selectedNode" [draggable]="true" [container]="container" [origin]="false"
   [rotatable]="true" [resizable]="true" [scalable]="false" [warpable]="false" [pinchable]="false" [keepRatio]="false"
-  (resize)="onResize($event)" (drag)="dragging($event)" (rotate)="rotating($event)" [throttleResize]="1"
-  [horizontalGuidelines]="[20, 200, 500]" [snappable]="true" [snapCenter]="true" [verticalGuidelines]="[250]">
+  (resize)="onResize($event)" (drag)="dragging($event)" (rotate)="rotating($event)"
+  (rotateStart)="onRotateStart($event)" (rotateEnd)="onRotateStart($event)" [throttleResize]="1" [origin]="true" [horizontalGuidelines]="[20, 200, 500]"
+  [snappable]="false" [snapCenter]="false" [verticalGuidelines]="[250]">
 </ngx-moveable>

@@ -6,8 +6,9 @@ import ResizeObserver from 'resize-observer-polyfill';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { CanvasUtils } from 'src/app/utils/canvas.utils';
 import { ELEMENT_TYPES } from 'src/app/constants/contants';
-import { CSS_PROPERTIES, CSS_ELEMENT_PROPS } from 'src/app/constants/css-constants';
+import { CSS_PROPERTIES, CSS_ELEMENT_PROPS, ElementDimentionModel } from 'src/app/constants/css-constants';
 import Moveable from 'moveable';
+import { CommonUtils } from 'src/app/utils/common.utils';
 @Component({
   selector: 'app-select-element',
   templateUrl: './select-element.component.html',
@@ -23,10 +24,13 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   @ViewChild('moveable', { static: false }) moveable: any;
 
   resizeObserver = new ResizeObserver((entries: any) => {
+    console.log(entries[0]);
     this.moveable.updateRect();
   });
 
   previousSelectedNode: any;
+
+  dimention: ElementDimentionModel = new ElementDimentionModel();
 
   constructor(private cd: ChangeDetectorRef) { }
 
@@ -50,31 +54,41 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   setInitialSize() {
+    this.dimention = CommonUtils.cloneDeep(this.selectedCanvasElement.dimention);
+
     if (this.selectedCanvasElement.type === ELEMENT_TYPES.TEXT) {
       this.resizeObserver.observe(this.selectedNode);
     }
   }
 
   onResize(e) {
-    this.selectedNode.style.width = e.width + 'px';
-    this.selectedNode.style.height = e.height + 'px';
+    const { width, height } = e;
+    this.updateNodeCss({ width, height });
 
     console.log('Reszing', e);
   }
 
   dragging(e) {
-    this.selectedNode.style.left = e.left + 'px';
-    this.selectedNode.style.top = e.top + 'px';
-    console.log('Dragging', e);
+    const { left, top } = e;
+    this.updateNodeCss({ left, top });
   }
 
-  setTransform(target) {
-    target.style.cssText = this.selectedNode.toCSS();
+  onRotateStart(e) {
+    console.log('Start', e);
   }
 
   rotating(e) {
-    this.selectedNode.style.transform = `rotate(${e.dist}deg)`;
-    console.log('Rotating', e);
+    console.log('Rotating', e.rotate, e.dist);
+    this.dimention.rotate += e.rotate;
+    this.updateNodeDimention();
+  }
+
+  updateNodeCss(styles) {
+    CanvasUtils.applyCss(this.selectedNode, this.selectedCanvasElement, styles);
+  }
+
+  updateNodeDimention() {
+    CanvasUtils.applyDimention(this.selectedNode, this.selectedCanvasElement, this.dimention);
   }
 
   ngOnDestroy() {

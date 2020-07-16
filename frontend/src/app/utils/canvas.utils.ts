@@ -1,5 +1,6 @@
 import { CanvasElement } from '../models/canvas.element.model';
-import { PX_APPLICABLE_CSS_PROPS } from '../constants/css-constants';
+import { PX_APPLICABLE_CSS_PROPS, ElementDimentionModel, CSS_PROPERTIES } from '../constants/css-constants';
+import { CommonUtils } from './common.utils';
 
 export class CanvasUtils {
 
@@ -69,12 +70,12 @@ export class CanvasUtils {
 
   // Element Location/placement start ------------------------
   static getInitialNodeLocation(e, pickerLeft, pickerTop, canvasBound) {
-    let x = '0px';
-    let y = '0px';
+    let x = 0;
+    let y = 0;
 
     if (e.clientX && e.clientY && pickerLeft && pickerTop) {
-      x = e.clientX - canvasBound.left - pickerLeft + 'px';
-      y = e.clientY - canvasBound.top - pickerTop + 'px';
+      x = e.clientX - canvasBound.left - pickerLeft;
+      y = e.clientY - canvasBound.top - pickerTop;
     }
 
     return {
@@ -85,12 +86,14 @@ export class CanvasUtils {
 
   static getDuplicateNodeLocation(canvasElement: CanvasElement) {
     return {
-      x: parseInt(canvasElement.style.left, 10) + 20 + 'px',
-      y: parseInt(canvasElement.style.top, 10) + 20 + 'px'
+      x: canvasElement.dimention.translateX + 20,
+      y: canvasElement.dimention.translateX + 20
     };
   }
   // Element Duplicate/placement end ------------------------
 
+
+  // CSS application start
 
   static applyCss(node: HTMLElement, item: CanvasElement, styles, permanent?: boolean) {
 
@@ -120,4 +123,32 @@ export class CanvasUtils {
 
     return value;
   }
+
+  static applyDimention(node: HTMLElement, item: CanvasElement, dimention: ElementDimentionModel, permanent?: boolean) {
+    const obj = {
+      [CSS_PROPERTIES.WIDTH]: dimention.width,
+      [CSS_PROPERTIES.HEIGHT]: dimention.height
+    };
+
+    // Updating width and height
+    this.applyCss(node, item, obj, permanent);
+
+    console.log(this.dimentionCss(dimention));
+    // Updating the transform property
+    node.style[CSS_PROPERTIES.TRANSFORM] = this.dimentionCss(dimention);
+
+    if (permanent) {
+      item.dimention = CommonUtils.cloneDeep(dimention);
+    }
+  }
+
+  private static dimentionCss(dimention: ElementDimentionModel) {
+    return `${CSS_PROPERTIES.ROTATE}(${dimention.rotate}deg) ` +
+      `${CSS_PROPERTIES.TRANSLATE_X}(${dimention.translateX}px) ` +
+      `${CSS_PROPERTIES.TRANSLATE_Y}(${dimention.translateY}px) ` +
+      `${CSS_PROPERTIES.SCALE_X}(${dimention.scaleX}) ` +
+      `${CSS_PROPERTIES.SCALE_Y}(${dimention.scaleY}) `;
+  }
+
+  // CSS application end
 }

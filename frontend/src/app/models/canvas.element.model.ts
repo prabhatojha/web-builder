@@ -1,9 +1,11 @@
 import { ELEMENT_TYPES } from '../constants/contants';
+import { ElementDimentionModel } from '../constants/css-constants';
 
 export class CanvasElement {
   type: ELEMENT_TYPES;
-  width: number;
-  height: number;
+  // width: number;
+  // height: number;
+  dimention: ElementDimentionModel = new ElementDimentionModel();
   ratio: {
     x: string,
     y: string

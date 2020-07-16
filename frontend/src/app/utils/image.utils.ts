@@ -3,8 +3,8 @@ import { CanvasElement } from '../models/canvas.element.model';
 export class ImageUtils {
   static setInitialWidthAndHeight(dimention, canvasEle: CanvasElement) {
 
-    const imgW = canvasEle.width;
-    const imgH = canvasEle.height;
+    const imgW = canvasEle.dimention.width;
+    const imgH = canvasEle.dimention.height;
 
     const proW = dimention.width;
     const proH = dimention.height;
@@ -19,7 +19,7 @@ export class ImageUtils {
       imgH /= 2;
     }
 
-    canvasEle.style.width = imgW + 'px';
-    canvasEle.style.height = imgH + 'px';
+    canvasEle.dimention.width = imgW;
+    canvasEle.dimention.height = imgH;
   }
 }

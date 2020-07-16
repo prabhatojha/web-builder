@@ -56,6 +56,10 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     canvasElement: {
       type: ELEMENT_TYPES.BACKGROUND,
       tag: 'div',
+      dimention: {
+        width: 500,
+        height: 500
+      },
       style: {
         width: '500px',
         height: '500px',
@@ -99,41 +103,41 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.isDragging = false;
         this.isRoating = false;
 
-        const style = this.selectedCanvasElement.style;
-        const targetStyle = this.selectedNode.style;
-        style.width = targetStyle.width;
-        style.height = targetStyle.height;
-        style.left = targetStyle.left;
-        style.top = targetStyle.top;
-        style.transform = targetStyle.transform;
+        // const style = this.selectedCanvasElement.style;
+        // const targetStyle = this.selectedNode.style;
+        // style.width = targetStyle.width;
+        // style.height = targetStyle.height;
+        // style.left = targetStyle.left;
+        // style.top = targetStyle.top;
+        // style.transform = targetStyle.transform;
       }
     });
   }
 
   mouseMoveListner = (e) => {
-    if (this.isDragging) {
-      this.onItemDrag(e);
-    } else if (this.isResizing) {
-      this.onItemResize(e);
-    } else if (this.isRoating) {
-      this.onItemRotate(e);
-    }
+    // if (this.isDragging) {
+    //   this.onItemDrag(e);
+    // } else if (this.isResizing) {
+    //   this.onItemResize(e);
+    // } else if (this.isRoating) {
+    //   this.onItemRotate(e);
+    // }
   }
 
-  onItemDrag(e) {
-    this.selectedNode.style.left = this.initialLeft + (e.clientX - this.initialClientX) + 'px';
-    this.selectedNode.style.top = this.initialTop + (e.clientY - this.initialClientY) + 'px';
-  }
+  // onItemDrag(e) {
+  //   this.selectedNode.style.left = this.initialLeft + (e.clientX - this.initialClientX) + 'px';
+  //   this.selectedNode.style.top = this.initialTop + (e.clientY - this.initialClientY) + 'px';
+  // }
 
-  onItemResize(e) {
-    this.selectedNode.style.width = this.initialWidth + e.clientX - this.initialClientX + 'px';
-    this.selectedNode.style.height = this.initialHeight + e.clientY - this.initialClientY + 'px';
-  }
+  // onItemResize(e) {
+  //   this.selectedNode.style.width = this.initialWidth + e.clientX - this.initialClientX + 'px';
+  //   this.selectedNode.style.height = this.initialHeight + e.clientY - this.initialClientY + 'px';
+  // }
 
-  onItemRotate(e) {
-    const rotation = this.initialRotation + (e.clientX - this.initialClientX);
-    this.selectedNode.style.transform = `rotate(${rotation}deg)`;
-  }
+  // onItemRotate(e) {
+  //   const rotation = this.initialRotation + (e.clientX - this.initialClientX);
+  //   this.selectedNode.style.transform = `rotate(${rotation}deg)`;
+  // }
 
   drop(e) {
     e.preventDefault();
@@ -179,8 +183,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   getProjectWidthHeight() {
     return {
-      width: parseInt(this.project.canvasElement.style.width, 10),
-      height: parseInt(this.project.canvasElement.style.height, 10)
+      width: this.project.canvasElement.dimention.width,
+      height: this.project.canvasElement.dimention.height
     };
   }
 
@@ -188,11 +192,13 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this.project.canvasElement.children.push(item);
   }
 
-  setNodeLocation(location, newNode: any, canvasElement) {
-    newNode.style.left = location.x;
-    newNode.style.top = location.y;
-    canvasElement.style.left = location.x;
-    canvasElement.style.top = location.y;
+  setNodeLocation(location, newNode: any, canvasElement: CanvasElement) {
+    canvasElement.dimention.translateX = location.x;
+    canvasElement.dimention.translateY = location.y;
+
+    CanvasUtils.applyDimention(newNode, canvasElement, canvasElement.dimention);
+    // newNode.style.left = location.x;
+    // newNode.style.top = location.y;
   }
 
   allowDrop(e) {
@@ -301,17 +307,17 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     });
   }
 
-  moveElementWithMouse(ce) {
-    if (this.isElementLocked()) {
-      return;
-    }
-    this.isDragging = true;
-    this.initialLeft = parseInt(this.selectedNode.style.left, 10);
-    this.initialTop = parseInt(this.selectedNode.style.top, 10);
-    this.initialClientX = ce.clientX;
-    this.initialClientY = ce.clientY;
-    this.canvasContainer.nativeElement.addEventListener('mousemove', this.mouseMoveListner);
-  }
+  // moveElementWithMouse(ce) {
+  //   if (this.isElementLocked()) {
+  //     return;
+  //   }
+  //   this.isDragging = true;
+  //   this.initialLeft = parseInt(this.selectedNode.style.left, 10);
+  //   this.initialTop = parseInt(this.selectedNode.style.top, 10);
+  //   this.initialClientX = ce.clientX;
+  //   this.initialClientY = ce.clientY;
+  //   this.canvasContainer.nativeElement.addEventListener('mousemove', this.mouseMoveListner);
+  // }
 
   _selectElement(node, item, enableRotate) {
     // Remove handler from previous selected item
@@ -330,51 +336,51 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     }
   }
 
-  attachResizeHandler(node) {
-    if (this.isElementLocked() || !this.selectedCanvasElement.resizable) {
-      return;
-    }
+  // attachResizeHandler(node) {
+  //   if (this.isElementLocked() || !this.selectedCanvasElement.resizable) {
+  //     return;
+  //   }
 
-    const resizeHandler = document.createElement('div');
-    resizeHandler.classList.add(CONST_VAR.RESIZE_HANDLER_CLASS);
+  //   const resizeHandler = document.createElement('div');
+  //   resizeHandler.classList.add(CONST_VAR.RESIZE_HANDLER_CLASS);
 
-    resizeHandler.addEventListener('mousedown', (e) => {
-      this.isResizing = true;
-      e.stopPropagation();
-      this.initialWidth = this.selectedNode.offsetWidth;
-      this.initialHeight = this.selectedNode.offsetHeight;
-      this.initialClientX = e.clientX;
-      this.initialClientY = e.clientY;
-      this.canvasContainer.nativeElement.addEventListener('mousemove', this.mouseMoveListner);
-    });
+  //   resizeHandler.addEventListener('mousedown', (e) => {
+  //     this.isResizing = true;
+  //     e.stopPropagation();
+  //     this.initialWidth = this.selectedNode.offsetWidth;
+  //     this.initialHeight = this.selectedNode.offsetHeight;
+  //     this.initialClientX = e.clientX;
+  //     this.initialClientY = e.clientY;
+  //     this.canvasContainer.nativeElement.addEventListener('mousemove', this.mouseMoveListner);
+  //   });
 
-    node.appendChild(resizeHandler);
-  }
+  //   node.appendChild(resizeHandler);
+  // }
 
-  attachRotateHandler(node) {
-    if (this.isElementLocked()) {
-      return;
-    }
+  // attachRotateHandler(node) {
+  //   if (this.isElementLocked()) {
+  //     return;
+  //   }
 
-    const resizeHandler = document.createElement('i');
-    resizeHandler.innerText = 'rotate_left';
-    resizeHandler.classList.add(CONST_VAR.ROTATE_HANDLER_ICON);
-    resizeHandler.classList.add(CONST_VAR.ROTATE_HANDLER_CLASS);
+  //   const resizeHandler = document.createElement('i');
+  //   resizeHandler.innerText = 'rotate_left';
+  //   resizeHandler.classList.add(CONST_VAR.ROTATE_HANDLER_ICON);
+  //   resizeHandler.classList.add(CONST_VAR.ROTATE_HANDLER_CLASS);
 
-    resizeHandler.addEventListener('mousedown', (e) => {
-      this.isRoating = true;
-      e.stopPropagation();
-      this.initialWidth = this.selectedNode.offsetWidth;
-      this.initialHeight = this.selectedNode.offsetHeight;
-      this.initialRotation = this.getInitialRotateDeg();
-      this.initialClientX = e.clientX;
-      this.initialClientY = e.clientY;
+  //   resizeHandler.addEventListener('mousedown', (e) => {
+  //     this.isRoating = true;
+  //     e.stopPropagation();
+  //     this.initialWidth = this.selectedNode.offsetWidth;
+  //     this.initialHeight = this.selectedNode.offsetHeight;
+  //     this.initialRotation = this.getInitialRotateDeg();
+  //     this.initialClientX = e.clientX;
+  //     this.initialClientY = e.clientY;
 
-      this.canvasContainer.nativeElement.addEventListener('mousemove', this.mouseMoveListner);
-    });
+  //     this.canvasContainer.nativeElement.addEventListener('mousemove', this.mouseMoveListner);
+  //   });
 
-    node.appendChild(resizeHandler);
-  }
+  //   node.appendChild(resizeHandler);
+  // }
 
   getInitialRotateDeg() {
     const val = this.selectedNode.style.transform;
@@ -439,7 +445,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.showPreview = true;
         break;
       case EventTypes.CANVAS_ADD_ITEM:
-        this.addNewNode({ x: '0px', y: '0px' }, event.value.item);
+        this.addNewNode({ x: 0, y: 0 }, event.value.item);
         break;
     }
   }
