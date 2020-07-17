@@ -24,7 +24,6 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   @ViewChild('moveable', { static: false }) moveable: any;
 
   resizeObserver = new ResizeObserver((entries: any) => {
-    console.log(entries[0]);
     this.moveable.updateRect();
   });
 
@@ -61,25 +60,45 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     }
   }
 
+  onResizeStart({ dragStart, setOrigin }) {
+    setOrigin(['%', '%']);
+    dragStart.set([this.dimention.translateX, this.dimention.translateY]);
+  }
+
+  // onResize({ target, width, height, isPinch, drag }: OnResize) {
+  //   this.frame.set("width", `${width}px`);
+  //   this.frame.set("height", `${height}px`);
+  //   this.frame.set("transform", "translateX", `${drag.beforeTranslate[0]}px`);
+  //   this.frame.set("transform", "translateY", `${drag.beforeTranslate[1]}px`);
+  //   this.setTransform(target);
+  //   console.log(width, height);
+  // }
+
   onResize(e) {
     const { width, height } = e;
-    this.updateNodeCss({ width, height });
+    this.dimention.width = width;
+    this.dimention.height = height;
+    this.dimention.translateX = e.drag.beforeTranslate[0];
+    this.dimention.translateY = e.drag.beforeTranslate[1];
+    // this.frame.set("transform", "translateX", `${drag.beforeTranslate[0]}px`);
+    // this.frame.set("transform", "translateY", `${drag.beforeTranslate[1]}px`);
 
-    console.log('Reszing', e);
+    this.updateNodeDimention();
+    console.log(e.drag);
   }
 
   dragging(e) {
     const { left, top } = e;
-    this.updateNodeCss({ left, top });
+    this.dimention.translateX = left;
+    this.dimention.translateY = top;
+    this.updateNodeDimention();
   }
 
   onRotateStart(e) {
-    console.log('Start', e);
   }
 
   rotating(e) {
-    console.log('Rotating', e.rotate, e.dist);
-    this.dimention.rotate += e.rotate;
+    this.dimention.rotate += e.beforeDelta;
     this.updateNodeDimention();
   }
 

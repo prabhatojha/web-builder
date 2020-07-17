@@ -127,13 +127,14 @@ export class CanvasUtils {
   static applyDimention(node: HTMLElement, item: CanvasElement, dimention: ElementDimentionModel, permanent?: boolean) {
     const obj = {
       [CSS_PROPERTIES.WIDTH]: dimention.width,
-      [CSS_PROPERTIES.HEIGHT]: dimention.height
+      [CSS_PROPERTIES.HEIGHT]: dimention.height,
+      'left': dimention.translateX,
+      'top': dimention.translateY
     };
 
     // Updating width and height
     this.applyCss(node, item, obj, permanent);
 
-    console.log(this.dimentionCss(dimention));
     // Updating the transform property
     node.style[CSS_PROPERTIES.TRANSFORM] = this.dimentionCss(dimention);
 
@@ -144,8 +145,8 @@ export class CanvasUtils {
 
   private static dimentionCss(dimention: ElementDimentionModel) {
     return `${CSS_PROPERTIES.ROTATE}(${dimention.rotate}deg) ` +
-      `${CSS_PROPERTIES.TRANSLATE_X}(${dimention.translateX}px) ` +
-      `${CSS_PROPERTIES.TRANSLATE_Y}(${dimention.translateY}px) ` +
+      // `${CSS_PROPERTIES.TRANSLATE_X}(${dimention.translateX}px) ` +
+      // `${CSS_PROPERTIES.TRANSLATE_Y}(${dimention.translateY}px) ` +
       `${CSS_PROPERTIES.SCALE_X}(${dimention.scaleX}) ` +
       `${CSS_PROPERTIES.SCALE_Y}(${dimention.scaleY}) `;
   }
