@@ -1,6 +1,7 @@
 import { ImageCanvasElement } from 'src/app/models/image.element.model';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { CommonUtils } from 'src/app/utils/common.utils';
+import { ElementDimentionModel } from 'src/app/constants/css-constants';
 
 export const IMAGE_CONTAINER_DEFAULT_STYLE = {
   'text-align': 'center',
@@ -36,6 +37,8 @@ export function getImageElementInstance(): ImageCanvasElement {
 
   const child = new CanvasElement('img', attr, imgStyle, []);
   const canvasElement = new CanvasElement('div', {}, containerStyle, [child]);
+  canvasElement.dimention = getDimention();
+
   return new ImageCanvasElement(canvasElement);
 }
 
@@ -47,5 +50,15 @@ export function getVectorElementInstance(): ImageCanvasElement {
 
   const child = new CanvasElement('img', attr, imgStyle, []);
   const canvasElement = new CanvasElement('div', {}, containerStyle, [child]);
+  canvasElement.dimention = getDimention();
+
   return new ImageCanvasElement(canvasElement);
+}
+
+function getDimention() {
+  const d = new ElementDimentionModel();
+  d.width = 320;
+  d.height = 40;
+
+  return d;
 }

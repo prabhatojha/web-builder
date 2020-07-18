@@ -65,26 +65,13 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     dragStart.set([this.dimention.translateX, this.dimention.translateY]);
   }
 
-  // onResize({ target, width, height, isPinch, drag }: OnResize) {
-  //   this.frame.set("width", `${width}px`);
-  //   this.frame.set("height", `${height}px`);
-  //   this.frame.set("transform", "translateX", `${drag.beforeTranslate[0]}px`);
-  //   this.frame.set("transform", "translateY", `${drag.beforeTranslate[1]}px`);
-  //   this.setTransform(target);
-  //   console.log(width, height);
-  // }
-
   onResize(e) {
     const { width, height } = e;
     this.dimention.width = width;
     this.dimention.height = height;
     this.dimention.translateX = e.drag.beforeTranslate[0];
     this.dimention.translateY = e.drag.beforeTranslate[1];
-    // this.frame.set("transform", "translateX", `${drag.beforeTranslate[0]}px`);
-    // this.frame.set("transform", "translateY", `${drag.beforeTranslate[1]}px`);
-
     this.updateNodeDimention();
-    console.log(e.drag);
   }
 
   dragging(e) {
@@ -114,5 +101,9 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     if (this.previousSelectedNode) {
       this.resizeObserver.unobserve(this.previousSelectedNode);
     }
+  }
+
+  onEnd() {
+    this.selectedCanvasElement.dimention = CommonUtils.cloneDeep(this.dimention);
   }
 }

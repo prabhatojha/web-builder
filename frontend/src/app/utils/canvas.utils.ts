@@ -6,11 +6,12 @@ export class CanvasUtils {
 
   // Building DOM element start here ----------------
 
-  static buildDom(node) {
+  static buildDom(node: CanvasElement) {
     const ele = document.createElement(node.tag);
     this.addElementStyle(ele, node.style);
     this.addInnerText(ele, node.innerText);
     this.addAttributes(ele, node.attribute);
+    this.addDimention(ele, node);
 
     if (node.children) {
       // tslint:disable-next-line: prefer-for-of
@@ -20,6 +21,12 @@ export class CanvasUtils {
     }
 
     return ele;
+  }
+
+  private static addDimention(ele, node: CanvasElement) {
+    if (node.dimention) {
+      this.applyDimention(ele, node, node.dimention);
+    }
   }
 
   private static addAttributes(ele, attrs) {
@@ -128,8 +135,8 @@ export class CanvasUtils {
     const obj = {
       [CSS_PROPERTIES.WIDTH]: dimention.width,
       [CSS_PROPERTIES.HEIGHT]: dimention.height,
-      'left': dimention.translateX,
-      'top': dimention.translateY
+      [CSS_PROPERTIES.LEFT]: dimention.translateX,
+      [CSS_PROPERTIES.TOP]: dimention.translateY
     };
 
     // Updating width and height

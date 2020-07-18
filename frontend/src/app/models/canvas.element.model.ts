@@ -5,7 +5,7 @@ export class CanvasElement {
   type: ELEMENT_TYPES;
   // width: number;
   // height: number;
-  dimention: ElementDimentionModel = new ElementDimentionModel();
+  dimention: ElementDimentionModel;
   ratio: {
     x: string,
     y: string

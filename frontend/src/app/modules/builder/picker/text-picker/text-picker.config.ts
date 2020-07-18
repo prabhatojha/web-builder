@@ -48,29 +48,3 @@ function getDimention() {
 export const TEXT_PICKER_CONST = {
 
 };
-
-
-// const vsss = {
-//   tag: 'label',
-//   id: 'xzkljasf214assaf',
-//   type: 'image',
-//   toolbarOptions: [0, 1, 3, 4, 6, 7, 8, 10, 11],
-//   searchKeywords: [],
-//   canvasElement: {
-//     tag: 'div',
-//     type: 'text',
-//     attribute: {
-//     },
-//     style: {},
-//     children: [
-//       {
-//         tag: 'label',
-//         innerText: 'Double click to type',
-//         style: {
-//           cursor: 'move'
-//         }
-//       }
-//     ]
-//   },
-//   imageUrl: '/assets/images/pickers/add-text.png'
-// }
