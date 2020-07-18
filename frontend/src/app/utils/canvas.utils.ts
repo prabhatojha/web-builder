@@ -76,7 +76,7 @@ export class CanvasUtils {
 
 
   // Element Location/placement start ------------------------
-  static getInitialNodeLocation(e, pickerLeft, pickerTop, canvasBound) {
+  static setInitialNodeLocation(e, pickerLeft, pickerTop, canvasBound) {
     let x = 0;
     let y = 0;
 
@@ -91,11 +91,9 @@ export class CanvasUtils {
     };
   }
 
-  static getDuplicateNodeLocation(canvasElement: CanvasElement) {
-    return {
-      x: canvasElement.dimention.translateX + 20,
-      y: canvasElement.dimention.translateX + 20
-    };
+  static setDuplicateNodeLocation(canvasElement: CanvasElement) {
+    canvasElement.dimention.translateX += 20;
+    canvasElement.dimention.translateY += 20;
   }
   // Element Duplicate/placement end ------------------------
 

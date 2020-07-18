@@ -147,15 +147,15 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     }
 
     const data = JSON.parse(unparseData);
-
+    const canvasElement: CanvasElement = data.item.canvasElement;
     const canvasBound = this.projectNode.getBoundingClientRect();
-    const nodeLocation = CanvasUtils.getInitialNodeLocation(e, data.left, data.top, canvasBound);
+    const nodeLocation = CanvasUtils.setInitialNodeLocation(e, data.left, data.top, canvasBound);
 
     this.addNewNode(nodeLocation, data.item.canvasElement);
   }
 
   onDuplicateSelectedItem() {
-    const nodeLocation = CanvasUtils.getDuplicateNodeLocation(this.selectedCanvasElement);
+    const nodeLocation = CanvasUtils.setDuplicateNodeLocation(this.selectedCanvasElement);
     this.addNewNode(nodeLocation, CommonUtils.cloneDeep(this.selectedCanvasElement));
   }
 
@@ -196,9 +196,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     canvasElement.dimention.translateX = location.x;
     canvasElement.dimention.translateY = location.y;
 
-    CanvasUtils.applyDimention(newNode, canvasElement, canvasElement.dimention);
-    // newNode.style.left = location.x;
-    // newNode.style.top = location.y;
+    CanvasUtils.applyDimention(newNode, canvasElement, canvasElement.dimention, true);
   }
 
   allowDrop(e) {

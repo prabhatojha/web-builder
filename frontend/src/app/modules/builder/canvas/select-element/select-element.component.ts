@@ -23,18 +23,21 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   @ViewChild('moveable', { static: false }) moveable: any;
 
+  previousSelectedNode: any;
+
+  dimention: ElementDimentionModel = new ElementDimentionModel();
+  manualResize: boolean;
+
   resizeObserver = new ResizeObserver((entries: any) => {
     const rect = entries && entries[0].contentRect;
-    if (rect) {
+
+    // If user is doing resize, do not trigger this change
+    if (rect && !this.manualResize) {
       this.dimention.height = entries[0].contentRect.height;
       this.updateNodeDimention(true);
       this.moveable.updateRect();
     }
   });
-
-  previousSelectedNode: any;
-
-  dimention: ElementDimentionModel = new ElementDimentionModel();
 
   constructor(private cd: ChangeDetectorRef) { }
 
@@ -66,6 +69,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   onResizeStart({ dragStart, setOrigin }) {
+    this.manualResize = true;
     setOrigin(['%', '%']);
     dragStart.set([this.dimention.translateX, this.dimention.translateY]);
   }
@@ -109,6 +113,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   onEnd() {
+    this.manualResize = false;
     this.selectedCanvasElement.dimention = CommonUtils.cloneDeep(this.dimention);
   }
 }
