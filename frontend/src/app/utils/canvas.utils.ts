@@ -109,7 +109,7 @@ export class CanvasUtils {
       node.style[prop] = value;
 
       if (permanent) {
-        item.style.style[prop] = value;
+        item.style[prop] = value;
       }
     });
   }

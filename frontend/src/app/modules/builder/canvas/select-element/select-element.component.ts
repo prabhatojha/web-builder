@@ -24,7 +24,12 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   @ViewChild('moveable', { static: false }) moveable: any;
 
   resizeObserver = new ResizeObserver((entries: any) => {
-    this.moveable.updateRect();
+    const rect = entries && entries[0].contentRect;
+    if (rect) {
+      this.dimention.height = entries[0].contentRect.height;
+      this.updateNodeDimention(true);
+      this.moveable.updateRect();
+    }
   });
 
   previousSelectedNode: any;
@@ -46,7 +51,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   unbindPreviousItem() {
     if (this.previousSelectedNode) {
-      this.resizeObserver.unobserve(this.previousSelectedNode);
+      this.resizeObserver.unobserve(this.previousSelectedNode.getElementsByTagName('label')[0]);
     }
 
     this.previousSelectedNode = this.selectedNode;
@@ -56,7 +61,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     this.dimention = CommonUtils.cloneDeep(this.selectedCanvasElement.dimention);
 
     if (this.selectedCanvasElement.type === ELEMENT_TYPES.TEXT) {
-      this.resizeObserver.observe(this.selectedNode);
+      this.resizeObserver.observe(this.selectedNode.getElementsByTagName('label')[0]);
     }
   }
 
@@ -93,8 +98,8 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     CanvasUtils.applyCss(this.selectedNode, this.selectedCanvasElement, styles);
   }
 
-  updateNodeDimention() {
-    CanvasUtils.applyDimention(this.selectedNode, this.selectedCanvasElement, this.dimention);
+  updateNodeDimention(permanent = false) {
+    CanvasUtils.applyDimention(this.selectedNode, this.selectedCanvasElement, this.dimention, permanent);
   }
 
   ngOnDestroy() {
