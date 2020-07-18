@@ -2,6 +2,6 @@
   [rotatable]="true" [resizable]="true" [scalable]="false" [warpable]="false" [pinchable]="false" [keepRatio]="false"
   (resizeStart)="onResizeStart($event)" (resize)="onResize($event)" (resizeEnd)="onEnd()" (drag)="dragging($event)"
   (dragEnd)="onEnd()" (rotate)="rotating($event)" (rotateStart)="onRotateStart($event)" (rotateEnd)="onEnd()"
-  [throttleResize]="1" [origin]="true" [horizontalGuidelines]="[20, 200, 500]" [snappable]="false" [snapCenter]="false"
-  [verticalGuidelines]="[250]">
+  [throttleResize]="1" [horizontalGuidelines]="[0, 250, 500]" [snappable]="true" [snapCenter]="false"
+  [verticalGuidelines]="[0, 250, 500]">
 </ngx-moveable>

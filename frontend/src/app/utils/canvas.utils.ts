@@ -76,19 +76,13 @@ export class CanvasUtils {
 
 
   // Element Location/placement start ------------------------
-  static setInitialNodeLocation(e, pickerLeft, pickerTop, canvasBound) {
-    let x = 0;
-    let y = 0;
+  static setInitialNodeLocation(e, data, canvasBound) {
+    const canvasElement: CanvasElement = data.item.canvasElement;
 
-    if (e.clientX && e.clientY && pickerLeft && pickerTop) {
-      x = e.clientX - canvasBound.left - pickerLeft;
-      y = e.clientY - canvasBound.top - pickerTop;
+    if (e.clientX && e.clientY && data.left && data.top) {
+      canvasElement.dimention.translateX = e.clientX - canvasBound.left - data.left;
+      canvasElement.dimention.translateY = e.clientY - canvasBound.top - data.top;
     }
-
-    return {
-      x,
-      y
-    };
   }
 
   static setDuplicateNodeLocation(canvasElement: CanvasElement) {
