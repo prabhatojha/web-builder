@@ -1,0 +1,25 @@
+@import "./colors.scss";
+@import "./structure";
+
+$primaryButtonFontSize: $largeFont;
+
+.btn {
+  display: flex;
+  align-items: center;
+  font-size: $primaryButtonFontSize;
+
+  .material-icons {
+    width: $primaryButtonFontSize;
+    height: $primaryButtonFontSize;
+    font-size: $primaryButtonFontSize;
+    margin-right: 5px;
+  }
+}
+
+.btn-info {
+  background-color: $primaryButtonBg;
+}
+
+.btn-info:hover {
+  background-color: $primaryButtonHoverBg;
+}
