@@ -19,3 +19,11 @@
 button:focus {
   outline: none;
 }
+
+.mat-icon-button {
+  border-radius: 2px !important;
+}
+
+.mat-icon-button:hover {
+  background: $gray-70;
+}

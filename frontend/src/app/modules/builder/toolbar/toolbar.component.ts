@@ -2,10 +2,10 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitte
 import { AVA_TOOLBAR_OPTIONS, FilterConfig } from './toolbar.config';
 import { FILTER_TYPES } from '../../../constants/contants';
 import { CommonUtils } from '../../../utils/common.utils';
-import { filter } from 'rxjs/operators';
-import { CanvasUtils } from 'src/app/utils/canvas.utils';
 import { UndoRedoUtil } from 'src/app/utils/undo-redo.util';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
+import { CSS_PROPERTIES, CSS_PROPERTY_VALUES } from 'src/app/constants/css-constants';
+import { CanvasUtils } from 'src/app/utils/canvas.utils';
 
 
 @Component({
@@ -26,8 +26,17 @@ export class ToolbarComponent implements OnInit, OnChanges {
   filterConfig = [];
   FILTER_TYPES = FILTER_TYPES;
   AVA_TOOLBAR_OPTIONS = AVA_TOOLBAR_OPTIONS;
+  avaToolbarOptions = {};
+  CSS_PROPS = CSS_PROPERTIES;
+
   initialOpacity = 0;
   styles = {};
+  isLocked: boolean;
+  isGroupUngroupVisible = true;
+  isGroupedItems: boolean;
+
+  isAlignmentSelectorOpen: boolean;
+  isOpacitySelectorOpen: boolean;
 
   constructor() { }
 
@@ -38,6 +47,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
     if (changes.selectedCanvasElement && this.selectedCanvasElement) {
       this.styles = this.getOriginalItemStyle();
+      this.isLocked = this.selectedCanvasElement.locked;
       this.setInitialState(this.styles);
     }
   }
@@ -50,72 +60,70 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   getFilterConfig() {
+    console.log(this.avaToolbarOptions);
+    this.options.forEach(t => {
+      this.avaToolbarOptions[t] = true;
+    });
+    console.log(this.avaToolbarOptions);
     return CommonUtils.cloneDeep(FilterConfig.filter(conf => this.options.includes(conf.id)));
   }
 
   setInitialState(style) {
     if (style) {
-      this.filterConfig.forEach(filter => {
-        if (filter.filterType === FILTER_TYPES.TOGGABLE) {
-          filter.isSelected = style[filter.cssField] === filter.cssValue;
+      this.filterConfig.forEach(conf => {
+        if (conf.filterType === FILTER_TYPES.TOGGABLE) {
+          conf.isSelected = style[conf.cssField] === conf.cssValue;
         } else {
-          this.changeSelectedValue(filter, style[filter.cssField]);
+          this.changeSelectedValue(conf, style[conf.cssField]);
         }
       });
     }
   }
 
-  onFontFamilySelect(filter, e, updateSelectedItem) {
-    this.changeSelectedValue(filter, e.value);
-    this.applyNodeChanges(filter, e.value);
-
-    if (updateSelectedItem) {
-      this.onCssChange(filter, e.value);
-    }
+  onFontFamilySelect(e) {
+    this.updateCss({ [CSS_PROPERTIES.FONT_FAMILY]: e.value });
   }
 
-  onFontSizeSelect(filter, value, updateSelectedItem) {
-    this.changeSelectedValue(filter, value);
-    this.applyNodeChanges(filter, value);
-
-    if (updateSelectedItem) {
-      this.onCssChange(filter, value);
-    }
+  onFontSizeSelect(value) {
+    this.updateCss({ [CSS_PROPERTIES.FONT_SIZE]: value });
   }
 
-  onCloseWithoutSelect(filter) {
+  onCloseWithoutSelect(conf) {
     const style = this.getOriginalItemStyle();
-    this.applyNodeChanges(filter, style[filter.cssField]);
-    this.changeSelectedValue(filter, style[filter.cssField]);
+    this.applyNodeChanges(conf, style[conf.cssField]);
+    this.changeSelectedValue(conf, style[conf.cssField]);
   }
 
-  changeSelectedValue(filter, value) {
-    filter.selectedValue = filter.id === AVA_TOOLBAR_OPTIONS.FONT_SIZE ? parseInt(value, 10) : value;
+  changeSelectedValue(conf, value) {
+    conf.selectedValue = conf.id === AVA_TOOLBAR_OPTIONS.FONT_SIZE ? parseInt(value, 10) : value;
   }
 
-  setFontSize(filter, value) {
+  setFontSize(conf, value) {
     if (value) {
-      this.onFontSizeSelect(filter, { value: value + 'px' }, true);
+      this.onFontSizeSelect(conf, { value: value + 'px' }, true);
     }
   }
 
-  applySelectedItemChanes(filter, value) {
+  applySelectedItemChanes(conf, value) {
     const style = this.getOriginalItemStyle();
-    style[filter.cssField] = value;
+    style[conf.cssField] = value;
   }
 
-  applyNodeChanges(filter, value) {
-    this.selectedNode.style[filter.cssField] = value;
+  applyNodeChanges(conf, value) {
+    this.selectedNode.style[conf.cssField] = value;
   }
 
-  onBoldClick(filter) {
-    filter.isSelected = !filter.isSelected;
-    this.onCssChange(filter, filter.isSelected ? 'bold' : 'normal');
+  onBoldClick() {
+    this.updateCss({ [CSS_PROPERTIES.FONT_WEIGHT]: CSS_PROPERTY_VALUES.FONT_WEIGHT_BOLD });
   }
 
-  onItalicClick(filter) {
-    filter.isSelected = !filter.isSelected;
-    this.onCssChange(filter, filter.isSelected ? 'italic' : 'normal');
+  updateCss(styles, permanent = true) {
+    console.log(styles);
+    CanvasUtils.applyCss(this.selectedNode, this.selectedCanvasElement, styles, permanent);
+  }
+
+  onItalicClick() {
+    this.updateCss({ [CSS_PROPERTIES.FONT_ITALIC]: CSS_PROPERTY_VALUES.FONT_ITALIC });
   }
 
   removeItem() {
@@ -133,24 +141,24 @@ export class ToolbarComponent implements OnInit, OnChanges {
     }, 50);
   }
 
-  onColorHover(filter, color) {
-    this.applyNodeChanges(filter, color);
+  onColorSelect(color) {
+    this.updateCss({ [CSS_PROPERTIES.COLOR]: color });
   }
 
-  onColorSelect(filter, color) {
-    this.onCssChange(filter, color);
+  onBGColorSelect(color) {
+    this.updateCss({ [CSS_PROPERTIES.BG_COLOR]: color });
   }
 
-  onCssChange(filter, cssValue) {
-    UndoRedoUtil.addStyle(this.selectedCanvasElement, this.selectedNode, filter.cssField, cssValue);
+  onTextAlign(value) {
+    this.updateCss({ [CSS_PROPERTIES.TEXT_ALIGN]: value });
   }
 
-  updateOpacity(filter, cssValue) {
-    this.applyNodeChanges(filter, cssValue);
+  onCssChange(conf, cssValue) {
+    UndoRedoUtil.addStyle(this.selectedCanvasElement, this.selectedNode, conf.cssField, cssValue);
   }
 
-  updateOpacityOnStop(filter, cssValue) {
-    this.onCssChange(filter, cssValue);
+  updateOpacity(cssValue, permanent) {
+    this.updateCss({ [CSS_PROPERTIES.OPACITY]: cssValue }, permanent);
   }
 
   undoItem() {

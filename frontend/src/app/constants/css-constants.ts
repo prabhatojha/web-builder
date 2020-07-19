@@ -16,6 +16,9 @@ export const CSS_PROPERTIES = {
   OVERFLOW: 'overflow',
   OVERFLOW_HIDDEN: 'hidden',
   FONT_FAMILY: 'font-family',
+  FONT_ITALIC: 'font-style',
+  FONT_SIZE: 'font-size',
+  FONT_WEIGHT: 'font-weight',
   WIDTH: 'width',
   HEIGHT: 'height',
   TRANSFORM: 'transform',
@@ -26,6 +29,8 @@ export const CSS_PROPERTIES = {
   SCALE_Y: 'scaleY',
   TOP: 'top',
   LEFT: 'left',
+  TEXT_ALIGN: 'text-align',
+  OPACITY: 'opacity',
   // Attributes
   CONTENT_EDITABLE: 'contentEditable'
 };
@@ -36,7 +41,9 @@ export const CSS_ELEMENT_PROPS = {
 };
 
 export const CSS_PROPERTY_VALUES = {
-  OVERFLOW_HIDDEN: 'hidden'
+  OVERFLOW_HIDDEN: 'hidden',
+  FONT_WEIGHT_BOLD: 'bold',
+  FONT_ITALIC: 'italic'
 };
 
 export const PX_APPLICABLE_CSS_PROPS = [

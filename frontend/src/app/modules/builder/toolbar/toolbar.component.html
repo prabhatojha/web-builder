@@ -2,128 +2,148 @@
 
 </div>
 <div class="toolbar-items">
-  <ng-container *ngFor="let filter of filterConfig">
-    <div class="ml-2">
-      <ng-container [ngSwitch]="filter.id">
+  <div class="ml-2 d-flex toolbar-items-left">
 
-        <!-- Single Select Filter - Font Family-->
-        <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.FONT_FAMILY">
-          <app-font-family [selectedFont]="filter.selectedValue" (fontSelect)="onFontFamilySelect(filter, $event, true)"
-            (revertFontSelect)="onCloseWithoutSelect(filter)" [disabled]="selectedCanvasElement?.locked">
-          </app-font-family>
-        </ng-container>
+    <!-- Single Select Filter - Font Family-->
+    <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.FONT_FAMILY]">
+      <div class="toobar-item">
+        <app-font-family [selectedFont]="styles[CSS_PROPS.FONT_FAMILY]" (fontSelect)="onFontFamilySelect($event)"
+          [disabled]="isLocked">
+        </app-font-family>
+      </div>
+    </ng-container>
 
-        <!-- Single Select Filter - Font Size-->
-        <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.FONT_SIZE">
-          <app-font-size (valueChange)="onFontSizeSelect(filter, $event, true)" [selectedValue]="filter.selectedValue">
-          </app-font-size>
-        </ng-container>
+    <!-- Single Select Filter - Font Size-->
+    <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.FONT_SIZE]">
+      <div class="toobar-item">
+        <app-font-size (valueChange)="onFontSizeSelect($event)" [selectedValue]="styles[CSS_PROPS.FONT_SIZE]">
+        </app-font-size>
+      </div>
+    </ng-container>
 
-        <!-- Font Weigth Bold -->
-        <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.FONT_WEIGHT_BOLD">
-          <button mat-icon-button (click)="onBoldClick(filter)" matTooltip="Text Bold" matTooltipPosition="above"
-            [disabled]="selectedCanvasElement?.locked">
-            <i class="material-icons">format_bold</i>
-          </button>
-        </ng-container>
+    <!-- Font Weigth Bold -->
+    <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.FONT_WEIGHT_BOLD]">
+      <div class="toobar-item">
+        <button mat-icon-button (click)="onBoldClick()" matTooltip="Text Bold" matTooltipPosition="above"
+          [disabled]="isLocked">
+          <i class="material-icons">format_bold</i>
+        </button>
+      </div>
+    </ng-container>
 
-        <!-- Font Style Italic -->
-        <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.FONT_STYLE_ITALIC">
-          <button mat-icon-button (click)="onItalicClick(filter)" matTooltip="Text Italic" matTooltipPosition="above"
-            [disabled]="selectedCanvasElement?.locked">
-            <i class="material-icons">format_italic</i>
-          </button>
-        </ng-container>
+    <!-- Font value Italic -->
+    <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.FONT_STYLE_ITALIC]">
+      <div class="toobar-item">
+        <button mat-icon-button (click)="onItalicClick()" matTooltip="Text Italic" matTooltipPosition="above"
+          [disabled]="isLocked">
+          <i class="material-icons">format_italic</i>
+        </button>
+      </div>
+    </ng-container>
 
-        <!-- Delete Item -->
-        <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.DELETE">
-          <button mat-icon-button (click)="removeItem()" matTooltip="Delete Element" matTooltipPosition="above"
-            [disabled]="selectedCanvasElement?.locked">
-            <i class="material-icons">delete</i>
-          </button>
-        </ng-container>
-
-
-        <!-- Background color -->
-        <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.BACKGROUND_COLOR">
-          <div class="position-relative">
-            <app-color-picker #backgroundPicker (colorSelect)="onColorSelect(filter, $event)">
-              <div class="toolbar-bg-color" (click)="backgroundPicker.open()" matTooltip="Background Color"
-                matTooltipPosition="above">
-              </div>
-            </app-color-picker>
+    <!-- Background color -->
+    <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.BACKGROUND_COLOR]">
+      <div class="position-relative toolbar-item">
+        <app-color-picker #backgroundPicker (colorSelect)="onBGColorSelect($event)">
+          <div class="toolbar-bg-color" (click)="backgroundPicker.open()" matTooltip="Background Color"
+            matTooltipPosition="above">
           </div>
-        </ng-container>
+        </app-color-picker>
+      </div>
+    </ng-container>
 
-        <!-- Background color -->
-        <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.COLOR">
-          <div class="position-relative">
-            <app-color-picker #backgroundPicker (colorSelect)="onColorSelect(filter, $event)">
-              <div class="toolbar-text-color" (click)="backgroundPicker.open()" matTooltip="Text Color"
-                [class.disabled]="selectedCanvasElement?.locked" matTooltipPosition="above">
-                A
-                <div>
+    <!-- Text color -->
+    <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.COLOR]">
+      <div class="position-relative toolbar-item">
+        <app-color-picker #backgroundPicker (colorSelect)="onColorSelect($event)">
+          <div class="toolbar-text-color" (click)="backgroundPicker.open()" matTooltip="Text Color"
+            [class.disabled]="isLocked" matTooltipPosition="above">
+            A
+            <div>
 
-                </div>
-              </div>
-            </app-color-picker>
+            </div>
           </div>
-        </ng-container>
+        </app-color-picker>
+      </div>
+    </ng-container>
 
-        <!-- Delete Item -->
-        <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.TEXT_ALIGNMENT">
-          <div class="position-relative" (mouseleave)="filter.open = false">
-            <button mat-icon-button matTooltip="Unlock Element" matTooltipPosition="above"
-              [disabled]="selectedCanvasElement?.locked" (mouseenter)="filter.open = true">
-              <i class="material-icons">subject</i>
-            </button>
-            <app-text-alignment (selction)="onCssChange(filter, $event)" *ngIf="filter.open">
+    <!-- Text Alignment -->
+    <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.TEXT_ALIGNMENT]">
+      <div class="position-relative toolbar-item" (mouseleave)="isAlignmentSelectorOpen = false">
+        <button mat-icon-button matTooltip="Unlock Element" matTooltipPosition="above" [disabled]="isLocked"
+          (mouseenter)="isAlignmentSelectorOpen = true">
+          <i class="material-icons">subject</i>
+        </button>
+        <app-text-alignment (selction)="onTextAlign($event)" *ngIf="isAlignmentSelectorOpen">
 
-            </app-text-alignment>
-          </div>
-        </ng-container>
+        </app-text-alignment>
+      </div>
+    </ng-container>
 
-        <!-- Lock provider -->
-        <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.LOCK">
-          <button mat-icon-button (click)="lockItem()"
-            [matTooltip]="selectedCanvasElement?.locked ? 'Unlock Eelement': 'Lock Element'" matTooltipPosition="above">
-            <i class="material-icons" *ngIf="selectedCanvasElement?.locked">lock</i>
-            <i class="material-icons" *ngIf="!selectedCanvasElement?.locked">lock_open</i>
-          </button>
-        </ng-container>
+    <!-- Opacity -->
+    <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.OPACITY]">
+      <div class="position-relative toolbar-item" (mouseleave)="isOpacitySelectorOpen = false">
+        <button mat-icon-button matTooltip="Change Opacity" matTooltipPosition="above" [disabled]="isLocked"
+          (mouseenter)="isOpacitySelectorOpen = true">
+          <i class="material-icons">opacity</i>
+        </button>
+        <app-slider (slideChange)="updateOpacity($event, false)" (slideStop)="updateOpacity($event, true)"
+          [selectedOpacity]="styles[CSS_PROPS.OPACITY]" *ngIf="isOpacitySelectorOpen">
+        </app-slider>
+      </div>
+    </ng-container>
 
-        <!-- Delete Item -->
-        <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.OPACITY">
-          <div class="position-relative" (mouseleave)="filter.open = false">
-            <button mat-icon-button matTooltip="Change Opacity" matTooltipPosition="above"
-              [disabled]="selectedCanvasElement?.locked" (mouseenter)="filter.open = true">
-              <i class="material-icons">opacity</i>
-            </button>
-            <app-slider (slideChange)="updateOpacity(filter, $event)" (slideStop)="updateOpacityOnStop(filter,$event)"
-              [selectedOpacity]="styles[filter.cssField]" *ngIf="filter.open">
-            </app-slider>
-          </div>
-        </ng-container>
+    <!-- Undo Redo -->
+    <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.UNDO_REDO]">
+      <div class="toolbar-item">
+        <button mat-icon-button (click)="undoItem()" matTooltip='Undo' matTooltipPosition="above">
+          <i class="material-icons">undo</i>
+        </button>
 
-        <!-- Undo Redo -->
-        <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.UNDO_REDO">
-          <button mat-icon-button (click)="undoItem()" matTooltip='Undo' matTooltipPosition="above">
-            <i class="material-icons">undo</i>
-          </button>
+        <button mat-icon-button (click)="redoItem()" matTooltip="Redo" matTooltipPosition="above">
+          <i class="material-icons">redo</i>
+        </button>
+      </div>
+    </ng-container>
 
-          <button mat-icon-button (click)="redoItem()" matTooltip="Redo" matTooltipPosition="above">
-            <i class="material-icons">redo</i>
-          </button>
-        </ng-container>
 
-        <!-- Duplicate Item -->
-        <ng-container *ngSwitchCase="AVA_TOOLBAR_OPTIONS.DUPLICATE">
-          <button mat-icon-button (click)="duplicate()" matTooltip='Duplicate Item' matTooltipPosition="above">
-            <i class="material-icons">file_copy</i>
-          </button>
-        </ng-container>
+  </div>
+  <div class="toolbar-items-right">
 
-      </ng-container>
+    <div *ngIf="isGroupUngroupVisible" class="toolbar-item">
+      <button mat-icon-button (click)="lockItem()">
+        {{isGroupedItems ? 'Ungroup' : 'Group'}}
+      </button>
     </div>
-  </ng-container>
+
+    <!-- Lock provider -->
+    <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.LOCK]">
+      <div class="toolbar-item">
+        <button mat-icon-button (click)="lockItem()" [matTooltip]="isLocked ? 'Unlock Eelement': 'Lock Element'"
+          matTooltipPosition="above">
+          <i class="material-icons" *ngIf="isLocked">lock</i>
+          <i class="material-icons" *ngIf="!isLocked">lock_open</i>
+        </button>
+      </div>
+    </ng-container>
+
+    <!-- Duplicate Item -->
+    <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.DUPLICATE]">
+      <div class="toolbar-item">
+        <button mat-icon-button (click)="duplicate()" matTooltip='Duplicate Item' matTooltipPosition="above">
+          <i class="material-icons">file_copy</i>
+        </button>
+      </div>
+    </ng-container>
+
+    <!-- Delete Item -->
+    <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.DELETE]">
+      <div class="toolbar-item">
+        <button mat-icon-button (click)="removeItem()" matTooltip="Delete Element" matTooltipPosition="above"
+          [disabled]="isLocked">
+          <i class="material-icons">delete</i>
+        </button>
+      </div>
+    </ng-container>
+  </div>
 </div>

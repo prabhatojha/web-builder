@@ -17,7 +17,7 @@ export class FontSizeComponent implements OnInit {
 
   constructor() {
     for (let i = 5; i < 150; i++) {
-      this.AVAILABLE_FONT_SIZE.push({ label: i, value: i + 'px' });
+      this.AVAILABLE_FONT_SIZE.push({ label: i, value: i });
     }
   }
 
@@ -25,7 +25,7 @@ export class FontSizeComponent implements OnInit {
   }
 
   onInputChange() {
-    this.onValueChange(this.selectedValue + 'px');
+    this.onValueChange(this.selectedValue);
   }
 
   onValueChange(value) {
