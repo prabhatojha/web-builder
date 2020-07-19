@@ -1,12 +1,12 @@
 @import "./colors.scss";
 @import "./structure";
 
-$primaryButtonFontSize: $largeFont;
+$primaryButtonFontSize: 20px;
 
 .btn {
   display: flex;
   align-items: center;
-  font-size: $primaryButtonFontSize;
+  font-size: $largeFont;
 
   .material-icons {
     width: $primaryButtonFontSize;
@@ -17,9 +17,11 @@ $primaryButtonFontSize: $largeFont;
 }
 
 .btn-info {
-  background-color: $primaryButtonBg;
+  background-color: white;
+  color: $gray-500;
 }
 
 .btn-info:hover {
-  background-color: $primaryButtonHoverBg;
+  background-color: $gray-50;
+  color: $gray-500;
 }

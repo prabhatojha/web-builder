@@ -92,52 +92,16 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
   }
 
-
   subscribeToEvent() {
     document.addEventListener('mouseup', (e) => {
 
       if (this.selectedNode) {
-        this.canvasContainer.nativeElement.removeEventListener('mousemove', this.mouseMoveListner);
-
         this.isResizing = false;
         this.isDragging = false;
         this.isRoating = false;
-
-        // const style = this.selectedCanvasElement.style;
-        // const targetStyle = this.selectedNode.style;
-        // style.width = targetStyle.width;
-        // style.height = targetStyle.height;
-        // style.left = targetStyle.left;
-        // style.top = targetStyle.top;
-        // style.transform = targetStyle.transform;
       }
     });
   }
-
-  mouseMoveListner = (e) => {
-    // if (this.isDragging) {
-    //   this.onItemDrag(e);
-    // } else if (this.isResizing) {
-    //   this.onItemResize(e);
-    // } else if (this.isRoating) {
-    //   this.onItemRotate(e);
-    // }
-  }
-
-  // onItemDrag(e) {
-  //   this.selectedNode.style.left = this.initialLeft + (e.clientX - this.initialClientX) + 'px';
-  //   this.selectedNode.style.top = this.initialTop + (e.clientY - this.initialClientY) + 'px';
-  // }
-
-  // onItemResize(e) {
-  //   this.selectedNode.style.width = this.initialWidth + e.clientX - this.initialClientX + 'px';
-  //   this.selectedNode.style.height = this.initialHeight + e.clientY - this.initialClientY + 'px';
-  // }
-
-  // onItemRotate(e) {
-  //   const rotation = this.initialRotation + (e.clientX - this.initialClientX);
-  //   this.selectedNode.style.transform = `rotate(${rotation}deg)`;
-  // }
 
   drop(e) {
     e.preventDefault();
@@ -165,7 +129,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
     const newNode = CanvasUtils.buildDom(canvasElement);
 
-    // this.setNodeLocation(nodeLocation, newNode, canvasElement);
     this.attachEventListner(newNode, canvasElement);
 
     this.projectNode.appendChild(newNode);
@@ -249,21 +212,14 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   onCanvasClick(e) {
-    // const isEmptyClick = e.target.className.includes('canvas-template');
-    // if (isEmptyClick) {
-    //   this.toolbarOptions = [];
-    //   this.removeResizeHandleAndBorder();
-    //   this.selectedNode = null;
-    //   this.selectedCanvasElement = null;
-    // }
   }
 
-  attachEventListner(node, item, enableRotate = true) {
-    this.selectElement(node, item, enableRotate);
-    this.doubleClickListener(node, item);
+  attachEventListner(node, canvasElement, enableRotate = true) {
+    this.selectElement(node, canvasElement, enableRotate);
+    this.doubleClickListener(node, canvasElement);
   }
 
-  doubleClickListener(node, item) {
+  doubleClickListener(node, canvasElement) {
     if (this.selectedCanvasElement.type === ELEMENT_TYPES.TEXT) {
       const label = node.getElementsByTagName('label')[0];
 
@@ -281,113 +237,36 @@ export class CanvasComponent implements OnInit, AfterViewInit {
           return;
         }
         label.setAttribute(CSS_PROPERTIES.CONTENT_EDITABLE, false);
-        this.updateInnerText(node.innerText, item);
+        this.updateInnerText(node.innerText, canvasElement);
       });
     }
   }
 
-  updateInnerText(innerText, item) {
-    // const span = item.canvasElement.children[0];
-    item.canvasElement.innerText = innerText;
-    // span.innerText = innerText;
+  updateInnerText(innerText, canvasElement) {
+    canvasElement.innerText = innerText;
   }
 
-  selectElement(node, item, enableRotate) {
+  selectElement(node, canvasElement, enableRotate) {
 
     // When user add a new item, we are slecting it by default
-    this._selectElement(node, item, enableRotate);
+    this._selectElement(node, canvasElement, enableRotate);
 
     node.addEventListener('mousedown', (e) => {
       e.stopPropagation();
-      this._selectElement(node, item, enableRotate);
+      this._selectElement(node, canvasElement, enableRotate);
       // this.moveElementWithMouse(e);
     });
   }
 
-  // moveElementWithMouse(ce) {
-  //   if (this.isElementLocked()) {
-  //     return;
-  //   }
-  //   this.isDragging = true;
-  //   this.initialLeft = parseInt(this.selectedNode.style.left, 10);
-  //   this.initialTop = parseInt(this.selectedNode.style.top, 10);
-  //   this.initialClientX = ce.clientX;
-  //   this.initialClientY = ce.clientY;
-  //   this.canvasContainer.nativeElement.addEventListener('mousemove', this.mouseMoveListner);
-  // }
-
-  _selectElement(node, item, enableRotate) {
-    // Remove handler from previous selected item
-    // this.removeResizeHandleAndBorder();
-    // this.removeRotateHandle();
-
+  _selectElement(node, canvasElement, enableRotate) {
     // Store the selected element ref and show toobar
-    this.showToolBar(node, item);
-
-    // Add handler to current selected item
-    // this.addSelectedNodeBoarder();
+    this.showToolBar(node, canvasElement);
     this.addZIndex();
-    // this.attachResizeHandler(node);
-    if (enableRotate) {
-      // this.attachRotateHandler(node);
-    }
   }
-
-  // attachResizeHandler(node) {
-  //   if (this.isElementLocked() || !this.selectedCanvasElement.resizable) {
-  //     return;
-  //   }
-
-  //   const resizeHandler = document.createElement('div');
-  //   resizeHandler.classList.add(CONST_VAR.RESIZE_HANDLER_CLASS);
-
-  //   resizeHandler.addEventListener('mousedown', (e) => {
-  //     this.isResizing = true;
-  //     e.stopPropagation();
-  //     this.initialWidth = this.selectedNode.offsetWidth;
-  //     this.initialHeight = this.selectedNode.offsetHeight;
-  //     this.initialClientX = e.clientX;
-  //     this.initialClientY = e.clientY;
-  //     this.canvasContainer.nativeElement.addEventListener('mousemove', this.mouseMoveListner);
-  //   });
-
-  //   node.appendChild(resizeHandler);
-  // }
-
-  // attachRotateHandler(node) {
-  //   if (this.isElementLocked()) {
-  //     return;
-  //   }
-
-  //   const resizeHandler = document.createElement('i');
-  //   resizeHandler.innerText = 'rotate_left';
-  //   resizeHandler.classList.add(CONST_VAR.ROTATE_HANDLER_ICON);
-  //   resizeHandler.classList.add(CONST_VAR.ROTATE_HANDLER_CLASS);
-
-  //   resizeHandler.addEventListener('mousedown', (e) => {
-  //     this.isRoating = true;
-  //     e.stopPropagation();
-  //     this.initialWidth = this.selectedNode.offsetWidth;
-  //     this.initialHeight = this.selectedNode.offsetHeight;
-  //     this.initialRotation = this.getInitialRotateDeg();
-  //     this.initialClientX = e.clientX;
-  //     this.initialClientY = e.clientY;
-
-  //     this.canvasContainer.nativeElement.addEventListener('mousemove', this.mouseMoveListner);
-  //   });
-
-  //   node.appendChild(resizeHandler);
-  // }
 
   getInitialRotateDeg() {
     const val = this.selectedNode.style.transform;
     return val ? parseInt(val.split('rotate(')[1], 10) : 0;
-  }
-
-  addSelectedNodeBoarder() {
-    if (this.selectedNode) {
-      // this.selectedNode.style.outline = '1px solid gray';
-    }
   }
 
   addZIndex() {

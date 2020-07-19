@@ -6,9 +6,11 @@
 
 <div class="canvas-container" #canvasContainer>
   <div class="canvas-wrapper position-relative">
+    <div style="width: 100%; height: 50px;"></div>
     <div class="canvas" #canvas (drop)="drop($event)" (dragover)="allowDrop($event)" (click)="onCanvasClick($event)">
 
     </div>
+    <div style="width: 100%; height: 50px;"></div>
     <app-select-element *ngIf="selectedNode" [selectedNode]="selectedNode"
       [selectedCanvasElement]="selectedCanvasElement" [container]="canvas">
     </app-select-element>
