@@ -1,14 +1,15 @@
 import {
-  Component, OnInit, Input, OnChanges, SimpleChanges, ChangeDetectorRef, ViewEncapsulation, OnDestroy,
-  ViewChild, ElementRef
+  Component, Input, OnChanges, SimpleChanges, ChangeDetectorRef, ViewEncapsulation, OnDestroy,
+  ViewChild
 } from '@angular/core';
 import ResizeObserver from 'resize-observer-polyfill';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { CanvasUtils } from 'src/app/utils/canvas.utils';
 import { ELEMENT_TYPES } from 'src/app/constants/contants';
-import { CSS_PROPERTIES, CSS_ELEMENT_PROPS, ElementDimentionModel } from 'src/app/constants/css-constants';
 import Moveable from 'moveable';
 import { CommonUtils } from 'src/app/utils/common.utils';
+import { ElementDimentionModel } from 'src/app/constants/css-constants';
+import { ELE_VS_RESIZE_HANDLES } from 'src/app/modules/builder/canvas/canvas.config';
 @Component({
   selector: 'app-select-element',
   templateUrl: './select-element.component.html',
@@ -21,14 +22,17 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   @Input() selectedCanvasElement: CanvasElement;
   @Input() container: any;
 
-  @ViewChild('moveable', { static: false }) moveable: any;
+  @ViewChild('moveable', { static: false }) moveable: Moveable;
 
   previousSelectedNode: any;
+  previousSelectedCanvasEle: CanvasElement;
 
   dimention: ElementDimentionModel = new ElementDimentionModel();
   manualResize: boolean;
 
-  resizeObserver = new ResizeObserver((entries: any) => {
+  resizeHanles = [];
+
+  textResizeObserver = new ResizeObserver((entries: any) => {
     const rect = entries && entries[0].contentRect;
 
     // If user is doing resize, do not trigger this change
@@ -50,21 +54,29 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   init() {
     this.unbindPreviousItem();
     this.setInitialSize();
+    this.setResizeHandles();
+  }
+
+  setResizeHandles() {
+    if (this.selectedCanvasElement) {
+      this.resizeHanles = ELE_VS_RESIZE_HANDLES[this.selectedCanvasElement.type];
+    }
   }
 
   unbindPreviousItem() {
-    if (this.previousSelectedNode) {
-      this.resizeObserver.unobserve(this.previousSelectedNode.getElementsByTagName('label')[0]);
+    if (this.previousSelectedNode && this.previousSelectedCanvasEle.type === ELEMENT_TYPES.TEXT) {
+      this.textResizeObserver.unobserve(this.previousSelectedNode.getElementsByTagName('label')[0]);
     }
 
     this.previousSelectedNode = this.selectedNode;
+    this.previousSelectedCanvasEle = this.selectedCanvasElement;
   }
 
   setInitialSize() {
     this.dimention = CommonUtils.cloneDeep(this.selectedCanvasElement.dimention);
 
     if (this.selectedCanvasElement.type === ELEMENT_TYPES.TEXT) {
-      this.resizeObserver.observe(this.selectedNode.getElementsByTagName('label')[0]);
+      this.textResizeObserver.observe(this.selectedNode.getElementsByTagName('label')[0]);
     }
   }
 
@@ -108,8 +120,12 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   ngOnDestroy() {
     if (this.previousSelectedNode) {
-      this.resizeObserver.unobserve(this.previousSelectedNode);
+      this.textResizeObserver.unobserve(this.previousSelectedNode);
     }
+  }
+
+  onGroupDrag(e) {
+    console.log(e);
   }
 
   onEnd() {

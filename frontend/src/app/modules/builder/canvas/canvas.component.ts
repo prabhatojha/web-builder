@@ -65,8 +65,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         height: '500px',
         position: 'relative',
         'background-color': 'white',
-        '-webkit-print-color-adjust': 'exact'
-
+        '-webkit-print-color-adjust': 'exact',
+        overflow: 'hidden'
       },
       attribute: {
         class: 'canvas-template'
@@ -212,6 +212,11 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   onCanvasClick(e) {
+    // Temporary
+    if (e.target && e.target.classList.contains('canvas-template')) {
+      this.selectedNode = null;
+      this.selectedCanvasElement = null;
+    }
   }
 
   attachEventListner(node, canvasElement, enableRotate = true) {
