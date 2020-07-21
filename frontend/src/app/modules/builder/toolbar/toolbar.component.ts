@@ -6,6 +6,7 @@ import { UndoRedoUtil } from 'src/app/utils/undo-redo.util';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { CSS_PROPERTIES, CSS_PROPERTY_VALUES } from 'src/app/constants/css-constants';
 import { CanvasUtils } from 'src/app/utils/canvas.utils';
+import { debug } from 'console';
 
 
 @Component({
@@ -41,43 +42,35 @@ export class ToolbarComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.options && this.options) {
-      this.filterConfig = this.getFilterConfig();
-    }
-
     if (changes.selectedCanvasElement && this.selectedCanvasElement) {
       this.styles = this.getOriginalItemStyle();
-      this.isLocked = this.selectedCanvasElement.locked;
-      this.setInitialState(this.styles);
+      this.updateLock();
+      this.setFilterConfig();
+    }
+
+    if (changes.selectedCanvasElement && !this.selectedCanvasElement) {
+      this.avaToolbarOptions = {};
     }
   }
 
   ngOnInit(): void {
   }
 
+  updateLock() {
+    this.isLocked = this.selectedCanvasElement.locked;
+  }
+
   getOriginalItemStyle() {
     return this.selectedCanvasElement.style;
   }
 
-  getFilterConfig() {
-    console.log(this.avaToolbarOptions);
+  setFilterConfig() {
+    const opt = {};
     this.options.forEach(t => {
-      this.avaToolbarOptions[t] = true;
+      opt[t] = true;
     });
-    console.log(this.avaToolbarOptions);
-    return CommonUtils.cloneDeep(FilterConfig.filter(conf => this.options.includes(conf.id)));
-  }
 
-  setInitialState(style) {
-    if (style) {
-      this.filterConfig.forEach(conf => {
-        if (conf.filterType === FILTER_TYPES.TOGGABLE) {
-          conf.isSelected = style[conf.cssField] === conf.cssValue;
-        } else {
-          this.changeSelectedValue(conf, style[conf.cssField]);
-        }
-      });
-    }
+    this.avaToolbarOptions = opt;
   }
 
   onFontFamilySelect(e) {
@@ -98,12 +91,6 @@ export class ToolbarComponent implements OnInit, OnChanges {
     conf.selectedValue = conf.id === AVA_TOOLBAR_OPTIONS.FONT_SIZE ? parseInt(value, 10) : value;
   }
 
-  setFontSize(conf, value) {
-    if (value) {
-      this.onFontSizeSelect(conf, { value: value + 'px' }, true);
-    }
-  }
-
   applySelectedItemChanes(conf, value) {
     const style = this.getOriginalItemStyle();
     style[conf.cssField] = value;
@@ -114,7 +101,9 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   onBoldClick() {
-    this.updateCss({ [CSS_PROPERTIES.FONT_WEIGHT]: CSS_PROPERTY_VALUES.FONT_WEIGHT_BOLD });
+    const val = this.styles[CSS_PROPERTIES.FONT_WEIGHT] === CSS_PROPERTY_VALUES.FONT_WEIGHT_BOLD ?
+      CSS_PROPERTY_VALUES.FONT_WEIGHT_NORMAL : CSS_PROPERTY_VALUES.FONT_WEIGHT_BOLD;
+    this.updateCss({ [CSS_PROPERTIES.FONT_WEIGHT]: val });
   }
 
   updateCss(styles, permanent = true) {
@@ -123,7 +112,9 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   onItalicClick() {
-    this.updateCss({ [CSS_PROPERTIES.FONT_ITALIC]: CSS_PROPERTY_VALUES.FONT_ITALIC });
+    const val = this.styles[CSS_PROPERTIES.FONT_ITALIC] === CSS_PROPERTY_VALUES.FONT_ITALIC ?
+      CSS_PROPERTY_VALUES.FONT_STYLE_NORMAL : CSS_PROPERTY_VALUES.FONT_ITALIC;
+    this.updateCss({ [CSS_PROPERTIES.FONT_ITALIC]: val });
   }
 
   removeItem() {
@@ -132,13 +123,13 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
   lockItem() {
     this.selectedCanvasElement.locked = !this.selectedCanvasElement.locked;
-
+    this.updateLock();
     // This will trigger changes to selected element, such as removing the Resize Handle
-    this.selectedNode.dispatchEvent(new Event('mousedown'));
+    // this.selectedNode.dispatchEvent(new Event('mousedown'));
 
-    setTimeout(() => {
-      this.selectedNode.dispatchEvent(new Event('mouseup'));
-    }, 50);
+    // setTimeout(() => {
+    //   this.selectedNode.dispatchEvent(new Event('mouseup'));
+    // }, 50);
   }
 
   onColorSelect(color) {

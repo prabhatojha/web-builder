@@ -16,7 +16,8 @@
     <!-- Single Select Filter - Font Size-->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.FONT_SIZE]">
       <div class="toolbar-item">
-        <app-font-size (valueChange)="onFontSizeSelect($event)" [selectedValue]="styles[CSS_PROPS.FONT_SIZE]">
+        <app-font-size (valueChange)="onFontSizeSelect($event)" [disabled]="isLocked"
+          [selectedValue]="styles[CSS_PROPS.FONT_SIZE]">
         </app-font-size>
       </div>
     </ng-container>
@@ -108,7 +109,7 @@
   <div class="toolbar-items-right">
 
     <div *ngIf="isGroupUngroupVisible" class="toolbar-item">
-      <button class="btn btn-light btn-sm" (click)="lockItem()">
+      <button class="btn btn-light btn-sm" (click)="lockItem()" [disabled]="isLocked">
         {{isGroupedItems ? 'Ungroup' : 'Group'}}
       </button>
     </div>

@@ -1,10 +1,10 @@
 <div class="input-group input-group-sm">
-  <input #fontSizeInput type="number" class="form-control font-size-input" [(ngModel)]="selectedValue"
+  <input #fontSizeInput type="number" class="form-control font-size-input" [(ngModel)]="value"
     (change)="onInputChange()" [disabled]="disabled">
 
   <div class="input-group-append" #fontSizeButton>
     <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
-      aria-expanded="false" (click)="toggleOptions()"></button>
+      aria-expanded="false" (click)="toggleOptions()" [disabled]="disabled"></button>
   </div>
 
   <div class="font-size-dropdown" *ngIf="showOptions" (appClickOutside)="toggleOptions()" [srcElement]="fontSizeButton">

@@ -39,7 +39,8 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     if (rect && !this.manualResize) {
       this.dimention.height = entries[0].contentRect.height;
       this.updateNodeDimention(true);
-      this.moveable.updateRect();
+      // tslint:disable-next-line: no-unused-expression
+      this.moveable && this.moveable.updateRect();
     }
   });
 
