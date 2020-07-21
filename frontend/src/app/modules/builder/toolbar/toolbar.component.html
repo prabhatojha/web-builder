@@ -6,7 +6,7 @@
 
     <!-- Single Select Filter - Font Family-->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.FONT_FAMILY]">
-      <div class="toobar-item">
+      <div class="toolbar-item">
         <app-font-family [selectedFont]="styles[CSS_PROPS.FONT_FAMILY]" (fontSelect)="onFontFamilySelect($event)"
           [disabled]="isLocked">
         </app-font-family>
@@ -15,7 +15,7 @@
 
     <!-- Single Select Filter - Font Size-->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.FONT_SIZE]">
-      <div class="toobar-item">
+      <div class="toolbar-item">
         <app-font-size (valueChange)="onFontSizeSelect($event)" [selectedValue]="styles[CSS_PROPS.FONT_SIZE]">
         </app-font-size>
       </div>
@@ -23,7 +23,7 @@
 
     <!-- Font Weigth Bold -->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.FONT_WEIGHT_BOLD]">
-      <div class="toobar-item">
+      <div class="toolbar-item">
         <button mat-icon-button (click)="onBoldClick()" matTooltip="Text Bold" matTooltipPosition="above"
           [disabled]="isLocked">
           <i class="material-icons">format_bold</i>
@@ -33,7 +33,7 @@
 
     <!-- Font value Italic -->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.FONT_STYLE_ITALIC]">
-      <div class="toobar-item">
+      <div class="toolbar-item">
         <button mat-icon-button (click)="onItalicClick()" matTooltip="Text Italic" matTooltipPosition="above"
           [disabled]="isLocked">
           <i class="material-icons">format_italic</i>
@@ -56,13 +56,10 @@
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.COLOR]">
       <div class="position-relative toolbar-item">
         <app-color-picker #backgroundPicker (colorSelect)="onColorSelect($event)">
-          <div class="toolbar-text-color" (click)="backgroundPicker.open()" matTooltip="Text Color"
-            [class.disabled]="isLocked" matTooltipPosition="above">
-            A
-            <div>
-
-            </div>
-          </div>
+          <button mat-icon-button matTooltip="Text Color" matTooltipPosition="above" (click)="backgroundPicker.open()"
+            [class.disabled]="isLocked">
+            <i class="material-icons">color_lens</i>
+          </button>
         </app-color-picker>
       </div>
     </ng-container>
@@ -111,7 +108,7 @@
   <div class="toolbar-items-right">
 
     <div *ngIf="isGroupUngroupVisible" class="toolbar-item">
-      <button mat-icon-button (click)="lockItem()">
+      <button class="btn btn-light btn-sm" (click)="lockItem()">
         {{isGroupedItems ? 'Ungroup' : 'Group'}}
       </button>
     </div>
