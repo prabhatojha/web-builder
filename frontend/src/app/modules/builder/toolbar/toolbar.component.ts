@@ -1,12 +1,10 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, ElementRef } from '@angular/core';
 import { AVA_TOOLBAR_OPTIONS, FilterConfig } from './toolbar.config';
 import { FILTER_TYPES } from '../../../constants/contants';
-import { CommonUtils } from '../../../utils/common.utils';
 import { UndoRedoUtil } from 'src/app/utils/undo-redo.util';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { CSS_PROPERTIES, CSS_PROPERTY_VALUES } from 'src/app/constants/css-constants';
 import { CanvasUtils } from 'src/app/utils/canvas.utils';
-import { debug } from 'console';
 
 
 @Component({

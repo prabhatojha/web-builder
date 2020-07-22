@@ -25,29 +25,14 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   canvasOffsetLeft: number;
   canvasOffsetTop: number;
 
-  // Is the object reprentation of the selected item
-  /**
-   * {
-   *  canvasElement: {}
-   * }
-   */
   selectedCanvasElement: CanvasElement;
 
   // Actual dom element of the selected item
   selectedNode: any;
+  allNodes = [];
 
   projectNode: any;
   toolbarOptions = [];
-
-
-  // Selected dom element's variables
-  initialRotation = 0;
-  initialWidth = 0;
-  initialHeight = 0;
-  initialClientX = 0;
-  initialClientY = 0;
-  initialLeft = 0;
-  initialTop = 0;
 
   project = {
     elementId: 'my-first-element',
@@ -119,8 +104,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   onDuplicateSelectedItem() {
-    const nodeLocation = CanvasUtils.setDuplicateNodeLocation(this.selectedCanvasElement);
-    this.addNewNode(CommonUtils.cloneDeep(this.selectedCanvasElement));
+    const newElement = CommonUtils.cloneDeep(this.selectedCanvasElement);
+    const nodeLocation = CanvasUtils.setDuplicateNodeLocation(newElement);
+    this.addNewNode(newElement);
   }
 
   addNewNode(canvasElement: CanvasElement) {
@@ -132,9 +118,25 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this.attachEventListner(newNode, canvasElement);
 
     this.projectNode.appendChild(newNode);
+    console.log(this.projectNode);
 
     // This has to be last statement
     this.addItemInProject(canvasElement);
+  }
+
+  onDragStart(e) {
+    console.log(e);
+  }
+
+  onSelectStart(e) {
+    console.log(e);
+  }
+
+  onSelect(e) {
+    console.log(e);
+  }
+  onSelectEnd(e) {
+    console.log(e);
   }
 
   adjustWidthHeight(canvasElement: CanvasElement) {
@@ -257,7 +259,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this._selectElement(node, canvasElement, enableRotate);
 
     node.addEventListener('mousedown', (e) => {
-      e.stopPropagation();
       this._selectElement(node, canvasElement, enableRotate);
       // this.moveElementWithMouse(e);
     });
@@ -277,25 +278,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   addZIndex() {
     if (this.selectedNode && !this.isElementLocked() && this.selectedCanvasElement.increaseZIndex) {
       this.selectedNode.style[CSS_PROPERTIES.Z_INDEX] = this.project.currentZindex++;
-    }
-  }
-
-  removeResizeHandleAndBorder() {
-    if (this.selectedNode) {
-      this.selectedNode.style.removeProperty('outline');
-      const resizeHandlers = this.selectedNode.getElementsByClassName(CONST_VAR.RESIZE_HANDLER_CLASS);
-      if (resizeHandlers && resizeHandlers[0]) {
-        resizeHandlers[0].remove();
-      }
-    }
-  }
-
-  removeRotateHandle() {
-    if (this.selectedNode) {
-      const rotateHandlers = this.selectedNode.getElementsByClassName(CONST_VAR.ROTATE_HANDLER_CLASS);
-      if (rotateHandlers && rotateHandlers[0]) {
-        rotateHandlers[0].remove();
-      }
     }
   }
 

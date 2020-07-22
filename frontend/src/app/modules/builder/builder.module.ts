@@ -23,6 +23,7 @@ import { SelectElementComponent } from './canvas/select-element/select-element.c
 import { DragElementComponent } from './canvas/drag-element/drag-element.component';
 import { AngularDraggableModule } from 'angular2-draggable';
 import { NgxMoveableModule } from 'ngx-moveable';
+import { NgxSelectoModule } from 'ngx-selecto';
 
 @NgModule({
   declarations: [PickersComponent, BuilderComponent, PickerComponent, CanvasComponent, ToolbarComponent,
@@ -36,7 +37,8 @@ import { NgxMoveableModule } from 'ngx-moveable';
     ColorChromeModule,
     MaterialModule,
     AngularDraggableModule,
-    NgxMoveableModule
+    NgxMoveableModule,
+    NgxSelectoModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

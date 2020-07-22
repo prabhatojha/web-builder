@@ -28,6 +28,7 @@
     "moveable": "^0.17.10",
     "ngx-color": "^5.1.3",
     "ngx-moveable": "^0.13.11",
+    "ngx-selecto": "^1.5.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
