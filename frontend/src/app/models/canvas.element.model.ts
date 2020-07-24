@@ -15,7 +15,7 @@ export class CanvasElement {
     [attr: string]: string
   };
   style: {
-    [style: string]: string
+    [style: string]: string | number;
   };
   innerText: string;
   children: Array<CanvasElement>;

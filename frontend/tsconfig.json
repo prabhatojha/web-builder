@@ -16,6 +16,10 @@
       "dom"
     ],
     "paths": {
+      "ngx-element-selector": [
+        "dist/ngx-element-selector/ngx-element-selector",
+        "dist/ngx-element-selector"
+      ]
     }
   },
   "angularCompilerOptions": {

@@ -127,6 +127,46 @@
           }
         }
       }
+    },
+    "ngx-element-selector": {
+      "projectType": "library",
+      "root": "projects/ngx-element-selector",
+      "sourceRoot": "projects/ngx-element-selector/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-element-selector/tsconfig.lib.json",
+            "project": "projects/ngx-element-selector/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-element-selector/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-element-selector/src/test.ts",
+            "tsConfig": "projects/ngx-element-selector/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-element-selector/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-element-selector/tsconfig.lib.json",
+              "projects/ngx-element-selector/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "frontend"

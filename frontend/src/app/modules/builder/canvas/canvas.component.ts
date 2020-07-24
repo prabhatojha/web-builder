@@ -24,6 +24,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   canvasOffsetLeft: number;
   canvasOffsetTop: number;
+  body = document.body;
 
   selectedCanvasElement: CanvasElement;
 
@@ -259,6 +260,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this._selectElement(node, canvasElement, enableRotate);
 
     node.addEventListener('mousedown', (e) => {
+      // e.stopPropagation();
       this._selectElement(node, canvasElement, enableRotate);
       // this.moveElementWithMouse(e);
     });
