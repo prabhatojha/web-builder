@@ -20,6 +20,8 @@
       (select)="onSelect($event)" (selectEnd)="onSelectEnd($event)"></ngx-selecto> -->
     <!-- <app-drag-element></app-drag-element> -->
   </div>
+
+  <ngx-element-selector [targetElements]="projectNode.childNodes" [container]="canvasContainer"></ngx-element-selector>
 </div>
 
 <app-popup *ngIf="showPreview">

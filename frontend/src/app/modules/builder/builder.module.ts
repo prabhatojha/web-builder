@@ -24,6 +24,7 @@ import { DragElementComponent } from './canvas/drag-element/drag-element.compone
 import { AngularDraggableModule } from 'angular2-draggable';
 import { NgxMoveableModule } from 'ngx-moveable';
 import { NgxSelectoModule } from 'ngx-selecto';
+import { NgxElementSelectorModule } from 'projects/ngx-element-selector/src/public-api';
 
 @NgModule({
   declarations: [PickersComponent, BuilderComponent, PickerComponent, CanvasComponent, ToolbarComponent,
@@ -38,7 +39,8 @@ import { NgxSelectoModule } from 'ngx-selecto';
     MaterialModule,
     AngularDraggableModule,
     NgxMoveableModule,
-    NgxSelectoModule
+    NgxSelectoModule,
+    NgxElementSelectorModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
