@@ -12,6 +12,7 @@
       "element",
       "",
       "kebab-case"
-    ]
+    ],
+    "no-output-on-prefix": false
   }
 }

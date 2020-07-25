@@ -1,5 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
-import { Container } from '@angular/compiler/src/i18n/i18n_ast';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'ngx-element-selector',
@@ -13,9 +12,11 @@ export class NgxElementSelectorComponent implements OnInit, OnChanges {
   @Input() container: HTMLElement = document.documentElement;
   @Input() dragArea: HTMLElement = this.container;
   @Input() targetElements: HTMLElement[];
-  @Input() selectAsWhole = false;
+  @Input() partiallySelectable = true;
   @Input() keyboardKey = 'ctrl';
   @Input() setGroupBorder = false;
+  @Input() debounceTime = 100;
+  @Output() onSelect = new EventEmitter<any>();
 
   @ViewChild('overlay') overlay: ElementRef;
 
@@ -32,6 +33,8 @@ export class NgxElementSelectorComponent implements OnInit, OnChanges {
   private containerRect: DOMRect;
   private rects = [];
   private selectedElements = [];
+  private previousSelectedElements = [];
+  private debouseId;
 
   constructor() { }
 
@@ -48,13 +51,15 @@ export class NgxElementSelectorComponent implements OnInit, OnChanges {
     this.setRects();
     this.resetOverLay();
     this.setInitialPos(e);
+    this.previousSelectedElements = this.selectedElements;
+    this.selectedElements = [];
     this.container.addEventListener('mousemove', this.mouseMoveListener);
   }
 
   private mouseMoveListener = (e) => {
     const { clientX, clientY } = e;
     this.showOverlay(clientX, clientY);
-    this.selectElements();
+    this.selectElementWithDebounce();
   }
 
   private showOverlay(clientX, clientY) {
@@ -69,15 +74,43 @@ export class NgxElementSelectorComponent implements OnInit, OnChanges {
     };
   }
 
-  private selectElements() {
-    const overlayRect = this.getOverlayRect();
-    this.rects.forEach((t, index) => this._selectElement(t, overlayRect, index));
+  private selectElementWithDebounce() {
+    clearTimeout(this.debouseId);
+
+    this.debouseId = setTimeout(() => {
+      const overlayRect = this.getOverlayRect();
+      this.rects.forEach((t, index) => this._selectElement(t, overlayRect, index));
+    }, this.debounceTime);
   }
 
 
   private _selectElement(eleRect, overlayRect, index) {
-    console.log(eleRect);
-    console.log(overlayRect);
+    const selectedInd = this.selectedElements.indexOf(this.targetElements[index]);
+
+    const shouldInclude = this.partiallySelectable ? this.doesIntersect(eleRect, overlayRect)
+      : this.doesInclde(eleRect, overlayRect);
+
+    if (shouldInclude) {
+      if (selectedInd === -1) {
+        this.selectedElements.push(this.targetElements[index]);
+        this.triggerEvent();
+      }
+    } else {
+      if (selectedInd > -1) {
+        this.selectedElements.splice(selectedInd, 1);
+        this.triggerEvent();
+      }
+    }
+  }
+
+  doesIntersect(eleRect: DOMRect, overlayRect) {
+    return overlayRect.left < eleRect.right && overlayRect.right > eleRect.left &&
+      overlayRect.top < eleRect.bottom && overlayRect.bottom > eleRect.top;
+  }
+
+  doesInclde(eleRect: DOMRect, overlayRect) {
+    return overlayRect.left < eleRect.left && overlayRect.top < eleRect.top &&
+      overlayRect.right > eleRect.right && overlayRect.bottom > eleRect.bottom;
   }
 
   private getOverlayRect(): DOMRect {
@@ -113,5 +146,10 @@ export class NgxElementSelectorComponent implements OnInit, OnChanges {
     this.initialX = e.clientX;
     this.initialY = e.clientY;
     this.containerRect = this.container.getBoundingClientRect();
+  }
+
+  private triggerEvent() {
+    console.log(this.selectedElements);
+    this.onSelect.emit(this.selectedElements);
   }
 }
