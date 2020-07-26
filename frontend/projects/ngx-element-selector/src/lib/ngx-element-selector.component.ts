@@ -14,9 +14,11 @@ export class NgxElementSelectorComponent implements OnInit, OnChanges {
   @Input() targetElements: HTMLElement[];
   @Input() partiallySelectable = true;
   @Input() keyboardKey = 'ctrl';
-  @Input() setGroupBorder = false;
-  @Input() debounceTime = 100;
+  @Input() debounceTime = 10;
+
+  @Output() onSelectStart = new EventEmitter<any>();
   @Output() onSelect = new EventEmitter<any>();
+  @Output() onSelectEnd = new EventEmitter<any>();
 
   @ViewChild('overlay') overlay: ElementRef;
 
@@ -33,7 +35,6 @@ export class NgxElementSelectorComponent implements OnInit, OnChanges {
   private containerRect: DOMRect;
   private rects = [];
   private selectedElements = [];
-  private previousSelectedElements = [];
   private debouseId;
 
   constructor() { }
@@ -51,9 +52,8 @@ export class NgxElementSelectorComponent implements OnInit, OnChanges {
     this.setRects();
     this.resetOverLay();
     this.setInitialPos(e);
-    this.previousSelectedElements = this.selectedElements;
     this.selectedElements = [];
-    this.container.addEventListener('mousemove', this.mouseMoveListener);
+    document.addEventListener('mousemove', this.mouseMoveListener);
   }
 
   private mouseMoveListener = (e) => {
@@ -63,8 +63,8 @@ export class NgxElementSelectorComponent implements OnInit, OnChanges {
   }
 
   private showOverlay(clientX, clientY) {
-    const left = Math.min(this.initialX, clientX) - this.containerRect.left;
-    const top = Math.min(this.initialY, clientY) - this.containerRect.top;
+    const left = Math.min(this.initialX, clientX) + this.container.scrollLeft - this.containerRect.left;
+    const top = Math.min(this.initialY, clientY) + this.container.scrollTop - this.containerRect.top;
 
     this.styles = {
       left: this.toPx(left),
@@ -114,7 +114,7 @@ export class NgxElementSelectorComponent implements OnInit, OnChanges {
   }
 
   private getOverlayRect(): DOMRect {
-    return this.overlay.nativeElement.getBoundingClientRect();
+    return this.overlay && this.overlay.nativeElement.getBoundingClientRect();
   }
 
   public toPx(val) {
@@ -127,7 +127,7 @@ export class NgxElementSelectorComponent implements OnInit, OnChanges {
 
   private mouseUpListener = (e) => {
     this.overlayVisible = false;
-    this.container.removeEventListener('mousemove', this.mouseMoveListener);
+    document.removeEventListener('mousemove', this.mouseMoveListener);
   }
 
   private setRects() {
