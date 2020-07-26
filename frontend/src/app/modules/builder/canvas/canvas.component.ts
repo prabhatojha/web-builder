@@ -9,6 +9,7 @@ import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { ImageUtils } from 'src/app/utils/image.utils';
 import { CanvasUtils } from 'src/app/utils/canvas.utils';
 import { CommonUtils } from 'src/app/utils/common.utils';
+import { NgxElementSelectorEvent } from 'projects/ngx-element-selector/src/public-api';
 
 @Component({
   selector: 'app-canvas',
@@ -144,6 +145,18 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     if (canvasElement.type === ELEMENT_TYPES.PHOTO) {
       ImageUtils.setInitialWidthAndHeight(this.getProjectWidthHeight(), canvasElement);
     }
+  }
+
+  onSelectionStart(e: NgxElementSelectorEvent) {
+    e.targets.forEach(t => t.style.outline = '');
+  }
+
+  onSelection(e: NgxElementSelectorEvent) {
+    e.removed.forEach(t => t.style.outline = '');
+    e.added.forEach(t => t.style.outline = '2px solid lightblue');
+  }
+  onSelectionEnd(e) {
+
   }
 
   getProjectWidthHeight() {

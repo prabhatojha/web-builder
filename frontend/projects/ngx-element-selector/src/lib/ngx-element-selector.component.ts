@@ -1,5 +1,12 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 
+export class NgxElementSelectorEvent {
+  selected: HTMLElement[] = [];
+  removed: HTMLElement[] = [];
+  added: HTMLElement[] = [];
+  targets: HTMLElement[] = [];
+}
+
 @Component({
   selector: 'ngx-element-selector',
   template: `
@@ -14,7 +21,7 @@ export class NgxElementSelectorComponent implements OnInit, OnChanges {
   @Input() targetElements: HTMLElement[];
   @Input() partiallySelectable = true;
   @Input() keyboardKey = 'ctrl';
-  @Input() debounceTime = 10;
+  @Input() debounceTime = 2;
 
   @Output() onSelectStart = new EventEmitter<any>();
   @Output() onSelect = new EventEmitter<any>();
@@ -34,7 +41,7 @@ export class NgxElementSelectorComponent implements OnInit, OnChanges {
   private initialY = 0;
   private containerRect: DOMRect;
   private rects = [];
-  private selectedElements = [];
+  private event = new NgxElementSelectorEvent();
   private debouseId;
 
   constructor() { }
@@ -52,8 +59,10 @@ export class NgxElementSelectorComponent implements OnInit, OnChanges {
     this.setRects();
     this.resetOverLay();
     this.setInitialPos(e);
-    this.selectedElements = [];
+    this.event = new NgxElementSelectorEvent();
+    this.event.targets = this.targetElements;
     document.addEventListener('mousemove', this.mouseMoveListener);
+    this.onSelectStart.emit(this.event);
   }
 
   private mouseMoveListener = (e) => {
@@ -85,19 +94,24 @@ export class NgxElementSelectorComponent implements OnInit, OnChanges {
 
 
   private _selectElement(eleRect, overlayRect, index) {
-    const selectedInd = this.selectedElements.indexOf(this.targetElements[index]);
+    const target = this.targetElements[index];
+    const selectedInd = this.event.selected.indexOf(target);
 
     const shouldInclude = this.partiallySelectable ? this.doesIntersect(eleRect, overlayRect)
       : this.doesInclde(eleRect, overlayRect);
 
     if (shouldInclude) {
       if (selectedInd === -1) {
-        this.selectedElements.push(this.targetElements[index]);
+        this.event.selected.push(target);
+        this.event.added.push(target);
+        this.event.removed = this.event.removed.filter(t => t !== target);
         this.triggerEvent();
       }
     } else {
       if (selectedInd > -1) {
-        this.selectedElements.splice(selectedInd, 1);
+        this.event.selected.splice(selectedInd, 1);
+        this.event.removed.push(this.targetElements[index]);
+        this.event.added = this.event.added.filter(t => t !== target);
         this.triggerEvent();
       }
     }
@@ -128,6 +142,7 @@ export class NgxElementSelectorComponent implements OnInit, OnChanges {
   private mouseUpListener = (e) => {
     this.overlayVisible = false;
     document.removeEventListener('mousemove', this.mouseMoveListener);
+    this.triggerEndEvent();
   }
 
   private setRects() {
@@ -149,7 +164,10 @@ export class NgxElementSelectorComponent implements OnInit, OnChanges {
   }
 
   private triggerEvent() {
-    console.log(this.selectedElements);
-    this.onSelect.emit(this.selectedElements);
+    this.onSelect.emit(this.event);
+  }
+
+  private triggerEndEvent() {
+    this.onSelectEnd.emit(this.event);
   }
 }
