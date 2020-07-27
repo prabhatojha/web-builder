@@ -22,8 +22,8 @@
   </div>
 
   <ngx-element-selector [targetElements]="projectNode.childNodes" [container]="canvasContainer"
-  (onSelectStart)="onSelectionStart($event)"
-    (onSelect)="onSelection($event)" (onSelectEnd)="onSelectionEnd($event)"></ngx-element-selector>
+    (onSelectStart)="onSelectionStart($event)" (onSelect)="onSelection($event)" (onSelectEnd)="onSelectionEnd($event)">
+  </ngx-element-selector>
 </div>
 
 <app-popup *ngIf="showPreview">

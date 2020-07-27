@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { CONST_VAR, ELEMENT_TYPES } from 'src/app/constants/contants';
 import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
-import { Hasher } from 'src/app/constants/hasher';
-import { AVA_TOOLBAR_OPTIONS, ELEMENT_TYPE_VS_TOOLBAR_OPT } from '../toolbar/toolbar.config';
+import { ELEMENT_TYPE_VS_TOOLBAR_OPT } from '../toolbar/toolbar.config';
 import { EventerService, EventModal, EventTypes } from '../../shared/services/eventer.service';
-import { map, filter } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { ImageUtils } from 'src/app/utils/image.utils';
 import { CanvasUtils } from 'src/app/utils/canvas.utils';
 import { CommonUtils } from 'src/app/utils/common.utils';
 import { NgxElementSelectorEvent } from 'projects/ngx-element-selector/src/public-api';
+import { CANVAS_PROJECT } from './canvas.config';
 
 @Component({
   selector: 'app-canvas',
@@ -23,48 +23,17 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   @ViewChild('canvasContainer', { static: true }) canvasContainer: ElementRef;
   CANVAS_EVENTS = [EventTypes.CANVAS_PREVIEW, EventTypes.CANVAS_DOWNLOAD, EventTypes.CANVAS_ADD_ITEM];
 
-  canvasOffsetLeft: number;
-  canvasOffsetTop: number;
   body = document.body;
 
   selectedCanvasElement: CanvasElement;
-
   // Actual dom element of the selected item
   selectedNode: any;
-  allNodes = [];
 
   projectNode: any;
   toolbarOptions = [];
 
-  project = {
-    elementId: 'my-first-element',
-    id: 'jfaslj12o4u12oi',
-    currentZindex: 1,
-    canvasElement: {
-      type: ELEMENT_TYPES.BACKGROUND,
-      tag: 'div',
-      dimention: {
-        width: 500,
-        height: 500
-      },
-      style: {
-        width: '500px',
-        height: '500px',
-        position: 'relative',
-        'background-color': 'white',
-        '-webkit-print-color-adjust': 'exact',
-        overflow: 'hidden'
-      },
-      attribute: {
-        class: 'canvas-template'
-      },
-      children: []
-    }
-  };
+  project = CANVAS_PROJECT;
 
-  isDragging = false;
-  isResizing = false;
-  isRoating = false;
   showPreview = false;
 
   constructor(private eventer: EventerService) {
@@ -72,22 +41,10 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.createInitialView();
-    this.subscribeToEvent();
     this.subscribeEventer();
   }
 
   ngAfterViewInit(): void {
-  }
-
-  subscribeToEvent() {
-    document.addEventListener('mouseup', (e) => {
-
-      if (this.selectedNode) {
-        this.isResizing = false;
-        this.isDragging = false;
-        this.isRoating = false;
-      }
-    });
   }
 
   drop(e) {
@@ -155,6 +112,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     e.removed.forEach(t => t.style.outline = '');
     e.added.forEach(t => t.style.outline = '2px solid lightblue');
   }
+
   onSelectionEnd(e) {
 
   }
@@ -182,49 +140,11 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   createInitialView() {
-    const node = this.buildDom(this.project.canvasElement);
+    const node = CanvasUtils.buildDom(this.project.canvasElement);
     // We need to iterate throug all the element and attach mouse down listener to all
     // this.attachEventListner(node, this.project, false);
     this.projectNode = node;
     this.canvas.nativeElement.appendChild(node);
-  }
-
-  buildDom(node) {
-    const ele = document.createElement(node.tag);
-    this.addElementStyle(ele, node.style);
-    this.addInnerText(ele, node.innerText);
-    this.addAttributes(ele, node.attribute);
-
-    if (node.children) {
-      // tslint:disable-next-line: prefer-for-of
-      for (let i = 0; i < node.children.length; i++) {
-        ele.appendChild(this.buildDom(node.children[i]));
-      }
-    }
-
-    return ele;
-  }
-
-  addAttributes(ele, attrs) {
-    if (attrs) {
-      Object.keys(attrs).forEach(key => {
-        ele.setAttribute(key, attrs[key]);
-      });
-    }
-  }
-
-  addElementStyle(ele, style) {
-    if (style) {
-      Object.keys(style).forEach(key => {
-        ele.style[key] = style[key];
-      });
-    }
-  }
-
-  addInnerText(ele, innerText) {
-    if (innerText) {
-      ele.innerText = innerText;
-    }
   }
 
   onCanvasClick(e) {
@@ -275,7 +195,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     node.addEventListener('mousedown', (e) => {
       // e.stopPropagation();
       this._selectElement(node, canvasElement, enableRotate);
-      // this.moveElementWithMouse(e);
     });
   }
 

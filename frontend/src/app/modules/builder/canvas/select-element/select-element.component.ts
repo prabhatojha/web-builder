@@ -97,7 +97,6 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   dragging(e) {
-    console.log(e);
     const { left, top } = e;
     this.dimention.translateX = left;
     this.dimention.translateY = top;
