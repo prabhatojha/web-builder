@@ -36,7 +36,7 @@
     ul {
       display: flex;
       li {
-        margin-left: 20px;
+        margin-left: 5px;
       }
 
       li a,
@@ -46,4 +46,15 @@
       }
     }
   }
+}
+
+.btn-info {
+  background-color: rgb(65, 71, 79);
+  color: $gray-70;
+  border: 0;
+}
+
+.btn-info:hover {
+  background-color: rgb(65, 71, 79);
+  color: $gray-20;
 }
