@@ -1,6 +1,7 @@
 import { CanvasElement } from '../models/canvas.element.model';
-import { PX_APPLICABLE_CSS_PROPS, ElementDimentionModel, CSS_PROPERTIES } from '../constants/css-constants';
+import { PX_APPLICABLE_CSS_PROPS, ElementDimentionModel, CSS_PROPERTIES, ATTR_PROPERTIES } from '../constants/css-constants';
 import { CommonUtils } from './common.utils';
+import { Hasher } from '../constants/hasher';
 
 export class CanvasUtils {
 
@@ -151,4 +152,11 @@ export class CanvasUtils {
   }
 
   // CSS application end
+
+
+  // Others start
+  static setElementId(node, canvasElement: CanvasElement) {
+    const id = Hasher.getUuid();
+    this.addAttributes(node, { [ATTR_PROPERTIES.ID]: id });
+  }
 }

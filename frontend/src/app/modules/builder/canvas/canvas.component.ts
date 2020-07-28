@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { CONST_VAR, ELEMENT_TYPES } from 'src/app/constants/contants';
-import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
+import { CSS_PROPERTIES, ATTR_PROPERTIES } from 'src/app/constants/css-constants';
 import { ELEMENT_TYPE_VS_TOOLBAR_OPT } from '../toolbar/toolbar.config';
 import { EventerService, EventModal, EventTypes } from '../../shared/services/eventer.service';
 import { filter } from 'rxjs/operators';
@@ -74,12 +74,11 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
     const newNode = CanvasUtils.buildDom(canvasElement);
 
+
     this.attachEventListner(newNode, canvasElement);
 
     this.projectNode.appendChild(newNode);
-    console.log(this.projectNode);
 
-    // This has to be last statement
     this.addItemInProject(canvasElement);
   }
 
@@ -105,16 +104,18 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   onSelectionStart(e: NgxElementSelectorEvent) {
+    console.log('Start', e);
     e.targets.forEach(t => t.style.outline = '');
   }
 
   onSelection(e: NgxElementSelectorEvent) {
+    console.log('Doing', e);
     e.removed.forEach(t => t.style.outline = '');
     e.added.forEach(t => t.style.outline = '2px solid lightblue');
   }
 
   onSelectionEnd(e) {
-
+    console.log('End', e);
   }
 
   getProjectWidthHeight() {
@@ -169,7 +170,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
           return;
         }
 
-        label.setAttribute(CSS_PROPERTIES.CONTENT_EDITABLE, true);
+        label.setAttribute(ATTR_PROPERTIES.CONTENT_EDITABLE, true);
         label.focus();
       });
 
@@ -177,7 +178,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         if (this.isElementLocked()) {
           return;
         }
-        label.setAttribute(CSS_PROPERTIES.CONTENT_EDITABLE, false);
+        label.setAttribute(ATTR_PROPERTIES.CONTENT_EDITABLE, false);
         this.updateInnerText(node.innerText, canvasElement);
       });
     }

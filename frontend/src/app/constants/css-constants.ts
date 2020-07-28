@@ -31,8 +31,11 @@ export const CSS_PROPERTIES = {
   LEFT: 'left',
   TEXT_ALIGN: 'text-align',
   OPACITY: 'opacity',
-  // Attributes
-  CONTENT_EDITABLE: 'contentEditable'
+};
+
+export const ATTR_PROPERTIES = {
+  CONTENT_EDITABLE: 'contentEditable',
+  ID: 'id'
 };
 
 export const CSS_ELEMENT_PROPS = {

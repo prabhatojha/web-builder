@@ -61,6 +61,7 @@ export class NgxElementSelectorComponent implements OnInit, OnChanges {
     this.setInitialPos(e);
     this.event = new NgxElementSelectorEvent();
     this.event.targets = this.targetElements;
+    this.selectElementWithDebounce(e);
     document.addEventListener('mousemove', this.mouseMoveListener);
     this.onSelectStart.emit(this.event);
   }
@@ -68,7 +69,7 @@ export class NgxElementSelectorComponent implements OnInit, OnChanges {
   private mouseMoveListener = (e) => {
     const { clientX, clientY } = e;
     this.showOverlay(clientX, clientY);
-    this.selectElementWithDebounce();
+    this.selectElementWithDebounce(e);
   }
 
   private showOverlay(clientX, clientY) {
@@ -83,11 +84,11 @@ export class NgxElementSelectorComponent implements OnInit, OnChanges {
     };
   }
 
-  private selectElementWithDebounce() {
+  private selectElementWithDebounce(e) {
     clearTimeout(this.debouseId);
 
     this.debouseId = setTimeout(() => {
-      const overlayRect = this.getOverlayRect();
+      const overlayRect = this.getOverlayRect(e);
       this.rects.forEach((t, index) => this._selectElement(t, overlayRect, index));
     }, this.debounceTime);
   }
@@ -127,8 +128,13 @@ export class NgxElementSelectorComponent implements OnInit, OnChanges {
       overlayRect.right > eleRect.right && overlayRect.bottom > eleRect.bottom;
   }
 
-  private getOverlayRect(): DOMRect {
-    return this.overlay && this.overlay.nativeElement.getBoundingClientRect();
+  private getOverlayRect(e) {
+    return {
+      left: Math.min(this.initialX, e.clientX),
+      right: Math.max(this.initialX, e.clientX),
+      bottom: Math.max(this.initialY, e.clientY),
+      top: Math.min(this.initialY, e.clientY)
+    };
   }
 
   public toPx(val) {
