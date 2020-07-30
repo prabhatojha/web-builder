@@ -1,7 +1,8 @@
 <ngx-moveable #moveable [target]="selectedNodes" [draggable]="true" [container]="container" [origin]="false"
-  [rotatable]="true" [resizable]="true" [scalable]="false" [warpable]="false" [pinchable]="false" [keepRatio]="false"
-  (resizeStart)="onResizeStart($event)" (resize)="onResize($event)" (resizeEnd)="onEnd()" (drag)="dragging($event)"
-  (dragEnd)="onEnd()" (dragGroup)="onGroupDrag($event)" (rotate)="rotating($event)"
+  [defaultGroupRotate]='0' [rotatable]="true" [resizable]="true" [scalable]="false" [warpable]="false"
+  [pinchable]="false" [keepRatio]="false" (resizeStart)="onResizeStart($event)" (resize)="onResize($event)"
+  (resizeEnd)="onEnd()" (drag)="dragging($event)" (dragEnd)="onEnd()" (dragGroup)="onGroupDrag($event)"
+  (resizeGroupStart)="onGroupResizeStart($event)" (resizeGroup)="onGroupResize($event)" (rotateGroup)="onGroupRotate($event)" (rotate)="rotating($event)"
   (rotateStart)="onRotateStart($event)" (rotateEnd)="onEnd()" [throttleResize]="1"
   [horizontalGuidelines]="[0, 250, 500]" [snappable]="true" [snapCenter]="true" [verticalGuidelines]="[0, 250, 500]">
 </ngx-moveable>

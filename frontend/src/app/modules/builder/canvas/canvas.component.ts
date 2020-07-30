@@ -29,8 +29,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   // Actual dom element of the selected item
   selectedNode: any;
   selectedNodes: HTMLElement[];
+  selectedCanvasElements: CanvasElement[];
 
-  projectNode: any;
+  projectNode: HTMLElement;
   toolbarOptions = [];
 
   project = CANVAS_PROJECT;
@@ -100,8 +101,19 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     // e.added.forEach(t => t.style.outline = '2px solid lightblue');
   }
 
-  onSelectionEnd(e) {
-    this.selectedNodes = [...e.selected];
+  onSelectionEnd({ selected }) {
+    const children = [...this.projectNode.children];
+    const ce = [];
+
+    for (let i = 0; i < children.length; i++) {
+      if (selected.includes(children[i])) {
+        ce.push(this.project.canvasElement.children[i]);
+      }
+    }
+    this.selectedNodes = selected;
+    this.selectedCanvasElements = ce;
+
+    console.log(this.selectedNodes, this.selectedCanvasElements);
   }
 
   getProjectWidthHeight() {

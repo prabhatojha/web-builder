@@ -8,7 +8,7 @@ import { CanvasUtils } from 'src/app/utils/canvas.utils';
 import { ELEMENT_TYPES } from 'src/app/constants/contants';
 import Moveable from 'moveable';
 import { CommonUtils } from 'src/app/utils/common.utils';
-import { ElementDimentionModel } from 'src/app/constants/css-constants';
+import { ElementDimentionModel, CSS_PROPERTIES } from 'src/app/constants/css-constants';
 import { ELE_VS_RESIZE_HANDLES } from 'src/app/modules/builder/canvas/canvas.config';
 @Component({
   selector: 'app-select-element',
@@ -19,7 +19,7 @@ import { ELE_VS_RESIZE_HANDLES } from 'src/app/modules/builder/canvas/canvas.con
 export class SelectElementComponent implements OnChanges, OnDestroy {
 
   @Input() selectedNodes: any;
-  @Input() selectedCanvasElement: CanvasElement;
+  @Input() selectedCanvasElements: CanvasElement[] = [];
   @Input() container: any;
 
   @ViewChild('moveable', { static: false }) moveable: Moveable;
@@ -59,8 +59,8 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   setResizeHandles() {
-    if (this.selectedCanvasElement) {
-      this.resizeHanles = ELE_VS_RESIZE_HANDLES[this.selectedCanvasElement.type];
+    if (this.selectedCanvasElements && this.selectedCanvasElements[0]) {
+      this.resizeHanles = ELE_VS_RESIZE_HANDLES[this.selectedCanvasElements[0].type];
     }
   }
 
@@ -70,53 +70,72 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     }
 
     this.previousSelectedNode = this.selectedNodes[0];
-    this.previousSelectedCanvasEle = this.selectedCanvasElement;
+    this.previousSelectedCanvasEle = this.selectedCanvasElements[0];
   }
 
   setInitialSize() {
-    // this.dimention = CommonUtils.cloneDeep(this.selectedCanvasElement.dimention);
+    this.dimention = this.selectedCanvasElements.length && CommonUtils.cloneDeep(this.selectedCanvasElements[0].dimention);
 
     // if (this.selectedCanvasElement.type === ELEMENT_TYPES.TEXT) {
-      // this.textResizeObserver.observe(this.selectedNodes[0].getElementsByTagName('label')[0]);
+    // this.textResizeObserver.observe(this.selectedNodes[0].getElementsByTagName('label')[0]);
     // }
   }
 
-  onResizeStart({ dragStart, setOrigin }) {
+  onResizeStart(e) {
     this.manualResize = true;
-    setOrigin(['%', '%']);
-    dragStart.set([this.dimention.translateX, this.dimention.translateY]);
+    e.setOrigin(['%', '%']);
+    console.log(e);
+    // e.dragStart.set([this.dimention.translateX, this.dimention.translateY]);
   }
 
   onResize(e) {
+    console.log(e);
     const { width, height } = e;
     this.dimention.width = width;
     this.dimention.height = height;
     this.dimention.translateX = e.drag.beforeTranslate[0];
     this.dimention.translateY = e.drag.beforeTranslate[1];
-    this.updateNodeDimention();
+    // this.updateNodeDimention();
+    // console.log(this.selectedNodes[0].style.transform);
+    this.updateNodeCss({
+      width,
+      height,
+      transform: e.drag.transform
+    });
   }
 
   dragging(e) {
+    console.log(e);
     const { left, top } = e;
     this.dimention.translateX = left;
     this.dimention.translateY = top;
-    this.updateNodeDimention();
+    this.updateNodeCss({
+      transform: e.transform
+    });
+    // this.updateNodeDimention();
   }
 
   onRotateStart(e) {
+    console.log(e.target.style[CSS_PROPERTIES.TRANSFORM].match(/\srotateX\((\d+)\)/i));
+    this.dimention.rotate = e.target.style[CSS_PROPERTIES.TRANSFORM].match(/\srotate\((\d+)\)/i);
+    console.log(e, e.target.style[CSS_PROPERTIES.TRANSFORM]);
   }
 
   rotating(e) {
+    console.log(e);
     this.dimention.rotate += e.beforeDelta;
-    this.updateNodeDimention();
+    this.updateNodeCss({
+      transform: e.transform
+    });
+    // this.updateNodeDimention();
   }
 
-  updateNodeCss(styles) {
-    CanvasUtils.applyCss(this.selectedNodes[0], this.selectedCanvasElement, styles);
+  updateNodeCss(styles, index = 0) {
+    CanvasUtils.applyCss(this.selectedNodes[index], this.selectedCanvasElements[index], styles);
   }
 
   updateNodeDimention(permanent = false) {
-    CanvasUtils.applyDimention(this.selectedNodes[0], this.selectedCanvasElement, this.dimention, permanent);
+    CanvasUtils.applyDimention(this.selectedNodes[0], this.selectedCanvasElements[0], this.dimention, permanent);
   }
 
   ngOnDestroy() {
@@ -125,11 +144,43 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     }
   }
 
-  onGroupDrag(e) {
+  onGroupDrag({ events }) {
+    events.forEach((ev, i) => {
+      this.updateNodeCss({
+        transform: ev.transform
+      }, i);
+    });
+  }
+
+  onGroupResizeStart({ events }) {
+    console.log(events);
+    events.forEach((ev) => {
+      ev.setOrigin(['%', '%']);
+    });
+  }
+
+  onGroupResize({ events }) {
+    console.log(events);
+    events.forEach((ev, i) => {
+      this.updateNodeCss({
+        width: ev.width,
+        height: ev.height,
+        transform: ev.drag.transform
+      }, i);
+    });
+  }
+
+  onGroupRotate({ events }) {
+    console.log(events);
+    events.forEach((ev, i) => {
+      this.updateNodeCss({
+        transform: ev.drag.transform + ` rotate(${ev.rotate}deg)`
+      }, i);
+    });
   }
 
   onEnd() {
     this.manualResize = false;
-    this.selectedCanvasElement.dimention = CommonUtils.cloneDeep(this.dimention);
+    // this.selectedCanvasElements[0].dimention = CommonUtils.cloneDeep(this.dimention);
   }
 }
