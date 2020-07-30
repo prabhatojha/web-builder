@@ -18,7 +18,7 @@ import { ELE_VS_RESIZE_HANDLES } from 'src/app/modules/builder/canvas/canvas.con
 })
 export class SelectElementComponent implements OnChanges, OnDestroy {
 
-  @Input() selectedNode: any;
+  @Input() selectedNodes: any;
   @Input() selectedCanvasElement: CanvasElement;
   @Input() container: any;
 
@@ -47,15 +47,15 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   constructor(private cd: ChangeDetectorRef) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.selectedNode && this.selectedNode) {
+    if (changes.selectedNodes && this.selectedNodes) {
       this.init();
     }
   }
 
   init() {
-    this.unbindPreviousItem();
+    // this.unbindPreviousItem();
     this.setInitialSize();
-    this.setResizeHandles();
+    // this.setResizeHandles();
   }
 
   setResizeHandles() {
@@ -66,19 +66,19 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   unbindPreviousItem() {
     if (this.previousSelectedNode && this.previousSelectedCanvasEle.type === ELEMENT_TYPES.TEXT) {
-      this.textResizeObserver.unobserve(this.previousSelectedNode.getElementsByTagName('label')[0]);
+      // this.textResizeObserver.unobserve(this.previousSelectedNode.getElementsByTagName('label')[0]);
     }
 
-    this.previousSelectedNode = this.selectedNode;
+    this.previousSelectedNode = this.selectedNodes[0];
     this.previousSelectedCanvasEle = this.selectedCanvasElement;
   }
 
   setInitialSize() {
-    this.dimention = CommonUtils.cloneDeep(this.selectedCanvasElement.dimention);
+    // this.dimention = CommonUtils.cloneDeep(this.selectedCanvasElement.dimention);
 
-    if (this.selectedCanvasElement.type === ELEMENT_TYPES.TEXT) {
-      this.textResizeObserver.observe(this.selectedNode.getElementsByTagName('label')[0]);
-    }
+    // if (this.selectedCanvasElement.type === ELEMENT_TYPES.TEXT) {
+      // this.textResizeObserver.observe(this.selectedNodes[0].getElementsByTagName('label')[0]);
+    // }
   }
 
   onResizeStart({ dragStart, setOrigin }) {
@@ -112,11 +112,11 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   updateNodeCss(styles) {
-    CanvasUtils.applyCss(this.selectedNode, this.selectedCanvasElement, styles);
+    CanvasUtils.applyCss(this.selectedNodes[0], this.selectedCanvasElement, styles);
   }
 
   updateNodeDimention(permanent = false) {
-    CanvasUtils.applyDimention(this.selectedNode, this.selectedCanvasElement, this.dimention, permanent);
+    CanvasUtils.applyDimention(this.selectedNodes[0], this.selectedCanvasElement, this.dimention, permanent);
   }
 
   ngOnDestroy() {
@@ -126,7 +126,6 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   onGroupDrag(e) {
-    console.log(e);
   }
 
   onEnd() {

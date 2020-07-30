@@ -1,4 +1,4 @@
-<ngx-moveable #moveable [target]="selectedNode" [draggable]="true" [container]="container" [origin]="false"
+<ngx-moveable #moveable [target]="selectedNodes" [draggable]="true" [container]="container" [origin]="false"
   [rotatable]="true" [resizable]="true" [scalable]="false" [warpable]="false" [pinchable]="false" [keepRatio]="false"
   (resizeStart)="onResizeStart($event)" (resize)="onResize($event)" (resizeEnd)="onEnd()" (drag)="dragging($event)"
   (dragEnd)="onEnd()" (dragGroup)="onGroupDrag($event)" (rotate)="rotating($event)"

@@ -28,6 +28,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   selectedCanvasElement: CanvasElement;
   // Actual dom element of the selected item
   selectedNode: any;
+  selectedNodes: HTMLElement[];
 
   projectNode: any;
   toolbarOptions = [];
@@ -82,21 +83,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this.addItemInProject(canvasElement);
   }
 
-  onDragStart(e) {
-    console.log(e);
-  }
-
-  onSelectStart(e) {
-    console.log(e);
-  }
-
-  onSelect(e) {
-    console.log(e);
-  }
-  onSelectEnd(e) {
-    console.log(e);
-  }
-
   adjustWidthHeight(canvasElement: CanvasElement) {
     if (canvasElement.type === ELEMENT_TYPES.PHOTO) {
       ImageUtils.setInitialWidthAndHeight(this.getProjectWidthHeight(), canvasElement);
@@ -104,18 +90,18 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   onSelectionStart(e: NgxElementSelectorEvent) {
-    console.log('Start', e);
-    e.targets.forEach(t => t.style.outline = '');
+    // console.log('Start', e);
+    // e.targets.forEach(t => t.style.outline = '');
   }
 
   onSelection(e: NgxElementSelectorEvent) {
-    console.log('Doing', e);
-    e.removed.forEach(t => t.style.outline = '');
-    e.added.forEach(t => t.style.outline = '2px solid lightblue');
+    // console.log('Doing', e);
+    // e.removed.forEach(t => t.style.outline = '');
+    // e.added.forEach(t => t.style.outline = '2px solid lightblue');
   }
 
   onSelectionEnd(e) {
-    console.log('End', e);
+    this.selectedNodes = [...e.selected];
   }
 
   getProjectWidthHeight() {
@@ -152,6 +138,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     // Temporary
     if (e.target && e.target.classList.contains('canvas-template')) {
       this.selectedNode = null;
+      // this.selectedNodes = [];
       this.selectedCanvasElement = null;
     }
   }

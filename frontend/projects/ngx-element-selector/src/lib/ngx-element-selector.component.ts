@@ -51,8 +51,14 @@ export class NgxElementSelectorComponent implements OnInit, OnChanges {
     document.addEventListener('mouseup', this.mouseUpListener);
   }
 
-
   ngOnChanges(changes: SimpleChanges): void {
+    if (changes.targetElements) {
+      this.setClickableTargets(changes.targetElements);
+    }
+  }
+
+  setClickableTargets(changes) {
+    console.log('setClickableTargets', changes);
   }
 
   private mouseDownListener = (e) => {
@@ -61,7 +67,7 @@ export class NgxElementSelectorComponent implements OnInit, OnChanges {
     this.setInitialPos(e);
     this.event = new NgxElementSelectorEvent();
     this.event.targets = this.targetElements;
-    this.selectElementWithDebounce(e);
+    // this.selectElementWithDebounce(e);
     document.addEventListener('mousemove', this.mouseMoveListener);
     this.onSelectStart.emit(this.event);
   }

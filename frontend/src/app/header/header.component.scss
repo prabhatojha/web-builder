@@ -36,6 +36,7 @@
     ul {
       display: flex;
       li {
+        display: flex;
         margin-left: 5px;
       }
 
@@ -57,4 +58,17 @@
 .btn-info:hover {
   background-color: rgb(65, 71, 79);
   color: $gray-20;
+}
+
+.user-account {
+  .material-icons {
+    font-size: 30px;
+    line-height: 30px;
+    height: 30px;
+    width: 30px;
+  }
+}
+
+.user-account:hover {
+  // color: black;
 }
