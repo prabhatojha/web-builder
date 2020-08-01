@@ -2,7 +2,7 @@ export class CSSUtils {
 
   static TRANSFORM_ROTATE = /(?<=rotate\()(.*)(?=\s*deg\))/;
 
-  static getTransformValue(value, field) {
+  static getTransformValue(value, field: 'rotate') {
     switch (field) {
       case 'rotate':
         return this.matchReg(value, this.TRANSFORM_ROTATE);
@@ -11,6 +11,6 @@ export class CSSUtils {
 
   private static matchReg(value, reg) {
     const result = value.match(reg);
-    return result && result[0];
+    return result && parseFloat(result[0]);
   }
 }

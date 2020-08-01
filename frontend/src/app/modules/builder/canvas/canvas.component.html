@@ -11,13 +11,13 @@
 
     </div>
     <div style="width: 100%; height: 50px;"></div>
-    <app-select-element [selectedNodes]="selectedNodes" [selectedCanvasElements]="selectedCanvasElements"
-      [container]="canvas">
+    <app-select-element [selectedNodes]="selectedNodes" [defaultGroupRotate]="defaultGroupRotate"
+      [selectedCanvasElements]="selectedCanvasElements" [container]="canvas">
     </app-select-element>
     <ngx-selecto [container]="canvas" [dragContainer]="canvasContainer" [selectableTargets]='projectNode.childNodes'
       [selectByClick]="true" [selectFromInside]="false" [continueSelect]="false" [toggleContinueSelect]="'shift'"
-      [keyContainer]="canvas" [hitRate]="1" (selectEnd)="onSelectionEnd($event)"></ngx-selecto> -->
-    <!-- <app-drag-element></app-drag-element>
+      [keyContainer]="canvas" [hitRate]="1" (selectEnd)="onSelectionEnd($event)">
+    </ngx-selecto>
   </div>
 
   <!-- <ngx-element-selector [targetElements]="projectNode.children" [container]="canvasContainer"

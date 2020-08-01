@@ -10,6 +10,7 @@ import { CanvasUtils } from 'src/app/utils/canvas.utils';
 import { CommonUtils } from 'src/app/utils/common.utils';
 import { NgxElementSelectorEvent } from 'projects/ngx-element-selector/src/public-api';
 import { CANVAS_PROJECT } from './canvas.config';
+import { CSSUtils } from 'src/app/utils/css.utils';
 
 @Component({
   selector: 'app-canvas',
@@ -28,7 +29,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   selectedCanvasElement: CanvasElement;
   // Actual dom element of the selected item
   selectedNode: any;
-  selectedNodes: HTMLElement[];
+  selectedNodes: Element[];
   selectedCanvasElements: CanvasElement[];
 
   projectNode: HTMLElement;
@@ -37,6 +38,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   project = CANVAS_PROJECT;
 
   showPreview = false;
+
+  defaultGroupRotate = 0;
 
   constructor(private eventer: EventerService) {
   }
@@ -102,18 +105,26 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   onSelectionEnd({ selected }) {
-    const children = [...this.projectNode.children];
+    const children = this.projectNode.children;
     const ce = [];
 
+    // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < children.length; i++) {
       if (selected.includes(children[i])) {
         ce.push(this.project.canvasElement.children[i]);
       }
     }
+
+    this.setInitialGroupRotate(ce[0]);
     this.selectedNodes = selected;
     this.selectedCanvasElements = ce;
 
     console.log(this.selectedNodes, this.selectedCanvasElements);
+  }
+
+  setInitialGroupRotate(canvasElement: CanvasElement) {
+    this.defaultGroupRotate = canvasElement ?
+      CSSUtils.getTransformValue(canvasElement.style[CSS_PROPERTIES.TRANSFORM], 'rotate') : 0;
   }
 
   onSelectEnd(e) {
@@ -238,11 +249,16 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   onItemRemove() {
-    const itemIndex = this.project.canvasElement.children.findIndex(t => t === this.selectedCanvasElement);
+    const children = this.project.canvasElement.children;
+    const childrenNode = this.projectNode.children;
+    const itemIndex = children.findIndex(t => t === this.selectedCanvasElement);
     if (itemIndex > -1) {
-      this.project.canvasElement.children.splice(itemIndex, 1);
-      this.selectedNode.remove();
+      children.splice(itemIndex, 1);
+      childrenNode[itemIndex].remove();
       this.toolbarOptions = [];
+
+      this.selectedCanvasElements = children.length ? [children[children.length - 1]] : [];
+      this.selectedNodes = childrenNode.length ? [childrenNode[children.length - 1]] : [];
     }
   }
 

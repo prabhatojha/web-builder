@@ -22,6 +22,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   @Input() selectedNodes: any;
   @Input() selectedCanvasElements: CanvasElement[] = [];
   @Input() container: any;
+  @Input() defaultGroupRotate = 0;
 
   @ViewChild('moveable', { static: false }) moveable: Moveable;
 
@@ -49,6 +50,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.selectedNodes && this.selectedNodes) {
+      console.log(changes);
       this.init();
     }
   }
@@ -85,19 +87,14 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   onResizeStart(e) {
     this.manualResize = true;
     e.setOrigin(['%', '%']);
-    console.log(e);
-    // e.dragStart.set([this.dimention.translateX, this.dimention.translateY]);
   }
 
   onResize(e) {
-    console.log(e);
     const { width, height } = e;
     this.dimention.width = width;
     this.dimention.height = height;
     this.dimention.translateX = e.drag.beforeTranslate[0];
     this.dimention.translateY = e.drag.beforeTranslate[1];
-    // this.updateNodeDimention();
-    // console.log(this.selectedNodes[0].style.transform);
     this.updateNodeCss({
       width,
       height,
@@ -106,7 +103,6 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   dragging(e) {
-    console.log(e);
     const { left, top } = e;
     this.dimention.translateX = left;
     this.dimention.translateY = top;
@@ -116,14 +112,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     // this.updateNodeDimention();
   }
 
-  onRotateStart(e) {
-    console.log(e.target.style[CSS_PROPERTIES.TRANSFORM].match(/\srotateX\((\d+)\)/i));
-    this.dimention.rotate = e.target.style[CSS_PROPERTIES.TRANSFORM].match(/\srotate\((\d+)\)/i);
-    console.log(e, e.target.style[CSS_PROPERTIES.TRANSFORM]);
-  }
-
   rotating(e) {
-    console.log(e);
     this.dimention.rotate += e.beforeDelta;
     this.updateNodeCss({
       transform: e.transform
@@ -139,12 +128,6 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   //   CanvasUtils.applyDimention(this.selectedNodes[0], this.selectedCanvasElements[0], this.dimention, permanent);
   // }
 
-  ngOnDestroy() {
-    if (this.previousSelectedNode) {
-      this.textResizeObserver.unobserve(this.previousSelectedNode);
-    }
-  }
-
   onGroupDrag({ events }) {
     events.forEach((ev, i) => {
       this.updateNodeCss({
@@ -154,14 +137,12 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   onGroupResizeStart({ events }) {
-    console.log(events);
     events.forEach((ev) => {
       ev.setOrigin(['%', '%']);
     });
   }
 
   onGroupResize({ events }) {
-    console.log(events);
     events.forEach((ev, i) => {
       this.updateNodeCss({
         width: ev.width,
@@ -172,11 +153,9 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   onGroupRotateStart(e) {
-    // console.log('Start', e);
     // e.events.forEach((ev, i) => {
     //   const styles = this.selectedCanvasElements[i].style;
     //   const val = CSSUtils.getTransformValue(styles[CSS_PROPERTIES.TRANSFORM], 'rotate');
-    //   console.log(styles, val);
     //   ev.set(val);
     //   // tslint:disable-next-line: no-unused-expression
     //   // ev.dragStart && ev.dragStart.set(this.frames[i].translate);
@@ -184,7 +163,6 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   onGroupRotate({ events }) {
-    console.log(events);
     events.forEach((ev, i) => {
       this.updateNodeCss({
         transform: ev.drag.transform + ` rotate(${ev.rotate}deg)`
@@ -196,4 +174,11 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     this.manualResize = false;
     // this.selectedCanvasElements[0].dimention = CommonUtils.cloneDeep(this.dimention);
   }
+
+  ngOnDestroy() {
+    if (this.previousSelectedNode) {
+      this.textResizeObserver.unobserve(this.previousSelectedNode);
+    }
+  }
+
 }
