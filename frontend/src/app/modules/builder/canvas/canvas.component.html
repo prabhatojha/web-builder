@@ -11,19 +11,18 @@
 
     </div>
     <div style="width: 100%; height: 50px;"></div>
-    <app-select-element [selectedNodes]="selectedNodes"
-      [selectedCanvasElements]="selectedCanvasElements" [container]="canvas">
+    <app-select-element [selectedNodes]="selectedNodes" [selectedCanvasElements]="selectedCanvasElements"
+      [container]="canvas">
     </app-select-element>
-    <!-- <ngx-selecto [container]="body" [dragContainer]="canvasContainer" [selectableTargets]='projectNode.childNodes'
+    <ngx-selecto [container]="canvas" [dragContainer]="canvasContainer" [selectableTargets]='projectNode.childNodes'
       [selectByClick]="true" [selectFromInside]="false" [continueSelect]="false" [toggleContinueSelect]="'shift'"
-      [keyContainer]="canvas" [hitRate]="100" (dragStart)="onDragStart($event)" (selectStart)="onSelectStart($event)"
-      (select)="onSelect($event)" (selectEnd)="onSelectEnd($event)"></ngx-selecto> -->
-    <!-- <app-drag-element></app-drag-element> -->
+      [keyContainer]="canvas" [hitRate]="1" (selectEnd)="onSelectionEnd($event)"></ngx-selecto> -->
+    <!-- <app-drag-element></app-drag-element>
   </div>
 
-  <ngx-element-selector [targetElements]="projectNode.children" [container]="canvasContainer"
+  <!-- <ngx-element-selector [targetElements]="projectNode.children" [container]="canvasContainer"
     (onSelectStart)="onSelectionStart($event)" (onSelect)="onSelection($event)" (onSelectEnd)="onSelectionEnd($event)">
-  </ngx-element-selector>
+  </ngx-element-selector> -->
 </div>
 
 <app-popup *ngIf="showPreview">

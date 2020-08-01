@@ -116,6 +116,22 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     console.log(this.selectedNodes, this.selectedCanvasElements);
   }
 
+  onSelectEnd(e) {
+    console.log(e);
+    // const children = [...this.projectNode.children];
+    // const ce = [];
+
+    // for (let i = 0; i < children.length; i++) {
+    //   if (selected.includes(children[i])) {
+    //     ce.push(this.project.canvasElement.children[i]);
+    //   }
+    // }
+    // this.selectedNodes = selected;
+    // this.selectedCanvasElements = ce;
+
+    // console.log(this.selectedNodes, this.selectedCanvasElements);
+  }
+
   getProjectWidthHeight() {
     return {
       width: this.project.canvasElement.dimention.width,

@@ -12,7 +12,7 @@ export class CanvasUtils {
     this.addElementStyle(ele, node.style);
     this.addInnerText(ele, node.innerText);
     this.addAttributes(ele, node.attribute);
-    this.addDimention(ele, node);
+    // this.addDimention(ele, node);
 
     if (node.children) {
       // tslint:disable-next-line: prefer-for-of
@@ -81,8 +81,9 @@ export class CanvasUtils {
     const canvasElement: CanvasElement = data.item.canvasElement;
 
     if (e.clientX && e.clientY && data.left && data.top) {
-      canvasElement.dimention.translateX = e.clientX - canvasBound.left - data.left;
-      canvasElement.dimention.translateY = e.clientY - canvasBound.top - data.top;
+      const x = e.clientX - canvasBound.left - data.left;
+      const y = e.clientY - canvasBound.top - data.top;
+      canvasElement.style[CSS_PROPERTIES.TRANSFORM] = `translate(${x}px, ${y}px)`;
     }
   }
 

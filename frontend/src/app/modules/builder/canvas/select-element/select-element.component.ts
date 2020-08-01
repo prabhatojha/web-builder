@@ -10,6 +10,7 @@ import Moveable from 'moveable';
 import { CommonUtils } from 'src/app/utils/common.utils';
 import { ElementDimentionModel, CSS_PROPERTIES } from 'src/app/constants/css-constants';
 import { ELE_VS_RESIZE_HANDLES } from 'src/app/modules/builder/canvas/canvas.config';
+import { CSSUtils } from 'src/app/utils/css.utils';
 @Component({
   selector: 'app-select-element',
   templateUrl: './select-element.component.html',
@@ -38,7 +39,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     // If user is doing resize, do not trigger this change
     if (rect && !this.manualResize) {
       this.dimention.height = entries[0].contentRect.height;
-      this.updateNodeDimention(true);
+      // this.updateNodeDimention(true);
       // tslint:disable-next-line: no-unused-expression
       this.moveable && this.moveable.updateRect();
     }
@@ -131,12 +132,12 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   updateNodeCss(styles, index = 0) {
-    CanvasUtils.applyCss(this.selectedNodes[index], this.selectedCanvasElements[index], styles);
+    CanvasUtils.applyCss(this.selectedNodes[index], this.selectedCanvasElements[index], styles, true);
   }
 
-  updateNodeDimention(permanent = false) {
-    CanvasUtils.applyDimention(this.selectedNodes[0], this.selectedCanvasElements[0], this.dimention, permanent);
-  }
+  // updateNodeDimention(permanent = false) {
+  //   CanvasUtils.applyDimention(this.selectedNodes[0], this.selectedCanvasElements[0], this.dimention, permanent);
+  // }
 
   ngOnDestroy() {
     if (this.previousSelectedNode) {
@@ -168,6 +169,18 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
         transform: ev.drag.transform
       }, i);
     });
+  }
+
+  onGroupRotateStart(e) {
+    // console.log('Start', e);
+    // e.events.forEach((ev, i) => {
+    //   const styles = this.selectedCanvasElements[i].style;
+    //   const val = CSSUtils.getTransformValue(styles[CSS_PROPERTIES.TRANSFORM], 'rotate');
+    //   console.log(styles, val);
+    //   ev.set(val);
+    //   // tslint:disable-next-line: no-unused-expression
+    //   // ev.dragStart && ev.dragStart.set(this.frames[i].translate);
+    // });
   }
 
   onGroupRotate({ events }) {
