@@ -1,10 +1,11 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, ElementRef } from '@angular/core';
-import { AVA_TOOLBAR_OPTIONS, FilterConfig } from './toolbar.config';
+import { AVA_TOOLBAR_OPTIONS, FilterConfig, ELEMENT_TYPE_VS_TOOLBAR_OPT } from './toolbar.config';
 import { FILTER_TYPES } from '../../../constants/contants';
 import { UndoRedoUtil } from 'src/app/utils/undo-redo.util';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { CSS_PROPERTIES, CSS_PROPERTY_VALUES } from 'src/app/constants/css-constants';
 import { CanvasUtils } from 'src/app/utils/canvas.utils';
+import { debug } from 'console';
 
 
 @Component({
@@ -15,10 +16,9 @@ import { CanvasUtils } from 'src/app/utils/canvas.utils';
 export class ToolbarComponent implements OnInit, OnChanges {
 
   @Input() options = [];
-  @Input() selectedNode: any;
-  @Input() selectedCanvasElement: CanvasElement;
+  @Input() selectedNodes = [];
+  @Input() selectedCanvasElements: CanvasElement[] = [];
 
-  @Output() hoverItem = new EventEmitter();
   @Output() removeSelectedItem = new EventEmitter();
   @Output() duplicateSelectedItem = new EventEmitter();
 
@@ -31,40 +31,55 @@ export class ToolbarComponent implements OnInit, OnChanges {
   initialOpacity = 0;
   styles = {};
   isLocked: boolean;
-  isGroupUngroupVisible = true;
+  isGroupUngroupVisible = false;
   isGroupedItems: boolean;
 
   isAlignmentSelectorOpen: boolean;
   isOpacitySelectorOpen: boolean;
 
+  fistCanvasElement: CanvasElement;
+
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.selectedCanvasElement && this.selectedCanvasElement) {
-      this.styles = this.getOriginalItemStyle();
-      this.updateLock();
-      this.setFilterConfig();
-    }
-
-    if (changes.selectedCanvasElement && !this.selectedCanvasElement) {
-      this.avaToolbarOptions = {};
+    if (changes.selectedCanvasElements) {
+      if (this.selectedCanvasElements && this.selectedCanvasElements.length) {
+        this.init();
+      } else {
+        this.avaToolbarOptions = {};
+        this.isGroupUngroupVisible = false;
+      }
     }
   }
 
   ngOnInit(): void {
   }
 
+  init() {
+    if (this.selectedCanvasElements.length > 1) {
+      this.isGroupUngroupVisible = true;
+    } else {
+      this.fistCanvasElement = this.selectedCanvasElements[0];
+      this.isGroupUngroupVisible = false;
+      this.styles = this.getOriginalItemStyle();
+      this.updateLock();
+      this.updateToolbarConfig();
+    }
+  }
+
   updateLock() {
-    this.isLocked = this.selectedCanvasElement.locked;
+    this.isLocked = this.fistCanvasElement.locked;
   }
 
   getOriginalItemStyle() {
-    return this.selectedCanvasElement.style;
+    return this.fistCanvasElement.style;
   }
 
-  setFilterConfig() {
+  updateToolbarConfig() {
     const opt = {};
-    this.options.forEach(t => {
+    const options = ELEMENT_TYPE_VS_TOOLBAR_OPT[this.fistCanvasElement.type];
+
+    options.forEach(t => {
       opt[t] = true;
     });
 
@@ -95,7 +110,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   applyNodeChanges(conf, value) {
-    this.selectedNode.style[conf.cssField] = value;
+    this.selectedNodes[0].style[conf.cssField] = value;
   }
 
   onBoldClick() {
@@ -106,7 +121,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
   updateCss(styles, permanent = true) {
     console.log(styles);
-    CanvasUtils.applyCss(this.selectedNode, this.selectedCanvasElement, styles, permanent);
+    CanvasUtils.applyCss(this.selectedNodes[0], this.fistCanvasElement, styles, permanent);
   }
 
   onItalicClick() {
@@ -116,17 +131,21 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   removeItem() {
-    this.removeSelectedItem.emit();
+    this.removeSelectedItem.emit(
+      {
+        nodes: this.selectedNodes,
+        canvasElements: this.selectedCanvasElements
+      });
   }
 
   lockItem() {
-    this.selectedCanvasElement.locked = !this.selectedCanvasElement.locked;
+    this.fistCanvasElement.locked = !this.fistCanvasElement.locked;
     this.updateLock();
     // This will trigger changes to selected element, such as removing the Resize Handle
-    // this.selectedNode.dispatchEvent(new Event('mousedown'));
+    // this.selectedNodes.dispatchEvent(new Event('mousedown'));
 
     // setTimeout(() => {
-    //   this.selectedNode.dispatchEvent(new Event('mouseup'));
+    //   this.selectedNodes.dispatchEvent(new Event('mouseup'));
     // }, 50);
   }
 
@@ -143,7 +162,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   onCssChange(conf, cssValue) {
-    UndoRedoUtil.addStyle(this.selectedCanvasElement, this.selectedNode, conf.cssField, cssValue);
+    UndoRedoUtil.addStyle(this.fistCanvasElement, this.selectedNodes, conf.cssField, cssValue);
   }
 
   updateOpacity(cssValue, permanent) {
@@ -151,15 +170,15 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   undoItem() {
-    UndoRedoUtil.undo(this.selectedCanvasElement, this.selectedNode);
+    UndoRedoUtil.undo(this.selectedCanvasElements, this.selectedNodes);
   }
 
   redoItem() {
-    UndoRedoUtil.redo(this.selectedCanvasElement, this.selectedNode);
+    UndoRedoUtil.redo(this.selectedCanvasElements, this.selectedNodes);
   }
 
   duplicate() {
     this.duplicateSelectedItem.emit();
-    // UndoRedoUtil.redo(this.selectedCanvasElement, this.selectedNode);
+    // UndoRedoUtil.redo(this.selectedCanvasElements, this.selectedNodes);
   }
 }

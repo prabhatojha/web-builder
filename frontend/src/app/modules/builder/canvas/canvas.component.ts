@@ -98,13 +98,14 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     // e.targets.forEach(t => t.style.outline = '');
   }
 
-  onSelection(e: NgxElementSelectorEvent) {
-    // console.log('Doing', e);
-    // e.removed.forEach(t => t.style.outline = '');
-    // e.added.forEach(t => t.style.outline = '2px solid lightblue');
+  onSelection(e) {
+    console.log('Doing', e);
+    e.removed.forEach(t => t.style.outline = '');
+    e.selected.forEach(t => t.style.outline = '2px dotted lightblue');
   }
 
   onSelectionEnd({ selected }) {
+    selected.forEach(t => t.style.outline = '');
     const children = this.projectNode.children;
     const ce = [];
 
@@ -187,12 +188,12 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this.doubleClickListener(node, canvasElement);
   }
 
-  doubleClickListener(node, canvasElement) {
-    if (this.selectedCanvasElement.type === ELEMENT_TYPES.TEXT) {
+  doubleClickListener(node, canvasElement: CanvasElement) {
+    if (canvasElement.type === ELEMENT_TYPES.TEXT) {
       const label = node.getElementsByTagName('label')[0];
 
       node.addEventListener('dblclick', () => {
-        if (this.isElementLocked()) {
+        if (canvasElement.locked) {
           return;
         }
 
@@ -201,7 +202,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       });
 
       label.addEventListener('blur', () => {
-        if (this.isElementLocked()) {
+        if (canvasElement.locked) {
           return;
         }
         label.setAttribute(ATTR_PROPERTIES.CONTENT_EDITABLE, false);
@@ -215,6 +216,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   selectElement(node, canvasElement, enableRotate) {
+    this.selectedNodes = [node];
+    this.selectedCanvasElements = [canvasElement];
 
     // When user add a new item, we are slecting it by default
     this._selectElement(node, canvasElement, enableRotate);
@@ -227,8 +230,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   _selectElement(node, canvasElement, enableRotate) {
     // Store the selected element ref and show toobar
-    this.showToolBar(node, canvasElement);
-    this.addZIndex();
+    this.addZIndex(node, canvasElement);
   }
 
   getInitialRotateDeg() {
@@ -236,30 +238,23 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     return val ? parseInt(val.split('rotate(')[1], 10) : 0;
   }
 
-  addZIndex() {
-    if (this.selectedNode && !this.isElementLocked() && this.selectedCanvasElement.increaseZIndex) {
-      this.selectedNode.style[CSS_PROPERTIES.Z_INDEX] = this.project.currentZindex++;
-    }
+  addZIndex(node, canvasElement) {
+    CanvasUtils.applyCss(node, canvasElement, {
+      [CSS_PROPERTIES.Z_INDEX]: this.project.currentZindex++
+    }, true);
   }
 
-  showToolBar(node, canvasElement) {
-    this.toolbarOptions = ELEMENT_TYPE_VS_TOOLBAR_OPT[canvasElement.type];
-    this.selectedNode = node;
-    this.selectedCanvasElement = canvasElement;
-  }
+  onItemRemove({ canvasElements, nodes }) {
+    const children = this.project.canvasElement.children.filter(t => !canvasElements.includes(t));
+    this.project.canvasElement.children = children;
 
-  onItemRemove() {
-    const children = this.project.canvasElement.children;
-    const childrenNode = this.projectNode.children;
-    const itemIndex = children.findIndex(t => t === this.selectedCanvasElement);
-    if (itemIndex > -1) {
-      children.splice(itemIndex, 1);
-      childrenNode[itemIndex].remove();
-      this.toolbarOptions = [];
+    nodes.forEach(node => {
+      node.remove();
+    });
 
-      this.selectedCanvasElements = children.length ? [children[children.length - 1]] : [];
-      this.selectedNodes = childrenNode.length ? [childrenNode[children.length - 1]] : [];
-    }
+    const childNodes = this.projectNode.children;
+    this.selectedCanvasElements = children.length ? [children[children.length - 1]] : [];
+    this.selectedNodes = childNodes.length ? [childNodes[childNodes.length - 1]] : [];
   }
 
   subscribeEventer() {
@@ -277,9 +272,5 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         this.addNewNode(event.value.item);
         break;
     }
-  }
-
-  isElementLocked() {
-    return this.selectedCanvasElement ? this.selectedCanvasElement.locked : false;
   }
 }

@@ -1,6 +1,6 @@
 <div class="tool-bar">
-  <app-toolbar [options]="toolbarOptions" [selectedNode]="selectedNode" [selectedCanvasElement]="selectedCanvasElement"
-    (duplicateSelectedItem)="onDuplicateSelectedItem()" (removeSelectedItem)="onItemRemove()">
+  <app-toolbar [selectedNodes]="selectedNodes" [selectedCanvasElements]="selectedCanvasElements"
+    (duplicateSelectedItem)="onDuplicateSelectedItem()" (removeSelectedItem)="onItemRemove($event)">
   </app-toolbar>
 </div>
 
@@ -16,7 +16,8 @@
     </app-select-element>
     <ngx-selecto [container]="canvas" [dragContainer]="canvasContainer" [selectableTargets]='projectNode.childNodes'
       [selectByClick]="true" [selectFromInside]="false" [continueSelect]="false" [toggleContinueSelect]="'shift'"
-      [keyContainer]="canvas" [hitRate]="1" (selectEnd)="onSelectionEnd($event)">
+      [keyContainer]="canvas" [hitRate]="1" (selectEnd)="onSelectionEnd($event)" (select)="onSelection($event)">
+
     </ngx-selecto>
   </div>
 
