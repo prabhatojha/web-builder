@@ -174,6 +174,10 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     // this.selectedCanvasElements[0].dimention = CommonUtils.cloneDeep(this.dimention);
   }
 
+  onClickGroup(e) {
+    console.log(e);
+  }
+
   ngOnDestroy() {
     if (this.previousSelectedNode) {
       this.textResizeObserver.unobserve(this.previousSelectedNode);

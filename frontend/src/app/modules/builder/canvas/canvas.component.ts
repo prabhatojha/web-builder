@@ -62,15 +62,17 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     const data = JSON.parse(unparseData);
     const canvasElement: CanvasElement = data.item.canvasElement;
     const canvasBound = this.projectNode.getBoundingClientRect();
-    const nodeLocation = CanvasUtils.setInitialNodeLocation(e, data, canvasBound);
+    CanvasUtils.setInitialNodeLocation(e, data, canvasBound);
 
-    this.addNewNode(data.item.canvasElement);
+    this.addNewNode(canvasElement);
   }
 
-  onDuplicateSelectedItem() {
-    const newElement = CommonUtils.cloneDeep(this.selectedCanvasElement);
-    const nodeLocation = CanvasUtils.setDuplicateNodeLocation(newElement);
-    this.addNewNode(newElement);
+  onDuplicateSelectedItem({ canvasElements }) {
+    canvasElements.forEach(element => {
+      const newElement = CommonUtils.cloneDeep(element);
+      CanvasUtils.setDuplicateNodeLocation(newElement);
+      this.addNewNode(newElement);
+    });
   }
 
   addNewNode(canvasElement: CanvasElement) {
@@ -99,7 +101,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   onSelection(e) {
     e.removed.forEach(t => t.style.outline = '');
-    e.selected.forEach(t => t.style.outline = '2px dotted lightblue');
+    e.selected.forEach(t => t.style.outline = '1px dashed darkgray');
   }
 
   onSelectionEnd({ selected }) {

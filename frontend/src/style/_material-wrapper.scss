@@ -27,3 +27,9 @@ button:focus {
 .mat-icon-button:hover {
   background: $gray-70;
 }
+
+.mat-tooltip {
+  /* your own custom styles here */
+  /* e.g. */
+  background-color: $gray-300;
+}

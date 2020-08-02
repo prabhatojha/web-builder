@@ -5,8 +5,6 @@ import { UndoRedoUtil } from 'src/app/utils/undo-redo.util';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { CSS_PROPERTIES, CSS_PROPERTY_VALUES } from 'src/app/constants/css-constants';
 import { CanvasUtils } from 'src/app/utils/canvas.utils';
-import { debug } from 'console';
-
 
 @Component({
   selector: 'app-toolbar',
@@ -131,11 +129,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   removeItem() {
-    this.removeSelectedItem.emit(
-      {
-        nodes: this.selectedNodes,
-        canvasElements: this.selectedCanvasElements
-      });
+    this.removeSelectedItem.emit(this.getSelectedItems());
   }
 
   lockItem() {
@@ -178,7 +172,14 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   duplicate() {
-    this.duplicateSelectedItem.emit();
+    this.duplicateSelectedItem.emit(this.getSelectedItems());
     // UndoRedoUtil.redo(this.selectedCanvasElements, this.selectedNodes);
+  }
+
+  getSelectedItems() {
+    return {
+      nodes: this.selectedNodes,
+      canvasElements: this.selectedCanvasElements
+    };
   }
 }

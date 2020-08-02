@@ -2,6 +2,7 @@ import { CanvasElement } from '../models/canvas.element.model';
 import { PX_APPLICABLE_CSS_PROPS, ElementDimentionModel, CSS_PROPERTIES, ATTR_PROPERTIES } from '../constants/css-constants';
 import { CommonUtils } from './common.utils';
 import { Hasher } from '../constants/hasher';
+import { CSSUtils } from './css.utils';
 
 export class CanvasUtils {
 
@@ -88,8 +89,10 @@ export class CanvasUtils {
   }
 
   static setDuplicateNodeLocation(canvasElement: CanvasElement) {
-    canvasElement.dimention.translateX += 20;
-    canvasElement.dimention.translateY += 20;
+    const { x, y } = CSSUtils.getTransformValue(canvasElement.style[CSS_PROPERTIES.TRANSFORM], 'translate');
+    // canvasElement.style[CSS_PROPERTIES.TRANSFORM] = `translate(${x + 20}px, ${y + 20}px)`;
+
+    CSSUtils.updateTransformValue(canvasElement.style, 'translate', `translate(${x + 20}px, ${y + 20}px)`);
   }
   // Element Duplicate/placement end ------------------------
 
