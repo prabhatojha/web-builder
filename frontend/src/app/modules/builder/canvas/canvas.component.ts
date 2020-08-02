@@ -94,12 +94,10 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   onSelectionStart(e: NgxElementSelectorEvent) {
-    // console.log('Start', e);
     // e.targets.forEach(t => t.style.outline = '');
   }
 
   onSelection(e) {
-    console.log('Doing', e);
     e.removed.forEach(t => t.style.outline = '');
     e.selected.forEach(t => t.style.outline = '2px dotted lightblue');
   }
@@ -119,8 +117,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this.setInitialGroupRotate(ce[0]);
     this.selectedNodes = selected;
     this.selectedCanvasElements = ce;
-
-    console.log(this.selectedNodes, this.selectedCanvasElements);
   }
 
   setInitialGroupRotate(canvasElement: CanvasElement) {
@@ -129,7 +125,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   onSelectEnd(e) {
-    console.log(e);
     // const children = [...this.projectNode.children];
     // const ce = [];
 
@@ -141,7 +136,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     // this.selectedNodes = selected;
     // this.selectedCanvasElements = ce;
 
-    // console.log(this.selectedNodes, this.selectedCanvasElements);
   }
 
   getProjectWidthHeight() {

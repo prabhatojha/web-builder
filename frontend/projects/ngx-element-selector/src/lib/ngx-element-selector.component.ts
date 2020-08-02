@@ -58,7 +58,6 @@ export class NgxElementSelectorComponent implements OnInit, OnChanges {
   }
 
   setClickableTargets(changes) {
-    console.log('setClickableTargets', changes);
   }
 
   private mouseDownListener = (e) => {

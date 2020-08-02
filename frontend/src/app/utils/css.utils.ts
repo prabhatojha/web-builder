@@ -10,7 +10,7 @@ export class CSSUtils {
   }
 
   private static matchReg(value, reg) {
-    const result = value.match(reg);
+    const result = value && value.match(reg);
     return result && parseFloat(result[0]);
   }
 }

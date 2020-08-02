@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, ElementRef } from '@angular/core';
 import { AVA_TOOLBAR_OPTIONS, FilterConfig, ELEMENT_TYPE_VS_TOOLBAR_OPT } from './toolbar.config';
-import { FILTER_TYPES } from '../../../constants/contants';
+import { FILTER_TYPES, ELEMENT_TYPES } from '../../../constants/contants';
 import { UndoRedoUtil } from 'src/app/utils/undo-redo.util';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { CSS_PROPERTIES, CSS_PROPERTY_VALUES } from 'src/app/constants/css-constants';
@@ -46,7 +46,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
       if (this.selectedCanvasElements && this.selectedCanvasElements.length) {
         this.init();
       } else {
-        this.avaToolbarOptions = {};
+        this.updateToolbarConfig(null);
         this.isGroupUngroupVisible = false;
       }
     }
@@ -58,12 +58,13 @@ export class ToolbarComponent implements OnInit, OnChanges {
   init() {
     if (this.selectedCanvasElements.length > 1) {
       this.isGroupUngroupVisible = true;
+      this.updateToolbarConfig(ELEMENT_TYPES.MULTIPLE_SELECTION);
     } else {
       this.fistCanvasElement = this.selectedCanvasElements[0];
       this.isGroupUngroupVisible = false;
       this.styles = this.getOriginalItemStyle();
       this.updateLock();
-      this.updateToolbarConfig();
+      this.updateToolbarConfig(this.fistCanvasElement.type);
     }
   }
 
@@ -75,9 +76,9 @@ export class ToolbarComponent implements OnInit, OnChanges {
     return this.fistCanvasElement.style;
   }
 
-  updateToolbarConfig() {
+  updateToolbarConfig(type: ELEMENT_TYPES) {
     const opt = {};
-    const options = ELEMENT_TYPE_VS_TOOLBAR_OPT[this.fistCanvasElement.type];
+    const options = ELEMENT_TYPE_VS_TOOLBAR_OPT[type] || [];
 
     options.forEach(t => {
       opt[t] = true;
@@ -120,7 +121,6 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   updateCss(styles, permanent = true) {
-    console.log(styles);
     CanvasUtils.applyCss(this.selectedNodes[0], this.fistCanvasElement, styles, permanent);
   }
 

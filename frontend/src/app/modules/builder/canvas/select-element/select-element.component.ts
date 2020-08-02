@@ -50,7 +50,6 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.selectedNodes && this.selectedNodes) {
-      console.log(changes);
       this.init();
     }
   }

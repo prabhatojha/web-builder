@@ -22,5 +22,6 @@ export enum ELEMENT_TYPES {
   PHOTO,
   TEXT,
   VECTOR,
-  GROUP
+  GROUP,
+  MULTIPLE_SELECTION
 }

@@ -17,7 +17,7 @@ export class VectorService {
   GET_IMAGES = '/api/images/vectors';
   PAGE = 0;
   LIMIT = '20';
-  withMock = false;
+  withMock = true;
   isLoading = true;
   query = '';
   EXTRA_DELAY = 10;
