@@ -39,7 +39,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
     // If user is doing resize, do not trigger this change
     if (rect && !this.manualResize) {
-      this.dimention.height = entries[0].contentRect.height;
+      // this.dimention.height = entries[0].contentRect.height;
       // this.updateNodeDimention(true);
       // tslint:disable-next-line: no-unused-expression
       this.moveable && this.moveable.updateRect();
@@ -56,7 +56,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   init() {
     // this.unbindPreviousItem();
-    this.setInitialSize();
+    // this.setInitialSize();
     // this.setResizeHandles();
   }
 
@@ -90,10 +90,10 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   onResize(e) {
     const { width, height } = e;
-    this.dimention.width = width;
-    this.dimention.height = height;
-    this.dimention.translateX = e.drag.beforeTranslate[0];
-    this.dimention.translateY = e.drag.beforeTranslate[1];
+    // this.dimention.width = width;
+    // this.dimention.height = height;
+    // this.dimention.translateX = e.drag.beforeTranslate[0];
+    // this.dimention.translateY = e.drag.beforeTranslate[1];
     this.updateNodeCss({
       width,
       height,
@@ -103,8 +103,8 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   dragging(e) {
     const { left, top } = e;
-    this.dimention.translateX = left;
-    this.dimention.translateY = top;
+    // this.dimention.translateX = left;
+    // this.dimention.translateY = top;
     this.updateNodeCss({
       transform: e.transform
     });
@@ -112,7 +112,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   rotating(e) {
-    this.dimention.rotate += e.beforeDelta;
+    // this.dimention.rotate += e.beforeDelta;
     this.updateNodeCss({
       transform: e.transform
     });

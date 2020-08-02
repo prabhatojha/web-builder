@@ -19,6 +19,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
   @Output() removeSelectedItem = new EventEmitter();
   @Output() duplicateSelectedItem = new EventEmitter();
+  @Output() groupSelectedItem = new EventEmitter();
 
   filterConfig = [];
   FILTER_TYPES = FILTER_TYPES;
@@ -44,7 +45,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
       if (this.selectedCanvasElements && this.selectedCanvasElements.length) {
         this.init();
       } else {
-        this.updateToolbarConfig(null);
+        this.updateToolbarConfig();
         this.isGroupUngroupVisible = false;
       }
     }
@@ -59,10 +60,10 @@ export class ToolbarComponent implements OnInit, OnChanges {
       this.updateToolbarConfig(ELEMENT_TYPES.MULTIPLE_SELECTION);
     } else {
       this.fistCanvasElement = this.selectedCanvasElements[0];
-      this.isGroupUngroupVisible = false;
       this.styles = this.getOriginalItemStyle();
       this.updateLock();
-      this.updateToolbarConfig(this.fistCanvasElement.type);
+      this.updateToolbarConfig();
+      this.updateGroupItemFlag();
     }
   }
 
@@ -70,16 +71,32 @@ export class ToolbarComponent implements OnInit, OnChanges {
     this.isLocked = this.fistCanvasElement.locked;
   }
 
+  updateGroupItemFlag() {
+    this.isGroupedItems = this.fistCanvasElement.type === ELEMENT_TYPES.GROUP;
+    this.isGroupUngroupVisible = this.isGroupedItems;
+  }
+
   getOriginalItemStyle() {
     return this.fistCanvasElement.style;
   }
 
-  updateToolbarConfig(type: ELEMENT_TYPES) {
-    const opt = {};
-    const options = ELEMENT_TYPE_VS_TOOLBAR_OPT[type] || [];
+  /**
+   * Will update toolbar options if all the selected elements have same options
+   */
+  updateToolbarConfig(additionalType?: ELEMENT_TYPES) {
+    const types = this.selectedCanvasElements ? this.selectedCanvasElements.map(t => t.type) : [];
+    // tslint:disable-next-line: no-unused-expression
+    additionalType && types.push(additionalType);
+    debugger
+    let options = ELEMENT_TYPE_VS_TOOLBAR_OPT[types[0]] || [];
+    for (let i = 1; i < types.length; i++) {
+      const newOpt = ELEMENT_TYPE_VS_TOOLBAR_OPT[types[i]] || [];
+      options = newOpt.filter(t => options.includes(t));
+    }
 
-    options.forEach(t => {
-      opt[t] = true;
+    const opt = {};
+    options.forEach(o => {
+      opt[o] = true;
     });
 
     this.avaToolbarOptions = opt;
@@ -119,7 +136,9 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   updateCss(styles, permanent = true) {
-    CanvasUtils.applyCss(this.selectedNodes[0], this.fistCanvasElement, styles, permanent);
+    this.selectedNodes.forEach((node, index) => {
+      CanvasUtils.applyCss(node, this.selectedCanvasElements[index], styles, permanent);
+    });
   }
 
   onItalicClick() {
@@ -132,15 +151,13 @@ export class ToolbarComponent implements OnInit, OnChanges {
     this.removeSelectedItem.emit(this.getSelectedItems());
   }
 
+  groupItem() {
+    this.groupSelectedItem.emit(this.getSelectedItems());
+  }
+
   lockItem() {
     this.fistCanvasElement.locked = !this.fistCanvasElement.locked;
     this.updateLock();
-    // This will trigger changes to selected element, such as removing the Resize Handle
-    // this.selectedNodes.dispatchEvent(new Event('mousedown'));
-
-    // setTimeout(() => {
-    //   this.selectedNodes.dispatchEvent(new Event('mouseup'));
-    // }, 50);
   }
 
   onColorSelect(color) {

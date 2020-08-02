@@ -109,8 +109,9 @@
   <div class="toolbar-items-right">
 
     <div *ngIf="isGroupUngroupVisible" class="toolbar-item">
-      <button class="btn btn-light btn-sm" (click)="lockItem()" [disabled]="isLocked">
-        {{isGroupedItems ? 'Ungroup' : 'Group'}}
+      <button mat-icon-button (click)="groupItem()" [matTooltip]="isGroupedItems ? 'Ungroup': 'Group'"
+        matTooltipPosition="above" [class.pinched-item]="isGroupedItems">
+        <i class="material-icons">group_work</i>
       </button>
     </div>
 

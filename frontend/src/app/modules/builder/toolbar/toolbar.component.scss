@@ -49,11 +49,11 @@ input[type="number"] {
   cursor: pointer;
   padding: 2px;
   color: $gray-400;
+}
 
-  &-selected {
-    background: $gray-100;
-    border: 1px solid $gray-200;
-  }
+.pinched-item {
+  box-shadow: 0 0 3px inset;
+  background-color: lightgray;
 }
 
 .toolbar-icons:hover:not(.toolbar-icons-selected) {

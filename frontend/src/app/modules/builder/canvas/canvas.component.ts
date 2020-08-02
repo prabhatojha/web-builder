@@ -253,6 +253,14 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this.selectedNodes = childNodes.length ? [childNodes[childNodes.length - 1]] : [];
   }
 
+  onItemGroup(e) {
+    console.log(e.canvasElements);
+    this.onItemRemove(e);
+    const newCanvasElement = new CanvasElement('div', {}, {}, e.canvasElements);
+    newCanvasElement.type = ELEMENT_TYPES.GROUP;
+    this.addNewNode(newCanvasElement);
+  }
+
   subscribeEventer() {
     this.eventer.get().pipe(filter((t: EventModal) => this.CANVAS_EVENTS.includes(t.type))).subscribe((event: EventModal) => {
       this.processEventer(event);
