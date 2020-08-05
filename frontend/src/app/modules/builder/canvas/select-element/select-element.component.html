@@ -6,5 +6,6 @@
   (resizeGroup)="onGroupResize($event)" (rotateGroupStart)="onGroupRotateStart($event)"
   (rotateGroup)="onGroupRotate($event)" (rotate)="rotating($event)" (clickGroup)="onClickGroup($event)"
   (rotateEnd)="onEnd()" [throttleResize]="1" [horizontalGuidelines]="[0, 250, 500]" [snappable]="true"
-  [snapCenter]="true" [verticalGuidelines]="[0, 250, 500]">
+  [snapCenter]="true" [verticalGuidelines]="[0, 250, 500]" (renderGroupEnd)="myEnd($event)"
+  (renderGroup)="myEnd($event)" (renderGroupStart)="myEnd($event)" (clickGroup)="onGroupClick($event)">
 </ngx-moveable>

@@ -28,6 +28,8 @@ export const CSS_PROPERTIES = {
   SCALE_X: 'scaleX',
   SCALE_Y: 'scaleY',
   TOP: 'top',
+  RIGHT: 'right',
+  BOTTOM: 'bottom',
   LEFT: 'left',
   TEXT_ALIGN: 'text-align',
   OPACITY: 'opacity',

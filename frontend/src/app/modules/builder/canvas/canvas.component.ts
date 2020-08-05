@@ -240,7 +240,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     }, true);
   }
 
-  onItemRemove({ canvasElements, nodes }) {
+  onItemRemove({ canvasElements, nodes }, selectNextElement = true) {
     const children = this.project.canvasElement.children.filter(t => !canvasElements.includes(t));
     this.project.canvasElement.children = children;
 
@@ -248,16 +248,20 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       node.remove();
     });
 
-    const childNodes = this.projectNode.children;
-    this.selectedCanvasElements = children.length ? [children[children.length - 1]] : [];
-    this.selectedNodes = childNodes.length ? [childNodes[childNodes.length - 1]] : [];
+    if (selectNextElement) {
+      const childNodes = this.projectNode.children;
+      this.selectedCanvasElements = children.length ? [children[children.length - 1]] : [];
+      this.selectedNodes = childNodes.length ? [childNodes[childNodes.length - 1]] : [];
+    }
   }
 
   onItemGroup(e) {
-    console.log(e.canvasElements);
-    this.onItemRemove(e);
     const newCanvasElement = new CanvasElement('div', {}, {}, e.canvasElements);
     newCanvasElement.type = ELEMENT_TYPES.GROUP;
+
+    CanvasUtils.setGroupNodeLocation(e.nodes, newCanvasElement, this.canvas.nativeElement);
+
+    this.onItemRemove(e, false);
     this.addNewNode(newCanvasElement);
   }
 

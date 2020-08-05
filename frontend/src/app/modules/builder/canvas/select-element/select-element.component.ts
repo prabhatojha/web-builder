@@ -174,6 +174,14 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     // this.selectedCanvasElements[0].dimention = CommonUtils.cloneDeep(this.dimention);
   }
 
+  myEnd(e) {
+    // console.log(e);
+  }
+
+  onGroupClick(e) {
+    console.log(e);
+  }
+
   onClickGroup(e) {
     console.log(e);
   }

@@ -90,10 +90,43 @@ export class CanvasUtils {
 
   static setDuplicateNodeLocation(canvasElement: CanvasElement) {
     const { x, y } = CSSUtils.getTransformValue(canvasElement.style[CSS_PROPERTIES.TRANSFORM], 'translate');
-    // canvasElement.style[CSS_PROPERTIES.TRANSFORM] = `translate(${x + 20}px, ${y + 20}px)`;
 
     CSSUtils.updateTransformValue(canvasElement.style, 'translate', `translate(${x + 20}px, ${y + 20}px)`);
   }
+
+  static setGroupNodeLocation(nodes: HTMLElement[], canvasElement: CanvasElement, canvas: HTMLElement) {
+    const canvasRect = canvas.getBoundingClientRect();
+    let top = 10000;
+    let left = 10000;
+    let right = -10000;
+    let bottom = -10000;
+
+    nodes.forEach((node: HTMLElement) => {
+      const rect: DOMRect = node.getBoundingClientRect();
+      if (top > rect.top) {
+        top = rect.top;
+      }
+
+      if (left > rect.left) {
+        left = rect.left;
+      }
+
+      if (right < rect.right) {
+        right = rect.right;
+      }
+
+      if (bottom < rect.bottom) {
+        bottom = rect.bottom;
+      }
+    });
+
+    canvasElement.style[CSS_PROPERTIES.WIDTH] = right - left + 'px';
+    canvasElement.style[CSS_PROPERTIES.HEIGHT] = bottom - top + 'px';
+
+    CSSUtils.updateTransformValue(canvasElement.style, 'translate',
+      `translate(${left - canvasRect.left}px, ${top - canvasRect.top}px)`);
+  }
+
   // Element Duplicate/placement end ------------------------
 
 
