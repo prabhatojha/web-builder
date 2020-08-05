@@ -36,7 +36,7 @@ export class CSSUtils {
     return result && result[0];
   }
 
-  static updateTransformValue(styles: any, field: 'rotate' | 'translate', fieldValue): any {
+  static updateTransformValue(styles: any, field: 'rotate' | 'translate' | 'scale', fieldValue): any {
     if (!styles[CSS_PROPERTIES.TRANSFORM]) {
       styles[CSS_PROPERTIES.TRANSFORM] = fieldValue;
     }

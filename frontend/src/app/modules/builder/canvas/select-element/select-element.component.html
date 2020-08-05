@@ -1,11 +1,9 @@
-<ngx-moveable #moveable [target]="selectedNodes" [dragArea]="true" [elementGuidelines]="[]" [draggable]="true"
-  [container]="container" [origin]="false" [rotatable]="true" [resizable]="true" [scalable]="false" [warpable]="false"
-  [pinchable]="false" [keepRatio]="false" [defaultGroupRotate]="defaultGroupRotate"
-  (resizeStart)="onResizeStart($event)" (resize)="onResize($event)" (resizeEnd)="onEnd()" (drag)="dragging($event)"
-  (dragEnd)="onEnd()" (dragGroup)="onGroupDrag($event)" (resizeGroupStart)="onGroupResizeStart($event)"
-  (resizeGroup)="onGroupResize($event)" (rotateGroupStart)="onGroupRotateStart($event)"
-  (rotateGroup)="onGroupRotate($event)" (rotate)="rotating($event)" (clickGroup)="onClickGroup($event)"
-  (rotateEnd)="onEnd()" [throttleResize]="1" [horizontalGuidelines]="[0, 250, 500]" [snappable]="true"
-  [snapCenter]="true" [verticalGuidelines]="[0, 250, 500]" (renderGroupEnd)="myEnd($event)"
-  (renderGroup)="myEnd($event)" (renderGroupStart)="myEnd($event)" (clickGroup)="onGroupClick($event)">
+<ngx-moveable #moveable [target]="selectedNodes" [edge]="true" [renderDirections]="directionHandles" [dragArea]="true"
+  [elementGuidelines]="[]" [draggable]="true" [container]="container" [origin]="false" [rotatable]="true"
+  [resizable]="resiable" [scalable]="false" [warpable]="false" [pinchable]="false" [keepRatio]="keepRatio"
+  [defaultGroupRotate]="defaultGroupRotate" (resizeStart)="onResizeStart($event)" (resize)="onResize($event)"
+  (drag)="dragging($event)" (dragGroup)="onGroupDrag($event)" (resizeGroupStart)="onGroupResizeStart($event)"
+  (resizeGroup)="onGroupResize($event)" (scaleGroup)="onGroupScale($event)"  (rotateGroup)="onGroupRotate($event)" (rotate)="rotating($event)"
+  [throttleResize]="1" [horizontalGuidelines]="[0, 250, 500]" [scalable]="true" [snappable]="true" [snapCenter]="true"
+  [verticalGuidelines]="[0, 250, 500]" (scale)="onScaling($event)">
 </ngx-moveable>

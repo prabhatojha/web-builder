@@ -6,13 +6,15 @@ import { ElementDimentionModel } from 'src/app/constants/css-constants';
 
 export const TEXT_TOOLBAR_OPTIONS = [0, 1, 3, 4, 6, 7, 8, 10, 11];
 export const TEXT_CONTAINER_DEFAULT_STYLE = {
-  'font-size': '24px',
+  'font-size': '35px',
   'font-family': 'monospace',
   'text-align': 'center',
   'position': 'absolute',
   'cursor': 'move',
   'user-select': 'none',
   'width': '320px',
+  'white-space': 'nowrap',
+  'display': 'inline-block',
   'word-break': 'break-all'
 };
 

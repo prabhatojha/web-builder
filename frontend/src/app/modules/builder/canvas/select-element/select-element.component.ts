@@ -9,8 +9,10 @@ import { ELEMENT_TYPES } from 'src/app/constants/contants';
 import Moveable from 'moveable';
 import { CommonUtils } from 'src/app/utils/common.utils';
 import { ElementDimentionModel, CSS_PROPERTIES } from 'src/app/constants/css-constants';
-import { ELE_VS_RESIZE_HANDLES } from 'src/app/modules/builder/canvas/canvas.config';
+import { ELE_VS_RESIZE_HANDLES, ELE_VS_KEEP_RATIO, ELE_VS_RESIZABLE } from 'src/app/modules/builder/canvas/canvas.config';
 import { CSSUtils } from 'src/app/utils/css.utils';
+import textFit from 'textfit';
+
 @Component({
   selector: 'app-select-element',
   templateUrl: './select-element.component.html',
@@ -19,7 +21,7 @@ import { CSSUtils } from 'src/app/utils/css.utils';
 })
 export class SelectElementComponent implements OnChanges, OnDestroy {
 
-  @Input() selectedNodes: any;
+  @Input() selectedNodes: HTMLElement[] = [];
   @Input() selectedCanvasElements: CanvasElement[] = [];
   @Input() container: any;
   @Input() defaultGroupRotate = 0;
@@ -33,6 +35,9 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   manualResize: boolean;
 
   resizeHanles = [];
+  directionHandles = [];
+  keepRatio = false;
+  resiable = true;
 
   textResizeObserver = new ResizeObserver((entries: any) => {
     const rect = entries && entries[0].contentRect;
@@ -49,38 +54,38 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   constructor(private cd: ChangeDetectorRef) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.selectedNodes && this.selectedNodes) {
+    if (changes.selectedNodes && this.selectedNodes && this.selectedNodes.length) {
       this.init();
     }
   }
 
   init() {
-    // this.unbindPreviousItem();
-    // this.setInitialSize();
-    // this.setResizeHandles();
+    this.updateDirectionHandle();
+    // this.updateKeepRatio();
   }
 
-  setResizeHandles() {
-    if (this.selectedCanvasElements && this.selectedCanvasElements[0]) {
-      this.resizeHanles = ELE_VS_RESIZE_HANDLES[this.selectedCanvasElements[0].type];
+  updateDirectionHandle() {
+    if (this.isMultipleItems()) {
+      this.directionHandles = ELE_VS_RESIZE_HANDLES[ELEMENT_TYPES.MULTIPLE_SELECTION];
+      this.keepRatio = ELE_VS_KEEP_RATIO[ELEMENT_TYPES.MULTIPLE_SELECTION];
+      this.resiable = ELE_VS_RESIZABLE[ELEMENT_TYPES.MULTIPLE_SELECTION];
+    } else {
+      const fistCanvasElement = this.getFirstCanvasElement();
+      this.directionHandles = ELE_VS_RESIZE_HANDLES[fistCanvasElement.type];
+      this.keepRatio = ELE_VS_KEEP_RATIO[fistCanvasElement.type];
+      this.resiable = ELE_VS_RESIZABLE[fistCanvasElement.type];
     }
   }
 
-  unbindPreviousItem() {
-    if (this.previousSelectedNode && this.previousSelectedCanvasEle.type === ELEMENT_TYPES.TEXT) {
-      // this.textResizeObserver.unobserve(this.previousSelectedNode.getElementsByTagName('label')[0]);
-    }
-
-    this.previousSelectedNode = this.selectedNodes[0];
-    this.previousSelectedCanvasEle = this.selectedCanvasElements[0];
+  getFirstCanvasElement() {
+    return this.selectedCanvasElements[0];
+  }
+  getFirstNode() {
+    return this.selectedNodes[0];
   }
 
-  setInitialSize() {
-    this.dimention = this.selectedCanvasElements.length && CommonUtils.cloneDeep(this.selectedCanvasElements[0].dimention);
-
-    // if (this.selectedCanvasElement.type === ELEMENT_TYPES.TEXT) {
-    // this.textResizeObserver.observe(this.selectedNodes[0].getElementsByTagName('label')[0]);
-    // }
+  isMultipleItems() {
+    return this.selectedCanvasElements.length > 1;
   }
 
   onResizeStart(e) {
@@ -89,43 +94,47 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   onResize(e) {
+    console.log('Resize', e);
     const { width, height } = e;
-    // this.dimention.width = width;
-    // this.dimention.height = height;
-    // this.dimention.translateX = e.drag.beforeTranslate[0];
-    // this.dimention.translateY = e.drag.beforeTranslate[1];
     this.updateNodeCss({
       width,
       height,
       transform: e.drag.transform
     });
+
+    // if (this.getFirstCanvasElement().type === ELEMENT_TYPES.TEXT) {
+    //   textFit(this.getFirstNode(), {
+    //     reProcess: false,
+    //     detectMultiLine: false
+    //   });
+    //   // fitty(this.getFirstNode());
+    // }
+  }
+
+  onScaling(e) {
+    console.log('Scale', e);
+    this.updateNodeCss({
+      transform: e.drag.transform + ` scale(${e.scale[0]}, ${e.scale[1]})`
+    });
   }
 
   dragging(e) {
     const { left, top } = e;
-    // this.dimention.translateX = left;
-    // this.dimention.translateY = top;
+
     this.updateNodeCss({
       transform: e.transform
     });
-    // this.updateNodeDimention();
   }
 
   rotating(e) {
-    // this.dimention.rotate += e.beforeDelta;
     this.updateNodeCss({
       transform: e.transform
     });
-    // this.updateNodeDimention();
   }
 
   updateNodeCss(styles, index = 0) {
     CanvasUtils.applyCss(this.selectedNodes[index], this.selectedCanvasElements[index], styles, true);
   }
-
-  // updateNodeDimention(permanent = false) {
-  //   CanvasUtils.applyDimention(this.selectedNodes[0], this.selectedCanvasElements[0], this.dimention, permanent);
-  // }
 
   onGroupDrag({ events }) {
     events.forEach((ev, i) => {
@@ -151,14 +160,12 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     });
   }
 
-  onGroupRotateStart(e) {
-    // e.events.forEach((ev, i) => {
-    //   const styles = this.selectedCanvasElements[i].style;
-    //   const val = CSSUtils.getTransformValue(styles[CSS_PROPERTIES.TRANSFORM], 'rotate');
-    //   ev.set(val);
-    //   // tslint:disable-next-line: no-unused-expression
-    //   // ev.dragStart && ev.dragStart.set(this.frames[i].translate);
-    // });
+  onGroupScale({ events }) {
+    events.forEach((ev, i) => {
+      this.updateNodeCss({
+        transform: ev.drag.transform + ` scale(${ev.scale[0]}, ${ev.scale[1]})`
+      }, i);
+    });
   }
 
   onGroupRotate({ events }) {
@@ -167,23 +174,6 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
         transform: ev.drag.transform + ` rotate(${ev.rotate}deg)`
       }, i);
     });
-  }
-
-  onEnd() {
-    this.manualResize = false;
-    // this.selectedCanvasElements[0].dimention = CommonUtils.cloneDeep(this.dimention);
-  }
-
-  myEnd(e) {
-    // console.log(e);
-  }
-
-  onGroupClick(e) {
-    console.log(e);
-  }
-
-  onClickGroup(e) {
-    console.log(e);
   }
 
   ngOnDestroy() {
