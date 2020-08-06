@@ -24,9 +24,7 @@
 .toolbar-item {
   margin: 0 3px;
   .mat-icon-button {
-    width: 32px;
-    line-height: 32px;
-    height: 32px;
+    @extend .toolbar-icon-size;
   }
 }
 

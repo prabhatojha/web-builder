@@ -1,4 +1,10 @@
-<div class="text-align-container">
+<section #myButton>
+  <button mat-icon-button matTooltip="Unlock Element" matTooltipPosition="above" [disabled]="disabled"
+    (click)="toggle()">
+    <i class="material-icons">subject</i>
+  </button>
+</section>
+<div class="text-align-container" *ngIf="isVisible" (appClickOutside)="toggle()" [srcElement]="myButton">
   <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
     <ng-container *ngFor="let opt of availableOtions">
       <mat-button-toggle (click)="selction.emit(opt.cssValue)">

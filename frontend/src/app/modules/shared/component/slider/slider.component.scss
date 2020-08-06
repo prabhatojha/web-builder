@@ -1,3 +1,5 @@
+@import "../../../../../style/structure";
+
 .my-slider {
   position: absolute;
   top: calc(100% + 7px);
@@ -12,4 +14,8 @@
   span {
     margin-right: 20px;
   }
+}
+
+.mat-icon-button {
+  @extend .toolbar-icon-size;
 }

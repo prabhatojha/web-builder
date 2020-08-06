@@ -67,13 +67,8 @@
 
     <!-- Text Alignment -->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.TEXT_ALIGNMENT]">
-      <div class="position-relative toolbar-item" (mouseleave)="isAlignmentSelectorOpen = false">
-        <button mat-icon-button matTooltip="Unlock Element" matTooltipPosition="above" [disabled]="isLocked"
-          (mouseenter)="isAlignmentSelectorOpen = true">
-          <i class="material-icons">subject</i>
-        </button>
-        <app-text-alignment (selction)="onTextAlign($event)" *ngIf="isAlignmentSelectorOpen">
-
+      <div class="position-relative toolbar-item">
+        <app-text-alignment (selction)="onTextAlign($event)" [disabled]="isLocked">
         </app-text-alignment>
       </div>
     </ng-container>

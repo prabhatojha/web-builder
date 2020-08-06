@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-text-alignment',
@@ -7,9 +7,11 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class TextAlignmentComponent implements OnInit {
 
+  @Input() disabled: boolean;
   @Output() selectedValues;
   @Output() selction = new EventEmitter();
 
+  isVisible = false;
   availableOtions = [
     { icon: 'format_align_left', cssValue: 'left' },
     { icon: 'format_align_center', cssValue: 'center' },
@@ -21,4 +23,7 @@ export class TextAlignmentComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  toggle() {
+    this.isVisible = !this.isVisible;
+  }
 }
