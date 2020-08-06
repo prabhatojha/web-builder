@@ -1,3 +1,11 @@
-<section class="my-slider">
-  <mat-slider [(ngModel)]="selectedValue" (change)="onSliderStop($event)" (input)="onValueChange($event)"></mat-slider>
+<section #opacityButton>
+  <button mat-icon-button matTooltip="Change Opacity" matTooltipPosition="above" [disabled]="disabled"
+    (click)="isOpacitySelectorOpen = !isOpacitySelectorOpen">
+    <i class="material-icons">opacity</i>
+  </button>
+</section>
+<section class="my-slider" (appClickOutside)="isOpacitySelectorOpen = false" [srcElement]="opacityButton"
+  *ngIf="isOpacitySelectorOpen">
+  <span>Transparency</span>
+  <mat-slider [(ngModel)]="selectedValue" class="mat-primary" (change)="onSliderStop($event)" (input)="onValueChange($event)"></mat-slider>
 </section>

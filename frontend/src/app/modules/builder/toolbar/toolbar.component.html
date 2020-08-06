@@ -80,13 +80,9 @@
 
     <!-- Opacity -->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.OPACITY]">
-      <div class="position-relative toolbar-item" (mouseleave)="isOpacitySelectorOpen = false">
-        <button mat-icon-button matTooltip="Change Opacity" matTooltipPosition="above" [disabled]="isLocked"
-          (mouseenter)="isOpacitySelectorOpen = true">
-          <i class="material-icons">opacity</i>
-        </button>
-        <app-slider (slideChange)="updateOpacity($event, false)" (slideStop)="updateOpacity($event, true)"
-          [selectedOpacity]="styles[CSS_PROPS.OPACITY]" *ngIf="isOpacitySelectorOpen">
+      <div class="position-relative toolbar-item">
+        <app-slider (slideChange)="updateOpacity($event, false)" [disabled]="isLocked"
+          (slideStop)="updateOpacity($event, true)" [selectedOpacity]="styles[CSS_PROPS.OPACITY]">
         </app-slider>
       </div>
     </ng-container>
@@ -104,7 +100,15 @@
       </div>
     </ng-container>
 
-
+    <!-- Letter spacing -->
+    <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.DELETE]">
+      <div class="toolbar-item">
+        <button mat-icon-button (click)="removeItem()" matTooltip="Letter Spacing" matTooltipPosition="above"
+          [disabled]="isLocked">
+          <i class="material-icons">text_rotation_none</i>
+        </button>
+      </div>
+    </ng-container>
   </div>
   <div class="toolbar-items-right">
 

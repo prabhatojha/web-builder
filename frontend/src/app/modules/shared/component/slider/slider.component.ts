@@ -8,10 +8,15 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange
 export class SliderComponent implements OnChanges {
 
   @Input() selectedOpacity = 1;
+  @Input() disabled;
+
   @Output() slideChange = new EventEmitter();
   @Output() slideStop = new EventEmitter();
+  @Output() closeSlider = new EventEmitter();
 
   selectedValue = 100;
+  isOpacitySelectorOpen = false;
+
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
