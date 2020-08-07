@@ -2,6 +2,7 @@
 @import "../../../../style/colors.scss";
 
 .toolbar-items {
+  position: relative;
   display: flex;
   justify-content: space-between;
   height: 100%;
@@ -23,9 +24,6 @@
 
 .toolbar-item {
   margin: 0 3px;
-  .mat-icon-button {
-    @extend .toolbar-icon-size;
-  }
 }
 
 .toolbar-input {

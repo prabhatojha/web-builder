@@ -1,0 +1,16 @@
+<section #spacingButton>
+  <button mat-icon-button class="toolbar-icon-size" (click)="toggle()" matTooltip="Letter Spacing"
+    matTooltipPosition="above" [disabled]="disabled">
+    <i class="material-icons">text_rotation_none</i>
+  </button>
+</section>
+
+<section class="letter-spacing-container" *ngIf="isVisible" (appClickOutside)="toggle()" [srcElement]="spacingButton">
+  <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+    <div>
+      <span>Letter Spacing</span>
+      <mat-slider [(ngModel)]="letterSpacing" class="mat-primary" [thumbLabel]="true" [step]="1"
+        (change)="onSliderStop($event)" (input)="onValueChange($event)"></mat-slider>
+    </div>
+  </mat-button-toggle-group>
+</section>

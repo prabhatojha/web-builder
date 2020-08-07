@@ -25,8 +25,8 @@
     <!-- Font Weigth Bold -->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.FONT_WEIGHT_BOLD]">
       <div class="toolbar-item">
-        <button mat-icon-button (click)="onBoldClick()" matTooltip="Text Bold" matTooltipPosition="above"
-          [disabled]="isLocked">
+        <button class="toolbar-icon-size" mat-icon-button (click)="onBoldClick()" matTooltip="Text Bold"
+          matTooltipPosition="above" [disabled]="isLocked">
           <i class="material-icons">format_bold</i>
         </button>
       </div>
@@ -35,8 +35,8 @@
     <!-- Font value Italic -->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.FONT_STYLE_ITALIC]">
       <div class="toolbar-item">
-        <button mat-icon-button (click)="onItalicClick()" matTooltip="Text Italic" matTooltipPosition="above"
-          [disabled]="isLocked">
+        <button class="toolbar-icon-size" mat-icon-button (click)="onItalicClick()" matTooltip="Text Italic"
+          matTooltipPosition="above" [disabled]="isLocked">
           <i class="material-icons">format_italic</i>
         </button>
       </div>
@@ -44,7 +44,7 @@
 
     <!-- Background color -->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.BACKGROUND_COLOR]">
-      <div class="position-relative toolbar-item">
+      <div class="toolbar-item">
         <app-color-picker #backgroundPicker (colorSelect)="onBGColorSelect($event)">
           <div class="toolbar-bg-color" (click)="backgroundPicker.open()" matTooltip="Background Color"
             matTooltipPosition="above">
@@ -55,10 +55,10 @@
 
     <!-- Text color -->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.COLOR]">
-      <div class="position-relative toolbar-item">
+      <div class="toolbar-item">
         <app-color-picker #backgroundPicker (colorSelect)="onColorSelect($event)">
-          <button mat-icon-button matTooltip="Text Color" matTooltipPosition="above" (click)="backgroundPicker.open()"
-            [class.disabled]="isLocked">
+          <button class="toolbar-icon-size" mat-icon-button matTooltip="Text Color" matTooltipPosition="above"
+            (click)="backgroundPicker.open()" [class.disabled]="isLocked">
             <i class="material-icons">color_lens</i>
           </button>
         </app-color-picker>
@@ -67,7 +67,7 @@
 
     <!-- Text Alignment -->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.TEXT_ALIGNMENT]">
-      <div class="position-relative toolbar-item">
+      <div class="toolbar-item">
         <app-text-alignment (selction)="onTextAlign($event)" [disabled]="isLocked">
         </app-text-alignment>
       </div>
@@ -75,7 +75,7 @@
 
     <!-- Opacity -->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.OPACITY]">
-      <div class="position-relative toolbar-item">
+      <div class="toolbar-item">
         <app-slider (slideChange)="updateOpacity($event, false)" [disabled]="isLocked"
           (slideStop)="updateOpacity($event, true)" [selectedOpacity]="styles[CSS_PROPS.OPACITY]">
         </app-slider>
@@ -98,18 +98,15 @@
     <!-- Letter spacing -->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.DELETE]">
       <div class="toolbar-item">
-        <button mat-icon-button (click)="removeItem()" matTooltip="Letter Spacing" matTooltipPosition="above"
-          [disabled]="isLocked">
-          <i class="material-icons">text_rotation_none</i>
-        </button>
+        <app-letter-spacing [disabled]="isLocked"></app-letter-spacing>
       </div>
     </ng-container>
   </div>
   <div class="toolbar-items-right">
-
     <div *ngIf="isGroupUngroupVisible" class="toolbar-item">
-      <button mat-icon-button (click)="groupItem()" [matTooltip]="isGroupedItems ? 'Ungroup': 'Group'"
-        matTooltipPosition="above" [class.pinched-item]="isGroupedItems">
+      <button mat-icon-button class="toolbar-icon-size" (click)="groupItem()"
+        [matTooltip]="isGroupedItems ? 'Ungroup': 'Group'" matTooltipPosition="above"
+        [class.pinched-item]="isGroupedItems">
         <i class="material-icons">group_work</i>
       </button>
     </div>
@@ -117,8 +114,8 @@
     <!-- Lock provider -->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.LOCK]">
       <div class="toolbar-item">
-        <button mat-icon-button (click)="lockItem()" [matTooltip]="isLocked ? 'Unlock Eelement': 'Lock Element'"
-          matTooltipPosition="above">
+        <button mat-icon-button class="toolbar-icon-size" (click)="lockItem()"
+          [matTooltip]="isLocked ? 'Unlock Eelement': 'Lock Element'" matTooltipPosition="above">
           <i class="material-icons" *ngIf="isLocked">lock</i>
           <i class="material-icons" *ngIf="!isLocked">lock_open</i>
         </button>
@@ -128,7 +125,8 @@
     <!-- Duplicate Item -->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.DUPLICATE]">
       <div class="toolbar-item">
-        <button mat-icon-button (click)="duplicate()" matTooltip='Duplicate Item' matTooltipPosition="above">
+        <button mat-icon-button class="toolbar-icon-size" (click)="duplicate()" matTooltip='Duplicate Item'
+          matTooltipPosition="above">
           <i class="material-icons">file_copy</i>
         </button>
       </div>
@@ -137,8 +135,8 @@
     <!-- Delete Item -->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.DELETE]">
       <div class="toolbar-item">
-        <button mat-icon-button (click)="removeItem()" matTooltip="Delete Element" matTooltipPosition="above"
-          [disabled]="isLocked">
+        <button mat-icon-button class="toolbar-icon-size" (click)="removeItem()" matTooltip="Delete Element"
+          matTooltipPosition="above" [disabled]="isLocked">
           <i class="material-icons">delete</i>
         </button>
       </div>
