@@ -2,7 +2,7 @@
   <ng-content></ng-content>
 </div>
 
-<div class="left-raiser-container" *ngIf="showDropdown" (appClickOutside)="toggleOptions()" [srcElement]="srcElement">
+<div class="left-raiser-container color-picker-content" *ngIf="showDropdown" (appClickOutside)="toggleOptions()" [srcElement]="srcElement">
   <div id="toolbarNewColorPicker" #toolbarNewColorPicker></div>
   <div class="color-picker" id="colorPalette" *ngIf="showDropdown" (appClickOutside)="close()"
     [srcElement]="srcElement">
@@ -27,7 +27,7 @@
     <div class="standard-color-header">
       <h5>Standard Colors</h5>
     </div>
-    <div>
+    <div class="mt-3">
       <div class="color-pallete" *ngFor="let color of standeardColors" [style.background-color]="color"
         (mouseenter)="onHover(color)" (click)="onClick(color)" [class.selected-color]="color === selectedColor">
       </div>
