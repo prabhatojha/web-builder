@@ -26,12 +26,13 @@ import { NgxMoveableModule } from 'ngx-moveable';
 import { NgxSelectoModule } from 'ngx-selecto';
 import { NgxElementSelectorModule } from 'projects/ngx-element-selector/src/public-api';
 import { LetterSpacingComponent } from './toolbar/letter-spacing/letter-spacing.component';
+import { TextDecorationComponent } from './toolbar/text-decoration/text-decoration.component';
 
 @NgModule({
   declarations: [PickersComponent, BuilderComponent, PickerComponent, CanvasComponent, ToolbarComponent,
     ToolbarPanelComponent, ColorPickerComponent, CanvasPreviewComponent, CanvasScaleComponent, TextAlignmentComponent,
     ImagePickerComponent, TextPickerComponent, FontFamilyComponent, VectorPickerComponent, FontSizeComponent,
-    SelectElementComponent, DragElementComponent, LetterSpacingComponent],
+    SelectElementComponent, DragElementComponent, LetterSpacingComponent, TextDecorationComponent],
   imports: [
     CommonModule,
     BuilderRoutingModule,

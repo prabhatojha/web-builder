@@ -19,14 +19,14 @@ $fontListHeight: calc(#{$contentHeight} - 40px - 70px);
 
 .search-box-container {
   width: 100%;
-  padding: 0 10px;
+  padding: 0 20px;
 }
 
 .font-container {
   font-size: $largerFont;
 
   ul {
-    padding: 0 10px;
+    padding: 0 20px;
   }
 
   .cdk-virtual-scroll-viewport {
