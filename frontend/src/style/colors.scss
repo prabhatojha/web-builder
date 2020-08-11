@@ -3,7 +3,7 @@ $primaryTheme: rgb(49 66 90);
 // Left Pickers, photo, text etc selector
 $leftMenuBg: $primaryTheme;
 $leftMenuSelected: #3072b9;
-$pickersBg: rgba(30, 36, 43, 0.86);
+$pickersBg: $primaryTheme;
 
 // Header
 $headerBg: $primaryTheme;

@@ -6,7 +6,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(54, 60, 68, 0.94);
+  background-color: $headerBg;
 
   padding: 0 25px;
 
@@ -17,7 +17,7 @@
     align-items: center;
     height: 100%;
     margin-left: -15px;
-    padding: 4px 0 10px;
+    padding: 10px 0 15px;
 
     a {
       height: 100%;
@@ -50,13 +50,13 @@
 }
 
 .btn-info {
-  background-color: rgb(65, 71, 79);
+  background-color: $headerBg;
   color: $gray-70;
   border: 0;
 }
 
 .btn-info:hover {
-  background-color: rgb(65, 71, 79);
+  background-color: $headerBg;
   color: $gray-20;
 }
 
