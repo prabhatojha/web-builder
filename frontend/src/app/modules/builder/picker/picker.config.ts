@@ -35,6 +35,12 @@ export const LEFT_MENU_ITEMS = [
     icon: 'design_services'
   },
   {
+    id: 12,
+    label: 'Elements',
+    icon: 'signal_cellular_null',
+    type: 'text'
+  },
+  {
     id: 8,
     label: 'Background',
     icon: 'wallpaper'
