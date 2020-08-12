@@ -8,23 +8,21 @@
   align-items: center;
   background-color: $headerBg;
 
-  padding: 0 25px;
+  padding: 0 10px;
 
   .header-logo {
-    display: flex;
     align-items: center;
     display: flex;
-    align-items: center;
     height: 100%;
-    margin-left: -15px;
-    padding: 10px 0 15px;
-
     a {
-      height: 100%;
+      height: 35px;
     }
 
     img {
       max-height: 100%;
+      padding: 7px;
+      border-radius: 3px;
+      background: white  // #8686c7;
     }
 
     mat-icon {
