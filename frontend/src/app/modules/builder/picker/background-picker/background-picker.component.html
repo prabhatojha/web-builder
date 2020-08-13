@@ -1,0 +1,21 @@
+<div>
+  <div class="search-box-wrapper">
+    <app-search-box [placeholder]="'Search Backgrounds'" (searchQuery)="onNewSearch($event)"></app-search-box>
+  </div>
+
+  <div class="images-container" #photoContainer (scroll)="onScroll($event)">
+    <div class="d-flex">
+      <ul class="picker-item">
+        <ng-container *ngFor="let item of backgroundService.backgrounds">
+          <li class="image-li" draggable (dragstart)="dragStart($event, item)" (click)="onClick($event, item)"
+            [ngStyle]="{'background-image':'url('+ item.imageUrl +')'}">
+            <!-- <img [src]=" item.imageUrl" [attr.id]="item.id"> -->
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+    <div class="w-100 text-center spinner my-4" [class.invisible]="!backgroundService.isLoading">
+      <div class="spinner-border"></div>
+    </div>
+  </div>
+</div>

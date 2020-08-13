@@ -2,7 +2,8 @@ export const LEFT_MENU_CONST = {
   TEXT_MENU_ID: 2,
   PHOTO_MENU_ID: 5,
   UPLOAD_MENU_ID: 6,
-  VECTOR_MENU_ID: 7
+  VECTOR_MENU_ID: 7,
+  BG_MENU_ID: 8
 };
 
 export const LEFT_MENU_ITEMS = [
@@ -41,7 +42,7 @@ export const LEFT_MENU_ITEMS = [
     type: 'text'
   },
   {
-    id: 8,
+    id: LEFT_MENU_CONST.BG_MENU_ID,
     label: 'Background',
     icon: 'wallpaper'
   },
