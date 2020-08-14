@@ -2,30 +2,43 @@
 @import "../../../../../style/structure";
 
 .color-picker {
+  color: $gray-400;
   width: 100%;
   height: $contentHeight;
   padding: 20px;
   overflow-y: auto;
+}
 
-  .color-pallete {
-    display: inline-block;
-    /* cursor: pointer; */
-    width: calc(2.75em - 3px);
-    height: calc(2.75em - 3px);
-    border-radius: 0.15em;
-    cursor: pointer;
-    margin: 2.5px;
-    flex-shrink: 0;
-    justify-self: center;
-    transition: all 0.15s;
-    overflow: hidden;
-    background: transparent;
+.color-pallete-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
 
-    &.add-color-pallete {
-      mat-icon {
-        font-size: 20px;
-        width: 20px;
-      }
+.color-pallete {
+  display: flex;
+  flex-wrap: wrap;
+  width: 28px;
+  height: 28px;
+  border-radius: 0.15em;
+  cursor: pointer;
+  margin: 5px;
+  flex-shrink: 0;
+  justify-self: center;
+  transition: all 0.15s;
+  overflow: hidden;
+  background: transparent;
+  box-shadow: 0 0 2px 0px $gray-300;
+  transition: $boxShadowTransition;
+
+  &:hover {
+    box-shadow: 0 0 2px 1px $gray-300;
+  }
+
+  &.add-color-pallete {
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
     }
   }
 }
@@ -63,4 +76,10 @@
   h5 {
     font-size: $mediumFont;
   }
+}
+
+.close-button {
+  position: absolute;
+  right: 7px;
+  top: 3px;
 }

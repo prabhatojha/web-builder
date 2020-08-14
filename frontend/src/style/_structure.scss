@@ -26,26 +26,14 @@ $canvasInitialHeight: calc($contentHeight - 150px);
 $modalZ: 10000;
 $toolbarZ: 9999;
 
-// Application
-
-.left-raiser-container {
-  position: fixed;
-  z-index: 10;
-  left: $leftMenu;
-  top: $headerHeight;
-  width: $pickerWidth;
-  height: $contentHeight;
-  background: $gray-30;
-  padding: 20px 0;
-  box-shadow: 0 0 3px;
-}
-
 // Resize Handlers Start
 
 $resizeHandlerBg: white;
 $resizeHandlerBorder: darkgray;
 
 // Resize Handlers end
+
+$boxShadowTransition: box-shadow 0.3s;
 
 .toolbar-icon-size {
   width: 32px;

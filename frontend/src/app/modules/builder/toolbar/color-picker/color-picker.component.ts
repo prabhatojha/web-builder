@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterViewInit, ViewChild, ElementRef, Input } from '@angular/core';
 import Pickr from '@simonwep/pickr';
 
 @Component({
@@ -8,6 +8,7 @@ import Pickr from '@simonwep/pickr';
 })
 export class ColorPickerComponent implements OnInit, AfterViewInit {
 
+  @Input() externalSourseElement: HTMLLIElement;
   showDropdown = false;
   selectedColor = '';
 
@@ -54,7 +55,9 @@ export class ColorPickerComponent implements OnInit, AfterViewInit {
   }
 
   open() {
-    this.showDropdown = true;
+    setTimeout(() => {
+      this.showDropdown = true;
+    });
   }
 
   onHover(color) {
