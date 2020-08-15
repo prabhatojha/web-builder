@@ -14,7 +14,7 @@
           [externalSourseElement]="colorSelector">
         </app-color-picker>
 
-        <li class="image-li custom-li" draggable>
+        <li class="image-li custom-li" (click)="onColorSelect('transparent')">
           Transparent
         </li>
         <ng-container *ngFor="let item of backgroundService.backgrounds">
