@@ -8,6 +8,7 @@ import { ImageCanvasElement } from 'src/app/models/image.element.model';
 import { getVectorElementInstance } from '../image-picker/image.config';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { MOCK_IMAGES } from '../mock-images';
+import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
 
 @Injectable({
   providedIn: 'root'
@@ -61,10 +62,10 @@ export class BackgroundService {
       const image: ImageCanvasElement = getVectorElementInstance();
       image.id = photo.id;
       image.imageUrl = photo.thumb;
-      image.canvasElement.children[0].attribute.src = photo.imageUrl;
-      image.canvasElement.type = ELEMENT_TYPES.VECTOR;
-      image.canvasElement.increaseZIndex = true;
-      this.updateWidth(image.canvasElement, photo.thumbWidth, photo.thumbHeight);
+      image.canvasElement.type = ELEMENT_TYPES.BACKGROUND;
+      image.canvasElement.style = {
+        [CSS_PROPERTIES.BG_IMAGE]: photo.imageUrl
+      };
       this.backgrounds.push(image);
     });
 

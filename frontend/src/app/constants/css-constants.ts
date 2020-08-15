@@ -13,6 +13,9 @@ export const CSS_PROPERTIES = {
   Z_INDEX: 'z-index',
   COLOR: 'color',
   BG_COLOR: 'background-color',
+  BG_IMAGE: 'background-image',
+  BG_SIZE: 'background-size',
+  BG_POSITION: 'background-position',
   OVERFLOW: 'overflow',
   OVERFLOW_HIDDEN: 'hidden',
   FONT_FAMILY: 'font-family',
@@ -50,7 +53,9 @@ export const CSS_PROPERTY_VALUES = {
   FONT_WEIGHT_BOLD: 'bold',
   FONT_WEIGHT_NORMAL: 'normal',
   FONT_ITALIC: 'italic',
-  FONT_STYLE_NORMAL: 'normal'
+  FONT_STYLE_NORMAL: 'normal',
+  BG_SIZE_COVER: 'cover',
+  GB_POSITION_CENTER: 'center'
 };
 
 export const PX_APPLICABLE_CSS_PROPS = [

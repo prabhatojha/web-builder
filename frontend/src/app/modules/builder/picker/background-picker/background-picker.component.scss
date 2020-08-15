@@ -37,6 +37,7 @@ $contentMargin: 7px;
     width: calc(50% - 14px);
     height: 130px;
     background-size: cover;
+    -webkit-user-drag: element;
 
     img {
       border-radius: 3px;
@@ -46,7 +47,7 @@ $contentMargin: 7px;
   }
 
   .custom-li {
-    border: 1px solid $gray-70;
+    // border: 1px solid $gray-70;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -55,6 +56,10 @@ $contentMargin: 7px;
 }
 
 .bg-color-selctor {
-  background-image: url("~src/assets/images/bg-color-selector.png");
+  background-image: linear-gradient(
+      rgba(10, 10, 10, 0.4),
+      rgba(10, 10, 10, 0.4)
+    ),
+    url("~src/assets/images/bg-color-selector.png");
   background-size: cover;
 }

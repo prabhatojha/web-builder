@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { CONST_VAR, ELEMENT_TYPES } from 'src/app/constants/contants';
-import { CSS_PROPERTIES, ATTR_PROPERTIES } from 'src/app/constants/css-constants';
+import { CSS_PROPERTIES, ATTR_PROPERTIES, CSS_PROPERTY_VALUES } from 'src/app/constants/css-constants';
 import { ELEMENT_TYPE_VS_TOOLBAR_OPT } from '../toolbar/toolbar.config';
 import { EventerService, EventModal, EventTypes } from '../../shared/services/eventer.service';
 import { filter } from 'rxjs/operators';
@@ -32,6 +32,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   selectedNodes: Element[];
   selectedCanvasElements: CanvasElement[];
 
+  // Project node is the first canvas element from CANVAS_PROJECT
   projectNode: HTMLElement;
   toolbarOptions = [];
 
@@ -76,7 +77,25 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   addNewNode(canvasElement: CanvasElement) {
+    switch (canvasElement.type) {
+      case ELEMENT_TYPES.BACKGROUND:
+        this.handleBackgroundChange(canvasElement);
+        break;
+      default:
+        this.handleGenericElements(canvasElement);
+    }
+  }
 
+  handleBackgroundChange(canvasElement: CanvasElement) {
+    this.projectNode.style[CSS_PROPERTIES.BG_IMAGE] = `url('${canvasElement.style[CSS_PROPERTIES.BG_IMAGE]}')`;
+    this.projectNode.style[CSS_PROPERTIES.BG_SIZE] = CSS_PROPERTY_VALUES.BG_SIZE_COVER;
+    this.projectNode.style[CSS_PROPERTIES.BG_POSITION] = CSS_PROPERTY_VALUES.GB_POSITION_CENTER;
+    this.project.canvasElement.style[CSS_PROPERTIES.BG_IMAGE] = canvasElement.style[CSS_PROPERTIES.BG_IMAGE];
+    this.project.canvasElement.style[CSS_PROPERTIES.BG_SIZE] = CSS_PROPERTY_VALUES.BG_SIZE_COVER;
+    this.project.canvasElement.style[CSS_PROPERTIES.BG_POSITION] = CSS_PROPERTY_VALUES.GB_POSITION_CENTER;
+  }
+
+  handleGenericElements(canvasElement: CanvasElement) {
     this.adjustWidthHeight(canvasElement);
 
     const newNode = CanvasUtils.buildDom(canvasElement);

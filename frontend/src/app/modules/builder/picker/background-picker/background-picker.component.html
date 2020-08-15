@@ -6,7 +6,7 @@
   <div class="images-container" #photoContainer (scroll)="onScroll($event)">
     <div class="d-flex">
       <ul class="picker-item">
-        <li class="image-li custom-li bg-color-selctor" draggable (click)="backgroundPicker.open()" #colorSelector>
+        <li class="image-li custom-li bg-color-selctor" (click)="backgroundPicker.open()" #colorSelector>
           <i class="material-icons">format_paint</i>
           Select Color
         </li>
@@ -20,7 +20,7 @@
         <ng-container *ngFor="let item of backgroundService.backgrounds">
           <li class="image-li" draggable (dragstart)="dragStart($event, item)" (click)="onClick($event, item)"
             [ngStyle]="{'background-image':'url('+ item.imageUrl +')'}">
-            <!-- <img [src]=" item.imageUrl" [attr.id]="item.id"> -->
+            <!-- <img [src]="item.imageUrl"> -->
           </li>
         </ng-container>
       </ul>

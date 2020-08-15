@@ -1,14 +1,14 @@
 import { ELEMENT_TYPES } from 'src/app/constants/contants';
 
 export const ELE_VS_RESIZE_HANDLES = {
-  [ELEMENT_TYPES.TEXT]: ['e', 'w', 'sw', 'se', 'ne', 'nw'],
+  [ELEMENT_TYPES.TEXT]: ['e', 'w'],
   [ELEMENT_TYPES.PHOTO]: ['e', 'w', 'n', 's', 'sw', 'se', 'ne', 'nw'],
   [ELEMENT_TYPES.GROUP]: ['sw', 'se', 'ne', 'nw'],
   [ELEMENT_TYPES.MULTIPLE_SELECTION]: ['sw', 'se', 'ne', 'nw']
 };
 
 export const ELE_VS_KEEP_RATIO = {
-  [ELEMENT_TYPES.TEXT]: true,
+  [ELEMENT_TYPES.TEXT]: false,
   [ELEMENT_TYPES.PHOTO]: false,
   [ELEMENT_TYPES.GROUP]: true,
   [ELEMENT_TYPES.MULTIPLE_SELECTION]: true
