@@ -1,7 +1,7 @@
 @import "../../../../../style/colors.scss";
 @import "../../../../../style/structure";
 
-$contentMargin: 7px;
+$contentMargin: 3px;
 
 :host {
   padding: 10px 15px 0;
@@ -20,6 +20,7 @@ $contentMargin: 7px;
 .picker-item {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   li {
     padding: 1px;
     margin: $contentMargin;
@@ -34,7 +35,7 @@ $contentMargin: 7px;
     transition: box-shadow 0.2s;
   }
   .image-li {
-    width: calc(50% - 14px);
+    width: calc(50% - 12px);
     height: 130px;
     background-size: cover;
     -webkit-user-drag: element;

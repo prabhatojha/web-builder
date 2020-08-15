@@ -3,6 +3,9 @@ import { BackgroundService } from './background.service';
 import { PickerActions } from '../picker.actions';
 import { EventerService } from 'src/app/modules/shared/services/eventer.service';
 import { Subscription } from 'rxjs';
+import { CanvasElement } from 'src/app/models/canvas.element.model';
+import { ELEMENT_TYPES } from 'src/app/constants/contants';
+import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
 
 @Component({
   selector: 'app-background-picker',
@@ -32,6 +35,14 @@ export class BackgroundPickerComponent extends PickerActions implements OnChange
 
   getNextSet() {
     this.backgroundService.getPhotos();
+  }
+
+  onColorSelect(color) {
+    console.log(color);
+    const canvasElement = new CanvasElement('div', {}, {}, []);
+    canvasElement.type = ELEMENT_TYPES.BACKGROUND;
+    canvasElement.style[CSS_PROPERTIES.BG] = color;
+    this.onClick(null, { canvasElement });
   }
 
   onScroll(e) {

@@ -36,11 +36,9 @@ export class ColorPickerComponent implements OnInit, AfterViewInit {
   constructor() { }
 
   ngOnInit(): void {
-    // this.createPicker();
   }
 
   ngAfterViewInit() {
-    // this.createPicker();
   }
 
   openColorPicker(opt) {
@@ -51,7 +49,8 @@ export class ColorPickerComponent implements OnInit, AfterViewInit {
   onPick(e) {
     e.stopPropagation();
     this.showColorPicker = false;
-    this.customColors.push(this.unsavedColor.hex);
+    const rgb = this.unsavedColor.rgb;
+    this.customColors.push(`rgba(${rgb.r},${rgb.g},${rgb.b},${rgb.a})`);
   }
 
   open() {
@@ -61,12 +60,10 @@ export class ColorPickerComponent implements OnInit, AfterViewInit {
   }
 
   onHover(color) {
-    // this.colorHover.emit(color);
   }
 
   onClick(color) {
     this.colorSelect.emit(color);
-    // this.close();
   }
 
   close() {

@@ -12,6 +12,7 @@ export class ElementDimentionModel {
 export const CSS_PROPERTIES = {
   Z_INDEX: 'z-index',
   COLOR: 'color',
+  BG: 'background',
   BG_COLOR: 'background-color',
   BG_IMAGE: 'background-image',
   BG_SIZE: 'background-size',

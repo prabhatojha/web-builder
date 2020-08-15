@@ -10,7 +10,7 @@
           <i class="material-icons">format_paint</i>
           Select Color
         </li>
-        <app-color-picker #backgroundPicker (colorSelect)="onNewSearch('hello')"
+        <app-color-picker #backgroundPicker (colorSelect)="onColorSelect($event)"
           [externalSourseElement]="colorSelector">
         </app-color-picker>
 

@@ -87,12 +87,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   handleBackgroundChange(canvasElement: CanvasElement) {
-    this.projectNode.style[CSS_PROPERTIES.BG_IMAGE] = `url('${canvasElement.style[CSS_PROPERTIES.BG_IMAGE]}')`;
-    this.projectNode.style[CSS_PROPERTIES.BG_SIZE] = CSS_PROPERTY_VALUES.BG_SIZE_COVER;
-    this.projectNode.style[CSS_PROPERTIES.BG_POSITION] = CSS_PROPERTY_VALUES.GB_POSITION_CENTER;
-    this.project.canvasElement.style[CSS_PROPERTIES.BG_IMAGE] = canvasElement.style[CSS_PROPERTIES.BG_IMAGE];
-    this.project.canvasElement.style[CSS_PROPERTIES.BG_SIZE] = CSS_PROPERTY_VALUES.BG_SIZE_COVER;
-    this.project.canvasElement.style[CSS_PROPERTIES.BG_POSITION] = CSS_PROPERTY_VALUES.GB_POSITION_CENTER;
+    this.projectNode.style[CSS_PROPERTIES.BG] = canvasElement.style[CSS_PROPERTIES.BG];
+    this.project.canvasElement.style[CSS_PROPERTIES.BG] = canvasElement.style[CSS_PROPERTIES.BG];
   }
 
   handleGenericElements(canvasElement: CanvasElement) {

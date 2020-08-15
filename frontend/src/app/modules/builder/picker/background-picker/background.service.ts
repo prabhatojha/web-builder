@@ -64,7 +64,7 @@ export class BackgroundService {
       image.imageUrl = photo.thumb;
       image.canvasElement.type = ELEMENT_TYPES.BACKGROUND;
       image.canvasElement.style = {
-        [CSS_PROPERTIES.BG_IMAGE]: photo.imageUrl
+        [CSS_PROPERTIES.BG]: `url('${photo.imageUrl}') center/cover`
       };
       this.backgrounds.push(image);
     });
