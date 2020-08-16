@@ -4,7 +4,8 @@ export const ELE_VS_RESIZE_HANDLES = {
   [ELEMENT_TYPES.TEXT]: ['e', 'w'],
   [ELEMENT_TYPES.PHOTO]: ['e', 'w', 'n', 's', 'sw', 'se', 'ne', 'nw'],
   [ELEMENT_TYPES.GROUP]: ['sw', 'se', 'ne', 'nw'],
-  [ELEMENT_TYPES.MULTIPLE_SELECTION]: ['sw', 'se', 'ne', 'nw']
+  [ELEMENT_TYPES.MULTIPLE_SELECTION]: ['sw', 'se', 'ne', 'nw'],
+  [ELEMENT_TYPES.LINE]: ['e', 'w']
 };
 
 export const ELE_VS_KEEP_RATIO = {
@@ -14,11 +15,13 @@ export const ELE_VS_KEEP_RATIO = {
   [ELEMENT_TYPES.MULTIPLE_SELECTION]: true
 };
 
+// Weather element should scale or just resize the width
 export const ELE_VS_RESIZABLE = {
-  [ELEMENT_TYPES.TEXT]: false,
+  [ELEMENT_TYPES.TEXT]: true,
   [ELEMENT_TYPES.PHOTO]: true,
   [ELEMENT_TYPES.GROUP]: false,
-  [ELEMENT_TYPES.MULTIPLE_SELECTION]: false
+  [ELEMENT_TYPES.MULTIPLE_SELECTION]: false,
+  [ELEMENT_TYPES.LINE]: true
 };
 
 

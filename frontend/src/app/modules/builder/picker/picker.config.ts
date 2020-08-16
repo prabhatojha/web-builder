@@ -3,7 +3,8 @@ export const LEFT_MENU_CONST = {
   PHOTO_MENU_ID: 5,
   UPLOAD_MENU_ID: 6,
   VECTOR_MENU_ID: 7,
-  BG_MENU_ID: 8
+  BG_MENU_ID: 8,
+  ELEMENTS_MENU_ID: 12
 };
 
 export const LEFT_MENU_ITEMS = [

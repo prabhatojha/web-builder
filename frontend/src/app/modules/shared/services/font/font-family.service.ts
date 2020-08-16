@@ -60,7 +60,7 @@ export class FontFamilyService {
   ];
 
   availableFonts = [];
-  MAX_FONT = 50;
+  MAX_FONT = 500;
 
   constructor(private http: HttpService) { }
 

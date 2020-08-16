@@ -1,0 +1,30 @@
+@import "../../../../../style/colors.scss";
+@import "../../../../../style/structure";
+
+.elements-picker-container {
+  padding: 20px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.element-content {
+  ul {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+.image-li {
+  cursor: pointer;
+  width: calc(50% - 6px);
+  height: 130px;
+  margin: 3px;
+  background-size: contain;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  border: 1px solid gray;
+  border-radius: 3px;
+}
