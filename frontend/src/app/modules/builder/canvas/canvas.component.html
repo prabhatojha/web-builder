@@ -16,7 +16,7 @@
       [selectedCanvasElements]="selectedCanvasElements" [container]="canvas">
     </app-select-element>
     <ngx-selecto [container]="canvas" [dragContainer]="canvasContainer" [selectableTargets]='projectNode.childNodes'
-      [selectByClick]="true" [selectFromInside]="false" [continueSelect]="false" [toggleContinueSelect]="'shift'"
+      [selectByClick]="true" [selectFromInside]="true" [continueSelect]="false" [toggleContinueSelect]="'shift'"
       [keyContainer]="canvas" [hitRate]="1" (selectEnd)="onSelectionEnd($event)" (select)="onSelection($event)">
 
     </ngx-selecto>

@@ -6,7 +6,7 @@
     <ul class="picker-item">
       <ng-container *ngFor="let item of textPickerService.list">
         <ng-container *ngIf="item.type === TextPickerTypes.IMAGE">
-          <li class="text-li" draggable="true" (dragstart)="dragStart($event, item)" (click)="onClick($event, item)">
+          <li class="image-li" draggable="true" (dragstart)="dragStart($event, item)" (click)="onClick($event, item)">
             <img [src]="item.imageUrl" style="width: 100%;" [attr.id]="item.id">
           </li>
         </ng-container>

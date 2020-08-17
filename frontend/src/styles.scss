@@ -16,7 +16,7 @@ body {
 
 body {
   margin: 0;
-  font-family: 'Muli', Roboto, "Helvetica Neue", sans-serif;
+  font-family: "Muli", Roboto, "Helvetica Neue", sans-serif;
 }
 
 label {
@@ -88,4 +88,13 @@ button {
   background: $gray-30;
   padding: 20px 0;
   box-shadow: 0 0 3px $gray-400;
+}
+
+.image-li {
+  -webkit-user-drag: element;
+  -khtml-user-drag: element;
+  -moz-user-drag: element;
+  -o-user-drag: element;
+  -ms-user-drag: element;
+  user-drag: element;
 }

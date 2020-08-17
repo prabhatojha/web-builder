@@ -20,13 +20,13 @@ export class TextPickerService {
       this.buildTextPickerItem(this.fontService.customTextFonts[i]);
     }
 
-    // this.buildImageTypeText();
+    this.buildImageTypeText();
   }
 
   buildImageTypeText() {
     const picker = getTextPickerInstance();
     picker.type = TextPickerTypes.IMAGE;
-    picker.imageUrl = '/assets/images/pickers/add-text.png';
+    picker.imageUrl = '/assets/images/pickers/calvin-harris.png';
     picker.canvasElement.children[0].innerText = 'Double click to edit';
     this.list.push(picker);
   }
