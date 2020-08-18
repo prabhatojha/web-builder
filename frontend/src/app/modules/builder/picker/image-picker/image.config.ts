@@ -6,14 +6,12 @@ import { ElementDimentionModel } from 'src/app/constants/css-constants';
 export const IMAGE_CONTAINER_DEFAULT_STYLE = {
   'text-align': 'center',
   'position': 'absolute',
-  'cursor': 'move',
   'user-select': 'none',
   'width': '200px',
   'height': '200px'
 };
 
 export const IMAGE_TAG_DEFAULT_STYLE = {
-  'cursor': 'move',
   'width': '100%',
   'height': '100%',
   'object-fit': 'cover'
