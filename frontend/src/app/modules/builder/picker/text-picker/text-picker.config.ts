@@ -13,7 +13,8 @@ export const TEXT_CONTAINER_DEFAULT_STYLE = {
   'cursor': 'move',
   'user-select': 'none',
   'width': '320px',
-  'word-break': 'break-all'
+  'word-break': 'break-all',
+  'letter-spacing': '1'
 };
 
 export const TEXT_TAG_DEFAULT_STYLE = {

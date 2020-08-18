@@ -22,20 +22,12 @@
       </div>
     </ng-container>
 
-    <!-- Text Decoration component - bold, italic, spacing etc..... -->
-    <div class="toolbar-item">
-      <app-text-decoration [initialStyles]="styles" (styleChange)="updateCss($event)">
-        <button class="toolbar-icon-size" mat-icon-button matTooltip="Text Formating" matTooltipPosition="above"
-          [disabled]="isLocked">
-          <i class="material-icons">text_format</i>
-        </button>
-      </app-text-decoration>
-    </div>
     <!-- Font Weigth Bold -->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.FONT_WEIGHT_BOLD]">
       <div class="toolbar-item">
         <button class="toolbar-icon-size" mat-icon-button (click)="onBoldClick()" matTooltip="Text Bold"
-          matTooltipPosition="above" [disabled]="isLocked">
+          matTooltipPosition="above" [disabled]="isLocked"
+          [class.icon-pressed]="styles[CSS_PROPS.FONT_WEIGHT] === CSS_PROP_VALUES.FONT_WEIGHT_BOLD">
           <i class="material-icons">format_bold</i>
         </button>
       </div>
@@ -45,7 +37,8 @@
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.FONT_STYLE_ITALIC]">
       <div class="toolbar-item">
         <button class="toolbar-icon-size" mat-icon-button (click)="onItalicClick()" matTooltip="Text Italic"
-          matTooltipPosition="above" [disabled]="isLocked">
+          matTooltipPosition="above" [disabled]="isLocked"
+          [class.icon-pressed]="styles[CSS_PROPS.FONT_ITALIC] === CSS_PROP_VALUES.FONT_ITALIC">
           <i class="material-icons">format_italic</i>
         </button>
       </div>
@@ -77,7 +70,7 @@
     <!-- Text Alignment -->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.TEXT_ALIGNMENT]">
       <div class="toolbar-item">
-        <app-text-alignment (selction)="onTextAlign($event)" [disabled]="isLocked">
+        <app-text-alignment [disabled]="isLocked" [initialStyles]="styles" (styleChange)="updateCss($event)">
         </app-text-alignment>
       </div>
     </ng-container>
@@ -107,7 +100,8 @@
     <!-- Letter spacing -->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.LETTER_SPACING]">
       <div class="toolbar-item">
-        <app-letter-spacing [disabled]="isLocked"></app-letter-spacing>
+        <app-letter-spacing [disabled]="isLocked" [initialStyles]="styles" (styleChange)="updateCss($event)">
+        </app-letter-spacing>
       </div>
     </ng-container>
   </div>
@@ -124,7 +118,8 @@
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.LOCK]">
       <div class="toolbar-item">
         <button mat-icon-button class="toolbar-icon-size" (click)="lockItem()"
-          [matTooltip]="isLocked ? 'Unlock Eelement': 'Lock Element'" matTooltipPosition="above">
+          [matTooltip]="isLocked ? 'Unlock Eelement': 'Lock Element'" matTooltipPosition="above"
+          [class.icon-pressed]="isLocked">
           <i class="material-icons" *ngIf="isLocked">lock</i>
           <i class="material-icons" *ngIf="!isLocked">lock_open</i>
         </button>

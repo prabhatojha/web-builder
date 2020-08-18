@@ -5,12 +5,25 @@
   </button>
 </section>
 
-<section class="letter-spacing-container" *ngIf="isVisible" (appClickOutside)="toggle()" [srcElement]="spacingButton">
-  <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-    <div>
-      <span>Letter Spacing</span>
-      <mat-slider [(ngModel)]="letterSpacing" class="mat-primary" [thumbLabel]="true" [step]="1"
-        (change)="onSliderStop($event)" (input)="onValueChange($event)"></mat-slider>
+<section class="toolbar-item-drop letter-spacing" *ngIf="isVisible" (appClickOutside)="toggle()"
+  [srcElement]="spacingButton">
+  <div>
+    <p>Letter Spacing</p>
+    <div class="letter-spacing-content">
+      <mat-slider class="mat-primary" (input)="onLetterSpacing($event)" [thumbLabel]="true" [step]="1" [min]="-10"
+        [max]="50" [value]="(initialStyles[CSS_PROPERTIES.LETTER_SPACING] | removePx) || 0">
+      </mat-slider>
+      <span>{{(initialStyles[CSS_PROPERTIES.LETTER_SPACING] | removePx) || 0}}</span>
     </div>
-  </mat-button-toggle-group>
+  </div>
+
+  <div>
+    <p>Line Height</p>
+    <div class="letter-spacing-content">
+      <mat-slider class="mat-primary" (input)="onLineHeight($event)" [thumbLabel]="true" [step]="1" [min]="-10"
+        [max]="50" [value]="getLineHeight()">
+      </mat-slider>
+      <span>{{getLineHeight()}}</span>
+    </div>
+  </div>
 </section>

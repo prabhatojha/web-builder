@@ -4,8 +4,8 @@
     <i class="material-icons">opacity</i>
   </button>
 </section>
-<section class="my-slider" (appClickOutside)="isOpacitySelectorOpen = false" [srcElement]="opacityButton"
-  *ngIf="isOpacitySelectorOpen">
+<section class="my-slider toolbar-item-drop py-0" (appClickOutside)="isOpacitySelectorOpen = false"
+  [srcElement]="opacityButton" *ngIf="isOpacitySelectorOpen">
   <span>Transparency</span>
   <mat-slider [(ngModel)]="selectedValue" class="mat-primary" [thumbLabel]="true" [step]="1"
     (change)="onSliderStop($event)" (input)="onValueChange($event)"></mat-slider>

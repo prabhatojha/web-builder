@@ -15,3 +15,11 @@ $primaryButtonFontSize: 20px;
     margin-right: 5px;
   }
 }
+
+.btn-light {
+  border: 1px solid $gray-100;
+}
+
+.btn-light:hover {
+  border: 1px solid $gray-100;
+}

@@ -4,12 +4,18 @@
     <i class="material-icons">subject</i>
   </button>
 </section>
-<div class="text-align-container" *ngIf="isVisible" (appClickOutside)="toggle()" [srcElement]="myButton">
-  <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+<div class="toolbar-item-drop" *ngIf="isVisible" (appClickOutside)="toggle()" [srcElement]="myButton">
+  <!-- <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
     <ng-container *ngFor="let opt of availableOtions">
       <mat-button-toggle (click)="selction.emit(opt.cssValue)">
         <mat-icon>{{opt.icon}}</mat-icon>
       </mat-button-toggle>
     </ng-container>
-  </mat-button-toggle-group>
+  </mat-button-toggle-group> -->
+  <div class="btn-group btn-group-lg w-100" role="group" aria-label="Basic example">
+    <button type="button" class="btn btn-light" *ngFor="let style of availableOtions"
+      (click)="sendEvent(CSS_PROPERTIES.TEXT_ALIGN, style.cssValue)"
+      [class.active]="initialStyles[CSS_PROPERTIES.TEXT_ALIGN] === style.cssValue">
+      <i class="material-icons">{{style.icon}}</i></button>
+  </div>
 </div>

@@ -1,13 +1,6 @@
 @import "../../../../../style/structure";
 
 .my-slider {
-  position: absolute;
-  top: calc(100% + 7px);
-  left: 0;
-  background: white;
-  box-shadow: 0 0 2px black;
-  padding: 0 20px;
-  border-radius: 3px;
   display: flex;
   align-items: center;
 

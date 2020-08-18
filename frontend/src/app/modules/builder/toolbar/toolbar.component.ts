@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, ElementRef, ViewEncapsulation } from '@angular/core';
 import { AVA_TOOLBAR_OPTIONS, FilterConfig, ELEMENT_TYPE_VS_TOOLBAR_OPT } from './toolbar.config';
 import { FILTER_TYPES, ELEMENT_TYPES } from '../../../constants/contants';
 import { UndoRedoUtil } from 'src/app/utils/undo-redo.util';
@@ -9,7 +9,8 @@ import { CanvasUtils } from 'src/app/utils/canvas.utils';
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.scss']
+  styleUrls: ['./toolbar.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ToolbarComponent implements OnInit, OnChanges {
 
@@ -26,6 +27,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
   AVA_TOOLBAR_OPTIONS = AVA_TOOLBAR_OPTIONS;
   avaToolbarOptions = {};
   CSS_PROPS = CSS_PROPERTIES;
+  CSS_PROP_VALUES = CSS_PROPERTY_VALUES;
 
   initialOpacity = 0;
   styles = {};
