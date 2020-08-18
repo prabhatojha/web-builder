@@ -12,6 +12,7 @@ import { ElementDimentionModel, CSS_PROPERTIES } from 'src/app/constants/css-con
 import { ELE_VS_RESIZE_HANDLES, ELE_VS_KEEP_RATIO, ELE_VS_RESIZABLE } from 'src/app/modules/builder/canvas/canvas.config';
 import { CSSUtils } from 'src/app/utils/css.utils';
 import textFit from 'textfit';
+import { ResizeEventerService } from 'src/app/modules/shared/services/resize-eventer/resize-eventer.service';
 
 @Component({
   selector: 'app-select-element',
@@ -51,7 +52,11 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     }
   });
 
-  constructor(private cd: ChangeDetectorRef) { }
+  constructor(private cd: ChangeDetectorRef, private resizeEventer: ResizeEventerService) {
+    this.resizeEventer.get().subscribe(event => {
+      this.moveable.updateRect();
+    });
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.selectedNodes && this.selectedNodes && this.selectedNodes.length) {

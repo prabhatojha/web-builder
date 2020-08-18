@@ -39,6 +39,7 @@ $fontListHeight: calc(#{$contentHeight} - 40px - 70px);
   }
   .selected {
     background-color: lightblue;
+    border-radius: 3px;
   }
   li:hover:not(.selected) {
     background-color: $gray-50;

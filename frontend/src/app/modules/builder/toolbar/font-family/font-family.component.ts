@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FontFamilyService } from 'src/app/modules/shared/services/font/font-family.service';
+import { ResizeEventerService } from 'src/app/modules/shared/services/resize-eventer/resize-eventer.service';
 
 @Component({
   selector: 'app-font-family',
@@ -18,7 +19,7 @@ export class FontFamilyComponent implements OnInit {
 
   options = [];
   filteredOptions = [];
-  constructor(private fontService: FontFamilyService) { }
+  constructor(private fontService: FontFamilyService, private resizeEventer: ResizeEventerService) { }
 
   ngOnInit(): void {
     this.options = this.fontService.getFonts();
@@ -26,6 +27,7 @@ export class FontFamilyComponent implements OnInit {
 
   onSelect($event) {
     this.fontSelect.emit($event);
+    this.resizeEventer.send();
   }
 
   onHover($event) {

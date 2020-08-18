@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
+import { ResizeEventerService } from 'src/app/modules/shared/services/resize-eventer/resize-eventer.service';
 
 @Component({
   selector: 'app-letter-spacing',
@@ -17,7 +18,7 @@ export class LetterSpacingComponent implements OnInit {
   isVisible = false;
   LINE_HEIGHT = 1.5;
 
-  constructor() { }
+  constructor(private resizeEventer: ResizeEventerService) { }
 
   ngOnInit(): void {
   }
@@ -32,12 +33,15 @@ export class LetterSpacingComponent implements OnInit {
 
   onLineHeight(e) {
     this.sendEvent(CSS_PROPERTIES.LINE_HEIGHT, this.LINE_HEIGHT + (e.value / 10));
+
   }
 
   sendEvent(key, value) {
     this.styleChange.emit({
       [key]: value
     });
+
+    this.resizeEventer.send();
   }
 
 

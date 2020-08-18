@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { ResizeEventerService } from 'src/app/modules/shared/services/resize-eventer/resize-eventer.service';
 
 @Component({
   selector: 'app-font-size',
@@ -16,7 +17,7 @@ export class FontSizeComponent implements OnChanges {
   showOptions = false;
   value: number;
 
-  constructor() {
+  constructor(private resizeEventer: ResizeEventerService) {
     for (let i = 5; i < 150; i++) {
       this.AVAILABLE_FONT_SIZE.push({ label: i, value: i });
     }
@@ -32,6 +33,7 @@ export class FontSizeComponent implements OnChanges {
 
   onValueChange(value) {
     this.valueChange.emit(value);
+    this.resizeEventer.send();
   }
 
   toggleOptions() {
