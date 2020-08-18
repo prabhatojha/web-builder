@@ -14,10 +14,10 @@ export class TextDecorationComponent implements OnInit {
 
   showPanel = false;
 
-  letterSpacing = 0;
-  lineHeight = 0;
   CSS_PROPERTIES = CSS_PROPERTIES;
   CSS_PROPERTY_VALUES = CSS_PROPERTY_VALUES;
+
+  LINE_HEIGHT = 1.5;
 
   textStyles = [
     {
@@ -60,10 +60,25 @@ export class TextDecorationComponent implements OnInit {
 
   }
 
+  onLetterSpacing(e) {
+    this.sendEvent(CSS_PROPERTIES.LETTER_SPACING, e.value);
+  }
+
+  onLineHeight(e) {
+    this.sendEvent(CSS_PROPERTIES.LINE_HEIGHT, this.LINE_HEIGHT + (e.value / 10));
+  }
+
   sendEvent(key, value) {
     this.styleChange.emit({
       [key]: value
     });
   }
 
+
+  getLineHeight() {
+    if (this.initialStyles && this.initialStyles[CSS_PROPERTIES.LINE_HEIGHT]) {
+      return Math.floor((this.initialStyles[CSS_PROPERTIES.LINE_HEIGHT] - this.LINE_HEIGHT) * 10);
+    }
+    return 0;
+  }
 }

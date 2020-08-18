@@ -15,6 +15,8 @@ export const CSS_PROPERTIES = {
   BG: 'background',
   BG_COLOR: 'background-color',
   BG_IMAGE: 'background-image',
+  LETTER_SPACING: 'letter-spacing',
+  LINE_HEIGHT: 'line-height',
   BG_SIZE: 'background-size',
   BG_POSITION: 'background-position',
   OVERFLOW: 'overflow',
@@ -69,4 +71,5 @@ export const PX_APPLICABLE_CSS_PROPS = [
   CSS_PROPERTIES.TOP,
   CSS_PROPERTIES.FONT_SIZE,
   CSS_PROPERTIES.LEFT,
+  CSS_PROPERTIES.LETTER_SPACING
 ];

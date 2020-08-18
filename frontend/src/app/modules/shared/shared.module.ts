@@ -8,6 +8,7 @@ import { SliderComponent } from './component/slider/slider.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchBoxComponent } from './component/search-box/search-box.component';
 import { MaterialModule } from 'src/app/material.module';
+import { RemovePxPipe } from './pipes/remove-px/remove-px.pipe';
 
 const components = [
   SingleSelectComponent,
@@ -15,7 +16,8 @@ const components = [
   ClickOutsideDirective,
   PopupComponent,
   SliderComponent,
-  SearchBoxComponent
+  SearchBoxComponent,
+  RemovePxPipe
 ];
 @NgModule({
   imports: [
