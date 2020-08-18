@@ -33,3 +33,8 @@ button:focus {
   /* e.g. */
   background-color: $gray-300;
 }
+
+.icon-pressed {
+  background-color: $gray-50;
+  box-shadow: 0 0 3px inset $gray-200;
+}

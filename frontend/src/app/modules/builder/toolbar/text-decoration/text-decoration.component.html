@@ -7,26 +7,13 @@
   <div>
     <p>Text Style</p>
     <div class="d-flex section-content">
-      <div>
-        <button class="toolbar-icon-size" mat-icon-button matTooltip="Text Bold" matTooltipPosition="above">
-          <i class="material-icons">format_bold</i>
+      <div *ngFor="let txtStyle of textStyles" class="mr-1">
+        <button class="toolbar-icon-size" mat-icon-button matTooltip="{{txtStyle.tooltip}}"
+          (click)="applyTextStyle(txtStyle)"
+          [class.icon-pressed]="initialStyles[txtStyle.style] === txtStyle.styleValue">
+          <i class="material-icons">{{txtStyle.icon}}</i>
         </button>
       </div>
-      <div>
-        <button class="toolbar-icon-size" mat-icon-button matTooltip="Text Italic" matTooltipPosition="above">
-          <i class="material-icons">format_italic</i>
-        </button>
-      </div>
-      <!-- <div>
-        <button class="toolbar-icon-size" mat-icon-button matTooltip="Text Bold" matTooltipPosition="above">
-          <i class="material-icons">format_strikethrough</i>
-        </button>
-      </div>
-      <div>
-        <button class="toolbar-icon-size" mat-icon-button matTooltip="Text Bold" matTooltipPosition="above">
-          <i class="material-icons">format_underlined</i>
-        </button>
-      </div> -->
     </div>
   </div>
 
@@ -34,14 +21,10 @@
     <p>Text Alignment</p>
     <div class="section-content text-alignment-icons">
       <div class="btn-group w-100" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-secondary">
-          <i class="material-icons">format_align_left</i></button>
-        <button type="button" class="btn btn-secondary">
-          <i class="material-icons">format_align_center</i></button>
-        <button type="button" class="btn btn-secondary">
-          <i class="material-icons">format_align_justify</i></button>
-        <button type="button" class="btn btn-secondary">
-          <i class="material-icons">format_align_right</i></button>
+        <button type="button" class="btn btn-secondary" *ngFor="let style of textAlignment"
+          (click)="sendEvent(CSS_PROPERTIES.TEXT_ALIGN, style.styleValue)"
+          [class.active]="initialStyles[CSS_PROPERTIES.TEXT_ALIGN] === style.styleValue">
+          <i class="material-icons">{{style.icon}}</i></button>
       </div>
     </div>
   </div>

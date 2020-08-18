@@ -24,7 +24,7 @@
 
     <!-- Text Decoration component - bold, italic, spacing etc..... -->
     <div class="toolbar-item">
-      <app-text-decoration>
+      <app-text-decoration [initialStyles]="styles" (styleChange)="updateCss($event)">
         <button class="toolbar-icon-size" mat-icon-button matTooltip="Text Formating" matTooltipPosition="above"
           [disabled]="isLocked">
           <i class="material-icons">text_format</i>

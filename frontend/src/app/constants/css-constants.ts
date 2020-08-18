@@ -56,7 +56,11 @@ export const CSS_PROPERTY_VALUES = {
   FONT_ITALIC: 'italic',
   FONT_STYLE_NORMAL: 'normal',
   BG_SIZE_COVER: 'cover',
-  GB_POSITION_CENTER: 'center'
+  GB_POSITION_CENTER: 'center',
+  TEXT_ALIGN_LEFT: 'left',
+  TEXT_ALIGN_CENTER: 'center',
+  TEXT_ALIGN_JUSTIFY: 'justify',
+  TEXT_ALIGN_RIGHT: 'right',
 };
 
 export const PX_APPLICABLE_CSS_PROPS = [
