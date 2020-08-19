@@ -7,12 +7,13 @@ export enum EventTypes {
   CANVAS_PREVIEW,
   CANVAS_DOWNLOAD,
   CANVAS_ADD_ITEM,
-  SELECT_ITEM_DIMENTION
+  SELECT_ITEM_DIMENTION,
+  UPDATE_DIRECTION_HANLDES
 }
 
 export class EventModal {
   type: EventTypes;
-  value: any;
+  value?: any;
 }
 
 @Injectable({

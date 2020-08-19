@@ -38,6 +38,7 @@ export class TextPickerService {
     picker.type = TextPickerTypes.TEXT;
     picker.innerText = item.innerText; // Picker element text
     picker.canvasElement.children[0].innerText = 'Double click to edit'; // Canvas element text
+    picker.canvasElement.style[CSS_PROPERTIES.FONT_SIZE] = item.fontSize;
     picker.canvasElement.style[CSS_PROPERTIES.FONT_FAMILY] = item.family;
     this.list.push(picker);
 

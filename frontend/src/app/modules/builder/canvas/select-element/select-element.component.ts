@@ -2,17 +2,15 @@ import {
   Component, Input, OnChanges, SimpleChanges, ChangeDetectorRef, ViewEncapsulation, OnDestroy,
   ViewChild
 } from '@angular/core';
-import ResizeObserver from 'resize-observer-polyfill';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { CanvasUtils } from 'src/app/utils/canvas.utils';
 import { ELEMENT_TYPES } from 'src/app/constants/contants';
 import Moveable from 'moveable';
-import { CommonUtils } from 'src/app/utils/common.utils';
 import { ElementDimentionModel, CSS_PROPERTIES } from 'src/app/constants/css-constants';
 import { ELE_VS_RESIZE_HANDLES, ELE_VS_KEEP_RATIO, ELE_VS_RESIZABLE } from 'src/app/modules/builder/canvas/canvas.config';
-import { CSSUtils } from 'src/app/utils/css.utils';
-import textFit from 'textfit';
 import { ResizeEventerService } from 'src/app/modules/shared/services/resize-eventer/resize-eventer.service';
+import { EventerService, EventModal, EventTypes } from 'src/app/modules/shared/services/eventer.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-select-element',
@@ -40,21 +38,15 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   keepRatio = false;
   resiable = true;
 
-  textResizeObserver = new ResizeObserver((entries: any) => {
-    const rect = entries && entries[0].contentRect;
-
-    // If user is doing resize, do not trigger this change
-    if (rect && !this.manualResize) {
-      // this.dimention.height = entries[0].contentRect.height;
-      // this.updateNodeDimention(true);
-      // tslint:disable-next-line: no-unused-expression
-      this.moveable && this.moveable.updateRect();
-    }
-  });
-
-  constructor(private cd: ChangeDetectorRef, private resizeEventer: ResizeEventerService) {
+  constructor(private cd: ChangeDetectorRef, private resizeEventer: ResizeEventerService, private eventerService: EventerService) {
     this.resizeEventer.get().subscribe(event => {
       this.moveable.updateRect();
+    });
+
+    this.eventerService.get().subscribe((event: EventModal) => {
+      if (event.type === EventTypes.UPDATE_DIRECTION_HANLDES) {
+        this.updateDirectionHandle();
+      }
     });
   }
 
@@ -66,7 +58,6 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   init() {
     this.updateDirectionHandle();
-    // this.updateKeepRatio();
   }
 
   updateDirectionHandle() {
@@ -76,9 +67,13 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
       this.resiable = ELE_VS_RESIZABLE[ELEMENT_TYPES.MULTIPLE_SELECTION];
     } else {
       const fistCanvasElement = this.getFirstCanvasElement();
-      this.directionHandles = ELE_VS_RESIZE_HANDLES[fistCanvasElement.type];
-      this.keepRatio = ELE_VS_KEEP_RATIO[fistCanvasElement.type];
-      this.resiable = ELE_VS_RESIZABLE[fistCanvasElement.type];
+      if (fistCanvasElement.locked) {
+        this.directionHandles = [];
+      } else {
+        this.directionHandles = ELE_VS_RESIZE_HANDLES[fistCanvasElement.type];
+        this.keepRatio = ELE_VS_KEEP_RATIO[fistCanvasElement.type];
+        this.resiable = ELE_VS_RESIZABLE[fistCanvasElement.type];
+      }
     }
   }
 
@@ -99,25 +94,15 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   onResize(e) {
-    console.log('Resize', e);
     const { width, height } = e;
     this.updateNodeCss({
       width,
       height,
       transform: e.drag.transform
     });
-
-    // if (this.getFirstCanvasElement().type === ELEMENT_TYPES.TEXT) {
-    //   textFit(this.getFirstNode(), {
-    //     reProcess: false,
-    //     detectMultiLine: false
-    //   });
-    //   // fitty(this.getFirstNode());
-    // }
   }
 
   onScaling(e) {
-    console.log('Scale', e);
     this.updateNodeCss({
       transform: e.drag.transform + ` scale(${e.scale[0]}, ${e.scale[1]})`
     });
@@ -138,7 +123,20 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   updateNodeCss(styles, index = 0) {
-    CanvasUtils.applyCss(this.selectedNodes[index], this.selectedCanvasElements[index], styles, true);
+    const canvasElement = this.selectedCanvasElements[index];
+    if (canvasElement.locked) {
+      return;
+    }
+    this.preProcessStyles(canvasElement, styles);
+    CanvasUtils.applyCss(this.selectedNodes[index], canvasElement, styles, true);
+  }
+
+  preProcessStyles(canvasElement: CanvasElement, styles) {
+
+    // If element is of type text or line, we do not need height
+    if ([ELEMENT_TYPES.TEXT, ELEMENT_TYPES.LINE].includes(canvasElement.type)) {
+      delete styles[CSS_PROPERTIES.HEIGHT];
+    }
   }
 
   onGroupDrag({ events }) {
@@ -182,9 +180,6 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.previousSelectedNode) {
-      this.textResizeObserver.unobserve(this.previousSelectedNode);
-    }
   }
 
 }

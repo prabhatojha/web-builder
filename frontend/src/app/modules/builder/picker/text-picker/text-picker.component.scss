@@ -26,10 +26,8 @@
     border-radius: 3px;
     display: flex;
     align-items: center;
-    cursor: move;
+    cursor: grab;
     box-shadow: 0 0 2px $gray-20;
-    transition: color 0.2s ease-in;
-    transition: background-color 0.2s ease-in;
   }
 
   .image-li {
@@ -49,8 +47,7 @@
   }
 
   .custom-text-li:hover {
-    color: $gray-400;
-    background-color: $gray-20;
+    box-shadow: 0 0 2px 1px $gray-20;
   }
 }
 

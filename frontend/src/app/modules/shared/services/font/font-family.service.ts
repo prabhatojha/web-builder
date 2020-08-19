@@ -12,13 +12,13 @@ export class FontFamilyService {
     {
       family: 'Josefin Sans',
       files: { regular: 'http://fonts.gstatic.com/s/josefinsans/v16/Qw3PZQNVED7rKGKxtqIqX5E-AVSJrOCfjY46_DjQXMFrLgTsQV0.ttf' },
-      fontSize: '35px',
+      fontSize: '24px',
       innerText: 'Add a heading'
     },
     {
       family: 'Josefin Sans',
       files: { regular: 'http://fonts.gstatic.com/s/josefinsans/v16/Qw3PZQNVED7rKGKxtqIqX5E-AVSJrOCfjY46_DjQXMFrLgTsQV0.ttf' },
-      fontSize: '20px',
+      fontSize: '16px',
       innerText: 'Add a sub heading'
     }
     // {

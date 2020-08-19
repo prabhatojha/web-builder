@@ -5,6 +5,7 @@ import { UndoRedoUtil } from 'src/app/utils/undo-redo.util';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { CSS_PROPERTIES, CSS_PROPERTY_VALUES } from 'src/app/constants/css-constants';
 import { CanvasUtils } from 'src/app/utils/canvas.utils';
+import { EventerService, EventTypes } from '../../shared/services/eventer.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -40,7 +41,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
   fistCanvasElement: CanvasElement;
 
-  constructor() { }
+  constructor(private eventerService: EventerService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.selectedCanvasElements) {
@@ -159,6 +160,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
   lockItem() {
     this.fistCanvasElement.locked = !this.fistCanvasElement.locked;
     this.updateLock();
+    this.eventerService.send({ type: EventTypes.UPDATE_DIRECTION_HANLDES});
   }
 
   onColorSelect(color) {
