@@ -210,7 +210,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   attachEventListner(node, canvasElement, enableRotate = true) {
     this.selectElement(node, canvasElement, enableRotate);
-    this.doubleClickListener(node, canvasElement);
+    // this.doubleClickListener(node, canvasElement);
   }
 
   doubleClickListener(node, canvasElement: CanvasElement) {

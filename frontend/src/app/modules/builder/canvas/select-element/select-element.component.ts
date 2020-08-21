@@ -123,6 +123,14 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
     target.setAttribute(ATTR_PROPERTIES.CONTENT_EDITABLE, 'true');
     target.focus();
+    // target.selec();
+    document.execCommand('selectAll', false, null);
+
+    const keyDownListener = () => {
+      setTimeout(() => {
+        this.moveable.updateRect();
+      });
+    };
 
     const blurListener = () => {
       if (canvasElement.locked) {
@@ -132,9 +140,11 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
       canvasElement.children[0].innerText = target.innerText;
 
       target.removeEventListener('blur', blurListener);
+      target.removeEventListener('keydown', keyDownListener);
     };
 
     target.addEventListener('blur', blurListener);
+    target.addEventListener('keydown', keyDownListener);
   }
 
   dragging(e) {
