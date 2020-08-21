@@ -64,14 +64,15 @@ export class ToolbarComponent implements OnInit, OnChanges {
     } else {
       this.fistCanvasElement = this.selectedCanvasElements[0];
       this.styles = this.getOriginalItemStyle();
-      this.updateLock();
       this.updateToolbarConfig();
       this.updateGroupItemFlag();
     }
+    this.updateLock();
   }
 
   updateLock() {
     this.isLocked = this.fistCanvasElement.locked;
+    this.isLocked = this.selectedCanvasElements.every(t => t.locked);
   }
 
   updateGroupItemFlag() {
@@ -139,7 +140,9 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
   updateCss(styles, permanent = true) {
     this.selectedNodes.forEach((node, index) => {
-      CanvasUtils.applyCss(node, this.selectedCanvasElements[index], styles, permanent);
+      if (!this.selectedCanvasElements[index].locked) {
+        CanvasUtils.applyCss(node, this.selectedCanvasElements[index], styles, permanent);
+      }
     });
   }
 
@@ -158,9 +161,11 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   lockItem() {
-    this.fistCanvasElement.locked = !this.fistCanvasElement.locked;
-    this.updateLock();
-    this.eventerService.send({ type: EventTypes.UPDATE_DIRECTION_HANLDES});
+    this.isLocked = !this.isLocked;
+    this.selectedCanvasElements.forEach(t => {
+      t.locked = this.isLocked;
+    });
+    this.eventerService.send({ type: EventTypes.UPDATE_DIRECTION_HANLDES });
   }
 
   onColorSelect(color) {

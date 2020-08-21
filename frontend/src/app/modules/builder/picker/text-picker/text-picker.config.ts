@@ -12,7 +12,6 @@ export const TEXT_CONTAINER_DEFAULT_STYLE = {
   'position': 'absolute',
   'user-select': 'none',
   'width': '320px',
-  'word-break': 'break-all',
   'letter-spacing': '1'
 };
 
