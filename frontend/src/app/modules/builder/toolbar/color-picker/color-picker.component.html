@@ -7,6 +7,7 @@
   <div id="toolbarNewColorPicker" #toolbarNewColorPicker></div>
   <div class="color-picker" id="colorPalette" *ngIf="showDropdown" (appClickOutside)="close()"
     [srcElement]="srcElement">
+    <h5 *ngIf="heading" class="color-picker-heading">{{heading}}</h5>
     <div class="my-color-header position-relative">
       <h5>My Colors</h5>
       <button type="button" class="btn btn-outline-info btn-sm" (click)="showColorPicker = true;">+ Add</button>
@@ -29,6 +30,10 @@
       <h5>Standard Colors</h5>
     </div>
     <div class="mt-3 color-pallete-container">
+      <div class="color-pallete transparent-color-pallete" (click)="onClick(CSS_PROPERTY_VALUES.COLOR_TRANSPARENT)"
+        [class.selected-color]="CSS_PROPERTY_VALUES.COLOR_TRANSPARENT === selectedColor">
+        Transparent
+      </div>
       <div class="color-pallete" *ngFor="let color of standeardColors" [style.background-color]="color"
         (mouseenter)="onHover(color)" (click)="onClick(color)" [class.selected-color]="color === selectedColor">
       </div>

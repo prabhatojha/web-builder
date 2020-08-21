@@ -108,7 +108,13 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     });
   }
 
+  onElementClick(e) {
+    // console.log('Click', e);
+  }
+
   dragging(e) {
+    // console.log('Drag', e);
+    e.inputEvent.stopPropagation();
     const { left, top } = e;
 
     this.updateNodeCss({

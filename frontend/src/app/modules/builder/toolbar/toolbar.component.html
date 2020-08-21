@@ -47,10 +47,11 @@
     <!-- Background color -->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.BACKGROUND_COLOR]">
       <div class="toolbar-item">
-        <app-color-picker #backgroundPicker (colorSelect)="onBGColorSelect($event)">
-          <div class="toolbar-bg-color" (click)="backgroundPicker.open()" matTooltip="Background Color"
-            matTooltipPosition="above">
-          </div>
+        <app-color-picker #backgroundPicker (colorSelect)="onBGColorSelect($event)" heading="Select Background Color">
+          <button class="toolbar-icon-size" mat-icon-button matTooltip="Background Color" matTooltipPosition="above"
+            (click)="backgroundPicker.open()" [class.disabled]="isLocked">
+            <i class="material-icons">format_paint</i>
+          </button>
         </app-color-picker>
       </div>
     </ng-container>
@@ -58,7 +59,7 @@
     <!-- Text color -->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.COLOR]">
       <div class="toolbar-item">
-        <app-color-picker #backgroundPicker (colorSelect)="onColorSelect($event)">
+        <app-color-picker #backgroundPicker (colorSelect)="onColorSelect($event)" heading="Select Text Color">
           <button class="toolbar-icon-size" mat-icon-button matTooltip="Text Color" matTooltipPosition="above"
             (click)="backgroundPicker.open()" [class.disabled]="isLocked">
             <i class="material-icons">color_lens</i>

@@ -10,7 +10,6 @@ export const TEXT_CONTAINER_DEFAULT_STYLE = {
   'font-family': 'monospace',
   'text-align': 'center',
   'position': 'absolute',
-  'cursor': 'move',
   'user-select': 'none',
   'width': '320px',
   'word-break': 'break-all',
@@ -18,7 +17,6 @@ export const TEXT_CONTAINER_DEFAULT_STYLE = {
 };
 
 export const TEXT_TAG_DEFAULT_STYLE = {
-  cursor: 'move',
   outline: 'none'
 };
 

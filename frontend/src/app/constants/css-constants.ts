@@ -63,6 +63,7 @@ export const CSS_PROPERTY_VALUES = {
   TEXT_ALIGN_CENTER: 'center',
   TEXT_ALIGN_JUSTIFY: 'justify',
   TEXT_ALIGN_RIGHT: 'right',
+  COLOR_TRANSPARENT: 'transparent'
 };
 
 export const PX_APPLICABLE_CSS_PROPS = [

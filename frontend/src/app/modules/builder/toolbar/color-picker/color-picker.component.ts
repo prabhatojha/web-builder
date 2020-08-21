@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, AfterViewInit, ViewChild, ElementRef, Input } from '@angular/core';
 import Pickr from '@simonwep/pickr';
+import { CSS_PROPERTY_VALUES } from 'src/app/constants/css-constants';
 
 @Component({
   selector: 'app-color-picker',
@@ -9,8 +10,10 @@ import Pickr from '@simonwep/pickr';
 export class ColorPickerComponent implements OnInit, AfterViewInit {
 
   @Input() externalSourseElement: HTMLLIElement;
+  @Input() heading: string;
   showDropdown = false;
   selectedColor = '';
+  CSS_PROPERTY_VALUES = CSS_PROPERTY_VALUES;
 
   customColors = [];
   standeardColors = [

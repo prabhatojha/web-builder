@@ -11,6 +11,7 @@ import { CommonUtils } from 'src/app/utils/common.utils';
 import { NgxElementSelectorEvent } from 'projects/ngx-element-selector/src/public-api';
 import { CANVAS_PROJECT } from './canvas.config';
 import { CSSUtils } from 'src/app/utils/css.utils';
+import { CSS_CLASSES } from 'src/app/constants/canvas-constants';
 
 @Component({
   selector: 'app-canvas',
@@ -115,11 +116,28 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   onSelection(e) {
+    console.log('onSelection', e);
     e.removed.forEach(t => t.style.outline = '');
     e.selected.forEach(t => t.style.outline = '1px dashed darkgray');
   }
 
+  selectoDragStart(e) {
+    const classList: DOMTokenList = e.inputEvent.target.classList;
+    if (classList.contains(CSS_CLASSES.MOVEABLE_AREA) || classList.contains(CSS_CLASSES.MOVEABLE_CONTROL) ||
+      classList.contains(CSS_CLASSES.MOVEABLE_LINE)) {
+
+      // if (!classList.contains(CSS_CLASSES.LG_PHOTO_WRAP)) {
+        e.stop();
+      // }
+    }
+  }
+
+  selectoDragEnd(e) {
+    console.log('selectoDragEnd', e);
+  }
+
   onSelectionEnd({ selected }) {
+    console.log('onSelectionEnd');
     selected.forEach(t => t.style.outline = '');
     const children = this.projectNode.children;
     const ce = [];

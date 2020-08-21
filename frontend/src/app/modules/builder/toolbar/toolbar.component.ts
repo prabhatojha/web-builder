@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, ElementRef, ViewEncapsulation } from '@angular/core';
-import { AVA_TOOLBAR_OPTIONS, FilterConfig, ELEMENT_TYPE_VS_TOOLBAR_OPT } from './toolbar.config';
+import { AVA_TOOLBAR_OPTIONS, ELEMENT_TYPE_VS_TOOLBAR_OPT } from './toolbar.config';
 import { FILTER_TYPES, ELEMENT_TYPES } from '../../../constants/contants';
 import { UndoRedoUtil } from 'src/app/utils/undo-redo.util';
 import { CanvasElement } from 'src/app/models/canvas.element.model';

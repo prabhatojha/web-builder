@@ -2,6 +2,7 @@ import { ImageCanvasElement } from 'src/app/models/image.element.model';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { CommonUtils } from 'src/app/utils/common.utils';
 import { ElementDimentionModel } from 'src/app/constants/css-constants';
+import { CSS_CLASSES } from 'src/app/constants/canvas-constants';
 
 export const IMAGE_CONTAINER_DEFAULT_STYLE = {
   'text-align': 'center',
@@ -25,7 +26,8 @@ export const IMAGE_TAG_FOR_VECTOR_DEFAULT_STYLE = {
 
 
 export const IMAGE_TAG_DEFAULT_ATTRIBUTE = {
-  'src': ''
+  'src': '',
+  class: CSS_CLASSES.LG_PHOTO_WRAP
 };
 
 export function getImageElementInstance(): ImageCanvasElement {

@@ -5,5 +5,6 @@
   (drag)="dragging($event)" (dragGroup)="onGroupDrag($event)" (resizeGroupStart)="onGroupResizeStart($event)"
   (resizeGroup)="onGroupResize($event)" (scaleGroup)="onGroupScale($event)"  (rotateGroup)="onGroupRotate($event)" (rotate)="rotating($event)"
   [throttleResize]="1" [horizontalGuidelines]="[0, 250, 500]" [scalable]="true" [snappable]="true" [snapCenter]="true"
-  [verticalGuidelines]="[0, 250, 500]" (scale)="onScaling($event)">
+  [verticalGuidelines]="[0, 250, 500]" (scale)="onScaling($event)"
+  (click)="onElementClick($event)">
 </ngx-moveable>
