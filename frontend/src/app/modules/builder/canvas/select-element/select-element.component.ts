@@ -6,7 +6,7 @@ import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { CanvasUtils } from 'src/app/utils/canvas.utils';
 import { ELEMENT_TYPES } from 'src/app/constants/contants';
 import Moveable from 'moveable';
-import { ElementDimentionModel, CSS_PROPERTIES } from 'src/app/constants/css-constants';
+import { ElementDimentionModel, CSS_PROPERTIES, ATTR_PROPERTIES } from 'src/app/constants/css-constants';
 import { ELE_VS_RESIZE_HANDLES, ELE_VS_KEEP_RATIO, ELE_VS_RESIZABLE } from 'src/app/modules/builder/canvas/canvas.config';
 import { ResizeEventerService } from 'src/app/modules/shared/services/resize-eventer/resize-eventer.service';
 import { EventerService, EventModal, EventTypes } from 'src/app/modules/shared/services/eventer.service';
@@ -109,11 +109,35 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   onElementClick(e) {
-    // console.log('Click', e);
+    if (e.isDouble) {
+      this.editTextElement(e.inputTarget);
+    }
+  }
+
+  editTextElement(target: HTMLElement) {
+    const canvasElement = this.getFirstCanvasElement();
+
+    if (canvasElement.locked || canvasElement.type !== ELEMENT_TYPES.TEXT) {
+      return;
+    }
+
+    target.setAttribute(ATTR_PROPERTIES.CONTENT_EDITABLE, 'true');
+    target.focus();
+
+    const blurListener = () => {
+      if (canvasElement.locked) {
+        return;
+      }
+      target.removeAttribute(ATTR_PROPERTIES.CONTENT_EDITABLE);
+      canvasElement.children[0].innerText = target.innerText;
+
+      target.removeEventListener('blur', blurListener);
+    };
+
+    target.addEventListener('blur', blurListener);
   }
 
   dragging(e) {
-    // console.log('Drag', e);
     e.inputEvent.stopPropagation();
     const { left, top } = e;
 

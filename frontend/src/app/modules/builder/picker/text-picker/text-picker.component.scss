@@ -42,12 +42,14 @@
 
   .custom-text-li {
     width: calc(100% - 7px);
-    opacity: 0.9;
     padding: 7px 10px;
+    background-color: $gray-70;
+    color: $gray-400;
+    transition: background-color 0.2s;
   }
 
   .custom-text-li:hover {
-    box-shadow: 0 0 2px 1px $gray-20;
+    background-color: $gray-20;
   }
 }
 

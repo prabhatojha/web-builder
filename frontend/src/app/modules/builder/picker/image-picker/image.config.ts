@@ -1,8 +1,7 @@
 import { ImageCanvasElement } from 'src/app/models/image.element.model';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { CommonUtils } from 'src/app/utils/common.utils';
-import { ElementDimentionModel } from 'src/app/constants/css-constants';
-import { CSS_CLASSES } from 'src/app/constants/canvas-constants';
+import { ElementDimentionModel, CSS_CLASSES } from 'src/app/constants/css-constants';
 
 export const IMAGE_CONTAINER_DEFAULT_STYLE = {
   'text-align': 'center',

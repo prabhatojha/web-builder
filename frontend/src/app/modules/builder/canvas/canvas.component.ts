@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { CONST_VAR, ELEMENT_TYPES } from 'src/app/constants/contants';
-import { CSS_PROPERTIES, ATTR_PROPERTIES, CSS_PROPERTY_VALUES } from 'src/app/constants/css-constants';
+import { CSS_PROPERTIES, ATTR_PROPERTIES, CSS_PROPERTY_VALUES, CSS_CLASSES } from 'src/app/constants/css-constants';
 import { ELEMENT_TYPE_VS_TOOLBAR_OPT } from '../toolbar/toolbar.config';
 import { EventerService, EventModal, EventTypes } from '../../shared/services/eventer.service';
 import { filter } from 'rxjs/operators';
@@ -11,7 +11,6 @@ import { CommonUtils } from 'src/app/utils/common.utils';
 import { NgxElementSelectorEvent } from 'projects/ngx-element-selector/src/public-api';
 import { CANVAS_PROJECT } from './canvas.config';
 import { CSSUtils } from 'src/app/utils/css.utils';
-import { CSS_CLASSES } from 'src/app/constants/canvas-constants';
 
 @Component({
   selector: 'app-canvas',
@@ -116,7 +115,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   onSelection(e) {
-    console.log('onSelection', e);
     e.removed.forEach(t => t.style.outline = '');
     e.selected.forEach(t => t.style.outline = '1px dashed darkgray');
   }
@@ -133,11 +131,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   selectoDragEnd(e) {
-    console.log('selectoDragEnd', e);
   }
 
   onSelectionEnd({ selected }) {
-    console.log('onSelectionEnd');
     selected.forEach(t => t.style.outline = '');
     const children = this.projectNode.children;
     const ce = [];
@@ -220,7 +216,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   doubleClickListener(node, canvasElement: CanvasElement) {
     if (canvasElement.type === ELEMENT_TYPES.TEXT) {
       const label = node.getElementsByTagName('label')[0];
-
       node.addEventListener('dblclick', () => {
         if (canvasElement.locked) {
           return;
