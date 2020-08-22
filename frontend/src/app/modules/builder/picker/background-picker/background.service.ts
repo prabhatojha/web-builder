@@ -69,7 +69,6 @@ export class BackgroundService {
       this.backgrounds.push(image);
     });
 
-    console.log(photos, this.backgrounds);
     this.isLoading = false;
   }
 

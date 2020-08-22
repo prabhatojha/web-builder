@@ -60,25 +60,23 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
   init() {
     if (this.selectedCanvasElements.length > 1) {
-      this.isGroupUngroupVisible = true;
       this.updateToolbarConfig(ELEMENT_TYPES.MULTIPLE_SELECTION);
     } else {
       this.fistCanvasElement = this.selectedCanvasElements[0];
       this.styles = this.getOriginalItemStyle();
       this.updateToolbarConfig();
-      this.updateGroupItemFlag();
     }
     this.updateLock();
+    this.updateGroupItemFlag();
   }
 
   updateLock() {
-    this.isLocked = this.fistCanvasElement.locked;
-    this.isLocked = this.selectedCanvasElements.every(t => t.locked);
+    this.isLocked = !this.selectedCanvasElements.some(t => !t.locked);
   }
 
   updateGroupItemFlag() {
-    this.isGroupedItems = this.fistCanvasElement.type === ELEMENT_TYPES.GROUP;
-    this.isGroupUngroupVisible = this.isGroupedItems;
+    this.isGroupUngroupVisible = this.fistCanvasElement.type === ELEMENT_TYPES.GROUP || this.selectedCanvasElements.length > 1;
+    this.isGroupedItems = this.fistCanvasElement.type === ELEMENT_TYPES.GROUP && this.selectedCanvasElements.length === 1;
   }
 
   getOriginalItemStyle() {

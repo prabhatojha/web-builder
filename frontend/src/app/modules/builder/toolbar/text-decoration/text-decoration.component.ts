@@ -44,7 +44,6 @@ export class TextDecorationComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.initialStyles);
   }
 
   toggleOptions() {

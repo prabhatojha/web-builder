@@ -80,7 +80,6 @@ export class ElementsService {
       this.elements.push(image);
     });
 
-    console.log(photos, this.elements);
     this.isLoading = false;
   }
 

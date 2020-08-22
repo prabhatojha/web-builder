@@ -125,7 +125,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       classList.contains(CSS_CLASSES.MOVEABLE_LINE)) {
 
       // if (!classList.contains(CSS_CLASSES.LG_PHOTO_WRAP)) {
-        e.stop();
+      e.stop();
       // }
     }
   }
@@ -284,7 +284,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   onItemGroup(e) {
-    const newCanvasElement = new CanvasElement('div', {}, {}, e.canvasElements);
+    const newCanvasElement = new CanvasElement('div', {}, { position: 'absolute' }, e.canvasElements);
     newCanvasElement.type = ELEMENT_TYPES.GROUP;
 
     CanvasUtils.setGroupNodeLocation(e.nodes, newCanvasElement, this.canvas.nativeElement);
@@ -294,13 +294,16 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   onItemUnGroup(e) {
-    const newCanvasElement = new CanvasElement('div', {}, {}, e.canvasElements);
-    newCanvasElement.type = ELEMENT_TYPES.GROUP;
-
-    CanvasUtils.setGroupNodeLocation(e.nodes, newCanvasElement, this.canvas.nativeElement);
+    const parent: CanvasElement = e.canvasElements[0];
+    const parentPos = CSSUtils.getTransformValue(parent.style.transform, 'translate');
+    parent.children.forEach((child: CanvasElement) => {
+      const childPos = CSSUtils.getTransformValue(child.style.transform, 'translate');
+      CSSUtils.updateTransformValue(child.style, 'translate', `translate(${parentPos.x + childPos.x}px,${parentPos.y + childPos.y}px)`);
+      this.addNewNode(child);
+    });
+    CanvasUtils.setUnGroupNodeLocation(e.nodes[0], e.canvasElements[0]);
 
     this.onItemRemove(e, false);
-    this.addNewNode(newCanvasElement);
   }
 
   subscribeEventer() {

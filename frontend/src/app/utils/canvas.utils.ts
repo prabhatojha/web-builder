@@ -94,6 +94,8 @@ export class CanvasUtils {
     CSSUtils.updateTransformValue(canvasElement.style, 'translate', `translate(${x + 20}px, ${y + 20}px)`);
   }
 
+  /* Group Ungrouping - start */
+
   static setGroupNodeLocation(nodes: HTMLElement[], canvasElement: CanvasElement, canvas: HTMLElement) {
     const canvasRect = canvas.getBoundingClientRect();
     let top = 10000;
@@ -133,6 +135,12 @@ export class CanvasUtils {
 
     CSSUtils.updateTransformValue(canvasElement.style, 'translate',
       `translate(${posX}px, ${posY}px)`);
+  }
+
+  /* Group Ungrouping - start */
+
+  static setUnGroupNodeLocation(node: HTMLElement, canvasElement: CanvasElement) {
+
   }
 
   // Element Duplicate/placement end ------------------------
