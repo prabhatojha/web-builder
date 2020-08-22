@@ -1,12 +1,12 @@
 <div class="canvas-scaler">
   <div>
-    <button mat-icon-button color="accent" [autofocus]="false" matTooltip="Zoom in" matTooltipPosition="above" (click)="zoomIn()">
+    <button mat-icon-button [autofocus]="false" matTooltip="Zoom in" matTooltipPosition="left" (click)="zoomIn()">
       <mat-icon>add</mat-icon>
     </button>
   </div>
   <div class="scale-value"><label class="m-0">{{this.scaleOptions[selectedScaleIndex]?.label}}%</label></div>
   <div>
-    <button mat-icon-button color="accent" isIconButton="true" matTooltip="Zoom out" matTooltipPosition="below" (click)="zoomOut()">
+    <button mat-icon-button isIconButton="true" matTooltip="Zoom out" matTooltipPosition="left" (click)="zoomOut()">
       <mat-icon>remove</mat-icon>
     </button>
   </div>

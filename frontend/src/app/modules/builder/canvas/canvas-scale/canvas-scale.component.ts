@@ -16,8 +16,8 @@ export class CanvasScaleComponent implements OnChanges {
     { label: 125, value: 1.25 },
     { label: 150, value: 1.5 },
     { label: 200, value: 2 },
-    { label: 250, value: 2.5 },
-    { label: 300, value: 3 }
+    // { label: 250, value: 2.5 },
+    // { label: 300, value: 3 }
   ];
 
   constructor() { }
