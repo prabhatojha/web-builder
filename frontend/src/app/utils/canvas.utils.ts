@@ -1,5 +1,5 @@
 import { CanvasElement } from '../models/canvas.element.model';
-import { PX_APPLICABLE_CSS_PROPS, ElementDimentionModel, CSS_PROPERTIES, ATTR_PROPERTIES } from '../constants/css-constants';
+import { PX_APPLICABLE_CSS_PROPS, ElementDimentionModel, CSS_PROPERTIES, ATTR_PROPERTIES, CSS_CLASSES } from '../constants/css-constants';
 import { CommonUtils } from './common.utils';
 import { Hasher } from '../constants/hasher';
 import { CSSUtils } from './css.utils';
@@ -120,11 +120,19 @@ export class CanvasUtils {
       }
     });
 
+    const posX = left - canvasRect.left;
+    const posY = top - canvasRect.top;
+    canvasElement.children.forEach(child => {
+      const childPos = CSSUtils.getTransformValue(child.style.transform, 'translate');
+      CSSUtils.updateTransformValue(child.style, 'translate',
+        `translate(${childPos.x - posX}px, ${childPos.y - posY}px)`);
+    });
+
     canvasElement.style[CSS_PROPERTIES.WIDTH] = right - left + 'px';
     canvasElement.style[CSS_PROPERTIES.HEIGHT] = bottom - top + 'px';
 
     CSSUtils.updateTransformValue(canvasElement.style, 'translate',
-      `translate(${left - canvasRect.left}px, ${top - canvasRect.top}px)`);
+      `translate(${posX}px, ${posY}px)`);
   }
 
   // Element Duplicate/placement end ------------------------

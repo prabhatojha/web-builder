@@ -293,6 +293,16 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this.addNewNode(newCanvasElement);
   }
 
+  onItemUnGroup(e) {
+    const newCanvasElement = new CanvasElement('div', {}, {}, e.canvasElements);
+    newCanvasElement.type = ELEMENT_TYPES.GROUP;
+
+    CanvasUtils.setGroupNodeLocation(e.nodes, newCanvasElement, this.canvas.nativeElement);
+
+    this.onItemRemove(e, false);
+    this.addNewNode(newCanvasElement);
+  }
+
   subscribeEventer() {
     this.eventer.get().pipe(filter((t: EventModal) => this.CANVAS_EVENTS.includes(t.type))).subscribe((event: EventModal) => {
       this.processEventer(event);

@@ -78,6 +78,7 @@ export const PX_APPLICABLE_CSS_PROPS = [
 export const CSS_CLASSES = {
   LG_PHOTO_WRAP: 'large-photo-wrapper',
   MOVEABLE_AREA: 'moveable-area',
+  MOVEABLE_CONTOLL_BOX: 'moveable-control-box',
   MOVEABLE_CONTROL: 'moveable-control',
   MOVEABLE_LINE: 'moveable-line',
   EDITABLE_CONTENT: 'users-editable-content'

@@ -22,6 +22,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
   @Output() removeSelectedItem = new EventEmitter();
   @Output() duplicateSelectedItem = new EventEmitter();
   @Output() groupSelectedItem = new EventEmitter();
+  @Output() unGroupSelectedItem = new EventEmitter();
 
   filterConfig = [];
   FILTER_TYPES = FILTER_TYPES;
@@ -157,7 +158,11 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   groupItem() {
-    this.groupSelectedItem.emit(this.getSelectedItems());
+    if (this.isGroupedItems) {
+      this.unGroupSelectedItem.emit(this.getSelectedItems());
+    } else {
+      this.groupSelectedItem.emit(this.getSelectedItems());
+    }
   }
 
   lockItem() {
