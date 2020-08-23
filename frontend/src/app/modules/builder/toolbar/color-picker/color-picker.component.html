@@ -13,14 +13,13 @@
       <button type="button" class="btn btn-outline-info btn-sm" (click)="showColorPicker = true;">+ Add</button>
       <div class="color-sketch" *ngIf="showColorPicker">
         <color-chrome (onChangeComplete)="unsavedColor = $event.color"></color-chrome>
-        <div class="text-right">
-          <button mat-stroked-button (click)="$event.stopPropagation(); showColorPicker = false"
-            class="mr-3">Cancel</button>
-          <button mat-stroked-button (click)="onPick($event)">Save</button>
+        <div class="d-flex justify-content-end">
+          <button type="button" class="btn btn-outline-secondary btn-sm mr-2" (click)="$event.stopPropagation(); showColorPicker = false;">Cancel</button>
+          <button type="button" class="btn btn-primary btn-sm" (click)="onPick($event)">Save</button>
         </div>
       </div>
     </div>
-    <div class="color-pallete-container">
+    <div class="color-pallete-container justify-content-start">
       <div class="color-pallete" *ngFor="let color of customColors" [style.background-color]="color"
         (mouseenter)="onHover(color)" (click)="onClick(color);" [class.selected-color]="color === selectedColor">
       </div>

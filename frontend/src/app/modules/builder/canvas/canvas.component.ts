@@ -93,14 +93,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   handleGenericElements(canvasElement: CanvasElement) {
     this.adjustWidthHeight(canvasElement);
-
     const newNode = CanvasUtils.buildDom(canvasElement);
-
-
     this.attachEventListner(newNode, canvasElement);
-
     this.projectNode.appendChild(newNode);
-
     this.addItemInProject(canvasElement);
   }
 
@@ -111,7 +106,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   onSelectionStart(e: NgxElementSelectorEvent) {
-    // e.targets.forEach(t => t.style.outline = '');
   }
 
   onSelection(e) {
@@ -123,10 +117,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     const classList: DOMTokenList = e.inputEvent.target.classList;
     if (classList.contains(CSS_CLASSES.MOVEABLE_AREA) || classList.contains(CSS_CLASSES.MOVEABLE_CONTROL) ||
       classList.contains(CSS_CLASSES.MOVEABLE_LINE)) {
-
-      // if (!classList.contains(CSS_CLASSES.LG_PHOTO_WRAP)) {
       e.stop();
-      // }
     }
   }
 
@@ -156,17 +147,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   onSelectEnd(e) {
-    // const children = [...this.projectNode.children];
-    // const ce = [];
-
-    // for (let i = 0; i < children.length; i++) {
-    //   if (selected.includes(children[i])) {
-    //     ce.push(this.project.canvasElement.children[i]);
-    //   }
-    // }
-    // this.selectedNodes = selected;
-    // this.selectedCanvasElements = ce;
-
   }
 
   getProjectWidthHeight() {
@@ -203,40 +183,12 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     // Temporary
     if (e.target && e.target.classList.contains('canvas-template')) {
       this.selectedNode = null;
-      // this.selectedNodes = [];
       this.selectedCanvasElement = null;
     }
   }
 
   attachEventListner(node, canvasElement, enableRotate = true) {
     this.selectElement(node, canvasElement, enableRotate);
-    // this.doubleClickListener(node, canvasElement);
-  }
-
-  doubleClickListener(node, canvasElement: CanvasElement) {
-    if (canvasElement.type === ELEMENT_TYPES.TEXT) {
-      const label = node.getElementsByTagName('label')[0];
-      node.addEventListener('dblclick', () => {
-        if (canvasElement.locked) {
-          return;
-        }
-
-        label.setAttribute(ATTR_PROPERTIES.CONTENT_EDITABLE, true);
-        label.focus();
-      });
-
-      label.addEventListener('blur', () => {
-        if (canvasElement.locked) {
-          return;
-        }
-        label.setAttribute(ATTR_PROPERTIES.CONTENT_EDITABLE, false);
-        this.updateInnerText(node.innerText, canvasElement);
-      });
-    }
-  }
-
-  updateInnerText(innerText, canvasElement) {
-    canvasElement.innerText = innerText;
   }
 
   selectElement(node, canvasElement, enableRotate) {
@@ -247,7 +199,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this._selectElement(node, canvasElement, enableRotate);
 
     node.addEventListener('mousedown', (e) => {
-      // e.stopPropagation();
       this._selectElement(node, canvasElement, enableRotate);
     });
   }
