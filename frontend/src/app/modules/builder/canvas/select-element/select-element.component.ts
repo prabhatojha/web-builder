@@ -37,6 +37,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   directionHandles = [];
   keepRatio = false;
   resiable = true;
+  rotatable = true;
 
   constructor(private cd: ChangeDetectorRef, private resizeEventer: ResizeEventerService, private eventerService: EventerService) {
     this.resizeEventer.get().subscribe(event => {
@@ -69,10 +70,12 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
       const fistCanvasElement = this.getFirstCanvasElement();
       if (fistCanvasElement.locked) {
         this.directionHandles = [];
+        this.rotatable = false;
       } else {
         this.directionHandles = ELE_VS_RESIZE_HANDLES[fistCanvasElement.type];
         this.keepRatio = ELE_VS_KEEP_RATIO[fistCanvasElement.type];
         this.resiable = ELE_VS_RESIZABLE[fistCanvasElement.type];
+        this.rotatable = true;
       }
     }
   }

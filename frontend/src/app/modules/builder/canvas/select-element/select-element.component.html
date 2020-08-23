@@ -1,5 +1,5 @@
 <ngx-moveable #moveable [target]="selectedNodes" [edge]="true" [renderDirections]="directionHandles" [dragArea]="true"
-  [elementGuidelines]="[]" [draggable]="true" [container]="container" [origin]="false" [rotatable]="true"
+  [elementGuidelines]="[]" [draggable]="true" [container]="container" [origin]="false" [rotatable]="rotatable"
   [resizable]="resiable" [scalable]="false" [warpable]="false" [pinchable]="false" [keepRatio]="keepRatio"
   [defaultGroupRotate]="defaultGroupRotate" (resizeStart)="onResizeStart($event)" (resize)="onResize($event)"
   (drag)="dragging($event)" (dragGroup)="onGroupDrag($event)" (resizeGroupStart)="onGroupResizeStart($event)"

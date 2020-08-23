@@ -128,16 +128,26 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     selected.forEach(t => t.style.outline = '');
     const children = this.projectNode.children;
     const ce = [];
+    const ne = [];
 
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < children.length; i++) {
       if (selected.includes(children[i])) {
-        ce.push(this.project.canvasElement.children[i]);
+        const canvasElement = this.project.canvasElement.children[i];
+
+        // If the selected item is only the item or if multiple items getting selected then ignore LOCKED items
+        if (selected.length === 1 || !canvasElement.locked) {
+          ne.push(children[i]);
+          ce.push(canvasElement);
+        }
       }
     }
-
+    // Update the z-index if only one item is selected
+    if (ne.length === 1) {
+      this.addZIndex(ne[0], ce[0]);
+    }
     this.setInitialGroupRotate(ce[0]);
-    this.selectedNodes = selected;
+    this.selectedNodes = ne;
     this.selectedCanvasElements = ce;
   }
 
@@ -205,7 +215,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   _selectElement(node, canvasElement, enableRotate) {
     // Store the selected element ref and show toobar
-    this.addZIndex(node, canvasElement);
+    // this.addZIndex(node, canvasElement);
   }
 
   getInitialRotateDeg() {
@@ -213,7 +223,11 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     return val ? parseInt(val.split('rotate(')[1], 10) : 0;
   }
 
-  addZIndex(node, canvasElement) {
+  addZIndex(node, canvasElement: CanvasElement) {
+    // In case if user select same item or click on the same Items multiple times. then ignore the z-index update
+    if (canvasElement.locked || canvasElement.style[CSS_PROPERTIES.Z_INDEX] === this.project.currentZindex - 1) {
+      return;
+    }
     CanvasUtils.applyCss(node, canvasElement, {
       [CSS_PROPERTIES.Z_INDEX]: this.project.currentZindex++
     }, true);

@@ -20,6 +20,7 @@ export enum ELEMENT_TYPES {
   CANVAS,
   BACKGROUND,
   PHOTO,
+  ANY,
   TEXT,
   VECTOR,
   GROUP,

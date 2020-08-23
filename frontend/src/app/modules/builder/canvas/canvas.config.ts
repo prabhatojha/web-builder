@@ -29,6 +29,10 @@ export const CANVAS_PROJECT = {
   elementId: 'my-first-element',
   id: 'jfaslj12o4u12oi',
   currentZindex: 1,
+  zIndex: {
+    [ELEMENT_TYPES.PHOTO]: 500,
+    [ELEMENT_TYPES.ANY]: 5000
+  },
   canvasElement: {
     type: ELEMENT_TYPES.BACKGROUND,
     tag: 'div',
@@ -62,4 +66,4 @@ export const CANVAS_PROJECT = {
     },
     children: []
   }
-}
+};
