@@ -166,9 +166,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
       transform: e.transform
     });
     const deg = CSSUtils.getRotationValue(this.getFirstNode());
-    // console.log(deg);
     this.setDisplayLabel(e.clientX, e.clientY, `${deg} deg`);
-
   }
 
   updateNodeCss(styles, index = 0) {

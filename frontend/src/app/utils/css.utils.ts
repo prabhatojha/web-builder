@@ -65,12 +65,17 @@ export class CSSUtils {
    * @param type anything from CSS_PROPERTIES
    */
   static getMatrixValue(node: Element, type) {
-    const parentTransform = window.getComputedStyle(node).transform;
-    const values = parentTransform.match(this.matrixPattern);
+    const matrix = window.getComputedStyle(node).transform;
+
+    let values: any = matrix.split('(')[1];
+    values = values.split(')')[0];
+    values = values.split(',');
+
     if (!values) {
       return [0, 0];
     }
 
+    // If someone needs complete matrix
     if (type === CSS_PROPERTIES.TRANSFORM) {
       return values.map(val => parseFloat(val));
     }
@@ -86,14 +91,7 @@ export class CSSUtils {
     const values = this.getMatrixValue(node, CSS_PROPERTIES.TRANSFORM);
     const a = values[0];
     const b = values[1];
-    const c = values[2];
-    const d = values[3];
 
-    const scale = Math.sqrt(a * a + b * b);
-
-    // arc sin, convert from radians to degrees, round
-    // DO NOT USE: see update below
-    const sin = b / scale;
     return Math.round(Math.atan2(b, a) * (180 / Math.PI));
   }
 }
