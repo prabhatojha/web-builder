@@ -6,14 +6,14 @@ export class CSSUtils {
   static TRANSFORM_TRANSLATE = /(?<=translate\()(.*)(?=\s*\))/;
   static matrixPattern = /-?\d+\.?\d*/g;
   static MATRIX_2D_LOCATION = {
-    [CSS_PROPERTIES.TRANSFORM]: [4, 5]
+    [CSS_PROPERTIES.TRANSLATE]: [4, 5]
   };
 
   static MATRIX_3D_LOCATION = {
-    [CSS_PROPERTIES.TRANSFORM]: [13, 14]
+    [CSS_PROPERTIES.TRANSLATE]: [13, 14]
   };
 
-  static getTransformValue(transformStyle, field: 'rotate' | 'translate'): any {
+  static getTransformValue(transformStyle, field: 'rotate' | 'translate' | string): any {
     switch (field) {
       case 'rotate':
         const val = this.matchReg(transformStyle, this.TRANSFORM_ROTATE);
@@ -46,10 +46,16 @@ export class CSSUtils {
   static updateTransformValue(styles: any, field: 'rotate' | 'translate' | 'scale', fieldValue): any {
     if (!styles[CSS_PROPERTIES.TRANSFORM]) {
       styles[CSS_PROPERTIES.TRANSFORM] = fieldValue;
+      return;
     }
     const replacer = fieldValue.split('(')[0];
-    styles[CSS_PROPERTIES.TRANSFORM] = styles[CSS_PROPERTIES.TRANSFORM]
-      .replace(new RegExp(replacer + '\(.*\)'), fieldValue);
+    if (styles[CSS_PROPERTIES.TRANSFORM].includes(replacer)) {
+      styles[CSS_PROPERTIES.TRANSFORM] = styles[CSS_PROPERTIES.TRANSFORM]
+        .replace(new RegExp(replacer + '\(.*\)'), fieldValue);
+    } else {
+      styles[CSS_PROPERTIES.TRANSFORM] = styles[CSS_PROPERTIES.TRANSFORM] + ` ${fieldValue}`;
+    }
+
   }
 
 
@@ -64,6 +70,11 @@ export class CSSUtils {
     if (!values) {
       return [0, 0];
     }
+
+    if (type === CSS_PROPERTIES.TRANSFORM) {
+      return values.map(val => parseFloat(val));
+    }
+
     if (values.length === 6) {
       return this.MATRIX_2D_LOCATION[type].map(index => parseFloat(values[index]));
     } else {
@@ -71,5 +82,18 @@ export class CSSUtils {
     }
   }
 
+  static getRotationValue(node: Element) {
+    const values = this.getMatrixValue(node, CSS_PROPERTIES.TRANSFORM);
+    const a = values[0];
+    const b = values[1];
+    const c = values[2];
+    const d = values[3];
 
+    const scale = Math.sqrt(a * a + b * b);
+
+    // arc sin, convert from radians to degrees, round
+    // DO NOT USE: see update below
+    const sin = b / scale;
+    return Math.round(Math.atan2(b, a) * (180 / Math.PI));
+  }
 }

@@ -1,6 +1,7 @@
 import {
   Component, Input, OnChanges, SimpleChanges, ChangeDetectorRef, ViewEncapsulation, OnDestroy,
-  ViewChild
+  ViewChild,
+  ElementRef
 } from '@angular/core';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { CanvasUtils } from 'src/app/utils/canvas.utils';
@@ -11,6 +12,7 @@ import { ELE_VS_RESIZE_HANDLES, ELE_VS_KEEP_RATIO, ELE_VS_RESIZABLE } from 'src/
 import { ResizeEventerService } from 'src/app/modules/shared/services/resize-eventer/resize-eventer.service';
 import { EventerService, EventModal, EventTypes } from 'src/app/modules/shared/services/eventer.service';
 import { filter } from 'rxjs/operators';
+import { CSSUtils } from 'src/app/utils/css.utils';
 
 @Component({
   selector: 'app-select-element',
@@ -26,6 +28,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   @Input() defaultGroupRotate = 0;
 
   @ViewChild('moveable', { static: false }) moveable: Moveable;
+  @ViewChild('moveableLabel', { static: false }) moveableLabel: ElementRef;
 
   previousSelectedNode: any;
   previousSelectedCanvasEle: CanvasElement;
@@ -103,12 +106,14 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
       height,
       transform: e.drag.transform
     });
+    this.setDisplayLabel(e.clientX, e.clientY, `w: ${width}<br>h: ${height}`);
   }
 
   onScaling(e) {
     this.updateNodeCss({
       transform: e.drag.transform + ` scale(${e.scale[0]}, ${e.scale[1]})`
     });
+    this.setDisplayLabel(e.clientX, e.clientY, `x: ${e.scale[0].toFixed(2)}<br>y: ${e.scale[1].toFixed(2)}`);
   }
 
   onElementClick(e) {
@@ -151,9 +156,6 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   dragging(e) {
-    e.inputEvent.stopPropagation();
-    const { left, top } = e;
-
     this.updateNodeCss({
       transform: e.transform
     });
@@ -163,6 +165,10 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     this.updateNodeCss({
       transform: e.transform
     });
+    const deg = CSSUtils.getRotationValue(this.getFirstNode());
+    // console.log(deg);
+    this.setDisplayLabel(e.clientX, e.clientY, `${deg} deg`);
+
   }
 
   updateNodeCss(styles, index = 0) {
@@ -220,6 +226,17 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
         transform: ev.drag.transform + ` rotate(${ev.rotate}deg)`
       }, i);
     });
+  }
+
+  setDisplayLabel(clientX, clientY, text) {
+    this.moveableLabel.nativeElement.style.cssText = `
+display: block; transform: translate(${clientX}px, ${clientY -
+      10}px) translate(-100%, -100%) translateZ(-100px);`;
+    this.moveableLabel.nativeElement.innerHTML = text;
+  }
+
+  onEnd() {
+    this.moveableLabel.nativeElement.style.display = 'none';
   }
 
   ngOnDestroy() {

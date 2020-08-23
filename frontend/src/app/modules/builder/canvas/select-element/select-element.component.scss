@@ -1,3 +1,16 @@
 @import "../../../../../style/colors.scss";
 
-
+.moveable-label {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 5px;
+  border-radius: 3px;
+  background: #333;
+  color: #fff;
+  font-weight: bold;
+  font-size: 12px;
+  transform: translate(-100%, -100%);
+  z-index: 9999;
+}

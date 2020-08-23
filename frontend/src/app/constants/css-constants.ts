@@ -28,6 +28,7 @@ export const CSS_PROPERTIES = {
   WIDTH: 'width',
   HEIGHT: 'height',
   TRANSFORM: 'transform',
+  TRANSLATE: 'translate',
   ROTATE: 'rotate',
   TRANSLATE_X: 'translateX',
   TRANSLATE_Y: 'translateY',
