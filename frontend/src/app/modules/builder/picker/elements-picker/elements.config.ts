@@ -41,3 +41,24 @@ export function getLineItems() {
     };
   });
 }
+
+export function getBoxeItems() {
+
+  const hrStyle = CommonUtils.cloneDeep(HR_TAG_DEFAULT_STYLE);
+  const containerStyle = CommonUtils.cloneDeep(IMAGE_CONTAINER_DEFAULT_STYLE);
+
+  const child = new CanvasElement('hr', {}, hrStyle, []);
+  const canvasElement = new CanvasElement('div', {}, containerStyle, [child]);
+  canvasElement.type = ELEMENT_TYPES.LINE;
+
+  return LINE_STYLES.map(line => {
+    const can = CommonUtils.cloneDeep(canvasElement);
+    can.children[0].style['border-top'] = `${line.border} solid`;
+    can.children[0].style['border-style'] = line.style;
+    return {
+      imageUrl: line.image,
+      backgroundSize: 'fixed',
+      canvasElement: can
+    };
+  });
+}

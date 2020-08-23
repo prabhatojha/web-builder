@@ -16,10 +16,9 @@ $primaryButtonFontSize: 20px;
   }
 }
 
-.btn-light {
-  border: 1px solid $gray-100;
-}
-
-.btn-light:hover {
+.btn-light,
+.btn-light:hover,
+.btn-light.disabled,
+.btn-light:disabled {
   border: 1px solid $gray-100;
 }

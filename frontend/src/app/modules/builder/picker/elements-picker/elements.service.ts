@@ -27,12 +27,21 @@ export class ElementsService {
 
   constructor(private httpService: HttpService) {
     this.addLineItems();
-    // this.getPhotos();
+    // this.addBoxItems();
   }
 
   addLineItems() {
     const item = {
       label: 'Lines',
+      values: getLineItems()
+    };
+
+    this.elements.push(item);
+  }
+
+  addBoxItems() {
+    const item = {
+      label: 'Boxes',
       values: getLineItems()
     };
 

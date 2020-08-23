@@ -3,11 +3,9 @@
     <p>{{item.label}}</p>
     <div class="element-content">
       <ul>
-        <!-- <ng-container *ngFor="let item of backgroundService.backgrounds"> -->
         <li class="image-li" draggable *ngFor="let value of item.values" (dragstart)="dragStart($event, value)"
           (click)="onClick($event, value)" [ngStyle]="{'background-image':'url('+ value.imageUrl +')'}">
         </li>
-        <!-- </ng-container> -->
       </ul>
     </div>
   </div>

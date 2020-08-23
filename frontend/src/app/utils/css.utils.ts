@@ -4,7 +4,14 @@ export class CSSUtils {
 
   static TRANSFORM_ROTATE = /(?<=rotate\()(.*)(?=\s*deg\))/;
   static TRANSFORM_TRANSLATE = /(?<=translate\()(.*)(?=\s*\))/;
+  static matrixPattern = /-?\d+\.?\d*/g;
+  static MATRIX_2D_LOCATION = {
+    [CSS_PROPERTIES.TRANSFORM]: [4, 5]
+  };
 
+  static MATRIX_3D_LOCATION = {
+    [CSS_PROPERTIES.TRANSFORM]: [13, 14]
+  };
 
   static getTransformValue(transformStyle, field: 'rotate' | 'translate'): any {
     switch (field) {
@@ -43,6 +50,25 @@ export class CSSUtils {
     const replacer = fieldValue.split('(')[0];
     styles[CSS_PROPERTIES.TRANSFORM] = styles[CSS_PROPERTIES.TRANSFORM]
       .replace(new RegExp(replacer + '\(.*\)'), fieldValue);
+  }
+
+
+  /**
+   * Reading transform value from Matrix
+   * @param node HTMLElement
+   * @param type anything from CSS_PROPERTIES
+   */
+  static getMatrixValue(node: Element, type) {
+    const parentTransform = window.getComputedStyle(node).transform;
+    const values = parentTransform.match(this.matrixPattern);
+    if (!values) {
+      return [0, 0];
+    }
+    if (values.length === 6) {
+      return this.MATRIX_2D_LOCATION[type].map(index => parseFloat(values[index]));
+    } else {
+      return this.MATRIX_3D_LOCATION[type].map(index => parseFloat(values[index]));
+    }
   }
 
 

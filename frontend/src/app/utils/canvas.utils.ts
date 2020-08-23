@@ -97,6 +97,9 @@ export class CanvasUtils {
   /* Group Ungrouping - start */
 
   static setGroupNodeLocation(nodes: HTMLElement[], canvasElement: CanvasElement, canvas: HTMLElement) {
+    const parent = document.getElementsByClassName(CSS_CLASSES.MOVEABLE_CONTOLL_BOX)[0];
+    const parentTransform = CSSUtils.getMatrixValue(parent, CSS_PROPERTIES.TRANSFORM);
+
     const canvasRect = canvas.getBoundingClientRect();
     let top = 10000;
     let left = 10000;
@@ -104,6 +107,9 @@ export class CanvasUtils {
     let bottom = -10000;
 
     nodes.forEach((node: HTMLElement) => {
+      const childTransform = CSSUtils.getMatrixValue(node, CSS_PROPERTIES.TRANSFORM);
+      console.log(parentTransform, '        \n  ', childTransform);
+
       const rect: DOMRect = node.getBoundingClientRect();
       if (top > rect.top) {
         top = rect.top;
