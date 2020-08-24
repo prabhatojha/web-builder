@@ -7,7 +7,7 @@ import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { CanvasUtils } from 'src/app/utils/canvas.utils';
 import { ELEMENT_TYPES } from 'src/app/constants/contants';
 import Moveable from 'moveable';
-import { ElementDimentionModel, CSS_PROPERTIES, ATTR_PROPERTIES } from 'src/app/constants/css-constants';
+import { ElementDimentionModel, CSS_PROPERTIES, ATTR_PROPERTIES, CSS_CLASSES } from 'src/app/constants/css-constants';
 import { ELE_VS_RESIZE_HANDLES, ELE_VS_KEEP_RATIO, ELE_VS_RESIZABLE } from 'src/app/modules/builder/canvas/canvas.config';
 import { ResizeEventerService } from 'src/app/modules/shared/services/resize-eventer/resize-eventer.service';
 import { EventerService, EventModal, EventTypes } from 'src/app/modules/shared/services/eventer.service';
@@ -106,14 +106,14 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
       height,
       transform: e.drag.transform
     });
-    this.setDisplayLabel(e.clientX, e.clientY, `w: ${width}<br>h: ${height}`);
+    this.setDisplayLabel(e.clientX, e.clientY, `W : ${width}<br>H : ${height}`);
   }
 
   onScaling(e) {
     this.updateNodeCss({
       transform: e.drag.transform + ` scale(${e.scale[0]}, ${e.scale[1]})`
     });
-    this.setDisplayLabel(e.clientX, e.clientY, `x: ${e.scale[0].toFixed(2)}<br>y: ${e.scale[1].toFixed(2)}`);
+    this.setDisplayLabel(e.clientX, e.clientY, `X : ${e.scale[0].toFixed(2)}<br>Y : ${e.scale[1].toFixed(2)}`);
   }
 
   onElementClick(e) {
@@ -166,7 +166,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
       transform: e.transform
     });
     const deg = CSSUtils.getRotationValue(this.getFirstNode());
-    this.setDisplayLabel(e.clientX, e.clientY, `${deg} deg`);
+    this.setDisplayLabel(e.clientX, e.clientY, `${deg} Deg`);
   }
 
   updateNodeCss(styles, index = 0) {
@@ -200,30 +200,38 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     });
   }
 
-  onGroupResize({ events }) {
-    events.forEach((ev, i) => {
+  onGroupResize(e) {
+    e.events.forEach((ev, i) => {
       this.updateNodeCss({
         width: ev.width,
         height: ev.height,
         transform: ev.drag.transform
       }, i);
     });
+
+    this.setDisplayLabel(e.clientX, e.clientY, `W : ${e.target.offsetWidth}<br>H : ${e.target.offsetHeight}`);
+
   }
 
-  onGroupScale({ events }) {
-    events.forEach((ev, i) => {
+  onGroupScale(e) {
+    e.events.forEach((ev, i) => {
       this.updateNodeCss({
         transform: ev.drag.transform + ` scale(${ev.scale[0]}, ${ev.scale[1]})`
       }, i);
     });
+
+    this.setDisplayLabel(e.clientX, e.clientY, `W : ${e.target.offsetWidth}<br>H : ${e.target.offsetHeight}`);
   }
 
-  onGroupRotate({ events }) {
-    events.forEach((ev, i) => {
+  onGroupRotate(e) {
+    e.events.forEach((ev, i) => {
       this.updateNodeCss({
         transform: ev.drag.transform + ` rotate(${ev.rotate}deg)`
       }, i);
     });
+
+    const deg = CSSUtils.getRotationValue(document.getElementsByClassName(CSS_CLASSES.MOVEABLE_AREA)[0]);
+    this.setDisplayLabel(e.clientX, e.clientY, `${deg} Deg`);
   }
 
   setDisplayLabel(clientX, clientY, text) {
