@@ -241,7 +241,7 @@ display: block; transform: translate(${clientX}px, ${clientY -
     this.moveableLabel.nativeElement.innerHTML = text;
   }
 
-  onEnd() {
+  onEnd(e) {
     this.moveableLabel.nativeElement.style.display = 'none';
   }
 
