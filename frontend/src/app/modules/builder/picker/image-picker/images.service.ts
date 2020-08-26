@@ -6,6 +6,7 @@ import { delay } from 'rxjs/operators';
 import { HOT_KEYWORD, ELEMENT_TYPES } from 'src/app/constants/contants';
 import { ImageCanvasElement } from 'src/app/models/image.element.model';
 import { getImageElementInstance } from './image.config';
+import { MOCK_IMAGES } from '../mock-images';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class ImagesService {
   GET_IMAGES = '/api/images';
   PAGE = 0;
   LIMIT = '20';
-  withMock = false;
+  withMock = true;
   isLoading = true;
   query = '';
   EXTRA_DELAY = 1000;
@@ -74,91 +75,6 @@ export class ImagesService {
   }
 
   mock() {
-    return of([
-      {
-        "id": "w9KEokhajKw",
-        "thumb": "https://images.unsplash.com/photo-1583324113626-70df0f4deaab?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjEzNzIzOX0",
-        "imageUrl": "https://images.unsplash.com/photo-1583324113626-70df0f4deaab?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEzNzIzOX0",
-        "width": 16000,
-        "height": 9000
-      },
-      {
-        "id": "Ikf439frOLg",
-        "thumb": "https://images.unsplash.com/photo-1584687121306-889ff420a474?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjEzNzIzOX0",
-        "imageUrl": "https://images.unsplash.com/photo-1584687121306-889ff420a474?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEzNzIzOX0",
-        "width": 2306,
-        "height": 3500
-      },
-      {
-        "id": "Mbfz0Lm2jr0",
-        "thumb": "https://images.unsplash.com/photo-1587493681629-6b4c02555fee?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjEzNzIzOX0",
-        "imageUrl": "https://images.unsplash.com/photo-1587493681629-6b4c02555fee?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEzNzIzOX0",
-        "width": 2048,
-        "height": 3072
-      },
-      {
-        "id": "Sss9uGhSiPw",
-        "thumb": "https://images.unsplash.com/photo-1584556812952-905ffd0c611a?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjEzNzIzOX0",
-        "imageUrl": "https://images.unsplash.com/photo-1584556812952-905ffd0c611a?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEzNzIzOX0",
-        "width": 4608,
-        "height": 3072
-      },
-      {
-        "id": "9b4QLnWR3Sk",
-        "thumb": "https://images.unsplash.com/photo-1591185157258-11aec5f039d0?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjEzNzIzOX0",
-        "imageUrl": "https://images.unsplash.com/photo-1591185157258-11aec5f039d0?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEzNzIzOX0",
-        "width": 6000,
-        "height": 4000
-      },
-      {
-        "id": "92EsTvssqEE",
-        "thumb": "https://images.unsplash.com/photo-1590292804913-a6174c36ecf3?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjEzNzIzOX0",
-        "imageUrl": "https://images.unsplash.com/photo-1590292804913-a6174c36ecf3?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEzNzIzOX0",
-        "width": 4057,
-        "height": 6085
-      },
-      {
-        "id": "JDm4bagm2LA",
-        "thumb": "https://images.unsplash.com/photo-1590935216525-e35827458736?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjEzNzIzOX0",
-        "imageUrl": "https://images.unsplash.com/photo-1590935216525-e35827458736?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEzNzIzOX0",
-        "width": 2666,
-        "height": 3999
-      },
-      {
-        "id": "Lc0oQ05JNGg",
-        "thumb": "https://images.unsplash.com/photo-1584972055996-56af6f368174?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjEzNzIzOX0",
-        "imageUrl": "https://images.unsplash.com/photo-1584972055996-56af6f368174?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEzNzIzOX0",
-        "width": 9447,
-        "height": 8333
-      },
-      {
-        "id": "-ivUqmSSJrw",
-        "thumb": "https://images.unsplash.com/photo-1580907413813-87aaf61e28f1?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjEzNzIzOX0",
-        "imageUrl": "https://images.unsplash.com/photo-1580907413813-87aaf61e28f1?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEzNzIzOX0",
-        "width": 5616,
-        "height": 3744
-      },
-      {
-        "id": "WIYtZU3PxsI",
-        "thumb": "https://images.unsplash.com/photo-1583947582886-f40ec95dd752?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjEzNzIzOX0",
-        "imageUrl": "https://images.unsplash.com/photo-1583947582886-f40ec95dd752?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEzNzIzOX0",
-        "width": 5568,
-        "height": 3712
-      },
-      {
-        "id": "60QEnTvCNDo",
-        "thumb": "https://images.unsplash.com/photo-1584127050037-746c151b9284?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjEzNzIzOX0",
-        "imageUrl": "https://images.unsplash.com/photo-1584127050037-746c151b9284?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEzNzIzOX0",
-        "width": 4735,
-        "height": 7099
-      },
-      {
-        "id": "zHDzQDr5_DI",
-        "thumb": "https://images.unsplash.com/photo-1584263345983-e8a1fcd129fb?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjEzNzIzOX0",
-        "imageUrl": "https://images.unsplash.com/photo-1584263345983-e8a1fcd129fb?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEzNzIzOX0",
-        "width": 7720,
-        "height": 5149
-      }
-    ]);
+    return of(MOCK_IMAGES);
   }
 }

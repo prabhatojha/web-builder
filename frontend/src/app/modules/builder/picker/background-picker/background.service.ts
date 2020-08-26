@@ -7,7 +7,7 @@ import { HOT_KEYWORD, ELEMENT_TYPES } from 'src/app/constants/contants';
 import { ImageCanvasElement } from 'src/app/models/image.element.model';
 import { getVectorElementInstance } from '../image-picker/image.config';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
-import { MOCK_IMAGES } from '../mock-images';
+import { MOCK_BACKGROUNDS } from '../mock-images';
 import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
 
 @Injectable({
@@ -19,7 +19,7 @@ export class BackgroundService {
   GET_IMAGES = '/api/images';
   PAGE = 0;
   LIMIT = '20';
-  withMock = false;
+  withMock = true;
   isLoading = true;
   query = '';
   EXTRA_DELAY = 10;
@@ -78,6 +78,6 @@ export class BackgroundService {
   }
 
   mock() {
-    return of(MOCK_IMAGES);
+    return of(MOCK_BACKGROUNDS);
   }
 }
