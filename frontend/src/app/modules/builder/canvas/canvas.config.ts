@@ -12,7 +12,8 @@ export const ELE_VS_KEEP_RATIO = {
   [ELEMENT_TYPES.TEXT]: false,
   [ELEMENT_TYPES.PHOTO]: false,
   [ELEMENT_TYPES.GROUP]: true,
-  [ELEMENT_TYPES.MULTIPLE_SELECTION]: true
+  [ELEMENT_TYPES.MULTIPLE_SELECTION]: true,
+  [ELEMENT_TYPES.VECTOR]: true
 };
 
 // Weather element should scale or just resize the width
@@ -21,7 +22,8 @@ export const ELE_VS_RESIZABLE = {
   [ELEMENT_TYPES.PHOTO]: true,
   [ELEMENT_TYPES.GROUP]: false,
   [ELEMENT_TYPES.MULTIPLE_SELECTION]: false,
-  [ELEMENT_TYPES.LINE]: true
+  [ELEMENT_TYPES.LINE]: true,
+  [ELEMENT_TYPES.VECTOR]: true
 };
 
 

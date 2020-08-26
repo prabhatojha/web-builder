@@ -98,3 +98,7 @@ button {
   -ms-user-drag: element;
   user-drag: element;
 }
+
+.rotate-90 {
+  transform: rotate(90deg);
+}

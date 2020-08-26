@@ -88,10 +88,9 @@
     <!-- Flip Horizontal -->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.FLIP_HORIZONTAL]">
       <div class="toolbar-item">
-        <button class="toolbar-icon-size" mat-icon-button (click)="onItalicClick()" matTooltip="Text Italic"
-          matTooltipPosition="above" [disabled]="isLocked"
-          [class.icon-pressed]="styles[CSS_PROPS.FONT_ITALIC] === CSS_PROP_VALUES.FONT_ITALIC">
-          <i class="material-icons">repeat</i>
+        <button class="toolbar-icon-size" mat-icon-button (click)="onFlip(-1, 1)" matTooltip="Flip Horizontally"
+          matTooltipPosition="above" [disabled]="isLocked">
+          <i class="material-icons rotate-90">unfold_less</i>
         </button>
       </div>
     </ng-container>
@@ -99,10 +98,9 @@
     <!-- Flip Vertical -->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.FLIP_VERTICAL]">
       <div class="toolbar-item">
-        <button class="toolbar-icon-size" mat-icon-button (click)="onItalicClick()" matTooltip="Text Italic"
-          matTooltipPosition="above" [disabled]="isLocked"
-          [class.icon-pressed]="styles[CSS_PROPS.FONT_ITALIC] === CSS_PROP_VALUES.FONT_ITALIC">
-          <i class="material-icons">repeat</i>
+        <button class="toolbar-icon-size" mat-icon-button (click)="onFlip(1, -1)" matTooltip="Flip Vertically"
+          matTooltipPosition="above" [disabled]="isLocked">
+          <i class="material-icons">unfold_less</i>
         </button>
       </div>
     </ng-container>

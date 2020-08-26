@@ -6,6 +6,7 @@ import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { CSS_PROPERTIES, CSS_PROPERTY_VALUES } from 'src/app/constants/css-constants';
 import { CanvasUtils } from 'src/app/utils/canvas.utils';
 import { EventerService, EventTypes } from '../../shared/services/eventer.service';
+import { CSSUtils } from 'src/app/utils/css.utils';
 
 @Component({
   selector: 'app-toolbar',
@@ -142,6 +143,13 @@ export class ToolbarComponent implements OnInit, OnChanges {
       if (!this.selectedCanvasElements[index].locked) {
         CanvasUtils.applyCss(node, this.selectedCanvasElements[index], styles, permanent);
       }
+    });
+  }
+
+  onFlip(x, y) {
+    const style = this.fistCanvasElement.style;
+    this.updateCss({
+      [CSS_PROPERTIES.TRANSFORM]: style[CSS_PROPERTIES.TRANSFORM] + ` scale(${x}, ${y})`
     });
   }
 
