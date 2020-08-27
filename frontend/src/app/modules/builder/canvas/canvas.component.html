@@ -13,7 +13,7 @@
     </div>
     <div style="width: 100%; height: 50px;"></div>
     <app-select-element [selectedNodes]="selectedNodes" [defaultGroupRotate]="defaultGroupRotate"
-      [selectedCanvasElements]="selectedCanvasElements" [container]="canvas">
+      [guidingElements]="guidingElements" [selectedCanvasElements]="selectedCanvasElements" [container]="canvas">
     </app-select-element>
     <ngx-selecto [container]="canvas" [dragContainer]="canvasContainer" [selectableTargets]='projectNode.childNodes'
       [selectByClick]="true" [selectFromInside]="true" [continueSelect]="false" [toggleContinueSelect]="'shift'"

@@ -68,6 +68,7 @@ export class VectorService {
       this.updateWidth(image.canvasElement, photo.thumbWidth, photo.thumbHeight);
       this.vectors.push(image);
     });
+    console.log(photos);
 
     this.isLoading = false;
   }

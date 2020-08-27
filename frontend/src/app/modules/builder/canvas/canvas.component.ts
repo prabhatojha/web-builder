@@ -33,7 +33,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   selectedCanvasElements: CanvasElement[];
 
   // Project node is the first canvas element from CANVAS_PROJECT
-  projectNode: HTMLElement;
+  projectNode: Element;
   toolbarOptions = [];
 
   project = CANVAS_PROJECT;
@@ -41,6 +41,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   showPreview = false;
 
   defaultGroupRotate = 0;
+
+  guidingElements = []; // Is used to set elementGuidelines to ngx-moveable
 
   constructor(private eventer: EventerService) {
   }
@@ -129,6 +131,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     const children = this.projectNode.children;
     const ce = [];
     const ne = [];
+    const newGudingEle = [];
 
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < children.length; i++) {
@@ -140,6 +143,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
           ne.push(children[i]);
           ce.push(canvasElement);
         }
+      } else {
+        // If element is not selected move them to guiding elments
+        newGudingEle.push(children[i]);
       }
     }
     // Update the z-index if only one item is selected
@@ -149,6 +155,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this.setInitialGroupRotate(ce[0]);
     this.selectedNodes = ne;
     this.selectedCanvasElements = ce;
+    this.guidingElements = newGudingEle;
   }
 
   setInitialGroupRotate(canvasElement: CanvasElement) {
@@ -205,6 +212,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   selectElement(node, canvasElement, enableRotate) {
     this.selectedNodes = [node];
     this.selectedCanvasElements = [canvasElement];
+    this.guidingElements = Array.from(this.projectNode.children);
   }
 
 

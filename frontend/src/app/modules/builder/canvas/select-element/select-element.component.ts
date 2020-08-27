@@ -23,6 +23,7 @@ import { CSSUtils } from 'src/app/utils/css.utils';
 export class SelectElementComponent implements OnChanges, OnDestroy {
 
   @Input() selectedNodes: HTMLElement[] = [];
+  @Input() guidingElements: HTMLElement[] = [];
   @Input() selectedCanvasElements: CanvasElement[] = [];
   @Input() container: any;
   @Input() defaultGroupRotate = 0;
