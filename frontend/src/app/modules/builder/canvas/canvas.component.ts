@@ -109,8 +109,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   onSelection(e) {
-    e.removed.forEach(t => t.style.outline = '');
-    e.selected.forEach(t => t.style.outline = '1px dashed darkgray');
+    e.removed.forEach((t: Element) => t.classList.remove(CSS_CLASSES.SELECTABLE_ITEM_GUID));
+    e.selected.forEach((t: Element) => t.classList.add(CSS_CLASSES.SELECTABLE_ITEM_GUID));
   }
 
   selectoDragStart(e) {
@@ -199,24 +199,14 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   attachEventListner(node, canvasElement, enableRotate = true) {
     this.selectElement(node, canvasElement, enableRotate);
+    this.addZIndex(node, canvasElement);
   }
 
   selectElement(node, canvasElement, enableRotate) {
     this.selectedNodes = [node];
     this.selectedCanvasElements = [canvasElement];
-
-    // When user add a new item, we are slecting it by default
-    this._selectElement(node, canvasElement, enableRotate);
-
-    node.addEventListener('mousedown', (e) => {
-      this._selectElement(node, canvasElement, enableRotate);
-    });
   }
 
-  _selectElement(node, canvasElement, enableRotate) {
-    // Store the selected element ref and show toobar
-    // this.addZIndex(node, canvasElement);
-  }
 
   getInitialRotateDeg() {
     const val = this.selectedNode.style.transform;

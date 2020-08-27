@@ -82,5 +82,6 @@ export const CSS_CLASSES = {
   MOVEABLE_CONTOLL_BOX: 'moveable-control-box',
   MOVEABLE_CONTROL: 'moveable-control',
   MOVEABLE_LINE: 'moveable-line',
-  EDITABLE_CONTENT: 'users-editable-content'
+  EDITABLE_CONTENT: 'users-editable-content',
+  SELECTABLE_ITEM_GUID: 'selected-item-guide'
 };

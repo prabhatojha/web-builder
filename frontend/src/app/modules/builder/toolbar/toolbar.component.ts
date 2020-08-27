@@ -148,8 +148,9 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
   onFlip(x, y) {
     const style = this.fistCanvasElement.style;
+    const val = style[CSS_PROPERTIES.TRANSFORM];
     this.updateCss({
-      [CSS_PROPERTIES.TRANSFORM]: style[CSS_PROPERTIES.TRANSFORM] + ` scale(${x}, ${y})`
+      [CSS_PROPERTIES.TRANSFORM]: val ? `${val} scale(${x}, ${y})` : `scale(${x}, ${y})`
     });
   }
 

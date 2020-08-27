@@ -60,3 +60,7 @@ $toolBarHeight: 50px;
   color: rgba(0, 0, 0, 0.842);
   cursor: ew-resize;
 }
+
+.selected-item-guide {
+  outline: 1px dashed $gray-100;
+}
