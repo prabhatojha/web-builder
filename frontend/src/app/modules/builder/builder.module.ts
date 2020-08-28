@@ -29,12 +29,14 @@ import { LetterSpacingComponent } from './toolbar/letter-spacing/letter-spacing.
 import { TextDecorationComponent } from './toolbar/text-decoration/text-decoration.component';
 import { BackgroundPickerComponent } from './picker/background-picker/background-picker.component';
 import { ElementsPickerComponent } from './picker/elements-picker/elements-picker.component';
+import { OpacityComponent } from './toolbar/opacity/opacity.component';
 
 @NgModule({
   declarations: [PickersComponent, BuilderComponent, PickerComponent, CanvasComponent, ToolbarComponent,
     ToolbarPanelComponent, ColorPickerComponent, CanvasPreviewComponent, CanvasScaleComponent, TextAlignmentComponent,
     ImagePickerComponent, TextPickerComponent, FontFamilyComponent, VectorPickerComponent, FontSizeComponent,
-    SelectElementComponent, DragElementComponent, LetterSpacingComponent, TextDecorationComponent, BackgroundPickerComponent, ElementsPickerComponent],
+    SelectElementComponent, DragElementComponent, LetterSpacingComponent, TextDecorationComponent, BackgroundPickerComponent,
+    ElementsPickerComponent, OpacityComponent],
   imports: [
     CommonModule,
     BuilderRoutingModule,

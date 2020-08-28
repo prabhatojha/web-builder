@@ -1,20 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { OpacityComponent } from './opacity.component';
 
-import { SliderComponent } from './slider.component';
 
 describe('SliderComponent', () => {
-  let component: SliderComponent;
-  let fixture: ComponentFixture<SliderComponent>;
+  let component: OpacityComponent;
+  let fixture: ComponentFixture<OpacityComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SliderComponent ]
-    })
-    .compileComponents();
+      declarations: [OpacityComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SliderComponent);
+    fixture = TestBed.createComponent(OpacityComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

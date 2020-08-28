@@ -244,6 +244,7 @@ display: block; transform: translate(${clientX}px, ${clientY -
 
   onEnd(e) {
     this.moveableLabel.nativeElement.style.display = 'none';
+    console.log('End');
   }
 
   ngOnDestroy() {

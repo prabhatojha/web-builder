@@ -2,10 +2,10 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange
 
 @Component({
   selector: 'app-slider',
-  templateUrl: './slider.component.html',
-  styleUrls: ['./slider.component.scss']
+  templateUrl: './opacity.component.html',
+  styleUrls: ['./opacity.component.scss']
 })
-export class SliderComponent implements OnChanges {
+export class OpacityComponent implements OnChanges {
 
   @Input() selectedOpacity = 1;
   @Input() disabled;

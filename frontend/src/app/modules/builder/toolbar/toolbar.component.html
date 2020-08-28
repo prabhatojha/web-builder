@@ -105,19 +105,6 @@
       </div>
     </ng-container>
 
-    <!-- Undo Redo -->
-    <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.UNDO_REDO]">
-      <div class="toolbar-item">
-        <button mat-icon-button (click)="undoItem()" matTooltip='Undo' matTooltipPosition="above">
-          <i class="material-icons">undo</i>
-        </button>
-
-        <button mat-icon-button (click)="redoItem()" matTooltip="Redo" matTooltipPosition="above">
-          <i class="material-icons">redo</i>
-        </button>
-      </div>
-    </ng-container>
-
     <!-- Letter spacing -->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.LETTER_SPACING]">
       <div class="toolbar-item">
@@ -127,6 +114,7 @@
     </ng-container>
   </div>
   <div class="toolbar-items-right">
+
     <div *ngIf="isGroupUngroupVisible" class="toolbar-item">
       <button mat-icon-button class="toolbar-icon-size" (click)="groupItem()"
         [matTooltip]="isGroupedItems ? 'Ungroup': 'Group'" matTooltipPosition="above"
@@ -166,5 +154,18 @@
         </button>
       </div>
     </ng-container>
+
+    <!-- Undo Redo -->
+    <div class="toolbar-item">
+      <button mat-icon-button class="toolbar-icon-size" (click)="undoItem()" matTooltip='Undo'
+        matTooltipPosition="above">
+        <i class="material-icons">undo</i>
+      </button>
+
+      <button mat-icon-button class="toolbar-icon-size" (click)="redoItem()" matTooltip="Redo"
+        matTooltipPosition="above">
+        <i class="material-icons">redo</i>
+      </button>
+    </div>
   </div>
 </div>

@@ -33,7 +33,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   selectedCanvasElements: CanvasElement[];
 
   // Project node is the first canvas element from CANVAS_PROJECT
-  projectNode: Element;
+  projectNode: HTMLElement;
   toolbarOptions = [];
 
   project = CANVAS_PROJECT;
