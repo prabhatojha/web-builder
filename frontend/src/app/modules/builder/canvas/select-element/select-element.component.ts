@@ -102,6 +102,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   onResize(e) {
     const { width, height } = e;
+    console.log('resizing', e);
     this.updateNodeCss({
       width,
       height,
@@ -244,7 +245,7 @@ display: block; transform: translate(${clientX}px, ${clientY -
 
   onEnd(e) {
     this.moveableLabel.nativeElement.style.display = 'none';
-    console.log('End');
+    console.log('End', e);
   }
 
   ngOnDestroy() {

@@ -155,7 +155,7 @@ export class CanvasUtils {
   // CSS application start
 
   static applyCss(node: HTMLElement, item: CanvasElement, styles, permanent?: boolean) {
-
+    console.log('applyCss');
     Object.keys(styles).forEach(prop => {
       const value = this._getStyleValue(prop, styles[prop]);
       node.style[prop] = value;

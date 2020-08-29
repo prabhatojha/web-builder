@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, ElementRef, ViewEncapsulation } from '@angular/core';
 import { AVA_TOOLBAR_OPTIONS, ELEMENT_TYPE_VS_TOOLBAR_OPT } from './toolbar.config';
 import { FILTER_TYPES, ELEMENT_TYPES } from '../../../constants/contants';
-import { UndoRedoUtil } from 'src/app/utils/undo-redo.util';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { CSS_PROPERTIES, CSS_PROPERTY_VALUES } from 'src/app/constants/css-constants';
 import { CanvasUtils } from 'src/app/utils/canvas.utils';
 import { EventerService, EventTypes } from '../../shared/services/eventer.service';
 import { CSSUtils } from 'src/app/utils/css.utils';
+import { UndoService } from '../../shared/services/undo-redo/undo.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -43,7 +43,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
   fistCanvasElement: CanvasElement;
 
-  constructor(private eventerService: EventerService) { }
+  constructor(private eventerService: EventerService, public undoService: UndoService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.selectedCanvasElements) {
@@ -193,7 +193,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   onCssChange(conf, cssValue) {
-    UndoRedoUtil.addStyle(this.fistCanvasElement, this.selectedNodes, conf.cssField, cssValue);
+    // UndoRedoUtil.addStyle(this.fistCanvasElement, this.selectedNodes, conf.cssField, cssValue);
   }
 
   updateOpacity(cssValue, permanent) {
@@ -201,11 +201,11 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   undoItem() {
-    UndoRedoUtil.undo(this.selectedCanvasElements, this.selectedNodes);
+    this.undoService.undo();
   }
 
   redoItem() {
-    UndoRedoUtil.redo(this.selectedCanvasElements, this.selectedNodes);
+    this.undoService.redo();
   }
 
   duplicate() {
