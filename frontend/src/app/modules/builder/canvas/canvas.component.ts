@@ -11,6 +11,7 @@ import { CommonUtils } from 'src/app/utils/common.utils';
 import { NgxElementSelectorEvent } from 'projects/ngx-element-selector/src/public-api';
 import { CANVAS_PROJECT } from './canvas.config';
 import { CSSUtils } from 'src/app/utils/css.utils';
+import { UndoService, UndoRedoModel, UndoRedoType } from '../../shared/services/undo-redo/undo.service';
 
 @Component({
   selector: 'app-canvas',
@@ -44,7 +45,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   guidingElements = []; // Is used to set elementGuidelines to ngx-moveable
 
-  constructor(private eventer: EventerService) {
+  constructor(private eventer: EventerService, private undoService: UndoService) {
   }
 
   ngOnInit(): void {
@@ -89,16 +90,25 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   handleBackgroundChange(canvasElement: CanvasElement) {
-    this.projectNode.style[CSS_PROPERTIES.BG] = canvasElement.style[CSS_PROPERTIES.BG];
-    this.project.canvasElement.style[CSS_PROPERTIES.BG] = canvasElement.style[CSS_PROPERTIES.BG];
+    CanvasUtils.applyCss(this.projectNode, this.project.canvasElement, {
+      [CSS_PROPERTIES.BG]: canvasElement.style[CSS_PROPERTIES.BG]
+    });
   }
 
   handleGenericElements(canvasElement: CanvasElement) {
     this.adjustWidthHeight(canvasElement);
     const newNode = CanvasUtils.buildDom(canvasElement);
     this.attachEventListner(newNode, canvasElement);
-    this.projectNode.appendChild(newNode);
-    this.addItemInProject(canvasElement);
+    this.addItemInProject(canvasElement, newNode);
+    this.addToUndoList([canvasElement], [newNode], UndoRedoType.ADD);
+  }
+
+  addToUndoList(canvasElements, nodes, type: UndoRedoType) {
+    this.undoService.add({
+      canvasElements,
+      nodes,
+      type
+    });
   }
 
   adjustWidthHeight(canvasElement: CanvasElement) {
@@ -173,8 +183,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     };
   }
 
-  addItemInProject(item) {
-    this.project.canvasElement.children.push(item);
+  addItemInProject(canvasElement, newNode) {
+    this.projectNode.appendChild(newNode);
+    this.project.canvasElement.children.push(canvasElement);
   }
 
   setNodeLocation(location, newNode: any, canvasElement: CanvasElement) {
@@ -194,6 +205,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     // this.attachEventListner(node, this.project, false);
     this.projectNode = node;
     this.canvas.nativeElement.appendChild(node);
+    this.undoService.init(this.projectNode, this.project.canvasElement);
   }
 
   onCanvasClick(e) {
@@ -235,6 +247,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     const children = this.project.canvasElement.children.filter(t => !canvasElements.includes(t));
     this.project.canvasElement.children = children;
 
+    this.addToUndoList(canvasElements, nodes, UndoRedoType.DELETE);
     nodes.forEach(node => {
       node.remove();
     });

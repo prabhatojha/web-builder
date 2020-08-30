@@ -158,12 +158,12 @@
     <!-- Undo Redo -->
     <div class="toolbar-item">
       <button mat-icon-button class="toolbar-icon-size" (click)="undoItem()" matTooltip='Undo'
-        matTooltipPosition="above">
+        matTooltipPosition="above" [disabled]="undoService.index === -1">
         <i class="material-icons">undo</i>
       </button>
 
       <button mat-icon-button class="toolbar-icon-size" (click)="redoItem()" matTooltip="Redo"
-        matTooltipPosition="above">
+        matTooltipPosition="above" [disabled]="undoService.index+1 === undoService.length">
         <i class="material-icons">redo</i>
       </button>
     </div>

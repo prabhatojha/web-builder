@@ -24,6 +24,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
   @Output() duplicateSelectedItem = new EventEmitter();
   @Output() groupSelectedItem = new EventEmitter();
   @Output() unGroupSelectedItem = new EventEmitter();
+  @Output() clearSelectedElements = new EventEmitter();
 
   filterConfig = [];
   FILTER_TYPES = FILTER_TYPES;
@@ -210,7 +211,6 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
   duplicate() {
     this.duplicateSelectedItem.emit(this.getSelectedItems());
-    // UndoRedoUtil.redo(this.selectedCanvasElements, this.selectedNodes);
   }
 
   getSelectedItems() {
