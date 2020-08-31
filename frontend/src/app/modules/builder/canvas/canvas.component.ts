@@ -136,6 +136,12 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   selectoDragEnd(e) {
   }
 
+  clearItemSelection() {
+    this.selectedNodes = [];
+    this.selectedCanvasElements = [];
+
+  }
+
   onSelectionEnd({ selected }) {
     selected.forEach(t => t.style.outline = '');
     const children = this.projectNode.children;

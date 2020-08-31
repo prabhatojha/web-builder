@@ -202,10 +202,12 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   undoItem() {
+    this.clearSelectedElements.emit();
     this.undoService.undo();
   }
 
   redoItem() {
+    this.clearSelectedElements.emit();
     this.undoService.redo();
   }
 

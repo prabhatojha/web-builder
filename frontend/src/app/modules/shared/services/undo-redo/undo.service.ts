@@ -9,10 +9,11 @@ export enum UndoRedoType {
 }
 
 export class UndoRedoModel {
-  type: UndoRedoTypes;
+  type: UndoRedoType;
   nodes: HTMLElement[];
   canvasElements: CanvasElement[];
-  style?: any;
+  oldStyle?: any;
+  newStyle?: any;
 }
 
 @Injectable({
@@ -81,7 +82,6 @@ export class UndoService {
   }
 
   private removeItem(item: UndoRedoModel) {
-    debugger
     item.nodes.forEach(t => t.remove());
     this.parentCanvasElement.children = item.canvasElements.filter(t => !item.canvasElements.includes(t));
   }

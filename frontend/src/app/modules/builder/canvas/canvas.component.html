@@ -1,7 +1,8 @@
 <div class="tool-bar">
   <app-toolbar [selectedNodes]="selectedNodes" [selectedCanvasElements]="selectedCanvasElements"
-    (duplicateSelectedItem)="onDuplicateSelectedItem($event)" (removeSelectedItem)="onItemRemove($event)"
-    (unGroupSelectedItem)="onItemUnGroup($event)" (groupSelectedItem)="onItemGroup($event)">
+    (clearSelectedElements)="clearItemSelection()" (duplicateSelectedItem)="onDuplicateSelectedItem($event)"
+    (removeSelectedItem)="onItemRemove($event)" (unGroupSelectedItem)="onItemUnGroup($event)"
+    (groupSelectedItem)="onItemGroup($event)">
   </app-toolbar>
 </div>
 
