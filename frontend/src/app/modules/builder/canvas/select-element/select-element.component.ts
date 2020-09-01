@@ -13,6 +13,8 @@ import { ResizeEventerService } from 'src/app/modules/shared/services/resize-eve
 import { EventerService, EventModal, EventTypes } from 'src/app/modules/shared/services/eventer.service';
 import { filter } from 'rxjs/operators';
 import { CSSUtils } from 'src/app/utils/css.utils';
+import { CommonUtils } from 'src/app/utils/common.utils';
+import { UndoRedoModel, UndoRedoType, UndoService } from 'src/app/modules/shared/services/undo-redo/undo.service';
 
 @Component({
   selector: 'app-select-element',
@@ -43,7 +45,10 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   resiable = true;
   rotatable = true;
 
-  constructor(private cd: ChangeDetectorRef, private resizeEventer: ResizeEventerService, private eventerService: EventerService) {
+  oldStyles: string[] = [];
+
+  constructor(private cd: ChangeDetectorRef, private resizeEventer: ResizeEventerService, private eventerService: EventerService,
+    private undoService: UndoService) {
     this.resizeEventer.get().subscribe(event => {
       this.moveable.updateRect();
     });
@@ -98,11 +103,11 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   onResizeStart(e) {
     this.manualResize = true;
     e.setOrigin(['%', '%']);
+    this.onStart();
   }
 
   onResize(e) {
     const { width, height } = e;
-    console.log('resizing', e);
     this.updateNodeCss({
       width,
       height,
@@ -243,9 +248,30 @@ display: block; transform: translate(${clientX}px, ${clientY -
     this.moveableLabel.nativeElement.innerHTML = text;
   }
 
+  onStart() {
+    this.oldStyles = CanvasUtils.getClonedStylesAsText(this.selectedCanvasElements);
+  }
+
   onEnd(e) {
+    this.sendToUndoList();
     this.moveableLabel.nativeElement.style.display = 'none';
-    console.log('End', e);
+  }
+
+  sendToUndoList() {
+    const newStyles = CanvasUtils.getClonedStylesAsText(this.selectedCanvasElements);
+
+    if (this.oldStyles.toString() !== newStyles.toString()) {
+      console.log('different styles');
+      const item: UndoRedoModel = {
+        canvasElements: this.selectedCanvasElements,
+        nodes: this.selectedNodes,
+        type: UndoRedoType.STYLE,
+        oldStyle: this.oldStyles,
+        newStyle: newStyles
+      };
+
+      this.undoService.add(item);
+    }
   }
 
   ngOnDestroy() {

@@ -1,4 +1,5 @@
 import { CSS_PROPERTIES } from '../constants/css-constants';
+import { CanvasElement } from '../models/canvas.element.model';
 
 export class CSSUtils {
 
@@ -93,5 +94,9 @@ export class CSSUtils {
     const b = values[1];
 
     return Math.round(Math.atan2(b, a) * (180 / Math.PI));
+  }
+
+  static toText(styles) {
+    return JSON.stringify(styles);
   }
 }
