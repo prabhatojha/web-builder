@@ -205,6 +205,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     events.forEach((ev) => {
       ev.setOrigin(['%', '%']);
     });
+    this.onStart();
   }
 
   onGroupResize(e) {
@@ -261,7 +262,6 @@ display: block; transform: translate(${clientX}px, ${clientY -
     const newStyles = CanvasUtils.getClonedStylesAsText(this.selectedCanvasElements);
 
     if (this.oldStyles.toString() !== newStyles.toString()) {
-      console.log('different styles');
       const item: UndoRedoModel = {
         canvasElements: this.selectedCanvasElements,
         nodes: this.selectedNodes,

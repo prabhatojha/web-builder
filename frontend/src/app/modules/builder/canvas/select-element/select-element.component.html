@@ -6,6 +6,7 @@
   [warpable]="false" [pinchable]="false" [keepRatio]="keepRatio" [defaultGroupRotate]="defaultGroupRotate"
   [elementGuidelines]="guidingElements" (resizeStart)="onResizeStart($event)" (resize)="onResize($event)"
   (drag)="dragging($event)" (dragGroup)="onGroupDrag($event)" (resizeGroupStart)="onGroupResizeStart($event)"
+  (dragStart)="onStart()" (dragGroupStart)="onStart()" (scaleStart)="onStart()" (scaleGroupStart)="onStart()"
   (resizeGroup)="onGroupResize($event)" (scaleGroup)="onGroupScale($event)" (rotateGroup)="onGroupRotate($event)"
   (rotate)="rotating($event)" [throttleResize]="1" [horizontalGuidelines]="[0, 250, 500]" [scalable]="true"
   [snappable]="true" [snapCenter]="true" [verticalGuidelines]="[0, 250, 500]" (scale)="onScaling($event)"

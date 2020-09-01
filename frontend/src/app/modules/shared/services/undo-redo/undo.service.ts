@@ -98,7 +98,7 @@ export class UndoService {
 
   private removeItem(item: UndoRedoModel) {
     item.nodes.forEach(t => t.remove());
-    this.parentCanvasElement.children = item.canvasElements.filter(t => !item.canvasElements.includes(t));
+    this.parentCanvasElement.children = this.parentCanvasElement.children.filter(t => !item.canvasElements.includes(t));
   }
 
   private getOriginalItemStyle(canvasElement: CanvasElement) {
