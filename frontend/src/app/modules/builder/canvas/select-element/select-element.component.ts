@@ -243,9 +243,8 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   setDisplayLabel(clientX, clientY, text) {
-    this.moveableLabel.nativeElement.style.cssText = `
-display: block; transform: translate(${clientX}px, ${clientY -
-      10}px) translate(-100%, -100%) translateZ(-100px);`;
+    this.moveableLabel.nativeElement.style.cssText = `display: block; transform: translate(${clientX}px,
+      ${clientY - 10}px) translate(-100%, -100%) translateZ(-100px);`;
     this.moveableLabel.nativeElement.innerHTML = text;
   }
 

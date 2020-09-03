@@ -140,16 +140,12 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   updateCss(styles, permanent = true) {
-    console.log('updating styles', permanent);
     const oldStyles = CanvasUtils.getClonedStylesAsText(this.selectedCanvasElements);
     this.selectedNodes.forEach((node, index) => {
       if (!this.selectedCanvasElements[index].locked) {
         CanvasUtils.applyCss(node, this.selectedCanvasElements[index], styles, permanent);
       }
     });
-
-    console.log(oldStyles);
-    console.log(CanvasUtils.getClonedStylesAsText(this.selectedCanvasElements));
 
     if (permanent) {
       this.undoService.add({
