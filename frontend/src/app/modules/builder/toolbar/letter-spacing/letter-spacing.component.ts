@@ -13,6 +13,7 @@ export class LetterSpacingComponent implements OnInit {
   @Input() initialStyles = {};
 
   @Output() styleChange = new EventEmitter();
+  @Output() styleChangeEnd = new EventEmitter();
   CSS_PROPERTIES = CSS_PROPERTIES;
 
   isVisible = false;
@@ -27,19 +28,26 @@ export class LetterSpacingComponent implements OnInit {
     this.isVisible = !this.isVisible;
   }
 
-  onLetterSpacing(e) {
-    this.sendEvent(CSS_PROPERTIES.LETTER_SPACING, e.value);
+  onLetterSpacing(e, permanent = false) {
+    this.sendEvent(CSS_PROPERTIES.LETTER_SPACING, e.value, permanent);
   }
 
-  onLineHeight(e) {
-    this.sendEvent(CSS_PROPERTIES.LINE_HEIGHT, this.LINE_HEIGHT + (e.value / 10));
+  onLineHeight(e, permanent = false) {
+    this.sendEvent(CSS_PROPERTIES.LINE_HEIGHT, this.LINE_HEIGHT + (e.value / 10), permanent);
 
   }
 
-  sendEvent(key, value) {
-    this.styleChange.emit({
-      [key]: value
-    });
+  sendEvent(key, value, permanent) {
+    if (permanent) {
+      this.styleChangeEnd.emit({
+        [key]: value
+      });
+    } else {
+      this.styleChange.emit({
+        [key]: value
+      });
+    }
+
 
     this.resizeEventer.send();
   }

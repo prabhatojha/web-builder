@@ -137,6 +137,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   clearItemSelection() {
+    for (const node of this.selectedNodes) {
+      node.classList.remove(CSS_CLASSES.SELECTABLE_ITEM_GUID);
+    }
     this.selectedNodes = [];
     this.selectedCanvasElements = [];
 

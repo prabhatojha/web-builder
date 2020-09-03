@@ -81,10 +81,9 @@ export class UndoService {
     const styles: any[] = isUndo ? item.oldStyle : item.newStyle;
     styles.forEach((stylAsText: string, index) => {
       const styleAsObject = JSON.parse(stylAsText);
-      item.canvasElements[index].style = styleAsObject;
-
       Object.keys(styleAsObject).forEach(key => {
         item.nodes[index].style[key] = styleAsObject[key];
+        item.canvasElements[index].style[key] = styleAsObject[key];
       });
     });
   }
