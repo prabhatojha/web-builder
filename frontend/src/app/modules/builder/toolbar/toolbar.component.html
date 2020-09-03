@@ -109,7 +109,7 @@
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.LETTER_SPACING]">
       <div class="toolbar-item">
         <app-letter-spacing [disabled]="isLocked" [initialStyles]="styles" (styleChange)="updateCss($event, false)"
-          (styleChangeEnd)="updateCss($event)">
+          (styleChangeEnd)="updateCss($event, true)">
         </app-letter-spacing>
       </div>
     </ng-container>

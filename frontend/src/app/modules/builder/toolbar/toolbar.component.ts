@@ -6,7 +6,7 @@ import { CSS_PROPERTIES, CSS_PROPERTY_VALUES } from 'src/app/constants/css-const
 import { CanvasUtils } from 'src/app/utils/canvas.utils';
 import { EventerService, EventTypes } from '../../shared/services/eventer.service';
 import { CSSUtils } from 'src/app/utils/css.utils';
-import { UndoService } from '../../shared/services/undo-redo/undo.service';
+import { UndoService, UndoRedoType } from '../../shared/services/undo-redo/undo.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -141,11 +141,25 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
   updateCss(styles, permanent = true) {
     console.log('updating styles', permanent);
+    const oldStyles = CanvasUtils.getClonedStylesAsText(this.selectedCanvasElements);
     this.selectedNodes.forEach((node, index) => {
       if (!this.selectedCanvasElements[index].locked) {
         CanvasUtils.applyCss(node, this.selectedCanvasElements[index], styles, permanent);
       }
     });
+
+    console.log(oldStyles);
+    console.log(CanvasUtils.getClonedStylesAsText(this.selectedCanvasElements));
+
+    if (permanent) {
+      this.undoService.add({
+        canvasElements: this.selectedCanvasElements,
+        nodes: this.selectedNodes,
+        type: UndoRedoType.STYLE,
+        oldStyle: oldStyles,
+        newStyle: CanvasUtils.getClonedStylesAsText(this.selectedCanvasElements)
+      });
+    }
   }
 
   onFlip(x, y) {
