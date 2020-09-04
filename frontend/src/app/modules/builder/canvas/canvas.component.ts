@@ -90,8 +90,21 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   handleBackgroundChange(canvasElement: CanvasElement) {
-    CanvasUtils.applyCss(this.projectNode, this.project.canvasElement, {
+    const oldStyle = {
+      [CSS_PROPERTIES.BG]: this.project.canvasElement.style[CSS_PROPERTIES.BG]
+    };
+    const newStyle = {
       [CSS_PROPERTIES.BG]: canvasElement.style[CSS_PROPERTIES.BG]
+    };
+
+    CanvasUtils.applyCss(this.projectNode, this.project.canvasElement, newStyle, true);
+
+    this.undoService.add({
+      canvasElements: [this.project.canvasElement],
+      nodes: [this.projectNode],
+      type: UndoRedoType.STYLE,
+      oldStyle: JSON.stringify(oldStyle),
+      newStyle: JSON.stringify(newStyle),
     });
   }
 
@@ -137,8 +150,10 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   clearItemSelection() {
-    for (const node of this.selectedNodes) {
-      node.classList.remove(CSS_CLASSES.SELECTABLE_ITEM_GUID);
+    if (this.selectedNodes) {
+      for (const node of this.selectedNodes) {
+        node.classList.remove(CSS_CLASSES.SELECTABLE_ITEM_GUID);
+      }
     }
     this.selectedNodes = [];
     this.selectedCanvasElements = [];

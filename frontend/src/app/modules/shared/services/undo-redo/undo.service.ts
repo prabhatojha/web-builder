@@ -12,8 +12,8 @@ export class UndoRedoModel {
   type: UndoRedoType;
   nodes: HTMLElement[];
   canvasElements: CanvasElement[];
-  oldStyle?: string[]; // Styles as an object must be stringified
-  newStyle?: string[]; // Styles as an object must be stringified
+  oldStyle?: string[] | string; // Styles as an object must be stringified
+  newStyle?: string[] | string; // Styles as an object must be stringified
 }
 
 @Injectable({
@@ -78,12 +78,12 @@ export class UndoService {
   }
 
   applyStyles(item: UndoRedoModel, isUndo: boolean) {
-    const styles: any[] = isUndo ? item.oldStyle : item.newStyle;
-    styles.forEach((stylAsText: string, index) => {
-      const styleAsObject = JSON.parse(stylAsText);
+    const styles: any = isUndo ? item.oldStyle : item.newStyle;
+    item.canvasElements.forEach((canvasElement: CanvasElement, index) => {
+      const styleAsObject = JSON.parse(Array.isArray(styles[index]) ? styles[index] : styles);
       Object.keys(styleAsObject).forEach(key => {
         item.nodes[index].style[key] = styleAsObject[key];
-        item.canvasElements[index].style[key] = styleAsObject[key];
+        canvasElement.style[key] = styleAsObject[key];
       });
     });
   }

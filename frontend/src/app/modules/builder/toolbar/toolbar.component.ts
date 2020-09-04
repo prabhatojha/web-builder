@@ -139,6 +139,14 @@ export class ToolbarComponent implements OnInit, OnChanges {
     this.updateCss({ [CSS_PROPERTIES.FONT_WEIGHT]: val });
   }
 
+  /**
+   * Will update the CSS respective to each action on toolbar.
+   * One entry point for all toolbar actions
+   * Will register the change to the undo redo service
+   *
+   * @styles action as a style change
+   * @permanent weather to update CanvasElement
+   */
   updateCss(styles, permanent = true) {
     const oldStyles = CanvasUtils.getClonedStylesAsText(this.selectedCanvasElements);
     this.selectedNodes.forEach((node, index) => {
@@ -162,7 +170,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
     const style = this.fistCanvasElement.style;
     const val = style[CSS_PROPERTIES.TRANSFORM];
     this.updateCss({
-      [CSS_PROPERTIES.TRANSFORM]: val ? `${val} scale(${x}, ${y})` : `scale(${x}, ${y})`
+      [CSS_PROPERTIES.TRANSFORM]: val && val !== CSS_PROPERTY_VALUES.NONE ? `${val} scale(${x}, ${y})` : `scale(${x}, ${y})`
     });
   }
 

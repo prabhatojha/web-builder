@@ -59,7 +59,7 @@ export const CANVAS_PROJECT = {
       width: '500px',
       height: '500px',
       position: 'relative',
-      'background-color': 'white',
+      'background': 'white',
       '-webkit-print-color-adjust': 'exact',
       overflow: 'hidden'
     },
