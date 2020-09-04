@@ -1,4 +1,4 @@
-import { CSS_PROPERTIES } from '../constants/css-constants';
+import { CSS_PROPERTIES, CSS_PROPERTY_VALUES } from '../constants/css-constants';
 import { CanvasElement } from '../models/canvas.element.model';
 
 export class CSSUtils {
@@ -45,7 +45,7 @@ export class CSSUtils {
   }
 
   static updateTransformValue(styles: any, field: 'rotate' | 'translate' | 'scale', fieldValue): any {
-    if (!styles[CSS_PROPERTIES.TRANSFORM]) {
+    if (!styles[CSS_PROPERTIES.TRANSFORM] || styles[CSS_PROPERTIES.TRANSFORM] === CSS_PROPERTY_VALUES.NONE) {
       styles[CSS_PROPERTIES.TRANSFORM] = fieldValue;
       return;
     }

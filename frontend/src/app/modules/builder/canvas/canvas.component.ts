@@ -103,8 +103,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       canvasElements: [this.project.canvasElement],
       nodes: [this.projectNode],
       type: UndoRedoType.STYLE,
-      oldStyle: JSON.stringify(oldStyle),
-      newStyle: JSON.stringify(newStyle),
+      oldStyle: [JSON.stringify(oldStyle)],
+      newStyle: [JSON.stringify(newStyle)],
     });
   }
 
