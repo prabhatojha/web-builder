@@ -66,7 +66,7 @@ export class CSSUtils {
    * @param type anything from CSS_PROPERTIES
    */
   static getMatrixValue(node: Element, type) {
-    const matrix = window.getComputedStyle(node).transform;
+    const matrix = this.getComputedStyle(node, CSS_PROPERTIES.TRANSFORM);
 
     let values: any = matrix.split('(')[1];
     values = values.split(')')[0];
@@ -98,5 +98,9 @@ export class CSSUtils {
 
   static toText(styles) {
     return JSON.stringify(styles);
+  }
+
+  static getComputedStyle(node: Element, cssProperty) {
+    return window.getComputedStyle(node)[cssProperty];
   }
 }

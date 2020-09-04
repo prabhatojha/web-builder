@@ -43,6 +43,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
   isOpacitySelectorOpen: boolean;
 
   fistCanvasElement: CanvasElement;
+  firstNode: HTMLElement;
 
   constructor(private eventerService: EventerService, public undoService: UndoService) { }
 
@@ -65,6 +66,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
       this.updateToolbarConfig(ELEMENT_TYPES.MULTIPLE_SELECTION);
     } else {
       this.fistCanvasElement = this.selectedCanvasElements[0];
+      this.firstNode = this.selectedNodes[0];
       this.styles = this.getOriginalItemStyle();
       this.updateToolbarConfig();
     }
@@ -167,8 +169,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   onFlip(x, y) {
-    const style = this.fistCanvasElement.style;
-    const val = style[CSS_PROPERTIES.TRANSFORM];
+    const val = CSSUtils.getComputedStyle(this.firstNode, CSS_PROPERTIES.TRANSFORM);
     this.updateCss({
       [CSS_PROPERTIES.TRANSFORM]: val && val !== CSS_PROPERTY_VALUES.NONE ? `${val} scale(${x}, ${y})` : `scale(${x}, ${y})`
     });
