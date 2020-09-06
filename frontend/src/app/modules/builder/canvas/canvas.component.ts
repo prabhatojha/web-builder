@@ -12,6 +12,7 @@ import { NgxElementSelectorEvent } from 'projects/ngx-element-selector/src/publi
 import { CANVAS_PROJECT } from './canvas.config';
 import { CSSUtils } from 'src/app/utils/css.utils';
 import { UndoService, UndoRedoModel, UndoRedoType } from '../../shared/services/undo-redo/undo.service';
+import { SelectElementComponent } from './select-element/select-element.component';
 
 @Component({
   selector: 'app-canvas',
@@ -23,6 +24,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   @ViewChild('canvas', { static: true }) canvas: ElementRef;
   @ViewChild('canvasContainer', { static: true }) canvasContainer: ElementRef;
+  @ViewChild('selectElementRef', { static: true }) selectElementRef: SelectElementComponent;
   CANVAS_EVENTS = [EventTypes.CANVAS_PREVIEW, EventTypes.CANVAS_DOWNLOAD, EventTypes.CANVAS_ADD_ITEM];
 
   body = document.body;
@@ -160,7 +162,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   }
 
-  onSelectionEnd({ selected }) {
+  onSelectionEnd(e) {
+    console.log(e);
+    const selected = e.selected;
     selected.forEach(t => t.style.outline = '');
     const children = this.projectNode.children;
     const ce = [];
@@ -190,6 +194,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this.selectedNodes = ne;
     this.selectedCanvasElements = ce;
     this.guidingElements = newGudingEle;
+
+    // tslint:disable-next-line: no-unused-expression
+    e.isDragStart && this.selectElementRef.startCustomDrag(e.inputEvent);
   }
 
   setInitialGroupRotate(canvasElement: CanvasElement) {

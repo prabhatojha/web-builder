@@ -6,7 +6,7 @@ import {
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { CanvasUtils } from 'src/app/utils/canvas.utils';
 import { ELEMENT_TYPES } from 'src/app/constants/contants';
-import Moveable from 'moveable';
+import Moveable, { MoveableManagerProps } from 'moveable';
 import { ElementDimentionModel, CSS_PROPERTIES, ATTR_PROPERTIES, CSS_CLASSES } from 'src/app/constants/css-constants';
 import { ELE_VS_RESIZE_HANDLES, ELE_VS_KEEP_RATIO, ELE_VS_RESIZABLE } from 'src/app/modules/builder/canvas/canvas.config';
 import { ResizeEventerService } from 'src/app/modules/shared/services/resize-eventer/resize-eventer.service';
@@ -15,6 +15,7 @@ import { filter } from 'rxjs/operators';
 import { CSSUtils } from 'src/app/utils/css.utils';
 import { CommonUtils } from 'src/app/utils/common.utils';
 import { UndoRedoModel, UndoRedoType, UndoService } from 'src/app/modules/shared/services/undo-redo/undo.service';
+import { NgxMoveableComponent } from 'ngx-moveable';
 
 @Component({
   selector: 'app-select-element',
@@ -30,7 +31,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   @Input() container: any;
   @Input() defaultGroupRotate = 0;
 
-  @ViewChild('moveable', { static: false }) moveable: Moveable;
+  @ViewChild('moveable', { static: false }) moveable: NgxMoveableComponent;
   @ViewChild('moveableLabel', { static: false }) moveableLabel: ElementRef;
 
   previousSelectedNode: any;
@@ -89,6 +90,14 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     }
   }
 
+  startCustomDrag(event: any) {
+    setTimeout(() => {
+      if (!this.moveable.isMoveableElement(event.target) && this.selectedNodes.length === 1) {
+        this.moveable.ngDragStart(event);
+      }
+    });
+  }
+
   getFirstCanvasElement() {
     return this.selectedCanvasElements[0];
   }
@@ -124,6 +133,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   onElementClick(e) {
+    console.log(e, 'click');
     if (e.isDouble) {
       this.editTextElement(e.inputTarget);
     }
