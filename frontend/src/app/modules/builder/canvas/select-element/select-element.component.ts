@@ -1,7 +1,8 @@
 import {
   Component, Input, OnChanges, SimpleChanges, ChangeDetectorRef, ViewEncapsulation, OnDestroy,
   ViewChild,
-  ElementRef
+  ElementRef,
+  HostListener
 } from '@angular/core';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { CanvasUtils } from 'src/app/utils/canvas.utils';
@@ -16,6 +17,7 @@ import { CSSUtils } from 'src/app/utils/css.utils';
 import { CommonUtils } from 'src/app/utils/common.utils';
 import { UndoRedoModel, UndoRedoType, UndoService } from 'src/app/modules/shared/services/undo-redo/undo.service';
 import { NgxMoveableComponent } from 'ngx-moveable';
+import { ARROW_KEYS, KEYBOAR_KEYS } from 'src/app/constants/keyboard-constants';
 
 @Component({
   selector: 'app-select-element',
@@ -47,6 +49,8 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   rotatable = true;
 
   oldStyles: string[] = [];
+
+  MOVE_WITH_KEY = 2;
 
   constructor(private cd: ChangeDetectorRef, private resizeEventer: ResizeEventerService, private eventerService: EventerService,
     private undoService: UndoService) {
@@ -98,6 +102,34 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     });
   }
 
+  @HostListener('document:keydown', ['$event'])
+  onKeyDown(e: KeyboardEvent) {
+    this.handleCustomDrag(e);
+    this.handleUndoRedo(e);
+  }
+
+  handleCustomDrag(e) {
+    if (ARROW_KEYS.includes(e.key)) {
+      const key = e.key;
+      const x = key === KEYBOAR_KEYS.ArrowLeft ? -this.MOVE_WITH_KEY : key === KEYBOAR_KEYS.ArrowRight ? this.MOVE_WITH_KEY : 0;
+      const y = key === KEYBOAR_KEYS.ArrowUp ? -this.MOVE_WITH_KEY : key === KEYBOAR_KEYS.ArrowDown ? this.MOVE_WITH_KEY : 0;
+
+      this.moveable.request('draggable', { deltaX: x, deltaY: y }, true);
+      e.preventDefault();
+    }
+  }
+
+  handleUndoRedo(e: KeyboardEvent) {
+    if ((e[KEYBOAR_KEYS.COMMAND] || e[KEYBOAR_KEYS.CONTROL]) && e.key === KEYBOAR_KEYS.Z) {
+      if (e[KEYBOAR_KEYS.SHIFT] && e.key === KEYBOAR_KEYS.Z) {
+        this.undoService.redo();
+      } else {
+        this.undoService.undo();
+      }
+      this.moveable.updateRect();
+    }
+  }
+
   getFirstCanvasElement() {
     return this.selectedCanvasElements[0];
   }
@@ -133,7 +165,6 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   onElementClick(e) {
-    console.log(e, 'click');
     if (e.isDouble) {
       this.editTextElement(e.inputTarget);
     }

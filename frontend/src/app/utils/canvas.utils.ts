@@ -108,7 +108,6 @@ export class CanvasUtils {
 
     nodes.forEach((node: HTMLElement) => {
       const childTranslate = CSSUtils.getMatrixValue(node, CSS_PROPERTIES.TRANSLATE);
-      console.log(parentTranslate, '        \n  ', childTranslate);
 
       const rect: DOMRect = node.getBoundingClientRect();
       if (top > rect.top) {

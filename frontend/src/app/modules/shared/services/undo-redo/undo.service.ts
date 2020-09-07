@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { CommonUtils } from 'src/app/utils/common.utils';
+import { KEYBOAR_KEYS } from 'src/app/constants/keyboard-constants';
 
 export enum UndoRedoType {
   ADD,
