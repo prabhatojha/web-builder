@@ -128,10 +128,13 @@ export class CanvasUtils {
       const mat = CSSUtils.getMatrixValue(node, CSS_PROPERTIES.TRANSFORM);
       const nodeTranslate = CSSUtils.getMatrixValue(node, CSS_PROPERTIES.TRANSLATE);
       const nodeRect = node.getBoundingClientRect();
-      const x = nodeRect.left - parentRect.left;
-      const y = nodeRect.top - parentRect.top;
-      const newMat = CSSUtils.setMatrixValue(mat, CSS_PROPERTIES.TRANSLATE, [x, y]);
-      canvasElement.children[index].style[CSS_PROPERTIES.TRANSFORM] = CSSUtils.matrixToCssText(newMat);
+      const x = parentRect.left - canvasRect.left;
+      const y = parentRect.top - canvasRect.top;
+      // const newMat = CSSUtils.setMatrixValue(mat, CSS_PROPERTIES.TRANSLATE, [x, y]);
+      // canvasElement.children[index].style[CSS_PROPERTIES.TRANSFORM] = CSSUtils.matrixToCssText(newMat);
+      const eleTransform = canvasElement.children[index].style[CSS_PROPERTIES.TRANSFORM];
+      const newTransform = ` ${CSS_PROPERTIES.TRANSLATE}(${-x}px, ${-y}px)`;
+      canvasElement.children[index].style[CSS_PROPERTIES.TRANSFORM] = eleTransform ? eleTransform + newTransform : newTransform;
     });
 
 
