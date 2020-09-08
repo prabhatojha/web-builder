@@ -99,16 +99,15 @@ export class CanvasUtils {
   static setGroupNodeLocation(nodes: HTMLElement[], canvasElement: CanvasElement, canvas: HTMLElement) {
     const parent = document.getElementsByClassName(CSS_CLASSES.MOVEABLE_CONTOLL_BOX)[0];
     const parentTranslate = CSSUtils.getMatrixValue(parent, CSS_PROPERTIES.TRANSLATE);
-
+    const parentRect = parent.getBoundingClientRect();
     const canvasRect = canvas.getBoundingClientRect();
+
     let top = 10000;
     let left = 10000;
     let right = -10000;
     let bottom = -10000;
 
-    nodes.forEach((node: HTMLElement) => {
-      const childTranslate = CSSUtils.getMatrixValue(node, CSS_PROPERTIES.TRANSLATE);
-
+    nodes.forEach((node: HTMLElement, index) => {
       const rect: DOMRect = node.getBoundingClientRect();
       if (top > rect.top) {
         top = rect.top;
@@ -125,21 +124,29 @@ export class CanvasUtils {
       if (bottom < rect.bottom) {
         bottom = rect.bottom;
       }
+
+      const mat = CSSUtils.getMatrixValue(node, CSS_PROPERTIES.TRANSFORM);
+      const nodeTranslate = CSSUtils.getMatrixValue(node, CSS_PROPERTIES.TRANSLATE);
+      const nodeRect = node.getBoundingClientRect();
+      const x = nodeRect.left - parentRect.left;
+      const y = nodeRect.top - parentRect.top;
+      const newMat = CSSUtils.setMatrixValue(mat, CSS_PROPERTIES.TRANSLATE, [x, y]);
+      canvasElement.children[index].style[CSS_PROPERTIES.TRANSFORM] = CSSUtils.matrixToCssText(newMat);
     });
 
-    const posX = left - canvasRect.left;
-    const posY = top - canvasRect.top;
-    canvasElement.children.forEach(child => {
-      const childPos = CSSUtils.getTransformValue(child.style.transform, 'translate');
-      CSSUtils.updateTransformValue(child.style, 'translate',
-        `translate(${childPos.x - posX}px, ${childPos.y - posY}px)`);
-    });
+
+    const posX = parentRect.left - canvasRect.left;
+    const posY = parentRect.top - canvasRect.top;
 
     canvasElement.style[CSS_PROPERTIES.WIDTH] = right - left + 'px';
     canvasElement.style[CSS_PROPERTIES.HEIGHT] = bottom - top + 'px';
+    canvasElement.style[CSS_PROPERTIES.TRANSFORM] = `${CSS_PROPERTIES.TRANSLATE}(${posX}px, ${posY}px)`;
 
-    CSSUtils.updateTransformValue(canvasElement.style, 'translate',
-      `translate(${posX}px, ${posY}px)`);
+    // CSSUtils.updateTransformValue(canvasElement.style, 'translate',
+    //   `translate(${posX}px, ${posY}px)`);
+
+    // CSSUtils.updateTransformValue(canvasElement.style, 'translate',
+    //   `translate(${posX}px, ${posY}px)`);
   }
 
   /* Group Ungrouping - start */

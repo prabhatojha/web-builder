@@ -103,4 +103,23 @@ export class CSSUtils {
   static getComputedStyle(node: Element, cssProperty) {
     return window.getComputedStyle(node)[cssProperty];
   }
+
+  /**
+   *
+   * @param mat Matrix representation of transform
+   * @param type CSS property like, translate, scale etc.
+   * @param newValues if translate, pass as "[x, y]"
+   */
+  static setMatrixValue(mat: Array<number>, type, newValues: Array<number>) {
+    const locations: Array<number> = mat.length === 6 ? this.MATRIX_2D_LOCATION[type] : this.MATRIX_3D_LOCATION[type];
+    locations.forEach((loc, idx) => {
+      mat[loc] = newValues[idx];
+    });
+    return mat;
+  }
+
+  static matrixToCssText(mat) {
+    return `matrix(${mat.join()})`;
+  }
 }
+

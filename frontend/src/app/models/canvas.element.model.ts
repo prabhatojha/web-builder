@@ -18,7 +18,7 @@ export class CanvasElement {
     [style: string]: string | number;
   };
   innerText: string;
-  children: Array<any>;
+  children: Array<CanvasElement>;
   locked: boolean;
   resizable = true;
   increaseZIndex = true;
