@@ -128,7 +128,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   adjustWidthHeight(canvasElement: CanvasElement) {
     if (canvasElement.type === ELEMENT_TYPES.PHOTO) {
-      ImageUtils.setInitialWidthAndHeight(this.getProjectWidthHeight(), canvasElement);
+      ImageUtils.setInitialWidthAndHeight(this.project.canvasElement, canvasElement);
     }
   }
 
@@ -206,23 +206,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   onSelectEnd(e) {
   }
 
-  getProjectWidthHeight() {
-    return {
-      width: this.project.canvasElement.dimention.width,
-      height: this.project.canvasElement.dimention.height
-    };
-  }
-
   addItemInProject(canvasElement, newNode) {
     this.projectNode.appendChild(newNode);
     this.project.canvasElement.children.push(canvasElement);
-  }
-
-  setNodeLocation(location, newNode: any, canvasElement: CanvasElement) {
-    canvasElement.dimention.translateX = location.x;
-    canvasElement.dimention.translateY = location.y;
-
-    CanvasUtils.applyDimention(newNode, canvasElement, canvasElement.dimention, true);
   }
 
   allowDrop(e) {

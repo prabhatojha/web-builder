@@ -18,6 +18,7 @@ import { CommonUtils } from 'src/app/utils/common.utils';
 import { UndoRedoModel, UndoRedoType, UndoService } from 'src/app/modules/shared/services/undo-redo/undo.service';
 import { NgxMoveableComponent } from 'ngx-moveable';
 import { ARROW_KEYS, KEYBOAR_KEYS } from 'src/app/constants/keyboard-constants';
+import { ElementTranform } from 'src/app/models/element.transform.modal';
 
 @Component({
   selector: 'app-select-element',
@@ -51,6 +52,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   oldStyles: string[] = [];
 
   MOVE_WITH_KEY = 2;
+  transformations: ElementTranform[] = [];
 
   constructor(private cd: ChangeDetectorRef, private resizeEventer: ResizeEventerService, private eventerService: EventerService,
     private undoService: UndoService) {
@@ -73,6 +75,11 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   init() {
     this.updateDirectionHandle();
+    this.initTransformation();
+  }
+
+  initTransformation() {
+    this.transformations = this.selectedCanvasElements.map(t => t.transform);
   }
 
   updateDirectionHandle() {
@@ -149,19 +156,15 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   onResize(e) {
     const { width, height } = e;
+    const transform: ElementTranform = this.transformations[0];
+    transform.translateX += e.drag.beforeDelta[0];
+    transform.translateY += e.drag.beforeDelta[1];
     this.updateNodeCss({
       width,
       height,
-      transform: e.drag.transform
+      transform: ElementTranform.toCss(transform)
     });
     this.setDisplayLabel(e.clientX, e.clientY, `W : ${width}<br>H : ${height}`);
-  }
-
-  onScaling(e) {
-    this.updateNodeCss({
-      transform: e.drag.transform + ` scale(${e.scale[0]}, ${e.scale[1]})`
-    });
-    this.setDisplayLabel(e.clientX, e.clientY, `X : ${e.scale[0].toFixed(2)}<br>Y : ${e.scale[1].toFixed(2)}`);
   }
 
   onElementClick(e) {
@@ -203,20 +206,6 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     target.addEventListener('keydown', keyDownListener);
   }
 
-  dragging(e) {
-    this.updateNodeCss({
-      transform: e.transform
-    });
-  }
-
-  rotating(e) {
-    this.updateNodeCss({
-      transform: e.transform
-    });
-    const deg = CSSUtils.getRotationValue(this.getFirstNode());
-    this.setDisplayLabel(e.clientX, e.clientY, `${deg} Deg`);
-  }
-
   updateNodeCss(styles, index = 0) {
     const canvasElement = this.selectedCanvasElements[index];
     if (canvasElement.locked) {
@@ -234,11 +223,18 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     }
   }
 
+  onDrag(e, index = 0) {
+    const transform: ElementTranform = this.transformations[index];
+    transform.translateX += e.beforeDelta[0];
+    transform.translateY += e.beforeDelta[1];
+    this.updateNodeCss({
+      transform: ElementTranform.toCss(transform)
+    }, index);
+  }
+
   onGroupDrag({ events }) {
     events.forEach((ev, i) => {
-      this.updateNodeCss({
-        transform: ev.transform
-      }, i);
+      this.onDrag(ev, i);
     });
   }
 
@@ -262,6 +258,29 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   }
 
+  onScaleStart(e) {
+    const transform: ElementTranform = this.transformations[0];
+    e.set([transform.scaleX, transform.scaleY]);
+    if (e.dragStart) {
+      e.dragStart.set([transform.translateX, transform.translateY]);
+    }
+
+    this.onStart();
+  }
+
+  onScale(e) {
+    const transform: ElementTranform = this.transformations[0];
+    transform.translateX += e.drag.beforeDelta[0];
+    transform.translateY += e.drag.beforeDelta[1];
+    transform.scaleX = e.scale[0];
+    transform.scaleY = e.scale[1];
+
+    this.updateNodeCss({
+      transform: ElementTranform.toCss(transform)
+    });
+    this.setDisplayLabel(e.clientX, e.clientY, `X : ${transform.scaleX.toFixed(2)}<br>Y : ${transform.scaleY.toFixed(2)}`);
+  }
+
   onGroupScale(e) {
     e.events.forEach((ev, i) => {
       this.updateNodeCss({
@@ -272,10 +291,23 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     this.setDisplayLabel(e.clientX, e.clientY, `W : ${e.target.offsetWidth}<br>H : ${e.target.offsetHeight}`);
   }
 
+  onRotate(e) {
+    const tranform: ElementTranform = this.transformations[0];
+    tranform.rotate += e.beforeDelta;
+    this.updateNodeCss({
+      transform: ElementTranform.toCss(tranform)
+    });
+    this.setDisplayLabel(e.clientX, e.clientY, `${tranform.rotate} Deg`);
+  }
+
   onGroupRotate(e) {
-    e.events.forEach((ev, i) => {
+    e.events.forEach((event, i) => {
+      const tranform: ElementTranform = this.transformations[i];
+      tranform.rotate += event.beforeDelta;
+      tranform.translateX += event.drag.beforeDelta[0];
+      tranform.translateY += event.drag.beforeDelta[1];
       this.updateNodeCss({
-        transform: ev.drag.transform + ` rotate(${ev.rotate}deg)`
+        transform: ElementTranform.toCss(this.transformations[i])
       }, i);
     });
 

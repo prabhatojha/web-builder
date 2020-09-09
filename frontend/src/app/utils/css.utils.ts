@@ -11,7 +11,7 @@ export class CSSUtils {
   };
 
   static MATRIX_3D_LOCATION = {
-    [CSS_PROPERTIES.TRANSLATE]: [13, 14]
+    [CSS_PROPERTIES.TRANSLATE]: [12, 13]
   };
 
   static getTransformValue(transformStyle, field: 'rotate' | 'translate' | string): any {
@@ -67,8 +67,8 @@ export class CSSUtils {
    */
   static getMatrixValue(node: Element, type) {
     const matrix = this.getComputedStyle(node, CSS_PROPERTIES.TRANSFORM);
-
     let values: any = matrix.split('(')[1];
+
     values = values.split(')')[0];
     values = values.split(',');
 

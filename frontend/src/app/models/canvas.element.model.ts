@@ -1,27 +1,22 @@
 import { ELEMENT_TYPES } from '../constants/contants';
-import { ElementDimentionModel } from '../constants/css-constants';
+import { ElementTranform } from './element.transform.modal';
 
 export class CanvasElement {
   type: ELEMENT_TYPES;
   // width: number;
   // height: number;
-  dimention: ElementDimentionModel;
-  ratio: {
-    x: string,
-    y: string
-  };
+  transform: ElementTranform = new ElementTranform();
+
   tag: string;
   attribute: {
     [attr: string]: string
   };
   style: {
-    [style: string]: string | number;
+    [style: string]: string | number | any;
   };
   innerText: string;
   children: Array<CanvasElement>;
   locked: boolean;
-  resizable = true;
-  increaseZIndex = true;
 
   constructor(tag, attribute, style, children) {
     this.tag = tag;

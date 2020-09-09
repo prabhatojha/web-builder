@@ -63,10 +63,7 @@ export class ImagesService {
       image.id = photo.id;
       image.imageUrl = photo.thumb;
       image.canvasElement.children[0].attribute.src = photo.imageUrl;
-      image.canvasElement.dimention.width = photo.width;
-      image.canvasElement.dimention.height = photo.height;
       image.canvasElement.type = ELEMENT_TYPES.PHOTO;
-      image.canvasElement.increaseZIndex = false;
       alternate ? this.rows[0].push(image) : this.rows[1].push(image);
       alternate = !alternate;
     });

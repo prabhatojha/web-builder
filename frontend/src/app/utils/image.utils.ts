@@ -1,13 +1,14 @@
 import { CanvasElement } from '../models/canvas.element.model';
+import { CSS_PROPERTIES } from '../constants/css-constants';
 
 export class ImageUtils {
-  static setInitialWidthAndHeight(dimention, canvasEle: CanvasElement) {
+  static setInitialWidthAndHeight(projectElement: CanvasElement, canvasEle: CanvasElement) {
 
-    const imgW = canvasEle.dimention.width;
-    const imgH = canvasEle.dimention.height;
+    const imgW = parseFloat(canvasEle.style[CSS_PROPERTIES.WIDTH]);
+    const imgH = parseFloat(canvasEle.style[CSS_PROPERTIES.HEIGHT]);
 
-    const proW = dimention.width;
-    const proH = dimention.height;
+    const proW = parseFloat(projectElement.style[CSS_PROPERTIES.WIDTH]);
+    const proH = parseFloat(projectElement.style[CSS_PROPERTIES.HEIGHT]);
 
     ImageUtils.getImageRatio(proW, proH, imgW, imgH, canvasEle);
 
@@ -19,7 +20,7 @@ export class ImageUtils {
       imgH /= 2;
     }
 
-    canvasEle.dimention.width = imgW;
-    canvasEle.dimention.height = imgH;
+    canvasEle.style[CSS_PROPERTIES.WIDTH] = imgW;
+    canvasEle.style[CSS_PROPERTIES.HEIGHT] = imgH;
   }
 }

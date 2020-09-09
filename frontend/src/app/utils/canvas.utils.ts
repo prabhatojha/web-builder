@@ -25,11 +25,6 @@ export class CanvasUtils {
     return ele;
   }
 
-  private static addDimention(ele, node: CanvasElement) {
-    if (node.dimention) {
-      this.applyDimention(ele, node, node.dimention);
-    }
-  }
 
   private static addAttributes(ele, attrs) {
     if (attrs) {
@@ -127,14 +122,15 @@ export class CanvasUtils {
 
       const mat = CSSUtils.getMatrixValue(node, CSS_PROPERTIES.TRANSFORM);
       const nodeTranslate = CSSUtils.getMatrixValue(node, CSS_PROPERTIES.TRANSLATE);
-      const nodeRect = node.getBoundingClientRect();
-      const x = parentRect.left - canvasRect.left;
-      const y = parentRect.top - canvasRect.top;
-      // const newMat = CSSUtils.setMatrixValue(mat, CSS_PROPERTIES.TRANSLATE, [x, y]);
-      // canvasElement.children[index].style[CSS_PROPERTIES.TRANSFORM] = CSSUtils.matrixToCssText(newMat);
-      const eleTransform = canvasElement.children[index].style[CSS_PROPERTIES.TRANSFORM];
-      const newTransform = ` ${CSS_PROPERTIES.TRANSLATE}(${-x}px, ${-y}px)`;
-      canvasElement.children[index].style[CSS_PROPERTIES.TRANSFORM] = eleTransform ? eleTransform + newTransform : newTransform;
+      // const nodeRect = node.getBoundingClientRect();
+      const x = nodeTranslate[0] - parentTranslate[0];
+      const y = nodeTranslate[1] - parentTranslate[1];
+
+      const newMat = CSSUtils.setMatrixValue(mat, CSS_PROPERTIES.TRANSLATE, [x, y]);
+      canvasElement.children[index].style[CSS_PROPERTIES.TRANSFORM] = CSSUtils.matrixToCssText(newMat);
+      // const eleTransform = canvasElement.children[index].style[CSS_PROPERTIES.TRANSFORM];
+      // const newTransform = ` ${CSS_PROPERTIES.TRANSLATE}(${-parentTranslate[0]}px, ${-parentTranslate[1]}px)`;
+      // canvasElement.children[index].style[CSS_PROPERTIES.TRANSFORM] = eleTransform ? eleTransform + newTransform : newTransform;
     });
 
 
@@ -190,36 +186,6 @@ export class CanvasUtils {
 
     return value;
   }
-
-  static applyDimention(node: HTMLElement, item: CanvasElement, dimention: ElementDimentionModel, permanent?: boolean) {
-    const obj = {
-      [CSS_PROPERTIES.WIDTH]: dimention.width,
-      [CSS_PROPERTIES.HEIGHT]: dimention.height,
-      [CSS_PROPERTIES.LEFT]: dimention.translateX,
-      [CSS_PROPERTIES.TOP]: dimention.translateY
-    };
-
-    // Updating width and height
-    this.applyCss(node, item, obj, permanent);
-
-    // Updating the transform property
-    node.style[CSS_PROPERTIES.TRANSFORM] = this.dimentionCss(dimention);
-
-    if (permanent) {
-      item.dimention = CommonUtils.cloneDeep(dimention);
-    }
-  }
-
-  private static dimentionCss(dimention: ElementDimentionModel) {
-    return `${CSS_PROPERTIES.ROTATE}(${dimention.rotate}deg) ` +
-      // `${CSS_PROPERTIES.TRANSLATE_X}(${dimention.translateX}px) ` +
-      // `${CSS_PROPERTIES.TRANSLATE_Y}(${dimention.translateY}px) ` +
-      `${CSS_PROPERTIES.SCALE_X}(${dimention.scaleX}) ` +
-      `${CSS_PROPERTIES.SCALE_Y}(${dimention.scaleY}) `;
-  }
-
-  // CSS application end
-
 
   // Others start
   static setElementId(node, canvasElement: CanvasElement) {

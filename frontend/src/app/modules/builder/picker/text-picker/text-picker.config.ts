@@ -25,18 +25,8 @@ export function getTextPickerInstance(): TextPickerModel {
   const child = new CanvasElement('label', attr, imgStyle, []);
   const canvasElement = new CanvasElement('div', {}, containerStyle, [child]);
   canvasElement.type = ELEMENT_TYPES.TEXT;
-  canvasElement.resizable = false;
-  canvasElement.dimention = getDimention();
 
   return new TextPickerModel(TEXT_TOOLBAR_OPTIONS, canvasElement);
-}
-
-function getDimention() {
-  const d = new ElementDimentionModel();
-  d.width = 320;
-  d.height = 40;
-
-  return d;
 }
 
 export const TEXT_PICKER_CONST = {

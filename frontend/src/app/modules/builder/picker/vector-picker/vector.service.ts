@@ -64,7 +64,6 @@ export class VectorService {
       image.imageUrl = photo.thumb;
       image.canvasElement.children[0].attribute.src = photo.imageUrl;
       image.canvasElement.type = ELEMENT_TYPES.VECTOR;
-      image.canvasElement.increaseZIndex = true;
       this.updateWidth(image.canvasElement, photo.thumbWidth, photo.thumbHeight);
       this.vectors.push(image);
     });
