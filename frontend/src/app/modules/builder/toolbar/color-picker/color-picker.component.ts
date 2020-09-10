@@ -1,5 +1,4 @@
 import { Component, OnInit, Output, EventEmitter, AfterViewInit, ViewChild, ElementRef, Input } from '@angular/core';
-import Pickr from '@simonwep/pickr';
 import { CSS_PROPERTY_VALUES } from 'src/app/constants/css-constants';
 
 @Component({

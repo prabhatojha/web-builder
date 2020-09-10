@@ -1,4 +1,5 @@
 import { ELEMENT_TYPES } from 'src/app/constants/contants';
+import { ElementTranform } from 'src/app/models/element.transform.modal';
 
 export const ELE_VS_RESIZE_HANDLES = {
   [ELEMENT_TYPES.TEXT]: ['e', 'w'],
@@ -42,6 +43,7 @@ export const CANVAS_PROJECT = {
     innerText: '',
     resizable: false,
     increaseZIndex: false,
+    transform: new ElementTranform(),
     ratio: {
       x: '0',
       y: '0'

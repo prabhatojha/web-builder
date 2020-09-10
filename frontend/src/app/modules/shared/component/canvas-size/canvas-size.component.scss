@@ -1,0 +1,25 @@
+@import '../../../../../style/colors.scss';
+@import '../../../../../style/structure';
+
+.dropdown-item {
+  font-size: $mediumFont;
+  display: flex;
+  align-items: center;
+  .icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    margin-right: 5px;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  .dimention {
+    color: $gray-200;
+    font-size: $smallFont;
+  }
+
+  cursor: pointer;
+}

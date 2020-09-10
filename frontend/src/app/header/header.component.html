@@ -8,6 +8,19 @@
   <div class='header-right-menu'>
     <ul>
       <li>
+        <!-- <button type="button" class="btn btn-info btn-sm dropdown-toggle" (click)="previewCanvas()">
+          <i class="material-icons">visibility</i>
+          Canvas Size </button> -->
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            (click)="canvasSize.open()">
+              Canvas Size
+            </button>
+            <app-canvas-size #canvasSize></app-canvas-size>
+          </div>
+      </li>
+      <li>
         <button type="button" class="btn btn-info btn-sm" (click)="previewCanvas()">
           <i class="material-icons">visibility</i>
           Preview</button>

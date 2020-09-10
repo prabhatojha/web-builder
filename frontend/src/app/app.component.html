@@ -1,3 +1,19 @@
 <app-header></app-header>
+<!-- <fa-icon icon="youtube"></fa-icon> -->
+<fa-icon [icon]="['fab', 'facebook']"></fa-icon>
+<fa-layers>
+  <fa-icon [icon]="['fas', 'play']"
+   transform="rotate--90 grow-2"></fa-icon>
+  <fa-icon [inverse]="true" [icon]="['fas', 'sun']"
+   transform="shrink-10 up-2"></fa-icon>
+  <fa-icon [inverse]="true" [icon]="['fas', 'moon']"
+   transform="shrink-11 down-4.2 left-4"></fa-icon>
+  <fa-icon [inverse]="true" [icon]="['fas', 'star']"
+  transform="shrink-11 down-4.2 right-4"></fa-icon>
+</fa-layers>
+<fa-layers size="2x">
+  <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
+  <fa-layers-counter content="100+"></fa-layers-counter>
+</fa-layers>
 <router-outlet></router-outlet>
 <footer></footer>

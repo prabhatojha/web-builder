@@ -8,6 +8,8 @@ import { EventTypes, EventerService } from '../modules/shared/services/eventer.s
 })
 export class HeaderComponent implements OnInit {
 
+  showCanvasSizeOptions = false;
+
   constructor(private eventer: EventerService) { }
 
   ngOnInit(): void {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation, HostListener, Input } from '@angular/core';
 import { CONST_VAR, ELEMENT_TYPES } from 'src/app/constants/contants';
 import { CSS_PROPERTIES, ATTR_PROPERTIES, CSS_PROPERTY_VALUES, CSS_CLASSES } from 'src/app/constants/css-constants';
 import { ELEMENT_TYPE_VS_TOOLBAR_OPT } from '../toolbar/toolbar.config';
@@ -22,6 +22,7 @@ import { SelectElementComponent } from './select-element/select-element.componen
 })
 export class CanvasComponent implements OnInit, AfterViewInit {
 
+  @Input() project;
   @ViewChild('canvas', { static: true }) canvas: ElementRef;
   @ViewChild('canvasContainer', { static: true }) canvasContainer: ElementRef;
   @ViewChild('selectElementRef', { static: true }) selectElementRef: SelectElementComponent;
@@ -39,7 +40,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   projectNode: HTMLElement;
   toolbarOptions = [];
 
-  project = CANVAS_PROJECT;
+
 
   showPreview = false;
 

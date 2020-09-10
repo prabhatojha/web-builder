@@ -8,6 +8,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchBoxComponent } from './component/search-box/search-box.component';
 import { MaterialModule } from 'src/app/material.module';
 import { RemovePxPipe } from './pipes/remove-px/remove-px.pipe';
+import { CanvasSizeComponent } from './component/canvas-size/canvas-size.component';
+import { far } from '@fortawesome/free-regular-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
 const components = [
   SingleSelectComponent,
@@ -15,17 +20,23 @@ const components = [
   ClickOutsideDirective,
   PopupComponent,
   SearchBoxComponent,
-  RemovePxPipe
+  RemovePxPipe,
+  CanvasSizeComponent
 ];
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    FontAwesomeModule
   ],
   declarations: [...components],
   exports: [...components, FormsModule,
-    ReactiveFormsModule]
+    ReactiveFormsModule, FontAwesomeModule]
 })
-export class SharedModule { }
+export class SharedModule {
+  constructor(library: FaIconLibrary) {
+    library.addIconPacks(fas, far, fab);
+  }
+}

@@ -21,7 +21,6 @@ import { VectorPickerComponent } from './picker/vector-picker/vector-picker.comp
 import { FontSizeComponent } from './toolbar/font-size/font-size.component';
 import { SelectElementComponent } from './canvas/select-element/select-element.component';
 import { DragElementComponent } from './canvas/drag-element/drag-element.component';
-import { AngularDraggableModule } from 'angular2-draggable';
 import { NgxMoveableModule } from 'ngx-moveable';
 import { NgxSelectoModule } from 'ngx-selecto';
 import { NgxElementSelectorModule } from 'projects/ngx-element-selector/src/public-api';
@@ -43,7 +42,6 @@ import { OpacityComponent } from './toolbar/opacity/opacity.component';
     SharedModule,
     ColorChromeModule,
     MaterialModule,
-    AngularDraggableModule,
     NgxMoveableModule,
     NgxSelectoModule,
     NgxElementSelectorModule
