@@ -1,14 +1,6 @@
 <div class="dropdown-menu" [class.show]="showCanvasSizeOptions" (appClickOutside)="showCanvasSizeOptions = false">
-  <a class="dropdown-item" *ngFor="let item of canvasSizes">
-    <!-- <span class="icon">
-      <img src="assets/icons/logo-facebook.svg" alt="fb">
-    </span> -->
+  <a class="dropdown-item" *ngFor="let item of canvasSizes" [routerLink]="['/build']"
+    [queryParams]="{id: item.id, type: PROJECT_TYPE.BLANK}">
     <span>{{item.label}} </span>
-    <!-- <span class="dimention"> 1080 x 1080</span> -->
   </a>
-
-  <!-- <div class="dropdown-divider"></div>
-  <a class="dropdown-item">
-    <span>A5 <span class="dimention"> 1080 x 1080</span></span>
-  </a> -->
 </div>

@@ -13,6 +13,7 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { RouterModule } from '@angular/router';
 
 const components = [
   SingleSelectComponent,
@@ -29,7 +30,8 @@ const components = [
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    RouterModule
   ],
   declarations: [...components],
   exports: [...components, FormsModule,

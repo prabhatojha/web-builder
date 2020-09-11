@@ -12,8 +12,8 @@ export const CANVAS_SIZES = [
     id: 'facebook-cover',
     label: 'Facebook Cover',
     dimention: {
-      x: 524,
-      y: 524
+      x: 800,
+      y: 300
     },
     icon: ''
   },
@@ -65,7 +65,7 @@ export const CANVAS_SIZES = [
 ];
 
 export enum PROJECT_TYPE {
-  BLANK,
-  PUBLIC,
-  USER
+  BLANK = 'BLANK',
+  PUBLIC = 'PUBLIC',
+  USER = 'USER'
 }

@@ -20,9 +20,10 @@ export class BuilderComponent implements OnInit {
   }
 
   init() {
+    debugger
     const routSnapshot = this.activatedRoute.snapshot;
-    const id = routSnapshot.params.id;
-    const type = routSnapshot.params.type;
+    const id = routSnapshot.queryParams.id;
+    const type = routSnapshot.queryParams.type;
 
     if (type === PROJECT_TYPE.BLANK || type === undefined) {
       this.initBlankProject(id);
