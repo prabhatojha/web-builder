@@ -3,6 +3,7 @@ import { PX_APPLICABLE_CSS_PROPS, ElementDimentionModel, CSS_PROPERTIES, ATTR_PR
 import { CommonUtils } from './common.utils';
 import { Hasher } from '../constants/hasher';
 import { CSSUtils } from './css.utils';
+import { ElementTranform } from '../models/element.transform.modal';
 
 export class CanvasUtils {
 
@@ -92,60 +93,28 @@ export class CanvasUtils {
   /* Group Ungrouping - start */
 
   static setGroupNodeLocation(nodes: HTMLElement[], canvasElement: CanvasElement, canvas: HTMLElement) {
-    const parent = document.getElementsByClassName(CSS_CLASSES.MOVEABLE_CONTOLL_BOX)[0];
-    const parentTranslate = CSSUtils.getMatrixValue(parent, CSS_PROPERTIES.TRANSLATE);
-    const parentRect = parent.getBoundingClientRect();
-    const canvasRect = canvas.getBoundingClientRect();
+    const parent = CSSUtils.getElementByClassName(CSS_CLASSES.MOVEABLE_CONTOLL_BOX);
+    const parentTranslate = CSSUtils.getTransformValue(parent.style.transform, CSS_PROPERTIES.TRANSLATE);
+    const moveableArea = CSSUtils.getElementByClassName(CSS_CLASSES.MOVEABLE_AREA);
+    const moveableAreaRotate = CSSUtils.getTransformValue(moveableArea.style.transform, CSS_PROPERTIES.ROTATE);
+    const moveableAreaScale = CSSUtils.getTransformValue(moveableArea.style.transform, CSS_PROPERTIES.SCALE);
 
-    let top = 10000;
-    let left = 10000;
-    let right = -10000;
-    let bottom = -10000;
+    canvasElement.children.forEach((child: CanvasElement) => {
+      child.style[CSS_PROPERTIES.TRANSFORM] = ElementTranform.toCss(child.transform.groupableInfo);
 
-    nodes.forEach((node: HTMLElement, index) => {
-      const rect: DOMRect = node.getBoundingClientRect();
-      if (top > rect.top) {
-        top = rect.top;
-      }
-
-      if (left > rect.left) {
-        left = rect.left;
-      }
-
-      if (right < rect.right) {
-        right = rect.right;
-      }
-
-      if (bottom < rect.bottom) {
-        bottom = rect.bottom;
-      }
-
-      const mat = CSSUtils.getMatrixValue(node, CSS_PROPERTIES.TRANSFORM);
-      const nodeTranslate = CSSUtils.getMatrixValue(node, CSS_PROPERTIES.TRANSLATE);
-      // const nodeRect = node.getBoundingClientRect();
-      const x = nodeTranslate[0] - parentTranslate[0];
-      const y = nodeTranslate[1] - parentTranslate[1];
-
-      const newMat = CSSUtils.setMatrixValue(mat, CSS_PROPERTIES.TRANSLATE, [x, y]);
-      canvasElement.children[index].style[CSS_PROPERTIES.TRANSFORM] = CSSUtils.matrixToCssText(newMat);
-      // const eleTransform = canvasElement.children[index].style[CSS_PROPERTIES.TRANSFORM];
-      // const newTransform = ` ${CSS_PROPERTIES.TRANSLATE}(${-parentTranslate[0]}px, ${-parentTranslate[1]}px)`;
-      // canvasElement.children[index].style[CSS_PROPERTIES.TRANSFORM] = eleTransform ? eleTransform + newTransform : newTransform;
     });
 
+    canvasElement.style[CSS_PROPERTIES.WIDTH] = moveableArea.style[CSS_PROPERTIES.WIDTH];
+    canvasElement.style[CSS_PROPERTIES.HEIGHT] = moveableArea.style[CSS_PROPERTIES.HEIGHT];
+    canvasElement.transform = new ElementTranform({
+      translateX: parentTranslate.x,
+      translateY: parentTranslate.y,
+      rotate: moveableAreaRotate,
+      scaleX: moveableAreaScale.x,
+      scaleY: moveableAreaScale.y
+    });
 
-    const posX = parentRect.left - canvasRect.left;
-    const posY = parentRect.top - canvasRect.top;
-
-    canvasElement.style[CSS_PROPERTIES.WIDTH] = right - left + 'px';
-    canvasElement.style[CSS_PROPERTIES.HEIGHT] = bottom - top + 'px';
-    canvasElement.style[CSS_PROPERTIES.TRANSFORM] = `${CSS_PROPERTIES.TRANSLATE}(${posX}px, ${posY}px)`;
-
-    // CSSUtils.updateTransformValue(canvasElement.style, 'translate',
-    //   `translate(${posX}px, ${posY}px)`);
-
-    // CSSUtils.updateTransformValue(canvasElement.style, 'translate',
-    //   `translate(${posX}px, ${posY}px)`);
+    canvasElement.style[CSS_PROPERTIES.TRANSFORM] = ElementTranform.toCss(canvasElement.transform);
   }
 
   /* Group Ungrouping - start */

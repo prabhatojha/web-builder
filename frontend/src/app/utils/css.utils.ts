@@ -5,6 +5,7 @@ export class CSSUtils {
 
   static TRANSFORM_ROTATE = /(?<=rotate\()(.*)(?=\s*deg\))/;
   static TRANSFORM_TRANSLATE = /(?<=translate\()(.*)(?=\s*\))/;
+  static TRANSFORM_SCALE = /(?<=scale\()(.*)(?=\s*\))/;
   static matrixPattern = /-?\d+\.?\d*/g;
   static MATRIX_2D_LOCATION = {
     [CSS_PROPERTIES.TRANSLATE]: [4, 5]
@@ -14,18 +15,20 @@ export class CSSUtils {
     [CSS_PROPERTIES.TRANSLATE]: [12, 13]
   };
 
-  static getTransformValue(transformStyle, field: 'rotate' | 'translate' | string): any {
+  static getTransformValue(transformStyle, field: string): any {
     switch (field) {
-      case 'rotate':
+      case CSS_PROPERTIES.ROTATE:
         const val = this.matchReg(transformStyle, this.TRANSFORM_ROTATE);
         return val && parseFloat(val);
-      case 'translate':
-        return this.getTranslateValue(transformStyle);
+      case CSS_PROPERTIES.TRANSLATE:
+        return this.getTranslateValue(transformStyle, this.TRANSFORM_TRANSLATE);
+      case CSS_PROPERTIES.SCALE:
+        return this.getTranslateValue(transformStyle, this.TRANSFORM_SCALE);
     }
   }
 
-  private static getTranslateValue(transformStyle) {
-    const val = this.matchReg(transformStyle, this.TRANSFORM_TRANSLATE);
+  private static getTranslateValue(transformStyle, regex) {
+    const val = this.matchReg(transformStyle, regex);
     if (val) {
       return {
         x: parseFloat(val.split(',')[0]),
@@ -121,5 +124,8 @@ export class CSSUtils {
   static matrixToCssText(mat) {
     return `matrix(${mat.join()})`;
   }
-}
 
+  static getElementByClassName(className): any {
+    return document.getElementsByClassName(className)[0];
+  }
+}

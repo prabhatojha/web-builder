@@ -4,6 +4,7 @@ import { TextPickerModel, TextPickerTypes } from 'src/app/models/text.picker.mod
 import { getTextPickerInstance } from './text-picker.config';
 import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
+import { ELEMENT_TYPES } from 'src/app/constants/contants';
 
 @Injectable({
   providedIn: 'root'
@@ -194,6 +195,7 @@ export class TextPickerService {
       width: '275px',
       height: '270px'
     }, this.tempp);
+    picker.canvasElement.type = ELEMENT_TYPES.GROUP;
     this.list.push(picker);
   }
 

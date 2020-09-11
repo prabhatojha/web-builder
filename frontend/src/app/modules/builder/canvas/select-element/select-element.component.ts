@@ -75,11 +75,22 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   init() {
     this.updateDirectionHandle();
-    this.initTransformation();
+    setTimeout(() => {
+      this.initTransformation();
+    });
   }
 
   initTransformation() {
-    this.transformations = this.selectedCanvasElements.map(t => t.transform);
+    const rect = this.moveable.getRect();
+    this.transformations = this.selectedCanvasElements.map(t => {
+      const trn = t.transform;
+
+      trn.groupableInfo = CommonUtils.cloneDeep(t.transform);
+      trn.groupableInfo.translateX -= rect.left;
+      trn.groupableInfo.translateY -= rect.top;
+      trn.groupableInfo.rect = rect;
+      return trn;
+    });
   }
 
   updateDirectionHandle() {
@@ -298,6 +309,22 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
       transform: ElementTranform.toCss(tranform)
     });
     this.setDisplayLabel(e.clientX, e.clientY, `${tranform.rotate} Deg`);
+  }
+
+  onClickGroup(e) {
+    console.log(e);
+  }
+
+  onRenderGroup(e) {
+    console.log(e);
+  }
+
+  onRenderGroupStart(e) {
+    console.log(e);
+  }
+
+  onGroupRotateStart(e) {
+
   }
 
   onGroupRotate(e) {

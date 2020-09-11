@@ -32,6 +32,7 @@ export const CSS_PROPERTIES = {
   ROTATE: 'rotate',
   TRANSLATE_X: 'translateX',
   TRANSLATE_Y: 'translateY',
+  SCALE: 'scale',
   SCALE_X: 'scaleX',
   SCALE_Y: 'scaleY',
   TOP: 'top',
