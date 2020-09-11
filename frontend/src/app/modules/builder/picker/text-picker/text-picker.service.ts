@@ -9,6 +9,7 @@ import { CanvasElement } from 'src/app/models/canvas.element.model';
   providedIn: 'root'
 })
 export class TextPickerService {
+  customText: TextPickerModel[] = [];
   list: TextPickerModel[] = [];
   tempp = [
     {
@@ -22,9 +23,9 @@ export class TextPickerService {
         'text-align': 'center',
         'position': 'absolute',
         'user-select': 'none',
-        'width': '158px',
+        'width': '154px',
         'letter-spacing': '11px',
-        'transform': 'matrix(1.74,0,0,1.74,171.04,44.01) translate(0px, 41.09195402298849px)',
+        'transform': 'matrix(1.74,0,0,1.74,57.04,10) translate(0px, 0px)',
         'z-index': 20
       },
       'children': [
@@ -65,9 +66,9 @@ export class TextPickerService {
         'text-align': 'center',
         'position': 'absolute',
         'user-select': 'none',
-        'width': '158px',
+        'width': '154px',
         'letter-spacing': '10px',
-        'transform': 'matrix(1.74,0,0,1.74,171,140.45) translate(0px, 41.0919540229885px)',
+        'transform': 'matrix(1.74,0,0,1.74,57.04,100) translate(0px, 0px)',
         'z-index': 23
       },
       'children': [
@@ -107,7 +108,7 @@ export class TextPickerService {
         'cursor': 'move',
         'user-select': 'none',
         'width': '275px',
-        'transform': 'matrix(1,0,0,1,112.6,240.5) translate(0px, 71.5px)',
+        'transform': 'matrix(1, 0, 0, 1, 0, 180) translate(0px, 0px)',
         'z-index': 24
       },
       'children': [
@@ -139,7 +140,7 @@ export class TextPickerService {
         'user-select': 'none',
         'width': '275px',
         'letter-spacing': '33px',
-        'transform': 'matrix(1,0,0,1,112.6,304) translate(0px, 71.5px)',
+        'transform': 'matrix(1, 0, 0, 1, 0, 160) translate(0px, 71.5px)',
         'z-index': 25
       },
       'children': [
@@ -190,7 +191,8 @@ export class TextPickerService {
     picker.imageUrl = '/assets/images/pickers/calvin-harris.png';
     picker.canvasElement = new CanvasElement('div', {}, {
       position: 'absolute',
-      width: '200px', height: '300px'
+      width: '275px',
+      height: '270px'
     }, this.tempp);
     this.list.push(picker);
   }
@@ -204,7 +206,7 @@ export class TextPickerService {
     picker.canvasElement.children[0].innerText = 'Double click to edit'; // Canvas element text
     picker.canvasElement.style[CSS_PROPERTIES.FONT_SIZE] = item.fontSize;
     picker.canvasElement.style[CSS_PROPERTIES.FONT_FAMILY] = item.family;
-    this.list.push(picker);
+    this.customText.push(picker);
 
   }
 

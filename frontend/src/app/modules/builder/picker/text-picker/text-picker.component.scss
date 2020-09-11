@@ -43,13 +43,14 @@
   .custom-text-li {
     width: calc(100% - 7px);
     padding: 7px 10px;
-    background-color: $gray-70;
-    color: $gray-400;
+    background-color: #5a6b84;
+    color: $gray-20;
     transition: background-color 0.2s;
+    box-shadow: none;
   }
 
   .custom-text-li:hover {
-    background-color: $gray-20;
+    background-color: #6b7c95;
   }
 }
 

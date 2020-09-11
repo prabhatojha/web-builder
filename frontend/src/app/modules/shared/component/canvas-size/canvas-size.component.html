@@ -1,6 +1,6 @@
 <div class="dropdown-menu" [class.show]="showCanvasSizeOptions" (appClickOutside)="showCanvasSizeOptions = false">
   <a class="dropdown-item" *ngFor="let item of canvasSizes" [routerLink]="['/build']"
-    [queryParams]="{id: item.id, type: PROJECT_TYPE.BLANK}">
+    [queryParams]="{id: item.id, type: PROJECT_TYPE.BLANK}" target="_blank">
     <span>{{item.label}} </span>
   </a>
 </div>
