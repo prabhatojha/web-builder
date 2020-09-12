@@ -107,7 +107,7 @@ export class CanvasUtils {
       transform.scaleX = child.transform.scaleX;
       transform.scaleY = child.transform.scaleY;
       child.style[CSS_PROPERTIES.TRANSFORM] = ElementTranform.toCss(transform);
-
+      child.transform = transform;
     });
 
     canvasElement.style[CSS_PROPERTIES.WIDTH] = moveableArea.style[CSS_PROPERTIES.WIDTH];

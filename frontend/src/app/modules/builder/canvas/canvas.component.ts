@@ -13,6 +13,7 @@ import { CANVAS_PROJECT } from './canvas.config';
 import { CSSUtils } from 'src/app/utils/css.utils';
 import { UndoService, UndoRedoModel, UndoRedoType } from '../../shared/services/undo-redo/undo.service';
 import { SelectElementComponent } from './select-element/select-element.component';
+import { ElementTranform } from 'src/app/models/element.transform.modal';
 
 @Component({
   selector: 'app-canvas',
@@ -288,10 +289,17 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   onItemUnGroup(e) {
     const parent: CanvasElement = e.canvasElements[0];
-    const parentPos = CSSUtils.getTransformValue(parent.style.transform, 'translate');
+    // const parentPos = CSSUtils.getTransformValue(parent.style.transform, 'translate');
     parent.children.forEach((child: CanvasElement) => {
-      const childPos = CSSUtils.getTransformValue(child.style.transform, 'translate');
-      CSSUtils.updateTransformValue(child.style, 'translate', `translate(${parentPos.x + childPos.x}px,${parentPos.y + childPos.y}px)`);
+      debugger
+      child.transform.translateX += parent.transform.translateX;
+      child.transform.translateY += parent.transform.translateY;
+      child.transform.rotate += parent.transform.rotate;
+      child.transform.scaleX += 1 - parent.transform.scaleX;
+      child.transform.scaleY += 1 - parent.transform.scaleY;
+      // const childPos = CSSUtils.getTransformValue(child.style.transform, 'translate');
+      // CSSUtils.updateTransformValue(child.style, 'translate', `translate(${parentPos.x + childPos.x}px,${parentPos.y + childPos.y}px)`);
+      child.style[CSS_PROPERTIES.TRANSFORM] = ElementTranform.toCss(child.transform);
       this.addNewNode(child);
     });
     CanvasUtils.setUnGroupNodeLocation(e.nodes[0], e.canvasElements[0]);
