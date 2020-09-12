@@ -76,18 +76,21 @@ export class CanvasUtils {
   // Element Location/placement start ------------------------
   static setInitialNodeLocation(e, data, canvasBound) {
     const canvasElement: CanvasElement = data.item.canvasElement;
+    canvasElement.transform = new ElementTranform();
 
     if (e.clientX && e.clientY && data.left && data.top) {
-      const x = e.clientX - canvasBound.left - data.left;
-      const y = e.clientY - canvasBound.top - data.top;
-      canvasElement.style[CSS_PROPERTIES.TRANSFORM] = `translate(${x}px, ${y}px)`;
+      canvasElement.transform.translateX = e.clientX - canvasBound.left - data.left;
+      canvasElement.transform.translateY = e.clientY - canvasBound.top - data.top;
+
+      canvasElement.style[CSS_PROPERTIES.TRANSFORM] = ElementTranform.toCss(canvasElement.transform);
     }
   }
 
   static setDuplicateNodeLocation(canvasElement: CanvasElement) {
-    const { x, y } = CSSUtils.getTransformValue(canvasElement.style[CSS_PROPERTIES.TRANSFORM], 'translate');
+    canvasElement.transform.translateX += 20;
+    canvasElement.transform.translateY += 20;
 
-    CSSUtils.updateTransformValue(canvasElement.style, 'translate', `translate(${x + 20}px, ${y + 20}px)`);
+    canvasElement.style[CSS_PROPERTIES.TRANSFORM] = ElementTranform.toCss(canvasElement.transform);
   }
 
   /* Group Ungrouping - start */
@@ -100,7 +103,10 @@ export class CanvasUtils {
     const moveableAreaScale = CSSUtils.getTransformValue(moveableArea.style.transform, CSS_PROPERTIES.SCALE);
 
     canvasElement.children.forEach((child: CanvasElement) => {
-      child.style[CSS_PROPERTIES.TRANSFORM] = ElementTranform.toCss(child.transform.groupableInfo);
+      const transform = child.transform.groupableInfo;
+      transform.scaleX = child.transform.scaleX;
+      transform.scaleY = child.transform.scaleY;
+      child.style[CSS_PROPERTIES.TRANSFORM] = ElementTranform.toCss(transform);
 
     });
 

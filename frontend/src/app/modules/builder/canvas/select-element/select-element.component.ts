@@ -279,8 +279,8 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     this.onStart();
   }
 
-  onScale(e) {
-    const transform: ElementTranform = this.transformations[0];
+  onScale(e, showLabel = true, index = 0) {
+    const transform: ElementTranform = this.transformations[index];
     transform.translateX += e.drag.beforeDelta[0];
     transform.translateY += e.drag.beforeDelta[1];
     transform.scaleX = e.scale[0];
@@ -288,15 +288,31 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
     this.updateNodeCss({
       transform: ElementTranform.toCss(transform)
+    }, index);
+
+    if (showLabel) {
+      this.setDisplayLabel(e.clientX, e.clientY, `X : ${transform.scaleX.toFixed(2)}<br>Y : ${transform.scaleY.toFixed(2)}`);
+    }
+  }
+
+  onGroupScaleStart(e) {
+    console.log(e);
+    e.events.forEach((item, i) => {
+      const transform: ElementTranform = this.transformations[i];
+      item.set([transform.scaleX, transform.scaleY]);
+      if (item.dragStart) {
+        item.dragStart.set([transform.translateX, transform.translateY]);
+      }
     });
-    this.setDisplayLabel(e.clientX, e.clientY, `X : ${transform.scaleX.toFixed(2)}<br>Y : ${transform.scaleY.toFixed(2)}`);
+
+    this.onStart();
   }
 
   onGroupScale(e) {
-    e.events.forEach((ev, i) => {
-      this.updateNodeCss({
-        transform: ev.drag.transform + ` scale(${ev.scale[0]}, ${ev.scale[1]})`
-      }, i);
+    console.log(e);
+    e.events.forEach((event, i) => {
+      debugger
+      this.onScale(event, false, i);
     });
 
     this.setDisplayLabel(e.clientX, e.clientY, `W : ${e.target.offsetWidth}<br>H : ${e.target.offsetHeight}`);
@@ -312,15 +328,12 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   onClickGroup(e) {
-    console.log(e);
   }
 
   onRenderGroup(e) {
-    console.log(e);
   }
 
   onRenderGroupStart(e) {
-    console.log(e);
   }
 
   onGroupRotateStart(e) {
