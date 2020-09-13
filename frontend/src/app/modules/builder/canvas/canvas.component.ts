@@ -113,7 +113,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   handleGenericElements(canvasElement: CanvasElement) {
-    this.adjustWidthHeight(canvasElement);
+    // this.adjustWidthHeight(canvasElement);
     const newNode = CanvasUtils.buildDom(canvasElement);
     this.attachEventListner(newNode, canvasElement);
     this.addItemInProject(canvasElement, newNode);
@@ -278,33 +278,29 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   onItemGroup(e) {
-    const newCanvasElement = new CanvasElement('div', {}, { position: 'absolute' }, e.canvasElements);
+    const newCanvasElement = new CanvasElement('div', {}, { position: 'absolute' }, e.items.canvasElements);
     newCanvasElement.type = ELEMENT_TYPES.GROUP;
 
-    CanvasUtils.setGroupNodeLocation(e.nodes, newCanvasElement, this.canvas.nativeElement);
+    CanvasUtils.setGroupNodeLocation(e.items.nodes, newCanvasElement, this.canvas.nativeElement, e.groupedTranform, e.groupedDimention);
 
-    this.onItemRemove(e, false);
+    this.onItemRemove(e.items, false);
     this.addNewNode(newCanvasElement);
   }
 
-  onItemUnGroup(e) {
-    const parent: CanvasElement = e.canvasElements[0];
-    // const parentPos = CSSUtils.getTransformValue(parent.style.transform, 'translate');
+  onItemUnGroup({ items, groupedTranform, groupedDimention }) {
+    const parent: CanvasElement = items.canvasElements[0];
     parent.children.forEach((child: CanvasElement) => {
-      debugger
       child.transform.translateX += parent.transform.translateX;
       child.transform.translateY += parent.transform.translateY;
       child.transform.rotate += parent.transform.rotate;
-      // child.transform.scaleX += 1 - parent.transform.scaleX;
-      // child.transform.scaleY += 1 - parent.transform.scaleY;
-      // const childPos = CSSUtils.getTransformValue(child.style.transform, 'translate');
-      // CSSUtils.updateTransformValue(child.style, 'translate', `translate(${parentPos.x + childPos.x}px,${parentPos.y + childPos.y}px)`);
+      child.transform.scaleX += parent.transform.scaleX - 1;
+      child.transform.scaleY += parent.transform.scaleY - 1;
       child.style[CSS_PROPERTIES.TRANSFORM] = ElementTranform.toCss(child.transform);
       this.addNewNode(child);
     });
-    CanvasUtils.setUnGroupNodeLocation(e.nodes[0], e.canvasElements[0]);
+    CanvasUtils.setUnGroupNodeLocation(items.nodes[0], items.canvasElements[0]);
 
-    this.onItemRemove(e, false);
+    this.onItemRemove(items, false);
   }
 
   subscribeEventer() {

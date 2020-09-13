@@ -2,7 +2,9 @@ import {
   Component, Input, OnChanges, SimpleChanges, ChangeDetectorRef, ViewEncapsulation, OnDestroy,
   ViewChild,
   ElementRef,
-  HostListener
+  HostListener,
+  Output,
+  EventEmitter
 } from '@angular/core';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { CanvasUtils } from 'src/app/utils/canvas.utils';
@@ -37,6 +39,9 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   @ViewChild('moveable', { static: false }) moveable: NgxMoveableComponent;
   @ViewChild('moveableLabel', { static: false }) moveableLabel: ElementRef;
 
+  @Output() groupItems = new EventEmitter<any>();
+  @Output() unGroupItems = new EventEmitter<any>();
+
   previousSelectedNode: any;
   previousSelectedCanvasEle: CanvasElement;
 
@@ -54,10 +59,14 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   MOVE_WITH_KEY = 2;
   transformations: ElementTranform[] = [];
 
-  groupedTranform = new ElementTranform();
+  groupedTranform: ElementTranform;
+  groupedDimention: {
+    width: number,
+    height: number
+  };
 
-  constructor(private cd: ChangeDetectorRef, private resizeEventer: ResizeEventerService, private eventerService: EventerService,
-    private undoService: UndoService) {
+  constructor(private cd: ChangeDetectorRef, private resizeEventer: ResizeEventerService,
+    private eventerService: EventerService, private undoService: UndoService) {
     this.resizeEventer.get().subscribe(event => {
       this.moveable.updateRect();
     });
@@ -65,6 +74,22 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     this.eventerService.get().subscribe((event: EventModal) => {
       if (event.type === EventTypes.UPDATE_DIRECTION_HANLDES) {
         this.updateDirectionHandle();
+      }
+
+      if (event.type === EventTypes.GROUP_ITEMS) {
+        this.groupItems.emit({
+          items: event.value,
+          groupedTranform: this.groupedTranform,
+          groupedDimention: this.groupedDimention
+        });
+      }
+
+      if (event.type === EventTypes.UNGROUP_ITEMS) {
+        this.unGroupItems.emit({
+          items: event.value,
+          groupedTranform: this.groupedTranform,
+          groupedDimention: this.groupedDimention
+        });
       }
     });
   }
@@ -93,6 +118,14 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
       trn.groupableInfo.rect = rect;
       return trn;
     });
+
+    this.groupedTranform = new ElementTranform();
+    this.groupedTranform.translateX = rect.left;
+    this.groupedTranform.translateY = rect.top;
+    this.groupedDimention = {
+      width: rect.offsetWidth,
+      height: rect.offsetHeight,
+    };
   }
 
   updateDirectionHandle() {
@@ -238,8 +271,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   onDrag(e, index = 0) {
     const transform: ElementTranform = this.transformations[index];
-    transform.translateX += e.beforeDelta[0];
-    transform.translateY += e.beforeDelta[1];
+    this.updateTranslate(transform, e);
     this.updateNodeCss({
       transform: ElementTranform.toCss(transform)
     }, index);
@@ -249,6 +281,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     e.events.forEach((ev, i) => {
       this.onDrag(ev, i);
     });
+    this.updateTranslate(this.groupedTranform, e);
   }
 
   onGroupResizeStart({ events }) {
@@ -279,10 +312,8 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   onScale(e, showLabel = true, index = 0) {
     const transform: ElementTranform = this.transformations[index];
-    transform.translateX += e.drag.beforeDelta[0];
-    transform.translateY += e.drag.beforeDelta[1];
-    transform.scaleX = e.scale[0];
-    transform.scaleY = e.scale[1];
+    this.updateTranslate(transform, e.drag);
+    this.updatScale(transform, e);
 
     this.updateNodeCss({
       transform: ElementTranform.toCss(transform)
@@ -293,14 +324,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     }
   }
 
-  updateGroupTransformScale(e) {
-    console.log(e);
-    this.groupedTranform.scaleX = e.scale[0];
-    this.groupedTranform.scaleY = e.scale[1];
-  }
-
   onGroupScaleStart(e) {
-    console.log(e);
     e.events.forEach((item, i) => {
       const transform: ElementTranform = this.transformations[i];
       item.set([transform.scaleX, transform.scaleY]);
@@ -313,12 +337,27 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   onGroupScale(e) {
-    console.log(e);
     e.events.forEach((event, i) => {
       this.onScale(event, false, i);
     });
 
+    this.updateGroupTransformScale(e);
     this.setDisplayLabel(e.clientX, e.clientY, `W : ${e.target.offsetWidth}<br>H : ${e.target.offsetHeight}`);
+  }
+
+  updateGroupTransformScale(e) {
+    this.updatScale(this.groupedTranform, e);
+    this.updateTranslate(this.groupedTranform, e.drag);
+  }
+
+  updateTranslate(transform: ElementTranform, drag) {
+    transform.translateX += drag.beforeDelta[0];
+    transform.translateY += drag.beforeDelta[1];
+  }
+
+  updatScale(transform: ElementTranform, event) {
+    transform.scaleX = event.scale[0];
+    transform.scaleY = event.scale[1];
   }
 
   onRotate(e) {
@@ -337,7 +376,6 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   onRenderGroupStart(e) {
-    console.log(e);
   }
 
   onGroupRotateStart(e) {
@@ -348,12 +386,13 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     e.events.forEach((event, i) => {
       const tranform: ElementTranform = this.transformations[i];
       tranform.rotate += event.beforeDelta;
-      tranform.translateX += event.drag.beforeDelta[0];
-      tranform.translateY += event.drag.beforeDelta[1];
+      this.updateTranslate(tranform, event.drag);
       this.updateNodeCss({
         transform: ElementTranform.toCss(this.transformations[i])
       }, i);
     });
+
+    this.groupedTranform.rotate += e.beforeDelta;
 
     const deg = CSSUtils.getRotationValue(document.getElementsByClassName(CSS_CLASSES.MOVEABLE_AREA)[0]);
     this.setDisplayLabel(e.clientX, e.clientY, `${deg} Deg`);
@@ -370,7 +409,6 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   onEnd(e) {
-    console.log(e);
     this.sendToUndoList();
     this.moveableLabel.nativeElement.style.display = 'none';
   }

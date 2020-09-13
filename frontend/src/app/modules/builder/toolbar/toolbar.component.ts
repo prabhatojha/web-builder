@@ -186,11 +186,15 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   groupItem() {
-    if (this.isGroupedItems) {
-      this.unGroupSelectedItem.emit(this.getSelectedItems());
-    } else {
-      this.groupSelectedItem.emit(this.getSelectedItems());
-    }
+    // if (this.isGroupedItems) {
+    this.eventerService.send({
+      type: this.isGroupedItems ? EventTypes.UNGROUP_ITEMS : EventTypes.GROUP_ITEMS,
+      value: this.getSelectedItems()
+    });
+    // this.unGroupSelectedItem.emit(this.getSelectedItems());
+    // } else {
+    // this.groupSelectedItem.emit(this.getSelectedItems());
+    // }
   }
 
   lockItem() {

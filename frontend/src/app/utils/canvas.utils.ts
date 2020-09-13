@@ -95,7 +95,7 @@ export class CanvasUtils {
 
   /* Group Ungrouping - start */
 
-  static setGroupNodeLocation(nodes: HTMLElement[], canvasElement: CanvasElement, canvas: HTMLElement) {
+  static setGroupNodeLocation(nodes: HTMLElement[], canvasElement: CanvasElement, canvas: HTMLElement, groupedTranform, groupedDimention) {
     const parent = CSSUtils.getElementByClassName(CSS_CLASSES.MOVEABLE_CONTOLL_BOX);
     const parentTranslate = CSSUtils.getTransformValue(parent.style.transform, CSS_PROPERTIES.TRANSLATE);
     const moveableArea = CSSUtils.getElementByClassName(CSS_CLASSES.MOVEABLE_AREA);
@@ -104,22 +104,14 @@ export class CanvasUtils {
 
     canvasElement.children.forEach((child: CanvasElement) => {
       const transform = child.transform.groupableInfo;
-      // transform.scaleX = child.transform.scaleX;
-      // transform.scaleY = child.transform.scaleY;
       child.style[CSS_PROPERTIES.TRANSFORM] = ElementTranform.toCss(transform);
       child.transform = transform;
     });
 
-    canvasElement.style[CSS_PROPERTIES.WIDTH] = moveableArea.style[CSS_PROPERTIES.WIDTH];
-    canvasElement.style[CSS_PROPERTIES.HEIGHT] = moveableArea.style[CSS_PROPERTIES.HEIGHT];
-    canvasElement.transform = new ElementTranform({
-      translateX: parentTranslate.x,
-      translateY: parentTranslate.y,
-      rotate: moveableAreaRotate,
-      scaleX: moveableAreaScale.x,
-      scaleY: moveableAreaScale.y
-    });
+    canvasElement.style[CSS_PROPERTIES.WIDTH] = groupedDimention.width + 'px';
+    canvasElement.style[CSS_PROPERTIES.HEIGHT] = groupedDimention.height + 'px';
 
+    canvasElement.transform = groupedTranform;
     canvasElement.style[CSS_PROPERTIES.TRANSFORM] = ElementTranform.toCss(canvasElement.transform);
   }
 
