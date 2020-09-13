@@ -31,7 +31,7 @@ import { ElementTranform } from 'src/app/models/element.transform.modal';
 export class SelectElementComponent implements OnChanges, OnDestroy {
 
   @Input() selectedNodes: HTMLElement[] = [];
-  @Input() guidingElements: HTMLElement[] = [];
+  @Input() guidingElements: Element[] = [];
   @Input() selectedCanvasElements: CanvasElement[] = [];
   @Input() container: any;
   @Input() defaultGroupRotate = 0;
@@ -148,11 +148,9 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   startCustomDrag(event: any) {
-    setTimeout(() => {
-      if (!this.moveable.isMoveableElement(event.target) && this.selectedNodes.length === 1) {
-        this.moveable.ngDragStart(event);
-      }
-    });
+    if (!this.moveable.isMoveableElement(event.target)) {
+      this.moveable.ngDragStart(event);
+    }
   }
 
   @HostListener('document:keydown', ['$event'])

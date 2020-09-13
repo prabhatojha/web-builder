@@ -17,7 +17,7 @@ export class ImagesService {
   GET_IMAGES = '/api/images';
   PAGE = 0;
   LIMIT = '20';
-  withMock = true;
+  withMock = false;
   isLoading = true;
   query = '';
   EXTRA_DELAY = 1000;

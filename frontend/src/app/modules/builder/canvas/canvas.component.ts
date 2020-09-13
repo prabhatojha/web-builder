@@ -151,6 +151,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   selectoDragEnd(e) {
+    console.log(e);
   }
 
   clearItemSelection() {
@@ -174,17 +175,18 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < children.length; i++) {
-      if (selected.includes(children[i])) {
+      const child = children[i];
+      if (selected.includes(child)) {
         const canvasElement = this.project.canvasElement.children[i];
 
         // If the selected item is only the item or if multiple items getting selected then ignore LOCKED items
         if (selected.length === 1 || !canvasElement.locked) {
-          ne.push(children[i]);
+          ne.push(child);
           ce.push(canvasElement);
         }
       } else {
         // If element is not selected move them to guiding elments
-        newGudingEle.push(children[i]);
+        newGudingEle.push(child);
       }
     }
     // Update the z-index if only one item is selected
@@ -192,10 +194,11 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       this.addZIndex(ne[0], ce[0]);
     }
     this.setInitialGroupRotate(ce[0]);
+    this.guidingElements = newGudingEle;
     this.selectedNodes = ne;
     this.selectedCanvasElements = ce;
-    this.guidingElements = newGudingEle;
 
+    console.log(newGudingEle);
     // tslint:disable-next-line: no-unused-expression
     e.isDragStart && this.selectElementRef.startCustomDrag(e.inputEvent);
   }
