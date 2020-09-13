@@ -104,8 +104,8 @@ export class CanvasUtils {
 
     canvasElement.children.forEach((child: CanvasElement) => {
       const transform = child.transform.groupableInfo;
-      transform.scaleX = child.transform.scaleX;
-      transform.scaleY = child.transform.scaleY;
+      // transform.scaleX = child.transform.scaleX;
+      // transform.scaleY = child.transform.scaleY;
       child.style[CSS_PROPERTIES.TRANSFORM] = ElementTranform.toCss(transform);
       child.transform = transform;
     });

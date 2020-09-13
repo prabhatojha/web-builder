@@ -54,6 +54,8 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   MOVE_WITH_KEY = 2;
   transformations: ElementTranform[] = [];
 
+  groupedTranform = new ElementTranform();
+
   constructor(private cd: ChangeDetectorRef, private resizeEventer: ResizeEventerService, private eventerService: EventerService,
     private undoService: UndoService) {
     this.resizeEventer.get().subscribe(event => {
@@ -165,16 +167,16 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     this.onStart();
   }
 
-  onResize(e) {
+  onResize(e, index = 0) {
     const { width, height } = e;
-    const transform: ElementTranform = this.transformations[0];
+    const transform: ElementTranform = this.transformations[index];
     transform.translateX += e.drag.beforeDelta[0];
     transform.translateY += e.drag.beforeDelta[1];
     this.updateNodeCss({
       width,
       height,
       transform: ElementTranform.toCss(transform)
-    });
+    }, index);
     this.setDisplayLabel(e.clientX, e.clientY, `W : ${width}<br>H : ${height}`);
   }
 
@@ -243,8 +245,8 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     }, index);
   }
 
-  onGroupDrag({ events }) {
-    events.forEach((ev, i) => {
+  onGroupDrag(e) {
+    e.events.forEach((ev, i) => {
       this.onDrag(ev, i);
     });
   }
@@ -258,11 +260,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   onGroupResize(e) {
     e.events.forEach((ev, i) => {
-      this.updateNodeCss({
-        width: ev.width,
-        height: ev.height,
-        transform: ev.drag.transform
-      }, i);
+      this.onResize(ev, i);
     });
 
     this.setDisplayLabel(e.clientX, e.clientY, `W : ${e.target.offsetWidth}<br>H : ${e.target.offsetHeight}`);
@@ -295,6 +293,12 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     }
   }
 
+  updateGroupTransformScale(e) {
+    console.log(e);
+    this.groupedTranform.scaleX = e.scale[0];
+    this.groupedTranform.scaleY = e.scale[1];
+  }
+
   onGroupScaleStart(e) {
     console.log(e);
     e.events.forEach((item, i) => {
@@ -311,7 +315,6 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   onGroupScale(e) {
     console.log(e);
     e.events.forEach((event, i) => {
-      debugger
       this.onScale(event, false, i);
     });
 
@@ -334,6 +337,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   onRenderGroupStart(e) {
+    console.log(e);
   }
 
   onGroupRotateStart(e) {
@@ -366,6 +370,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   onEnd(e) {
+    console.log(e);
     this.sendToUndoList();
     this.moveableLabel.nativeElement.style.display = 'none';
   }

@@ -295,8 +295,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       child.transform.translateX += parent.transform.translateX;
       child.transform.translateY += parent.transform.translateY;
       child.transform.rotate += parent.transform.rotate;
-      child.transform.scaleX += 1 - parent.transform.scaleX;
-      child.transform.scaleY += 1 - parent.transform.scaleY;
+      // child.transform.scaleX += 1 - parent.transform.scaleX;
+      // child.transform.scaleY += 1 - parent.transform.scaleY;
       // const childPos = CSSUtils.getTransformValue(child.style.transform, 'translate');
       // CSSUtils.updateTransformValue(child.style, 'translate', `translate(${parentPos.x + childPos.x}px,${parentPos.y + childPos.y}px)`);
       child.style[CSS_PROPERTIES.TRANSFORM] = ElementTranform.toCss(child.transform);
