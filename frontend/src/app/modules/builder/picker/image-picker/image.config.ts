@@ -18,7 +18,8 @@ export const IMAGE_TAG_FOR_VECTOR_DEFAULT_STYLE = {
 
 export const IMAGE_TAG_DEFAULT_ATTRIBUTE = {
   'src': '',
-  class: CSS_CLASSES.LG_PHOTO_WRAP
+  class: CSS_CLASSES.LG_PHOTO_WRAP,
+  crossorigin: 'anonymous'
 };
 
 export function getImageElementInstance(): ImageCanvasElement {

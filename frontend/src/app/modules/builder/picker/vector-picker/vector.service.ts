@@ -24,7 +24,7 @@ export class VectorService {
   EXTRA_DELAY = 10;
 
   constructor(private httpService: HttpService) {
-    this.query = HOT_KEYWORD.images;
+    this.query = HOT_KEYWORD.vectors;
     this.getPhotos();
   }
 

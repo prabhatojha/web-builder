@@ -13,7 +13,8 @@ export enum FILTER_TYPES {
 }
 
 export const HOT_KEYWORD = {
-  images: 'scenery'
+  images: 'scenery',
+  vectors: 'hello'
 };
 
 export enum ELEMENT_TYPES {

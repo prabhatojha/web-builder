@@ -8,18 +8,12 @@ export const LEFT_MENU_CONST = {
 };
 
 export const LEFT_MENU_ITEMS = [
-  {
-    id: 0,
-    label: 'Template',
-    icon: 'text_fields',
-    type: 'text'
-  },
-  {
-    id: 1,
-    label: 'Layouts',
-    icon: 'view_comfy',
-    type: 'text'
-  },
+  // {
+  //   id: 0,
+  //   label: 'Template',
+  //   icon: 'text_fields',
+  //   type: 'text'
+  // },
   {
     id: 2,
     label: 'Text',
@@ -53,18 +47,24 @@ export const LEFT_MENU_ITEMS = [
     icon: 'cloud_upload'
   },
   {
-    id: 10,
-    label: 'Stickers',
-    icon: 'star_rate'
+    id: 1,
+    label: 'Layouts',
+    icon: 'view_comfy',
+    type: 'text'
   },
-  {
-    id: 11,
-    label: 'Gif',
-    icon: 'gif'
-  },
-  {
-    id: 8,
-    label: 'Icons',
-    icon: 'insert_emoticon'
-  }
+  // {
+  //   id: 10,
+  //   label: 'Stickers',
+  //   icon: 'star_rate'
+  // },
+  // {
+  //   id: 11,
+  //   label: 'Gif',
+  //   icon: 'gif'
+  // },
+  // {
+  //   id: 8,
+  //   label: 'Icons',
+  //   icon: 'insert_emoticon'
+  // }
 ];
