@@ -9,6 +9,7 @@
 }
 
 .modal {
+  z-index: 100000;
   position: fixed;
   left: 0;
   bottom: 0;
@@ -47,9 +48,9 @@
   }
 
   &-right {
-    padding: 40px 30px 30px;
+    padding: 30px;
     background: #fff;
-    flex: 1.5;
+    flex: 1;
     transition-duration: 0.5s;
     // transform: translateY(80px);
     opacity: 1;
@@ -75,7 +76,7 @@
   }
 
   &-left {
-    flex: 2;
+    flex: 1;
     font-size: 0;
     transition: 0.3s;
     overflow: hidden;
@@ -236,12 +237,13 @@
 }
 
 .download-size {
+  height: 110px;
   padding: 25px 15px;
   border: 1px solid gainsboro;
   border-top: 0;
+}
 
-  input,
-  .custom-control-label {
-    cursor: pointer;
-  }
+input,
+.custom-control-label {
+  cursor: pointer;
 }
