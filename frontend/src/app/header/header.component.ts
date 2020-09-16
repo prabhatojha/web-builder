@@ -18,4 +18,8 @@ export class HeaderComponent implements OnInit {
   previewCanvas() {
     this.eventer.send({ type: EventTypes.CANVAS_PREVIEW, value: '' });
   }
+
+  downloadCanvas() {
+    this.eventer.send({ type: EventTypes.CANVAS_DOWNLOAD, value: '' });
+  }
 }

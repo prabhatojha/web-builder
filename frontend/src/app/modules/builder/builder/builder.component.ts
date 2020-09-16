@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PROJECT_TYPE, CANVAS_SIZES } from 'src/app/constants/canvas-size.constants';
 import { CANVAS_PROJECT } from '../canvas/canvas.config';
 import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
 import { CommonUtils } from 'src/app/utils/common.utils';
+import { DownloadCanvasComponent } from '../download-canvas/download-canvas.component';
 
 @Component({
   selector: 'app-builder',
@@ -11,6 +12,8 @@ import { CommonUtils } from 'src/app/utils/common.utils';
   styleUrls: ['./builder.component.scss']
 })
 export class BuilderComponent implements OnInit {
+
+  @ViewChild('downloadCanvasModal') downloadCanvasModal: DownloadCanvasComponent;
 
   project;
   constructor(private activatedRoute: ActivatedRoute) { }
@@ -40,6 +43,10 @@ export class BuilderComponent implements OnInit {
     }
 
     this.project = newProject;
+  }
+
+  openDownloadPopup(projectNode) {
+    this.downloadCanvasModal.open(projectNode);
   }
 
 }

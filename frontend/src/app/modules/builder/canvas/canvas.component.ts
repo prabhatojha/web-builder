@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation, HostListener, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 import { CONST_VAR, ELEMENT_TYPES } from 'src/app/constants/contants';
 import { CSS_PROPERTIES, ATTR_PROPERTIES, CSS_PROPERTY_VALUES, CSS_CLASSES } from 'src/app/constants/css-constants';
-import { ELEMENT_TYPE_VS_TOOLBAR_OPT } from '../toolbar/toolbar.config';
 import { EventerService, EventModal, EventTypes } from '../../shared/services/eventer.service';
 import { filter } from 'rxjs/operators';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
@@ -9,7 +8,6 @@ import { ImageUtils } from 'src/app/utils/image.utils';
 import { CanvasUtils } from 'src/app/utils/canvas.utils';
 import { CommonUtils } from 'src/app/utils/common.utils';
 import { NgxElementSelectorEvent } from 'projects/ngx-element-selector/src/public-api';
-import { CANVAS_PROJECT } from './canvas.config';
 import { CSSUtils } from 'src/app/utils/css.utils';
 import { UndoService, UndoRedoModel, UndoRedoType } from '../../shared/services/undo-redo/undo.service';
 import { SelectElementComponent } from './select-element/select-element.component';
@@ -24,6 +22,9 @@ import { ElementTranform } from 'src/app/models/element.transform.modal';
 export class CanvasComponent implements OnInit, AfterViewInit {
 
   @Input() project;
+
+  @Output() openDownloadPopup = new EventEmitter<any>();
+
   @ViewChild('canvas', { static: true }) canvas: ElementRef;
   @ViewChild('canvasContainer', { static: true }) canvasContainer: ElementRef;
   @ViewChild('selectElementRef', { static: true }) selectElementRef: SelectElementComponent;
@@ -320,6 +321,10 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       case EventTypes.CANVAS_ADD_ITEM:
         this.addNewNode(event.value.item);
         break;
+      case EventTypes.CANVAS_DOWNLOAD:
+        this.openDownloadPopup.emit(this.projectNode);
+        break;
+
     }
   }
 }
