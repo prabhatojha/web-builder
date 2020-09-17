@@ -10,10 +10,11 @@
   (resizeGroup)="onGroupResize($event)" (scaleGroup)="onGroupScale($event)" (clickGroup)="onClickGroup($event)"
   (renderGroup)="onRenderGroup($event)" (renderGroupStart)="onRenderGroupStart($event)"
   (rotateGroupStart)="onGroupRotateStart($event)" (rotateGroup)="onGroupRotate($event)" (rotateStart)="onStart()"
-  (rotateGroupStart)="onStart()" (rotate)="onRotate($event)" [throttleResize]="1" [horizontalGuidelines]="[0, 250, 500]"
-  [scalable]="true" [snappable]="true" [snapCenter]="true" [verticalGuidelines]="[0, 250, 500]"
-  (scale)="onScale($event)" (click)="onElementClick($event)" (dragEnd)="onEnd($event)" (rotateEnd)="onEnd($event)"
-  (resizeEnd)="onEnd($event)" (scaleEnd)="onEnd($event)" (dragGroupEnd)="onEnd($event)" (rotateGroupEnd)="onEnd($event)"
-  (resizeGroupEnd)="onEnd($event)" (scaleGroupEnd)="onEnd($event)">
+  (rotateGroupStart)="onStart()" (rotate)="onRotate($event)" [throttleResize]="1"
+  [horizontalGuidelines]="horizontalGuideLines" [scalable]="true" [snappable]="true" [snapCenter]="true"
+  [verticalGuidelines]="verticalGuideLines" (scale)="onScale($event)" (click)="onElementClick($event)"
+  (dragEnd)="onEnd($event)" (rotateEnd)="onEnd($event)" (resizeEnd)="onEnd($event)" (scaleEnd)="onEnd($event)"
+  (dragGroupEnd)="onEnd($event)" (rotateGroupEnd)="onEnd($event)" (resizeGroupEnd)="onEnd($event)"
+  (scaleGroupEnd)="onEnd($event)">
 
 </ngx-moveable>

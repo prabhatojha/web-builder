@@ -22,6 +22,7 @@ import { ElementTranform } from 'src/app/models/element.transform.modal';
 export class CanvasComponent implements OnInit, AfterViewInit {
 
   @Input() project;
+  @Input() projectDimention;
 
   @Output() openDownloadPopup = new EventEmitter<any>();
 
@@ -152,7 +153,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   selectoDragEnd(e) {
-    console.log(e);
   }
 
   clearItemSelection() {
@@ -199,7 +199,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this.selectedNodes = ne;
     this.selectedCanvasElements = ce;
 
-    console.log(newGudingEle);
     // tslint:disable-next-line: no-unused-expression
     e.isDragStart && this.selectElementRef.startCustomDrag(e.inputEvent);
   }

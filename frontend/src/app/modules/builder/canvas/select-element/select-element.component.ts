@@ -11,7 +11,9 @@ import { CanvasUtils } from 'src/app/utils/canvas.utils';
 import { ELEMENT_TYPES } from 'src/app/constants/contants';
 import Moveable, { MoveableManagerProps } from 'moveable';
 import { ElementDimentionModel, CSS_PROPERTIES, ATTR_PROPERTIES, CSS_CLASSES } from 'src/app/constants/css-constants';
-import { ELE_VS_RESIZE_HANDLES, ELE_VS_KEEP_RATIO, ELE_VS_RESIZABLE } from 'src/app/modules/builder/canvas/canvas.config';
+import {
+  ELE_VS_RESIZE_HANDLES, ELE_VS_KEEP_RATIO, ELE_VS_RESIZABLE, DEFAULT_PROJECT_SIZE
+} from 'src/app/modules/builder/canvas/canvas.config';
 import { ResizeEventerService } from 'src/app/modules/shared/services/resize-eventer/resize-eventer.service';
 import { EventerService, EventModal, EventTypes } from 'src/app/modules/shared/services/eventer.service';
 import { filter } from 'rxjs/operators';
@@ -31,6 +33,7 @@ import { ElementTranform } from 'src/app/models/element.transform.modal';
 export class SelectElementComponent implements OnChanges, OnDestroy {
 
   @Input() selectedNodes: HTMLElement[] = [];
+  @Input() projectDimention = DEFAULT_PROJECT_SIZE;
   @Input() guidingElements: Element[] = [];
   @Input() selectedCanvasElements: CanvasElement[] = [];
   @Input() container: any;
@@ -65,6 +68,9 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     height: number
   };
 
+  horizontalGuideLines = [];
+  verticalGuideLines = [];
+
   constructor(private cd: ChangeDetectorRef, private resizeEventer: ResizeEventerService,
     private eventerService: EventerService, private undoService: UndoService) {
     this.resizeEventer.get().subscribe(event => {
@@ -98,6 +104,15 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     if (changes.selectedNodes && this.selectedNodes && this.selectedNodes.length) {
       this.init();
     }
+
+    if (changes.projectDimention) {
+      this.setGuideLines(this.projectDimention);
+    }
+  }
+
+  setGuideLines({ w, h }) {
+    this.horizontalGuideLines = [0, h / 2, h];
+    this.verticalGuideLines = [0, w / 2, w];
   }
 
   init() {

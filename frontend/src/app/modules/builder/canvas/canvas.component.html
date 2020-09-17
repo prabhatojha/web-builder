@@ -14,8 +14,9 @@
     </div>
     <div style="width: 100%; height: 50px;"></div>
     <app-select-element [selectedNodes]="selectedNodes" [defaultGroupRotate]="defaultGroupRotate"
-      [guidingElements]="guidingElements" [selectedCanvasElements]="selectedCanvasElements" [container]="canvas"
-      #selectElementRef (groupItems)="onItemGroup($event)" (unGroupItems)="onItemUnGroup($event)">
+      [projectDimention]="projectDimention" [guidingElements]="guidingElements"
+      [selectedCanvasElements]="selectedCanvasElements" [container]="canvas" #selectElementRef
+      (groupItems)="onItemGroup($event)" (unGroupItems)="onItemUnGroup($event)">
     </app-select-element>
     <ngx-selecto [container]="canvas" [dragContainer]="canvasContainer" [selectableTargets]='projectNode.childNodes'
       [selectByClick]="true" [selectFromInside]="false" [continueSelect]="false" [toggleContinueSelect]="'shift'"
