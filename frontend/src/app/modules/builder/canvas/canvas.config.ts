@@ -27,6 +27,10 @@ export const ELE_VS_RESIZABLE = {
   [ELEMENT_TYPES.VECTOR]: true
 };
 
+export const DEFAULT_PROJECT_SIZE = {
+  w: 500,
+  h: 500
+};
 
 export const CANVAS_PROJECT = {
   elementId: 'my-first-element',
@@ -58,8 +62,8 @@ export const CANVAS_PROJECT = {
       scaleY: 1
     },
     style: {
-      width: '500px',
-      height: '500px',
+      width: DEFAULT_PROJECT_SIZE.w + 'px',
+      height: DEFAULT_PROJECT_SIZE.h + 'px',
       position: 'relative',
       'background': 'white',
       '-webkit-print-color-adjust': 'exact',

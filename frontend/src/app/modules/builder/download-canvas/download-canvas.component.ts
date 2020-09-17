@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
+import { DEFAULT_PROJECT_SIZE } from '../canvas/canvas.config';
 
 export enum DownloadType {
   PDF,
@@ -13,6 +15,7 @@ export enum DownloadType {
 export class DownloadCanvasComponent implements OnInit {
 
   @Input() project;
+  @Input() projectDimention = DEFAULT_PROJECT_SIZE;
   DownloadTypes = DownloadType;
   activeType: DownloadType = DownloadType.PNG;
   downloadOptions = [
@@ -49,8 +52,8 @@ export class DownloadCanvasComponent implements OnInit {
   ];
 
   projectNode;
-
   isVisible = false;
+  disableDownload = false;
 
   constructor() {
   }
@@ -68,42 +71,32 @@ export class DownloadCanvasComponent implements OnInit {
   }
 
   beginDownload() {
-    console.log(this.selectedSizeId, this.activeType);
+    this.disableDownload = true;
     switch (this.activeType) {
       case DownloadType.PDF:
         this.downloadAsPDF(); break;
       case DownloadType.PNG:
-        this.downloadAsPNG(); break;
+        const imageSize = this.availableSizes.find(t => t.id === this.selectedSizeId);
+        this.downloadAsPNG(imageSize.scale); break;
     }
   }
 
   downloadAsPDF() {
-
+    this.convertToCanvas(3, this.saveAsPDF);
   }
 
-  downloadAsPNG() {
-    const imageSize = this.availableSizes.find(t => t.id === this.selectedSizeId);
-    console.log(this.project, this.projectNode);
-
-    html2canvas(this.projectNode, {
-      allowTaint: true,
-      backgroundColor: null,
-      useCORS: true,
-      scale: imageSize.scale
-    }).then(canvas => {
-      this.saveAs(canvas.toDataURL(), 'Canvias-art.png');
-      // document.querySelector('#canvas-preview-container').appendChild(canvas);
-    });
+  downloadAsPNG(scale) {
+    this.convertToCanvas(scale, this.saveAsPng);
   }
 
-  saveAs(uri, filename) {
+  saveAsPng = (uri) => {
 
     const link = document.createElement('a');
 
     if (typeof link.download === 'string') {
 
       link.href = uri;
-      link.download = filename;
+      link.download = 'Canvias-poster.png';
 
       // Firefox requires the link to be in the body
       document.body.appendChild(link);
@@ -119,6 +112,30 @@ export class DownloadCanvasComponent implements OnInit {
       window.open(uri);
 
     }
+    this.disableDownload = false;
+  }
+
+  saveAsPDF = (uri) => {
+    const w = this.projectDimention.w;
+    const h = this.projectDimention.h;
+    const mode = w <= h ? 'p' : 'l'; // Weather to print landscape-'l' or portrait-'p'
+    const doc = new jsPDF(mode, 'px', [w, h]);
+    doc.addImage(uri, 'PNG', 0, 0, w, h);
+    doc.save('Canvias-poster.pdf');
+    this.disableDownload = false;
+  }
+
+  convertToCanvas(scale, callback) {
+    html2canvas(this.projectNode, {
+      allowTaint: true,
+      backgroundColor: null,
+      useCORS: true,
+      scale
+    }).then(canvas => {
+      callback(canvas.toDataURL());
+    }).catch(err => {
+      this.disableDownload = false;
+    });
   }
 
 }

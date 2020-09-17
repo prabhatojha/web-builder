@@ -7,5 +7,6 @@
     <app-canvas [project]="project" (openDownloadPopup)="openDownloadPopup($event)"></app-canvas>
   </div>
 
-  <app-download-canvas [project]="project" #downloadCanvasModal></app-download-canvas>
+  <app-download-canvas [project]="project" [projectDimention]="projectDimention" #downloadCanvasModal>
+  </app-download-canvas>
 </div>
