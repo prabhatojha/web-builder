@@ -1,4 +1,4 @@
-<div class="tool-bar">
+<div class="tool-bar" data-html2canvas-ignore>
   <app-toolbar [selectedNodes]="selectedNodes" [selectedCanvasElements]="selectedCanvasElements"
     (clearSelectedElements)="clearItemSelection()" (duplicateSelectedItem)="onDuplicateSelectedItem($event)"
     (removeSelectedItem)="onItemRemove($event)" (unGroupSelectedItem)="onItemUnGroup($event)"
@@ -16,20 +16,21 @@
     <app-select-element [selectedNodes]="selectedNodes" [defaultGroupRotate]="defaultGroupRotate"
       [projectDimention]="projectDimention" [guidingElements]="guidingElements"
       [selectedCanvasElements]="selectedCanvasElements" [container]="canvas" #selectElementRef
-      (groupItems)="onItemGroup($event)" (unGroupItems)="onItemUnGroup($event)">
+      (groupItems)="onItemGroup($event)" (unGroupItems)="onItemUnGroup($event)" data-html2canvas-ignore>
     </app-select-element>
     <ngx-selecto [container]="canvas" [dragContainer]="canvasContainer" [selectableTargets]='projectNode.childNodes'
       [selectByClick]="true" [selectFromInside]="false" [continueSelect]="false" [toggleContinueSelect]="'shift'"
       [keyContainer]="canvas" [hitRate]="1" (selectEnd)="onSelectionEnd($event)" (select)="onSelection($event)"
-      [preventDefault]="false" (dragStart)="selectoDragStart($event)" (dragEnd)="selectoDragEnd($event)">
+      [preventDefault]="false" (dragStart)="selectoDragStart($event)" (dragEnd)="selectoDragEnd($event)"
+      data-html2canvas-ignore>
     </ngx-selecto>
   </div>
 </div>
 
-<app-popup *ngIf="showPreview">
+<app-popup *ngIf="showPreview" data-html2canvas-ignore>
   <app-canvas-preview [canvasElement]="project?.canvasElement" (closePreview)="showPreview = false">
   </app-canvas-preview>
 
 </app-popup>
 
-<app-canvas-scale [node]="canvas" *ngIf="!showPreview"></app-canvas-scale>
+<app-canvas-scale [node]="canvas" *ngIf="!showPreview" data-html2canvas-ignore></app-canvas-scale>

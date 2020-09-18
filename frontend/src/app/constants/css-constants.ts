@@ -88,7 +88,8 @@ export const CSS_CLASSES = {
   MOVEABLE_CONTROL: 'moveable-control',
   MOVEABLE_LINE: 'moveable-line',
   EDITABLE_CONTENT: 'users-editable-content',
-  SELECTABLE_ITEM_GUID: 'selected-item-guide'
+  SELECTABLE_ITEM_GUID: 'selected-item-guide',
+  CANVAS_TEMPLATE: 'canvas-template'
 };
 
 const COMMON_ELEMENT_STYLES = {

@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 import { DEFAULT_PROJECT_SIZE } from '../canvas/canvas.config';
+import { CSSUtils } from 'src/app/utils/css.utils';
+import { CSS_CLASSES } from 'src/app/constants/css-constants';
 
 export enum DownloadType {
   PDF,
@@ -130,6 +132,7 @@ export class DownloadCanvasComponent implements OnInit {
       allowTaint: true,
       backgroundColor: null,
       useCORS: true,
+      onclone: this.addWaterMark,
       scale
     }).then(canvas => {
       callback(canvas.toDataURL());
@@ -138,4 +141,13 @@ export class DownloadCanvasComponent implements OnInit {
     });
   }
 
+  addWaterMark = (doc: Document) => {
+    if (this.keepWatermark) {
+      const ele = doc.getElementsByClassName(CSS_CLASSES.CANVAS_TEMPLATE)[0];
+      const img = doc.createElement('img');
+      img.src = '/assets/images/watermark.png';
+      img.style.cssText = 'position: absolute; left: 10px; top: 10px; z-index: 1000000;';
+      ele.appendChild(img);
+    }
+  }
 }

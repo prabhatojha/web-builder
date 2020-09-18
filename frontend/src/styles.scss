@@ -106,3 +106,15 @@ button {
 .c-ptr {
   cursor: pointer;
 }
+
+.close-button {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  transform-origin: center;
+  &:hover {
+    transform: rotate(90deg);
+  }
+}

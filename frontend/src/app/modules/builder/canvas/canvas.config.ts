@@ -1,5 +1,6 @@
 import { ELEMENT_TYPES } from 'src/app/constants/contants';
 import { ElementTranform } from 'src/app/models/element.transform.modal';
+import { CSS_CLASSES } from 'src/app/constants/css-constants';
 
 export const ELE_VS_RESIZE_HANDLES = {
   [ELEMENT_TYPES.TEXT]: ['e', 'w'],
@@ -70,7 +71,7 @@ export const CANVAS_PROJECT = {
       overflow: 'hidden'
     },
     attribute: {
-      class: 'canvas-template'
+      class: CSS_CLASSES.CANVAS_TEMPLATE
     },
     children: []
   }
