@@ -116,6 +116,13 @@
   </div>
   <div class="toolbar-items-right">
 
+    <!-- Z-index -->
+    <ng-container>
+      <div class="toolbar-item">
+        <app-element-layering></app-element-layering>
+      </div>
+    </ng-container>
+
     <div *ngIf="isGroupUngroupVisible" class="toolbar-item">
       <button mat-icon-button class="toolbar-icon-size" (click)="groupItem()"
         [matTooltip]="isGroupedItems ? 'Ungroup': 'Group'" matTooltipPosition="above"

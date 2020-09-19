@@ -1,0 +1,15 @@
+<section #myButton>
+  <button mat-icon-button matTooltip="Layering" class="toolbar-icon-size" matTooltipPosition="above"
+    [disabled]="disabled" (click)="toggle()">
+    <i class="material-icons">layers</i>
+  </button>
+</section>
+<div class="toolbar-item-drop toolbar-item-drop-right" *ngIf="isVisible" (appClickOutside)="toggle()"
+  [srcElement]="myButton">
+  <div class="btn-group btn-group-lg w-100" role="group" aria-label="Basic example">
+    <button type="button" class="btn btn-light" *ngFor="let style of availableOtions"
+      (click)="sendEvent(CSS_PROPERTIES.TEXT_ALIGN, style.cssValue)">
+      <i class="material-icons">{{style.icon}}</i>
+    </button>
+  </div>
+</div>

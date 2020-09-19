@@ -30,13 +30,14 @@ import { BackgroundPickerComponent } from './picker/background-picker/background
 import { ElementsPickerComponent } from './picker/elements-picker/elements-picker.component';
 import { OpacityComponent } from './toolbar/opacity/opacity.component';
 import { DownloadCanvasComponent } from './download-canvas/download-canvas.component';
+import { ElementLayeringComponent } from './toolbar/element-layering/element-layering.component';
 
 @NgModule({
   declarations: [PickersComponent, BuilderComponent, PickerComponent, CanvasComponent, ToolbarComponent,
     ToolbarPanelComponent, ColorPickerComponent, CanvasPreviewComponent, CanvasScaleComponent, TextAlignmentComponent,
     ImagePickerComponent, TextPickerComponent, FontFamilyComponent, VectorPickerComponent, FontSizeComponent,
     SelectElementComponent, DragElementComponent, LetterSpacingComponent, TextDecorationComponent, BackgroundPickerComponent,
-    ElementsPickerComponent, OpacityComponent, DownloadCanvasComponent],
+    ElementsPickerComponent, OpacityComponent, DownloadCanvasComponent, ElementLayeringComponent],
   imports: [
     CommonModule,
     BuilderRoutingModule,

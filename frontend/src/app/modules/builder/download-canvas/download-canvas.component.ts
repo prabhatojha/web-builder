@@ -74,13 +74,15 @@ export class DownloadCanvasComponent implements OnInit {
 
   beginDownload() {
     this.disableDownload = true;
-    switch (this.activeType) {
-      case DownloadType.PDF:
-        this.downloadAsPDF(); break;
-      case DownloadType.PNG:
-        const imageSize = this.availableSizes.find(t => t.id === this.selectedSizeId);
-        this.downloadAsPNG(imageSize.scale); break;
-    }
+    setTimeout(() => {
+      switch (this.activeType) {
+        case DownloadType.PDF:
+          this.downloadAsPDF(); break;
+        case DownloadType.PNG:
+          const imageSize = this.availableSizes.find(t => t.id === this.selectedSizeId);
+          this.downloadAsPNG(imageSize.scale); break;
+      }
+    });
   }
 
   downloadAsPDF() {
@@ -132,22 +134,31 @@ export class DownloadCanvasComponent implements OnInit {
       allowTaint: true,
       backgroundColor: null,
       useCORS: true,
-      onclone: this.addWaterMark,
       scale
     }).then(canvas => {
+      this.addWaterMark(canvas);
       callback(canvas.toDataURL());
     }).catch(err => {
       this.disableDownload = false;
     });
   }
 
-  addWaterMark = (doc: Document) => {
+  addWaterMark = (canvas) => {
     if (this.keepWatermark) {
-      const ele = doc.getElementsByClassName(CSS_CLASSES.CANVAS_TEMPLATE)[0];
-      const img = doc.createElement('img');
-      img.src = '/assets/images/watermark.png';
-      img.style.cssText = 'position: absolute; left: 10px; top: 10px; z-index: 1000000;';
-      ele.appendChild(img);
+      // const ctx = canvas.getContext('2d');
+
+      // const img = document.createElement('img');
+      // img.src = '/assets/images/watermark.png';
+      // // img.style.cssText = 'position: absolute; left: 10px; top: 10px; z-index: 1000000;';
+
+      // ctx.drawImage(img, 10, 10);
+
+      const ctx = canvas.getContext('2d');       // get 2D context of canvas
+
+      // ctx.textBaseline = 'top';                // start with drawing text from top
+      // ctx.font = '20px sans-serif';            // set a font and size
+      // ctx.fillStyle = 'red';                   // set a color for the text
+      ctx.fillText('WATERMARK', 20, 20);
     }
   }
 }

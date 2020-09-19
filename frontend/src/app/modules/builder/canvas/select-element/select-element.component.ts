@@ -244,10 +244,11 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     // target.selec();
     document.execCommand('selectAll', false, null);
 
-    const keyDownListener = () => {
+    const keyDownListener = (e) => {
       setTimeout(() => {
         this.moveable.updateRect();
       });
+      e.stopPropagation();
     };
 
     const blurListener = () => {

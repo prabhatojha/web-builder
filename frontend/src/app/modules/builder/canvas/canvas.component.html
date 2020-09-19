@@ -21,7 +21,7 @@
     <ngx-selecto [container]="canvas" [dragContainer]="canvasContainer" [selectableTargets]='projectNode.childNodes'
       [selectByClick]="true" [selectFromInside]="false" [continueSelect]="false" [toggleContinueSelect]="'shift'"
       [keyContainer]="canvas" [hitRate]="1" (selectEnd)="onSelectionEnd($event)" (select)="onSelection($event)"
-      [preventDefault]="false" (dragStart)="selectoDragStart($event)" (dragEnd)="selectoDragEnd($event)"
+      [preventDefault]="true" (dragStart)="selectoDragStart($event)" (dragEnd)="selectoDragEnd($event)"
       data-html2canvas-ignore>
     </ngx-selecto>
   </div>
