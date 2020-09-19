@@ -2,26 +2,28 @@
   <div class="picker-close" (click)="onClose()" *ngIf="showPicker">
     <i class="material-icons">arrow_left</i>
   </div>
-  <ng-container [ngSwitch]="picker?.id">
-    <ng-container *ngSwitchCase="LEFT_MENU_CONST.PHOTO_MENU_ID">
-      <app-image-picker></app-image-picker>
-    </ng-container>
+  <div data-html2canvas-ignore>
+    <ng-container [ngSwitch]="picker?.id">
+      <ng-container *ngSwitchCase="LEFT_MENU_CONST.PHOTO_MENU_ID">
+        <app-image-picker></app-image-picker>
+      </ng-container>
 
-    <ng-container *ngSwitchCase="LEFT_MENU_CONST.TEXT_MENU_ID">
-      <app-text-picker></app-text-picker>
-    </ng-container>
+      <ng-container *ngSwitchCase="LEFT_MENU_CONST.TEXT_MENU_ID">
+        <app-text-picker></app-text-picker>
+      </ng-container>
 
-    <ng-container *ngSwitchCase="LEFT_MENU_CONST.VECTOR_MENU_ID">
-      <app-vector-picker></app-vector-picker>
-    </ng-container>
+      <ng-container *ngSwitchCase="LEFT_MENU_CONST.VECTOR_MENU_ID">
+        <app-vector-picker></app-vector-picker>
+      </ng-container>
 
-    <ng-container *ngSwitchCase="LEFT_MENU_CONST.BG_MENU_ID">
-      <app-background-picker></app-background-picker>
-    </ng-container>
+      <ng-container *ngSwitchCase="LEFT_MENU_CONST.BG_MENU_ID">
+        <app-background-picker></app-background-picker>
+      </ng-container>
 
-    <ng-container *ngSwitchCase="LEFT_MENU_CONST.ELEMENTS_MENU_ID">
-      <app-elements-picker></app-elements-picker>
-    </ng-container>
+      <ng-container *ngSwitchCase="LEFT_MENU_CONST.ELEMENTS_MENU_ID">
+        <app-elements-picker></app-elements-picker>
+      </ng-container>
 
-  </ng-container>
+    </ng-container>
+  </div>
 </div>

@@ -1,6 +1,6 @@
 <div class="pickers-container position-relative">
   <div class="pickers">
-    <ul>
+    <ul data-html2canvas-ignore>
       <li *ngFor="let item of items; let i = index" (click)="selectPicker(item, i)"
         [class.selected]="i === selectedItemIndex && showPicker">
         <mat-icon aria-hidden="false" aria-label="item.label">{{item.icon}}</mat-icon>

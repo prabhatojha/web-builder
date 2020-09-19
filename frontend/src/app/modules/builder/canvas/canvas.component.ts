@@ -192,7 +192,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     }
     // Update the z-index if only one item is selected
     if (ne.length === 1) {
-      this.addZIndex(ne[0], ce[0]);
+      // this.addZIndex(ne[0], ce[0]);
     }
     this.setInitialGroupRotate(ce[0]);
     this.guidingElements = newGudingEle;
@@ -259,9 +259,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     if (canvasElement.locked || canvasElement.style[CSS_PROPERTIES.Z_INDEX] === this.project.currentZindex - 1) {
       return;
     }
-    CanvasUtils.applyCss(node, canvasElement, {
-      [CSS_PROPERTIES.Z_INDEX]: this.project.currentZindex++
-    }, true);
+    // CanvasUtils.applyCss(node, canvasElement, {
+    //   [CSS_PROPERTIES.Z_INDEX]: this.project.currentZindex++
+    // }, true);
   }
 
   onItemRemove({ canvasElements, nodes }, selectNextElement = true) {

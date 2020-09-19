@@ -136,7 +136,7 @@ export class DownloadCanvasComponent implements OnInit {
       useCORS: true,
       scale
     }).then(canvas => {
-      this.addWaterMark(canvas);
+      // this.addWaterMark(canvas);
       callback(canvas.toDataURL());
     }).catch(err => {
       this.disableDownload = false;
