@@ -7,6 +7,7 @@ import { CanvasUtils } from 'src/app/utils/canvas.utils';
 import { EventerService, EventTypes } from '../../shared/services/eventer.service';
 import { CSSUtils } from 'src/app/utils/css.utils';
 import { UndoService, UndoRedoType } from '../../shared/services/undo-redo/undo.service';
+import { LayeringActions } from '../../shared/services/layering/layering.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -19,12 +20,14 @@ export class ToolbarComponent implements OnInit, OnChanges {
   @Input() options = [];
   @Input() selectedNodes = [];
   @Input() selectedCanvasElements: CanvasElement[] = [];
+  @Input() projectNode: HTMLElement;
 
   @Output() removeSelectedItem = new EventEmitter();
   @Output() duplicateSelectedItem = new EventEmitter();
   @Output() groupSelectedItem = new EventEmitter();
   @Output() unGroupSelectedItem = new EventEmitter();
   @Output() clearSelectedElements = new EventEmitter();
+  @Output() layeringChange = new EventEmitter<LayeringActions>();
 
   filterConfig = [];
   FILTER_TYPES = FILTER_TYPES;
@@ -195,6 +198,10 @@ export class ToolbarComponent implements OnInit, OnChanges {
     // } else {
     // this.groupSelectedItem.emit(this.getSelectedItems());
     // }
+  }
+
+  onLayeringChange(e: LayeringActions) {
+    this.layeringChange.emit(e);
   }
 
   lockItem() {

@@ -12,6 +12,7 @@ import { CSSUtils } from 'src/app/utils/css.utils';
 import { UndoService, UndoRedoModel, UndoRedoType } from '../../shared/services/undo-redo/undo.service';
 import { SelectElementComponent } from './select-element/select-element.component';
 import { ElementTranform } from 'src/app/models/element.transform.modal';
+import { LayeringActions, LayeringService } from '../../shared/services/layering/layering.service';
 
 @Component({
   selector: 'app-canvas',
@@ -51,7 +52,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   guidingElements = []; // Is used to set elementGuidelines to ngx-moveable
 
-  constructor(private eventer: EventerService, private undoService: UndoService) {
+  constructor(private eventer: EventerService, private undoService: UndoService, private layeringService: LayeringService) {
   }
 
   ngOnInit(): void {
@@ -304,6 +305,11 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     CanvasUtils.setUnGroupNodeLocation(items.nodes[0], items.canvasElements[0]);
 
     this.onItemRemove(items, false);
+  }
+
+  onLayeringChange(action: LayeringActions) {
+    this.layeringService.doAction(this.projectNode.children, this.project.canvasElement.children,
+      this.selectedNodes[0], action);
   }
 
   subscribeEventer() {

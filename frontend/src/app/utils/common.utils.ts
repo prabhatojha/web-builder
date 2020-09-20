@@ -16,4 +16,14 @@ export class CommonUtils {
   static getElementsAsArray(nodes: HTMLCollection) {
     return Array.from(nodes);
   }
+
+  static swapArrayElements(arr: Array<any>, sourceIndex: number, targetIndex: number) {
+    const b = arr[sourceIndex];
+    arr[sourceIndex] = arr[targetIndex];
+    arr[targetIndex] = b;
+  }
+
+  static insertNodeBefore(node: HTMLElement, reference: HTMLElement) {
+    node.parentNode.insertBefore(node, reference);
+  }
 }

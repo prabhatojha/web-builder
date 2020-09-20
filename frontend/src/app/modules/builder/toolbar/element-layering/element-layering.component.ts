@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
+import { LayeringActions } from 'src/app/modules/shared/services/layering/layering.service';
 
 @Component({
   selector: 'app-element-layering',
@@ -8,17 +9,31 @@ import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
 })
 export class ElementLayeringComponent implements OnInit {
 
-  @Output() styleChange = new EventEmitter();
+  @Input() selectedNode: HTMLElement;
+
+  @Output() layeringChange = new EventEmitter<LayeringActions>();
 
   disabled = false;
   isVisible = false;
   CSS_PROPERTIES = CSS_PROPERTIES;
 
   availableOtions = [
-    { icon: 'first_page', cssValue: 'left' },
-    { icon: 'keyboard_arrow_left', cssValue: 'center' },
-    { icon: 'keyboard_arrow_right', cssValue: 'justify' },
-    { icon: 'last_page', cssValue: 'right' }
+    {
+      icon: 'first_page', cssValue: 'left', type: LayeringActions.MOVE_TO_LAST, toolTip: 'Move to last',
+      disabled: 'previousSibling'
+    },
+    {
+      icon: 'keyboard_arrow_left', cssValue: 'center', type: LayeringActions.SEND_BACKWARD, toolTip: 'Send one step backward',
+      disabled: 'previousSibling'
+    },
+    {
+      icon: 'keyboard_arrow_right', cssValue: 'justify', type: LayeringActions.BRING_FORWARD, toolTip: 'Bring one step forward',
+      disabled: 'nextSibling'
+    },
+    {
+      icon: 'last_page', cssValue: 'right', type: LayeringActions.MOVE_TO_FRONT, toolTip: 'Bring to front',
+      disabled: 'nextSibling'
+    }
   ];
 
   constructor() { }
@@ -30,10 +45,8 @@ export class ElementLayeringComponent implements OnInit {
     this.isVisible = !this.isVisible;
   }
 
-  sendEvent(key, value) {
-    this.styleChange.emit({
-      [key]: value
-    });
+  sendEvent(item) {
+    this.layeringChange.emit(item.type);
   }
 
 }

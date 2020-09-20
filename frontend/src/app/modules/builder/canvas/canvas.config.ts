@@ -36,7 +36,7 @@ export const DEFAULT_PROJECT_SIZE = {
 export const CANVAS_PROJECT = {
   elementId: 'my-first-element',
   id: 'jfaslj12o4u12oi',
-  currentZindex: 500,
+  currentZindex: 0,
   zIndex: {
     [ELEMENT_TYPES.PHOTO]: 500,
     [ELEMENT_TYPES.ANY]: 5000

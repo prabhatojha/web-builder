@@ -2,7 +2,7 @@
   <app-toolbar [selectedNodes]="selectedNodes" [selectedCanvasElements]="selectedCanvasElements"
     (clearSelectedElements)="clearItemSelection()" (duplicateSelectedItem)="onDuplicateSelectedItem($event)"
     (removeSelectedItem)="onItemRemove($event)" (unGroupSelectedItem)="onItemUnGroup($event)"
-    (groupSelectedItem)="onItemGroup($event)">
+    (groupSelectedItem)="onItemGroup($event)" [projectNode]="projectNode" (layeringChange)="onLayeringChange($event)">
   </app-toolbar>
 </div>
 

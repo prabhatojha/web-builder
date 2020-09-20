@@ -7,9 +7,9 @@
 <div class="toolbar-item-drop toolbar-item-drop-right" *ngIf="isVisible" (appClickOutside)="toggle()"
   [srcElement]="myButton">
   <div class="btn-group btn-group-lg w-100" role="group" aria-label="Basic example">
-    <button type="button" class="btn btn-light" *ngFor="let style of availableOtions"
-      (click)="sendEvent(CSS_PROPERTIES.TEXT_ALIGN, style.cssValue)">
-      <i class="material-icons">{{style.icon}}</i>
+    <button type="button" class="btn btn-light" *ngFor="let item of availableOtions" (click)="sendEvent(item)"
+      [matTooltip]="item.toolTip" [disabled]="!selectedNode[item.disabled]">
+      <i class="material-icons">{{item.icon}}</i>
     </button>
   </div>
 </div>

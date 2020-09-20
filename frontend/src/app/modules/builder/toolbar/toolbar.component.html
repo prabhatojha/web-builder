@@ -113,10 +113,11 @@
   </div>
   <div class="toolbar-items-right">
 
-    <!-- Z-index -->
+    <!-- Z-index - Layers -->
     <ng-container>
       <div class="toolbar-item">
-        <app-element-layering></app-element-layering>
+        <app-element-layering [selectedNode]="firstNode" (layeringChange)="onLayeringChange($event)">
+        </app-element-layering>
       </div>
     </ng-container>
 
