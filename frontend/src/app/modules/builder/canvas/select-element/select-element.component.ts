@@ -285,7 +285,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   onDrag(e, index = 0) {
     const transform: ElementTranform = this.transformations[index];
-    this.updateTranslate(transform, e);
+    this.updateTranslate(transform, e.beforeDelta);
     this.updateNodeCss({
       transform: ElementTranform.toCss(transform)
     }, index);
@@ -295,7 +295,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     e.events.forEach((ev, i) => {
       this.onDrag(ev, i);
     });
-    this.updateTranslate(this.groupedTranform, e);
+    this.updateTranslate(this.groupedTranform, e.beforeDelta);
   }
 
   onGroupResizeStart({ events }) {
@@ -326,7 +326,8 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   onScale(e, showLabel = true, index = 0) {
     const transform: ElementTranform = this.transformations[index];
-    this.updateTranslate(transform, e.drag);
+    transform.translateX = e.drag.beforeTranslate[0];
+    transform.translateY = e.drag.beforeTranslate[1];
     this.updatScale(transform, e);
 
     this.updateNodeCss({
@@ -361,12 +362,12 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   updateGroupTransformScale(e) {
     this.updatScale(this.groupedTranform, e);
-    this.updateTranslate(this.groupedTranform, e.drag);
+    this.updateTranslate(this.groupedTranform, e.drag.beforeDelta);
   }
 
-  updateTranslate(transform: ElementTranform, drag) {
-    transform.translateX += drag.beforeDelta[0];
-    transform.translateY += drag.beforeDelta[1];
+  updateTranslate(transform: ElementTranform, values: Array<number>) {
+    transform.translateX += values[0];
+    transform.translateY += values[1];
   }
 
   updatScale(transform: ElementTranform, event) {
@@ -374,9 +375,15 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     transform.scaleY = event.scale[1];
   }
 
+  onRotateStart(e) {
+    const tranform: ElementTranform = this.transformations[0];
+    e.set(tranform.rotate);
+    this.onStart();
+  }
+
   onRotate(e) {
     const tranform: ElementTranform = this.transformations[0];
-    tranform.rotate += e.beforeDelta;
+    tranform.rotate = (e.beforeRotate) % 360;
     this.updateNodeCss({
       transform: ElementTranform.toCss(tranform)
     });
@@ -393,23 +400,32 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   onGroupRotateStart(e) {
+    console.log(e);
+    e.events.forEach((ev, i) => {
+      const transform = this.transformations[i];
+      ev.set(transform.rotate);
+      // tslint:disable-next-line: no-unused-expression
+      ev.dragStart && ev.dragStart.set([transform.translateX, transform.translateY]);
+    });
 
+    this.onStart();
   }
 
   onGroupRotate(e) {
     e.events.forEach((event, i) => {
-      const tranform: ElementTranform = this.transformations[i];
-      tranform.rotate += event.beforeDelta;
-      this.updateTranslate(tranform, event.drag);
+      const transform: ElementTranform = this.transformations[i];
+      transform.rotate = event.rotate;
+      transform.translateX = event.drag.beforeTranslate[0];
+      transform.translateY = event.drag.beforeTranslate[1];
       this.updateNodeCss({
-        transform: ElementTranform.toCss(this.transformations[i])
+        transform: ElementTranform.toCss(transform)
       }, i);
     });
 
-    this.groupedTranform.rotate += e.beforeDelta;
+    this.groupedTranform.rotate = e.rotate % 360;
 
     const deg = CSSUtils.getRotationValue(document.getElementsByClassName(CSS_CLASSES.MOVEABLE_AREA)[0]);
-    this.setDisplayLabel(e.clientX, e.clientY, `${deg} Deg`);
+    this.setDisplayLabel(e.clientX, e.clientY, `${this.groupedTranform.rotate} Deg`);
   }
 
   setDisplayLabel(clientX, clientY, text) {
