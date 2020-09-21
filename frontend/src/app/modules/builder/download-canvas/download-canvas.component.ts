@@ -2,8 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 import { DEFAULT_PROJECT_SIZE } from '../canvas/canvas.config';
-import { CSSUtils } from 'src/app/utils/css.utils';
-import { CSS_CLASSES } from 'src/app/constants/css-constants';
+import { InOut } from 'src/style/_angular-animations';
 
 export enum DownloadType {
   PDF,
@@ -12,7 +11,8 @@ export enum DownloadType {
 @Component({
   selector: 'app-download-canvas',
   templateUrl: './download-canvas.component.html',
-  styleUrls: ['./download-canvas.component.scss']
+  styleUrls: ['./download-canvas.component.scss'],
+  animations: [InOut]
 })
 export class DownloadCanvasComponent implements OnInit {
 

@@ -8,12 +8,15 @@ import { EventerService, EventTypes } from '../../shared/services/eventer.servic
 import { CSSUtils } from 'src/app/utils/css.utils';
 import { UndoService, UndoRedoType } from '../../shared/services/undo-redo/undo.service';
 import { LayeringActions } from '../../shared/services/layering/layering.service';
+import { InOut } from 'src/style/_angular-animations';
+import { ElementTranform } from 'src/app/models/element.transform.modal';
 
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  animations: [InOut]
 })
 export class ToolbarComponent implements OnInit, OnChanges {
 
@@ -172,10 +175,10 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   onFlip(x, y) {
-    const val = CSSUtils.getComputedStyle(this.firstNode, CSS_PROPERTIES.TRANSFORM);
-    this.updateCss({
-      [CSS_PROPERTIES.TRANSFORM]: val && val !== CSS_PROPERTY_VALUES.NONE ? `${val} scale(${x}, ${y})` : `scale(${x}, ${y})`
-    });
+    // Updating the img element directly, so that the parent doesn't affect while doing transfromation
+    CanvasUtils.applyCss(this.firstNode.firstElementChild, this.fistCanvasElement.children[0], {
+      [CSS_PROPERTIES.TRANSFORM]: `scale(${x}, ${y})`
+    }, true);
   }
 
   onItalicClick() {

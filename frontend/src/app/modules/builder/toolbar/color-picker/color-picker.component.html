@@ -3,7 +3,7 @@
 </div>
 
 <div class="left-raiser-container color-picker-content" *ngIf="showDropdown" (appClickOutside)="toggleOptions()"
-  [srcElement]="externalSourseElement || srcElement">
+  [srcElement]="externalSourseElement || srcElement" [@InOut]>
   <div id="toolbarNewColorPicker" #toolbarNewColorPicker></div>
   <div class="color-picker" id="colorPalette" *ngIf="showDropdown" (appClickOutside)="close()"
     [srcElement]="srcElement">
@@ -38,7 +38,5 @@
       </div>
     </div>
   </div>
-  <button type="button" class="close close-button" aria-label="Close" (click)="toggleOptions()">
-    <span aria-hidden="true">&times;</span>
-  </button>
+  <i class="material-icons close-button" (click)="toggleOptions()">close</i>
 </div>

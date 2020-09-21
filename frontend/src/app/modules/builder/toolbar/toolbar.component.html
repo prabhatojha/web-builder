@@ -2,7 +2,7 @@
   <div class="ml-2 d-flex toolbar-items-left" data-html2canvas-ignore>
 
     <!-- Single Select Filter - Font Family-->
-    <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.FONT_FAMILY]">
+    <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.FONT_FAMILY]" [@InOut]>
       <div class="toolbar-item">
         <app-font-family [selectedFont]="styles[CSS_PROPS.FONT_FAMILY]" (fontSelect)="onFontFamilySelect($event)"
           [disabled]="isLocked">
@@ -115,7 +115,7 @@
 
     <!-- Z-index - Layers -->
     <ng-container>
-      <div class="toolbar-item">
+      <div class="toolbar-item" *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.LAYERING]">
         <app-element-layering [selectedNode]="firstNode" (layeringChange)="onLayeringChange($event)">
         </app-element-layering>
       </div>

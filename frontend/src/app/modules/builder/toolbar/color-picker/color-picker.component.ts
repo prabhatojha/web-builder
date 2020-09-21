@@ -1,10 +1,12 @@
 import { Component, OnInit, Output, EventEmitter, AfterViewInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { CSS_PROPERTY_VALUES } from 'src/app/constants/css-constants';
+import { InOut } from 'src/style/_angular-animations';
 
 @Component({
   selector: 'app-color-picker',
   templateUrl: './color-picker.component.html',
-  styleUrls: ['./color-picker.component.scss']
+  styleUrls: ['./color-picker.component.scss'],
+  animations: [InOut]
 })
 export class ColorPickerComponent implements OnInit, AfterViewInit {
 

@@ -1,8 +1,4 @@
-<!-- <app-popup> -->
-<!-- <div class="modal fade show" style="display: block; z-index: 100000;" id="exampleModal" tabindex="-1" role="dialog"
-  aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
-<!-- <div class="modal"> -->
-<div class="modal is-open fade show" *ngIf="isVisible">
+<div class="modal is-open fade show" *ngIf="isVisible" [@InOut]>
   <div class="modal-container">
     <div class="modal-left">
       <img src="/assets/images/download-canvas.png" alt="">
@@ -43,11 +39,6 @@
         </button>
       </div>
     </div>
-
-    <!-- <button class="toolbar-icon-size close-button" mat-icon-button (click)="toggleModal()"> -->
     <i class="material-icons close-button" (click)="toggleModal()">close</i>
-    <!-- </button> -->
   </div>
 </div>
-
-<!-- </app-popup> -->
