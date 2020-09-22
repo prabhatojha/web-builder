@@ -30,10 +30,12 @@
   transition: width 0.4s ease-in;
   position: relative;
   height: $contentHeight;
-  background: #31425ae3;
+  background: #485b75e3;
   color: white;
 
   &.show-picker {
     width: $pickerWidth;
   }
 }
+
+// 31425ae3
