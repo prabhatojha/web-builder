@@ -1,6 +1,6 @@
 @import "./colors.scss";
 
-$headerHeight: 60px;
+$headerHeight: 50px;
 
 $contentHeight: calc(100vh - #{$headerHeight});
 
@@ -13,10 +13,11 @@ $largerFont: 1rem;
 $largestFont: 1.25rem;
 
 // Left menu
-$leftMenu: 74px;
+$leftMenu: 65px;
 
 // Left Menu Pickers
 $pickerWidth: 310px;
+$pickerItemBackground: #516179;
 
 // Canvas
 $canvasInitialHeight: calc($contentHeight - 150px);

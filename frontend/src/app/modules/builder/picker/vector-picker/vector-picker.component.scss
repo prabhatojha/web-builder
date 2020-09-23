@@ -33,10 +33,17 @@ $contentMargin: 7px;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: $pickerItemBackground;
+    transition: background-color 0.3s;
+    padding: 10px;
     img {
       border-radius: 3px;
       max-height: 100%;
       max-width: 100%;
+    }
+
+    &:hover {
+      background-color: #6b7c95;
     }
   }
 }

@@ -7,6 +7,7 @@ $primaryButtonFontSize: 20px;
   display: flex;
   align-items: center;
   font-size: $mediumFont;
+  letter-spacing: 0.5px;
 
   .material-icons {
     width: $primaryButtonFontSize;

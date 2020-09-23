@@ -12,11 +12,9 @@ html,
 body {
   font-size: 16px;
   height: 100%;
-}
-
-body {
   margin: 0;
-  font-family: "Muli", Roboto, "Helvetica Neue", sans-serif;
+  font-family: sans-serif;
+  letter-spacing: 0.3px;
 }
 
 label {
@@ -109,8 +107,8 @@ button {
 
 .close-button {
   position: absolute;
-  right: 5px;
-  top: 5px;
+  right: 10px;
+  top: 10px;
   cursor: pointer;
   color: $gray-400;
   transition: transform 0.2s ease-in-out;
@@ -118,4 +116,36 @@ button {
   &:hover {
     transform: rotate(90deg);
   }
+}
+
+.scrollbox {
+  scrollbar-width: thin; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.scrollbox::-webkit-scrollbar-track {
+  -webkit-box-shadow: none !important;
+  background-color: transparent !important;
+}
+
+.scrollbox::-webkit-scrollbar {
+  width: 8px !important;
+  background-color: transparent;
+}
+
+.scrollbox::-webkit-scrollbar-thumb {
+  background-color: #acacac;
+  border-radius: 4px;
+  visibility: hidden;
+}
+
+.scrollbox::-webkit-scrollbar-thumb {
+  background-color: #acacac;
+  border-radius: 4px;
+  visibility: hidden;
+  transition: visibility 0.6s ease;
+}
+
+.scrollbox:hover::-webkit-scrollbar-thumb {
+  visibility: visible;
 }

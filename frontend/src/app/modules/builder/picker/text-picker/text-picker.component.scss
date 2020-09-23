@@ -43,7 +43,7 @@
   .custom-text-li {
     width: calc(100% - 7px);
     padding: 7px 10px;
-    background-color: #5a6b84;
+    background-color: $pickerItemBackground;
     color: $gray-20;
     transition: background-color 0.2s;
     box-shadow: none;

@@ -48,6 +48,8 @@ export class ImagesService {
     if (!this.withMock) {
       this.httpService.get(this.GET_IMAGES, options).pipe(delay(this.EXTRA_DELAY)).subscribe((photos: any) => {
         this.processPhotos(photos);
+      }, err => {
+        console.log(err);
       });
     } else {
       this.mock().pipe(delay(500)).subscribe(photos => {
