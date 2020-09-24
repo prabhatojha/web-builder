@@ -1,11 +1,13 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
 import { LayeringActions } from 'src/app/modules/shared/services/layering/layering.service';
+import { InOut } from 'src/style/_angular-animations';
 
 @Component({
   selector: 'app-element-layering',
   templateUrl: './element-layering.component.html',
-  styleUrls: ['./element-layering.component.scss']
+  styleUrls: ['./element-layering.component.scss'],
+  animations: [InOut]
 })
 export class ElementLayeringComponent implements OnInit {
 
@@ -19,20 +21,28 @@ export class ElementLayeringComponent implements OnInit {
 
   availableOtions = [
     {
-      icon: 'first_page', cssValue: 'left', type: LayeringActions.MOVE_TO_LAST, toolTip: 'Move to last',
-      disabled: 'previousSibling'
-    },
-    {
-      icon: 'keyboard_arrow_left', cssValue: 'center', type: LayeringActions.SEND_BACKWARD, toolTip: 'Send one step backward',
-      disabled: 'previousSibling'
-    },
-    {
-      icon: 'keyboard_arrow_right', cssValue: 'justify', type: LayeringActions.BRING_FORWARD, toolTip: 'Bring one step forward',
+      icon: 'keyboard_arrow_left',
+      type: LayeringActions.BRING_FORWARD,
+      toolTip: 'Move up',
       disabled: 'nextSibling'
     },
     {
-      icon: 'last_page', cssValue: 'right', type: LayeringActions.MOVE_TO_FRONT, toolTip: 'Bring to front',
+      icon: 'keyboard_arrow_right',
+      type: LayeringActions.SEND_BACKWARD,
+      toolTip: 'Move down',
+      disabled: 'previousSibling'
+    },
+    {
+      icon: 'first_page',
+      type: LayeringActions.MOVE_TO_FRONT,
+      toolTip: 'Move to top',
       disabled: 'nextSibling'
+    },
+    {
+      icon: 'last_page',
+      type: LayeringActions.MOVE_TO_LAST,
+      toolTip: 'Move to bottom',
+      disabled: 'previousSibling'
     }
   ];
 

@@ -7,7 +7,7 @@ export const InOut = trigger(
       ':enter',
       [
         style({ opacity: 0 }),
-        animate('0.4s ease-out',
+        animate('0.25s ease-out',
           style({ opacity: 1 }))
       ]
     ),
@@ -15,7 +15,7 @@ export const InOut = trigger(
       ':leave',
       [
         style({ opacity: 1 }),
-        animate('0.4s ease-in',
+        animate('0.25s ease-in',
           style({ opacity: 0 }))
       ]
     )

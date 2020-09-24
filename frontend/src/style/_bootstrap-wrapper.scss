@@ -23,3 +23,8 @@ $primaryButtonFontSize: 20px;
 .btn-light:disabled {
   border: 1px solid $gray-100;
 }
+
+.dropdown-item {
+  padding: 0.25rem 1rem;
+  cursor: pointer;
+}

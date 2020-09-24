@@ -6,7 +6,7 @@
 </section>
 
 <section class="toolbar-item-drop letter-spacing" *ngIf="isVisible" (appClickOutside)="toggle()"
-  [srcElement]="spacingButton">
+  [srcElement]="spacingButton" [@InOut]>
   <div>
     <p>Letter Spacing</p>
     <div class="letter-spacing-content">

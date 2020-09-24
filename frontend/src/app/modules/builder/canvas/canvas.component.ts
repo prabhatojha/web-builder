@@ -193,10 +193,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         newGudingEle.push(child);
       }
     }
-    // Update the z-index if only one item is selected
-    if (ne.length === 1) {
-      // this.addZIndex(ne[0], ce[0]);
-    }
+
     this.setInitialGroupRotate(ce[0]);
     this.guidingElements = newGudingEle;
     this.selectedNodes = ne;

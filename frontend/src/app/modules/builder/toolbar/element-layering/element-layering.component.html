@@ -4,12 +4,13 @@
     <i class="material-icons">layers</i>
   </button>
 </section>
-<div class="toolbar-item-drop toolbar-item-drop-right" *ngIf="isVisible" (appClickOutside)="toggle()"
-  [srcElement]="myButton">
-  <div class="btn-group btn-group-lg w-100" role="group" aria-label="Basic example">
-    <button type="button" class="btn btn-light" *ngFor="let item of availableOtions" (click)="sendEvent(item)"
-      [matTooltip]="item.toolTip" [disabled]="!selectedNode[item.disabled]">
-      <i class="material-icons">{{item.icon}}</i>
-    </button>
-  </div>
+<!-- <div class="toolbar-item-drop toolbar-item-drop-right" > -->
+<div class="dropdown-menu show" (appClickOutside)="toggle()" [srcElement]="myButton" *ngIf="isVisible" [@InOut]>
+  <ul>
+    <!-- <li class="dropdown-header">Layers</li> -->
+    <li class="dropdown-item btn d-flex align-items-center py-2" *ngFor="let item of availableOtions"
+      (click)="sendEvent(item)" [class.disabled]="!selectedNode[item.disabled]">
+      <i class="material-icons mr-2 rotate-90">{{item.icon}}</i><span>{{item.toolTip}} </span>
+    </li>
+  </ul>
 </div>
