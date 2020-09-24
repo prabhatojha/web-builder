@@ -79,9 +79,15 @@
 }
 
 .color-picker-heading {
-  border-bottom: 1px solid $gray-100;
+  // color: #aeaeae;
   margin-bottom: 20px;
-  padding-bottom: 5px;
+  font-weight: bolder;
+
+  h5 {
+    border-bottom: 1px solid;
+    padding-bottom: 5px;
+    font-size: $mediumFont;
+  }
 }
 
 .transparent-color-pallete {
