@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { InOut } from 'src/style/_angular-animations';
+import { AppAnimations } from 'src/style/_angular-animations';
 
 @Component({
   selector: 'app-slider',
   templateUrl: './opacity.component.html',
   styleUrls: ['./opacity.component.scss'],
-  animations: [InOut]
+  animations: [AppAnimations.InOut]
 })
 export class OpacityComponent implements OnChanges {
 

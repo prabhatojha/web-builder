@@ -16,10 +16,11 @@ export class LayeringService {
 
   constructor() { }
 
-  doAction(nodes: HTMLElement[], canvasElements: CanvasElement[], selectedNode: HTMLElement, action: LayeringActions) {
+  doAction(nodes: HTMLCollection, canvasElements: CanvasElement[], selectedNode: Element, action: LayeringActions) {
     let sourceIndex = 0;
-    for (const node of nodes) {
-      if (selectedNode === node) {
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < nodes.length; i++) {
+      if (selectedNode === nodes[i]) {
         break;
       }
       sourceIndex++;

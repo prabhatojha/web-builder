@@ -23,7 +23,7 @@ export class CommonUtils {
     arr[targetIndex] = b;
   }
 
-  static insertNodeBefore(node: HTMLElement, reference: HTMLElement) {
+  static insertNodeBefore(node: Element, reference: Element) {
     node.parentNode.insertBefore(node, reference);
   }
 }

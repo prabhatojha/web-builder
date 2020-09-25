@@ -4,43 +4,45 @@
 
 <div class="left-raiser-container color-picker-content" *ngIf="showDropdown" (appClickOutside)="toggleOptions()"
   [srcElement]="externalSourseElement || srcElement" [@InOut]>
-  <div id="toolbarNewColorPicker" #toolbarNewColorPicker></div>
-  <div class="color-picker" id="colorPalette" *ngIf="showDropdown" (appClickOutside)="close()"
-    [srcElement]="srcElement">
-    <div class="color-picker-heading">
-      <h5>
-        <strong>{{heading}}</strong>
-      </h5>
-    </div>
+  <div class="py-2">
+    <div id="toolbarNewColorPicker" #toolbarNewColorPicker></div>
+    <div class="color-picker" id="colorPalette" *ngIf="showDropdown" (appClickOutside)="close()"
+      [srcElement]="srcElement">
+      <div class="color-picker-heading">
+        <h5>
+          <strong>{{heading}}</strong>
+        </h5>
+      </div>
 
-    <div class="my-color-header position-relative">
-      <h5>My Colors</h5>
-      <button type="button" class="btn btn-outline-info btn-sm" (click)="showColorPicker = true;">+ Add</button>
-      <div class="color-sketch" *ngIf="showColorPicker">
-        <color-chrome (onChangeComplete)="unsavedColor = $event.color"></color-chrome>
-        <div class="d-flex justify-content-end">
-          <button type="button" class="btn btn-outline-secondary btn-sm mr-2"
-            (click)="$event.stopPropagation(); showColorPicker = false;">Cancel</button>
-          <button type="button" class="btn btn-primary btn-sm" (click)="onPick($event)">Save</button>
+      <div class="my-color-header position-relative">
+        <h5>My Colors</h5>
+        <button type="button" class="btn btn-outline-info btn-sm" (click)="showColorPicker = true;">+ Add</button>
+        <div class="color-sketch" *ngIf="showColorPicker">
+          <color-chrome (onChangeComplete)="unsavedColor = $event.color"></color-chrome>
+          <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-outline-secondary btn-sm mr-2"
+              (click)="$event.stopPropagation(); showColorPicker = false;">Cancel</button>
+            <button type="button" class="btn btn-primary btn-sm" (click)="onPick($event)">Save</button>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="color-pallete-container justify-content-start">
-      <div class="color-pallete" *ngFor="let color of customColors" [style.background-color]="color"
-        (mouseenter)="onHover(color)" (click)="onClick(color);" [class.selected-color]="color === selectedColor">
+      <div class="color-pallete-container justify-content-start">
+        <div class="color-pallete" *ngFor="let color of customColors" [style.background-color]="color"
+          (mouseenter)="onHover(color)" (click)="onClick(color);" [class.selected-color]="color === selectedColor">
+        </div>
       </div>
-    </div>
 
-    <div class="standard-color-header">
-      <h5>Presets</h5>
-    </div>
-    <div class="mt-3 color-pallete-container">
-      <div class="color-pallete transparent-color-pallete" (click)="onClick(CSS_PROPERTY_VALUES.COLOR_TRANSPARENT)"
-        [class.selected-color]="CSS_PROPERTY_VALUES.COLOR_TRANSPARENT === selectedColor">
-        Transparent
+      <div class="standard-color-header">
+        <h5>Presets</h5>
       </div>
-      <div class="color-pallete" *ngFor="let color of standeardColors" [style.background-color]="color"
-        (mouseenter)="onHover(color)" (click)="onClick(color)" [class.selected-color]="color === selectedColor">
+      <div class="mt-3 color-pallete-container">
+        <div class="color-pallete transparent-color-pallete" (click)="onClick(CSS_PROPERTY_VALUES.COLOR_TRANSPARENT)"
+          [class.selected-color]="CSS_PROPERTY_VALUES.COLOR_TRANSPARENT === selectedColor">
+          Transparent
+        </div>
+        <div class="color-pallete" *ngFor="let color of standeardColors" [style.background-color]="color"
+          (mouseenter)="onHover(color)" (click)="onClick(color)" [class.selected-color]="color === selectedColor">
+        </div>
       </div>
     </div>
   </div>

@@ -8,7 +8,7 @@ import { EventerService, EventTypes } from '../../shared/services/eventer.servic
 import { CSSUtils } from 'src/app/utils/css.utils';
 import { UndoService, UndoRedoType } from '../../shared/services/undo-redo/undo.service';
 import { LayeringActions } from '../../shared/services/layering/layering.service';
-import { InOut } from 'src/style/_angular-animations';
+import { AppAnimations } from 'src/style/_angular-animations';
 import { ElementTranform } from 'src/app/models/element.transform.modal';
 
 @Component({
@@ -16,7 +16,7 @@ import { ElementTranform } from 'src/app/models/element.transform.modal';
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  animations: [InOut]
+  animations: [AppAnimations.InOut]
 })
 export class ToolbarComponent implements OnInit, OnChanges {
 

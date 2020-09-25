@@ -13,14 +13,14 @@ import { UndoService, UndoRedoModel, UndoRedoType } from '../../shared/services/
 import { SelectElementComponent } from './select-element/select-element.component';
 import { ElementTranform } from 'src/app/models/element.transform.modal';
 import { LayeringActions, LayeringService } from '../../shared/services/layering/layering.service';
-import { InOut } from 'src/style/_angular-animations';
+import { AppAnimations } from 'src/style/_angular-animations';
 
 @Component({
   selector: 'app-canvas',
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  animations: [InOut]
+  animations: [AppAnimations.InOut]
 })
 export class CanvasComponent implements OnInit, AfterViewInit {
 

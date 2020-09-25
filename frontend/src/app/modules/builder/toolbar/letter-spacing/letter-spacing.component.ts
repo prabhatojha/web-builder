@@ -1,13 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
 import { ResizeEventerService } from 'src/app/modules/shared/services/resize-eventer/resize-eventer.service';
-import { InOut } from 'src/style/_angular-animations';
+import { AppAnimations } from 'src/style/_angular-animations';
 
 @Component({
   selector: 'app-letter-spacing',
   templateUrl: './letter-spacing.component.html',
   styleUrls: ['./letter-spacing.component.scss'],
-  animations: [InOut]
+  animations: [AppAnimations.InOut]
 })
 export class LetterSpacingComponent implements OnInit {
 

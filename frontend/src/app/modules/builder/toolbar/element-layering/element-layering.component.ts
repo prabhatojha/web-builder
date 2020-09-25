@@ -1,13 +1,13 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
 import { LayeringActions } from 'src/app/modules/shared/services/layering/layering.service';
-import { InOut } from 'src/style/_angular-animations';
+import { AppAnimations } from 'src/style/_angular-animations';
 
 @Component({
   selector: 'app-element-layering',
   templateUrl: './element-layering.component.html',
   styleUrls: ['./element-layering.component.scss'],
-  animations: [InOut]
+  animations: [AppAnimations.SlideDown]
 })
 export class ElementLayeringComponent implements OnInit {
 

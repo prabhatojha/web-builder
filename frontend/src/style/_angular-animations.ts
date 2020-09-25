@@ -1,8 +1,7 @@
-import { animate, style, transition, trigger } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
-export const InOut = trigger(
-  'InOut',
-  [
+export const AppAnimations = {
+  InOut: trigger('InOut', [
     transition(
       ':enter',
       [
@@ -20,4 +19,18 @@ export const InOut = trigger(
       ]
     )
   ]
-);
+  ),
+  SlideDown: trigger('SlideDown', [
+    state('*', style({})),
+    state('void', style({})),
+    transition('* => void', [
+      style({ height: '*', overflow: 'hidden' }),
+      animate(150, style({ height: 0 }))
+    ]),
+    transition('void => *', [
+      style({ height: '0', overflow: 'hidden' }),
+      animate(150, style({ height: '*' }))
+    ])
+  ]
+  )
+};
