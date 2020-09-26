@@ -1,22 +1,20 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, ElementRef, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { AVA_TOOLBAR_OPTIONS, ELEMENT_TYPE_VS_TOOLBAR_OPT } from './toolbar.config';
 import { FILTER_TYPES, ELEMENT_TYPES } from '../../../constants/contants';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { CSS_PROPERTIES, CSS_PROPERTY_VALUES } from 'src/app/constants/css-constants';
 import { CanvasUtils } from 'src/app/utils/canvas.utils';
 import { EventerService, EventTypes } from '../../shared/services/eventer.service';
-import { CSSUtils } from 'src/app/utils/css.utils';
 import { UndoService, UndoRedoType } from '../../shared/services/undo-redo/undo.service';
 import { LayeringActions } from '../../shared/services/layering/layering.service';
 import { AppAnimations } from 'src/style/_angular-animations';
-import { ElementTranform } from 'src/app/models/element.transform.modal';
 
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  animations: [AppAnimations.InOut]
+  animations: [AppAnimations.InOut],
+  encapsulation: ViewEncapsulation.None
 })
 export class ToolbarComponent implements OnInit, OnChanges {
 
@@ -176,7 +174,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
   onFlip(x, y) {
     // Updating the img element directly, so that the parent doesn't affect while doing transfromation
-    CanvasUtils.applyCss(this.firstNode.firstElementChild, this.fistCanvasElement.children[0], {
+    CanvasUtils.applyCss(this.firstNode.firstElementChild as HTMLElement, this.fistCanvasElement.children[0], {
       [CSS_PROPERTIES.TRANSFORM]: `scale(${x}, ${y})`
     }, true);
   }

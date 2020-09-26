@@ -179,9 +179,9 @@ export class TextPickerService {
 
   init() {
     // tslint:disable-next-line: prefer-for-of
-    for (let i = 0; i < 2; i++) {
-      this.buildTextPickerItem(this.fontService.customTextFonts[i]);
-    }
+    this.fontService.customTextFonts.forEach( item => {
+      this.buildTextPickerItem(item);
+    });
 
     this.buildImageTypeText();
   }

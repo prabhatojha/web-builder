@@ -1,7 +1,7 @@
 <div class="toolbar-items">
   <div class="ml-2 d-flex toolbar-items-left" data-html2canvas-ignore>
 
-    <!-- Single Select Filter - Font Family-->
+    <!-- Font Family-->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.FONT_FAMILY]" [@InOut]>
       <div class="toolbar-item">
         <app-font-family [selectedFont]="styles[CSS_PROPS.FONT_FAMILY]" (fontSelect)="onFontFamilySelect($event)"
@@ -10,8 +10,8 @@
       </div>
     </ng-container>
 
-    <!-- Single Select Filter - Font Size-->
-    <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.FONT_SIZE]">
+    <!-- Font Size-->
+    <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.FONT_SIZE]" [@InOut]>
       <div class="toolbar-item">
         <app-font-size (valueChange)="onFontSizeSelect($event)" [disabled]="isLocked"
           [selectedValue]="styles[CSS_PROPS.FONT_SIZE]">
@@ -121,6 +121,7 @@
       </div>
     </ng-container>
 
+    <!-- Grouping, Ungrouping -->
     <div *ngIf="isGroupUngroupVisible" class="toolbar-item">
       <button mat-icon-button class="toolbar-icon-size" (click)="groupItem()"
         [matTooltip]="isGroupedItems ? 'Ungroup': 'Group'" matTooltipPosition="above"
@@ -152,7 +153,7 @@
     </ng-container>
 
     <!-- Delete Item -->
-    <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.DELETE]">
+    <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.DELETE]" [@InOut]>
       <div class="toolbar-item">
         <button mat-icon-button class="toolbar-icon-size" (click)="removeItem()" matTooltip="Delete Element"
           matTooltipPosition="above" [disabled]="isLocked">

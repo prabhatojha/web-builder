@@ -18,45 +18,51 @@ export class FontFamilyService {
     {
       family: 'Josefin Sans',
       files: { regular: 'http://fonts.gstatic.com/s/josefinsans/v16/Qw3PZQNVED7rKGKxtqIqX5E-AVSJrOCfjY46_DjQXMFrLgTsQV0.ttf' },
-      fontSize: '16px',
+      fontSize: '18px',
       innerText: 'Add a sub heading'
+    },
+    {
+      family: 'Josefin Sans',
+      files: { regular: 'http://fonts.gstatic.com/s/josefinsans/v16/Qw3PZQNVED7rKGKxtqIqX5E-AVSJrOCfjY46_DjQXMFrLgTsQV0.ttf' },
+      fontSize: '16px',
+      innerText: 'Add content'
+    },
+    {
+      family: 'Yatra One',
+      files: { regular: 'http://fonts.gstatic.com/s/yatraone/v7/C8ch4copsHzj8p7NaF0xw1OBbRDvXw.ttf' },
+      fontSize: '16px',
+      innerText: 'Yatra One'
+    },
+    {
+      family: 'Alegreya',
+      files: { regular: 'http://fonts.gstatic.com/s/alegreya/v15/4UaBrEBBsBhlBjvfkRLmzanB44N1.ttf' },
+      fontSize: '16px',
+      innerText: 'Alegreya'
+    },
+    {
+      family: 'B612',
+      files: { regular: 'http://fonts.gstatic.com/s/b612/v5/3JnySDDxiSz32jm4GDigUXw.ttf' },
+      fontSize: '16px',
+      innerText: 'B612'
+    },
+    {
+      family: 'Cairo',
+      files: { regular: 'http://fonts.gstatic.com/s/cairo/v9/SLXGc1nY6HkvamImRJqExst1.ttf' },
+      fontSize: '16px',
+      innerText: 'Cairo'
+    },
+    {
+      family: 'Karla',
+      files: { regular: 'http://fonts.gstatic.com/s/karla/v13/qkBbXvYC6trAT4RSJN225aZO.ttf' },
+      fontSize: '16px',
+      innerText: 'Karla'
+    },
+    {
+      family: 'Fjalla One',
+      files: { regular: 'http://fonts.gstatic.com/s/fjallaone/v8/Yq6R-LCAWCX3-6Ky7FAFnOZwkxgtUb8.ttf' },
+      fontSize: '16px',
+      innerText: 'Fjalla One'
     }
-    // {
-    //   family: 'Sriracha',
-    //   files: { regular: 'http://fonts.gstatic.com/s/rajdhani/v9/LDIxapCSOBg7S-QT7q4AOeekWPrP.ttf' },
-    //   fontSize: '35px',
-    //   innerText: 'Enter Text'
-    // },
-    // {
-    //   family: 'Metal Mania',
-    //   files: { regular: 'http://fonts.gstatic.com/s/metalmania/v9/RWmMoKWb4e8kqMfBUdPFJeXCg6UKDXlq.ttf' },
-    //   fontSize: '30px',
-    //   innerText: 'Enter Text'
-    // },
-    // {
-    //   family: 'Piedra',
-    //   files: { regular: 'http://fonts.gstatic.com/s/piedra/v8/ke8kOg8aN0Bn7hTunEyHN_M3gA.ttf' },
-    //   fontSize: '30px',
-    //   innerText: 'Enter Text'
-    // },
-    // {
-    //   family: 'Odibee Sans',
-    //   files: { regular: 'http://fonts.gstatic.com/s/odibeesans/v1/neIPzCSooYAho6WvjeToRYkyepH9qGsf.ttf' },
-    //   fontSize: '30px',
-    //   innerText: 'Enter Text'
-    // },
-    // {
-    //   family: 'Staatliches',
-    //   files: { regular: 'http://fonts.gstatic.com/s/staatliches/v3/HI_OiY8KO6hCsQSoAPmtMbectJG9O9PS.ttf' },
-    //   fontSize: '30px',
-    //   innerText: 'Enter Text'
-    // },
-    // {
-    //   family: 'Lexend Tera',
-    //   files: { regular: 'http://fonts.gstatic.com/s/lexendtera/v1/RrQUbo98_jt_IXnBPwCWtZhARYMgGtWA.ttf' },
-    //   fontSize: '30px',
-    //   innerText: 'Enter Text'
-    // }
   ];
 
   availableFonts = [];

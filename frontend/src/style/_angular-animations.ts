@@ -25,7 +25,7 @@ export const AppAnimations = {
     state('void', style({})),
     transition('* => void', [
       style({ height: '*', overflow: 'hidden' }),
-      animate(150, style({ height: 0 }))
+      animate(150, style({ height: 0 })),
     ]),
     transition('void => *', [
       style({ height: '0', overflow: 'hidden' }),

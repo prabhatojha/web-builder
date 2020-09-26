@@ -4,16 +4,16 @@
 </button>
 
 <div class="left-raiser-container" *ngIf="isVisible" (appClickOutside)="toggleOptions()" [srcElement]="buttonSource">
-  <div>
+  <div class="py-4">
     <div class="mb-4 search-box-container">
       <app-search-box [minQueryLength]="0" (searchValueChange)="filterResult($event)"></app-search-box>
     </div>
     <div class="font-container">
       <cdk-virtual-scroll-viewport itemSize="38">
         <ul>
-          <li class="add-your-font">
+          <!-- <li class="add-your-font">
             <button type="button" class="btn btn-primary btn-sm">+ Add your font</button>
-          </li>
+          </li> -->
           <ng-container *cdkVirtualFor="let item of filteredOptions">
             <li [style.fontFamily]="item.value" (click)="onSelect(item)" [class.selected]="item.value === selectedFont">
               {{item.label}}

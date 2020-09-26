@@ -6,7 +6,7 @@ import { AppAnimations } from 'src/style/_angular-animations';
   selector: 'app-color-picker',
   templateUrl: './color-picker.component.html',
   styleUrls: ['./color-picker.component.scss'],
-  animations: [AppAnimations.InOut]
+  animations: [AppAnimations.InOut, AppAnimations.SlideDown]
 })
 export class ColorPickerComponent implements OnInit, AfterViewInit {
 
