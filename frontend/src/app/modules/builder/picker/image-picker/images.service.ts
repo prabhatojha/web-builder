@@ -7,73 +7,60 @@ import { HOT_KEYWORD, ELEMENT_TYPES } from 'src/app/constants/contants';
 import { ImageCanvasElement } from 'src/app/models/image.element.model';
 import { getImageElementInstance } from './image.config';
 import { MOCK_IMAGES } from '../mock-images';
+import { CanvasElement } from 'src/app/models/canvas.element.model';
+import { ImageLoader } from 'src/app/modules/shared/logic/image-loader';
+import { API_ENDPOINT } from 'src/app/constants/api-endpoint';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ImagesService {
+export class ImagesService extends ImageLoader {
 
   rows = [[], []];
   GET_IMAGES = '/api/images';
-  PAGE = 0;
-  LIMIT = '20';
-  withMock = false;
-  isLoading = true;
-  query = '';
-  EXTRA_DELAY = 1000;
 
-  constructor(private httpService: HttpService) {
-    this.query = HOT_KEYWORD.images;
-    this.getPhotos();
+  // Will be used to place image in left or right container based on the total height
+  leftHeight = 0;
+  rightHeight = 0;
+
+  constructor(protected httpService: HttpService) {
+    super(httpService, HOT_KEYWORD.images, API_ENDPOINT.IMAGE);
   }
 
   resetPage(query) {
-    this.query = query;
     this.rows = [[], []];
-    this.PAGE = 0;
-  }
-
-  getPhotos() {
-    this.isLoading = true;
-    this.PAGE += 1;
-    const options: MyHttpRequest = {
-      params: {
-        page: '' + this.PAGE,
-        limit: this.LIMIT,
-        query: this.query,
-        source: 'unsplash'
-      }
-    };
-
-    if (!this.withMock) {
-      this.httpService.get(this.GET_IMAGES, options).pipe(delay(this.EXTRA_DELAY)).subscribe((photos: any) => {
-        this.processPhotos(photos);
-      }, err => {
-        console.log(err);
-      });
-    } else {
-      this.mock().pipe(delay(500)).subscribe(photos => {
-        this.processPhotos(photos);
-      });
-    }
+    super.resetPage(query);
   }
 
   processPhotos(photos: Array<any>) {
-    let alternate = true;
     photos.forEach(photo => {
       const image: ImageCanvasElement = getImageElementInstance();
       image.id = photo.id;
       image.imageUrl = photo.thumb;
       image.canvasElement.children[0].attribute.src = photo.imageUrl;
       image.canvasElement.type = ELEMENT_TYPES.PHOTO;
-      alternate ? this.rows[0].push(image) : this.rows[1].push(image);
-      alternate = !alternate;
+      // this.updateWidth(image.canvasElement, photo.width, photo.height);
+      this.findContainer(image, photo);
     });
 
     this.isLoading = false;
   }
 
-  mock() {
-    return of(MOCK_IMAGES);
+  findContainer(image: ImageCanvasElement, rawPhoto) {
+    if (this.leftHeight <= this.rightHeight) {
+      this.rows[0].push(image);
+      this.leftHeight += rawPhoto.height;
+      console.log('Left ', this.leftHeight, this.rightHeight, rawPhoto.height);
+    } else {
+      this.rows[1].push(image);
+      this.rightHeight += rawPhoto.height;
+      console.log('Right ', this.leftHeight, this.rightHeight, rawPhoto.height);
+    }
+  }
+
+  updateWidth(canvasElement: CanvasElement, width, height) {
+    console.log(width, height);
+    canvasElement.style.width = width + 'px';
+    canvasElement.style.height = height + 'px';
   }
 }

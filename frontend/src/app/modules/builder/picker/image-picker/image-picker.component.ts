@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges, SimpleChanges, ElementRef, ViewChild, HostListener } from '@angular/core';
-import { CONST_VAR } from 'src/app/constants/contants';
+import { CONST_VAR, ERROR_MSG } from 'src/app/constants/contants';
 import { ImagesService } from './images.service';
 import { Subscription } from 'rxjs';
 import { EventerService, EventTypes } from 'src/app/modules/shared/services/eventer.service';
@@ -16,6 +16,8 @@ export class ImagePickerComponent extends PickerActions implements OnInit, OnCha
   rows = [[], []];
   imagesSub: Subscription;
   scrollTimer = null;
+  ERROR_MSG = ERROR_MSG;
+
 
   @ViewChild('photoContainer', { static: true }) photoContainer: ElementRef;
 
@@ -39,20 +41,22 @@ export class ImagePickerComponent extends PickerActions implements OnInit, OnCha
   }
 
   onScroll(e) {
-    if (this.imageService.isLoading) {
-      return;
-    }
+    console.log(e);
+    this.imageService.onScroll(e);
+    // if (this.imageService.isLoading) {
+    //   return;
+    // }
 
-    if (this.scrollTimer !== null) {
-      clearTimeout(this.scrollTimer);
-    }
-    this.scrollTimer = setTimeout(() => {
+    // if (this.scrollTimer !== null) {
+    //   clearTimeout(this.scrollTimer);
+    // }
+    // this.scrollTimer = setTimeout(() => {
 
-      const el = this.photoContainer.nativeElement;
-      if ((el.scrollTop + el.offsetHeight + 50) > el.scrollHeight) {
-        this.imageService.getPhotos();
-      }
+    //   const el = this.photoContainer.nativeElement;
+    //   if ((el.scrollTop + el.offsetHeight + 50) > el.scrollHeight) {
+    //     this.imageService.getPhotos();
+    //   }
 
-    }, 50);
+    // }, 50);
   }
 }

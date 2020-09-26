@@ -18,8 +18,10 @@ export class UnsplashService {
     }
 
     formatImageData(images: any) {
+        console.log(images);
         return images.map((image: any) => {
-            return new ImageModel(image.id, image.urls.thumb, image.urls.regular, image.width, image.height);
+            return new ImageModel(image.id, image.urls.thumb, image.urls.regular, image.width, image.height,
+                image.thumbWidth, image.thumbHeight);
         })
     }
 }

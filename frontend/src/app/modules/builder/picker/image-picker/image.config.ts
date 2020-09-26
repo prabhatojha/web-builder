@@ -1,7 +1,7 @@
 import { ImageCanvasElement } from 'src/app/models/image.element.model';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { CommonUtils } from 'src/app/utils/common.utils';
-import { ElementDimentionModel, CSS_CLASSES, IMAGE_ELEMENT_STYLES } from 'src/app/constants/css-constants';
+import { CSS_CLASSES, IMAGE_ELEMENT_STYLES } from 'src/app/constants/css-constants';
 
 export const IMAGE_TAG_DEFAULT_STYLE = {
   'width': '100%',

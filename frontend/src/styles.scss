@@ -148,3 +148,8 @@ button {
 .scrollbox:hover::-webkit-scrollbar-thumb {
   visibility: visible;
 }
+
+.picker-error-msg {
+  color: $gray-70;
+  font-size: $smallFont;
+}

@@ -28,3 +28,9 @@ export enum ELEMENT_TYPES {
   MULTIPLE_SELECTION,
   LINE
 }
+
+export const ERROR_MSG = {
+  WENT_WRONG: 'Oops, something went wrong.',
+  NO_MORE_PHOTOS: 'No more photos found.',
+  NO_RESULT: 'No result.'
+};

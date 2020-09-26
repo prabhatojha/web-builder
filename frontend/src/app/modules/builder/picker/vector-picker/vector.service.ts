@@ -8,6 +8,7 @@ import { ImageCanvasElement } from 'src/app/models/image.element.model';
 import { getVectorElementInstance } from '../image-picker/image.config';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { MOCK_VECTORS } from '../mock-images';
+import { API_ENDPOINT } from 'src/app/constants/api-endpoint';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ import { MOCK_VECTORS } from '../mock-images';
 export class VectorService {
 
   vectors = [];
-  GET_IMAGES = '/api/images/vectors';
+  GET_IMAGES = API_ENDPOINT.VECTOR;
   PAGE = 0;
   LIMIT = '20';
   withMock = false;

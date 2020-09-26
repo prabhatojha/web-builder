@@ -13,8 +13,15 @@
         </ng-container>
       </ul>
     </div>
-    <div class="w-100 text-center spinner my-4" [class.invisible]="!imageService.isLoading">
+    <div class="w-100 text-center spinner my-4" [class.invisible]="!imageService.isLoading || imageService.isError">
       <div class="spinner-border"></div>
     </div>
+
+    <app-picker-error [errorMsg]="ERROR_MSG.WENT_WRONG" [tryAgainBtn]="true" *ngIf="imageService.isError">
+    </app-picker-error>
+    <app-picker-error [errorMsg]="imageService.rows[0].length ? ERROR_MSG.NO_MORE_PHOTOS : ERROR_MSG.NO_RESULT"
+      *ngIf="imageService.endOfResult">
+    </app-picker-error>
+
   </div>
 </div>
