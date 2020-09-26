@@ -9,52 +9,25 @@ import { getVectorElementInstance } from '../image-picker/image.config';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { MOCK_BACKGROUNDS } from '../mock-images';
 import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
+import { ImageLoader } from 'src/app/modules/shared/logic/image-loader';
+import { API_ENDPOINT } from 'src/app/constants/api-endpoint';
 
+const BACKGROUND_TXT = ' background';
 @Injectable({
   providedIn: 'root'
 })
-export class BackgroundService {
+export class BackgroundService extends ImageLoader {
 
   backgrounds = [];
-  GET_IMAGES = '/api/images';
-  PAGE = 0;
-  LIMIT = '20';
-  withMock = false;
-  isLoading = true;
-  query = '';
-  EXTRA_DELAY = 10;
 
-  constructor(private httpService: HttpService) {
-    this.getPhotos();
+
+  constructor(protected httpService: HttpService) {
+    super(httpService, BACKGROUND_TXT, API_ENDPOINT.IMAGE);
   }
 
   resetPage(query) {
-    this.query = query;
     this.backgrounds = [];
-    this.PAGE = 0;
-  }
-
-  getPhotos() {
-    this.isLoading = true;
-    this.PAGE += 1;
-    const options: MyHttpRequest = {
-      params: {
-        page: '' + this.PAGE,
-        limit: this.LIMIT,
-        query: (this.query + ' background').trim(),
-        source: 'unsplash'
-      }
-    };
-
-    if (!this.withMock) {
-      this.httpService.get(this.GET_IMAGES, options).pipe(delay(this.EXTRA_DELAY)).subscribe((photos: any) => {
-        this.processPhotos(photos);
-      });
-    } else {
-      this.mock().pipe(delay(500)).subscribe(photos => {
-        this.processPhotos(photos);
-      });
-    }
+    super.resetPage(query + BACKGROUND_TXT);
   }
 
   processPhotos(photos: Array<any>) {
@@ -75,9 +48,5 @@ export class BackgroundService {
   updateWidth(canvasElement: CanvasElement, width, height) {
     canvasElement.style.width = width * 1.5 + 'px';
     canvasElement.style.height = height * 1.5 + 'px';
-  }
-
-  mock() {
-    return of(MOCK_BACKGROUNDS);
   }
 }

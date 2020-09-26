@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges, SimpleChanges, ElementRef, ViewChild } from '@angular/core';
-import { CONST_VAR } from 'src/app/constants/contants';
+import { CONST_VAR, ERROR_MSG } from 'src/app/constants/contants';
 import { VectorService } from './vector.service';
 import { Subscription } from 'rxjs';
 import { PickerActions } from '../picker.actions';
@@ -14,6 +14,7 @@ export class VectorPickerComponent extends PickerActions implements OnInit, OnCh
 
   imagesSub: Subscription;
   scrollTimer = null;
+  ERROR_MSG = ERROR_MSG;
 
   @ViewChild('photoContainer', { static: true }) photoContainer: ElementRef;
 
@@ -37,20 +38,6 @@ export class VectorPickerComponent extends PickerActions implements OnInit, OnCh
   }
 
   onScroll(e) {
-    if (this.vectorService.isLoading) {
-      return;
-    }
-
-    if (this.scrollTimer !== null) {
-      clearTimeout(this.scrollTimer);
-    }
-    this.scrollTimer = setTimeout(() => {
-
-      const el = this.photoContainer.nativeElement;
-      if ((el.scrollTop + el.offsetHeight + 50) > el.scrollHeight) {
-        this.vectorService.getPhotos();
-      }
-
-    }, 50);
+    this.vectorService.onScroll(e);
   }
 }

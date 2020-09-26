@@ -4,7 +4,7 @@ import { PickerActions } from '../picker.actions';
 import { EventerService } from 'src/app/modules/shared/services/eventer.service';
 import { Subscription } from 'rxjs';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
-import { ELEMENT_TYPES } from 'src/app/constants/contants';
+import { ELEMENT_TYPES, ERROR_MSG } from 'src/app/constants/contants';
 import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
 
 @Component({
@@ -18,6 +18,7 @@ export class BackgroundPickerComponent extends PickerActions implements OnChange
   rows = [[], []];
   imagesSub: Subscription;
   scrollTimer = null;
+  ERROR_MSG = ERROR_MSG;
 
   @ViewChild('photoContainer', { static: true }) photoContainer: ElementRef;
 
