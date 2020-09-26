@@ -13,7 +13,7 @@ export abstract class ImageLoader {
   withMock = false;
   isLoading = true;
   query = '';
-  EXTRA_DELAY = 1000;
+  EXTRA_DELAY = 0;
   isError: boolean;
   scrollTimer = null;
 

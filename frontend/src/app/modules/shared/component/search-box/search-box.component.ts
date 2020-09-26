@@ -27,7 +27,7 @@ export class SearchBoxComponent implements OnInit {
     }
   }
 
-  onChange() {
+  onChange(e) {
     if (this.query.length >= this.minQueryLength) {
       this.searchValueChange.emit(this.query.trim().toLowerCase());
     }

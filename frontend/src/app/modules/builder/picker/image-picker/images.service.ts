@@ -50,11 +50,9 @@ export class ImagesService extends ImageLoader {
     if (this.leftHeight <= this.rightHeight) {
       this.rows[0].push(image);
       this.leftHeight += rawPhoto.height;
-      console.log('Left ', this.leftHeight, this.rightHeight, rawPhoto.height);
     } else {
       this.rows[1].push(image);
       this.rightHeight += rawPhoto.height;
-      console.log('Right ', this.leftHeight, this.rightHeight, rawPhoto.height);
     }
   }
 

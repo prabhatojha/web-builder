@@ -1,6 +1,6 @@
 <div class="search-box">
-  <input type="search" [placeholder]="placeholder" [(ngModel)]="query" (ngModelChange)="onChange()"
-    (keydown.enter)="doSearch()" autofocus>
+  <input type="search" [placeholder]="placeholder" [(ngModel)]="query" (ngModelChange)="onChange($event)"
+    (keydown)="$event.stopPropagation()" (keydown.enter)="doSearch()" autofocus>
 
   <div class="search-box-button">
     <button mat-icon-button (click)="doSearch()" [disabled]="query?.length < minQueryLength">
