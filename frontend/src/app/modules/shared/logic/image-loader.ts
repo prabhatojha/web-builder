@@ -37,7 +37,7 @@ export abstract class ImageLoader {
   }
 
   onScroll(e) {
-    if (this.isLoading && this.endOfResult) {
+    if (this.isLoading || this.endOfResult || this.isError) {
       return;
     }
 
@@ -46,12 +46,20 @@ export abstract class ImageLoader {
     }
     this.scrollTimer = setTimeout(() => {
 
+      if (this.isLoading || this.endOfResult || this.isError) {
+        return;
+      }
+
       const el = e.target;
-      if ((el.scrollTop + el.offsetHeight + 50) > el.scrollHeight) {
+      if ((el.scrollTop + el.offsetHeight + 500) > el.scrollHeight) {
         this.getPhotos();
       }
 
     }, 50);
+  }
+
+  onTryAgain() {
+    this.getPhotos();
   }
 
   getPhotos() {

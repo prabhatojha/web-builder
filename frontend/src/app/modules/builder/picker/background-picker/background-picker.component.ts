@@ -46,20 +46,6 @@ export class BackgroundPickerComponent extends PickerActions implements OnChange
   }
 
   onScroll(e) {
-    if (this.backgroundService.isLoading) {
-      return;
-    }
-
-    if (this.scrollTimer !== null) {
-      clearTimeout(this.scrollTimer);
-    }
-    this.scrollTimer = setTimeout(() => {
-
-      const el = this.photoContainer.nativeElement;
-      if ((el.scrollTop + el.offsetHeight + 50) > el.scrollHeight) {
-        this.backgroundService.getPhotos();
-      }
-
-    }, 50);
+    this.backgroundService.onScroll(e);
   }
 }

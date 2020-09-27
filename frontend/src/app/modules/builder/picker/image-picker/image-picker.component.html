@@ -17,7 +17,8 @@
       <div class="spinner-border"></div>
     </div>
 
-    <app-picker-error [errorMsg]="ERROR_MSG.WENT_WRONG" [tryAgainBtn]="true" *ngIf="imageService.isError">
+    <app-picker-error [errorMsg]="ERROR_MSG.WENT_WRONG" [tryAgainBtn]="true" *ngIf="imageService.isError"
+      (tryAgain)="imageService.onTryAgain()">
     </app-picker-error>
     <app-picker-error [errorMsg]="imageService.rows[0].length ? ERROR_MSG.NO_MORE_PHOTOS : ERROR_MSG.NO_RESULT"
       *ngIf="imageService.endOfResult">

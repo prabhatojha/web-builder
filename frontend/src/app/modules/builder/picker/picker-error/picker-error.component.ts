@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-picker-error',
@@ -9,6 +9,8 @@ export class PickerErrorComponent implements OnInit {
 
   @Input() errorMsg: string;
   @Input() tryAgainBtn: boolean;
+
+  @Output() tryAgain = new EventEmitter<any>();
 
   constructor() { }
 
