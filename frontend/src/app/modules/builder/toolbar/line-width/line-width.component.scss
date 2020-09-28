@@ -1,0 +1,14 @@
+@import "../../../../../style/structure";
+
+.my-slider {
+  display: flex;
+  align-items: center;
+
+  span {
+    margin-right: 20px;
+  }
+}
+
+.mat-icon-button {
+  @extend .toolbar-icon-size;
+}

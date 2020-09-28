@@ -76,9 +76,18 @@
     <!-- Opacity -->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.OPACITY]">
       <div class="toolbar-item">
-        <app-slider (slideChange)="updateOpacity($event, false)" [disabled]="isLocked"
+        <app-opacity (slideChange)="updateOpacity($event, false)" [disabled]="isLocked"
           (slideStop)="updateOpacity($event, true)" [selectedOpacity]="styles[CSS_PROPS.OPACITY]">
-        </app-slider>
+        </app-opacity>
+      </div>
+    </ng-container>
+
+    <!-- Line thickness -->
+    <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.OPACITY]">
+      <div class="toolbar-item">
+        <app-line-width [disabled]="isLocked" [selectedCanvasElement]="firstCanvasElement"
+          (slideChange)="updateOpacity($event, false)" (slideStop)="updateOpacity($event, true)">
+        </app-line-width>
       </div>
     </ng-container>
 

@@ -46,7 +46,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
   isAlignmentSelectorOpen: boolean;
   isOpacitySelectorOpen: boolean;
 
-  fistCanvasElement: CanvasElement;
+  firstCanvasElement: CanvasElement;
   firstNode: HTMLElement;
 
   constructor(private eventerService: EventerService, public undoService: UndoService) { }
@@ -69,7 +69,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
     if (this.selectedCanvasElements.length > 1) {
       this.updateToolbarConfig(ELEMENT_TYPES.MULTIPLE_SELECTION);
     } else {
-      this.fistCanvasElement = this.selectedCanvasElements[0];
+      this.firstCanvasElement = this.selectedCanvasElements[0];
       this.firstNode = this.selectedNodes[0];
       this.styles = this.getOriginalItemStyle();
       this.updateToolbarConfig();
@@ -83,12 +83,12 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   updateGroupItemFlag() {
-    this.isGroupUngroupVisible = this.fistCanvasElement.type === ELEMENT_TYPES.GROUP || this.selectedCanvasElements.length > 1;
-    this.isGroupedItems = this.fistCanvasElement.type === ELEMENT_TYPES.GROUP && this.selectedCanvasElements.length === 1;
+    this.isGroupUngroupVisible = this.firstCanvasElement.type === ELEMENT_TYPES.GROUP || this.selectedCanvasElements.length > 1;
+    this.isGroupedItems = this.firstCanvasElement.type === ELEMENT_TYPES.GROUP && this.selectedCanvasElements.length === 1;
   }
 
   getOriginalItemStyle() {
-    return this.fistCanvasElement.style;
+    return this.firstCanvasElement.style;
   }
 
   /**
@@ -174,7 +174,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
   onFlip(x, y) {
     // Updating the img element directly, so that the parent doesn't affect while doing transfromation
-    CanvasUtils.applyCss(this.firstNode.firstElementChild as HTMLElement, this.fistCanvasElement.children[0], {
+    CanvasUtils.applyCss(this.firstNode.firstElementChild as HTMLElement, this.firstCanvasElement.children[0], {
       [CSS_PROPERTIES.TRANSFORM]: `scale(${x}, ${y})`
     }, true);
   }
@@ -226,11 +226,15 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   onCssChange(conf, cssValue) {
-    // UndoRedoUtil.addStyle(this.fistCanvasElement, this.selectedNodes, conf.cssField, cssValue);
+    // UndoRedoUtil.addStyle(this.firstCanvasElement, this.selectedNodes, conf.cssField, cssValue);
   }
 
   updateOpacity(cssValue, permanent) {
     this.updateCss({ [CSS_PROPERTIES.OPACITY]: cssValue }, permanent);
+  }
+
+  updateLineWidth(cssValue, permanent) {
+    this.updateCss({ [CSS_PROPERTIES.BORDER_TOP]: cssValue }, permanent);
   }
 
   undoItem() {

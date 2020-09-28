@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange
 import { AppAnimations } from 'src/style/_angular-animations';
 
 @Component({
-  selector: 'app-slider',
+  selector: 'app-opacity',
   templateUrl: './opacity.component.html',
   styleUrls: ['./opacity.component.scss'],
   animations: [AppAnimations.InOut]
