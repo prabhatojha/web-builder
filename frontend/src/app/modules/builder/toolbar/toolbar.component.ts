@@ -153,11 +153,11 @@ export class ToolbarComponent implements OnInit, OnChanges {
    * @styles action as a style change
    * @permanent weather to update CanvasElement
    */
-  updateCss(styles, permanent = true) {
+  updateCss(styles, permanent = true, level = 0) {
     const oldStyles = CanvasUtils.getClonedStylesAsText(this.selectedCanvasElements);
     this.selectedNodes.forEach((node, index) => {
       if (!this.selectedCanvasElements[index].locked) {
-        CanvasUtils.applyCss(node, this.selectedCanvasElements[index], styles, permanent);
+        CanvasUtils.applyCss(node, this.selectedCanvasElements[index], styles, permanent, level);
       }
     });
 
@@ -210,6 +210,14 @@ export class ToolbarComponent implements OnInit, OnChanges {
     this.selectedCanvasElements.forEach(t => {
       t.locked = this.isLocked;
     });
+    this.updateDirectionHandler();
+  }
+
+  updateRect() {
+    this.eventerService.send({ type: EventTypes.UPDATE_RECT });
+  }
+
+  updateDirectionHandler() {
     this.eventerService.send({ type: EventTypes.UPDATE_DIRECTION_HANLDES });
   }
 
@@ -231,6 +239,11 @@ export class ToolbarComponent implements OnInit, OnChanges {
 
   updateOpacity(cssValue, permanent) {
     this.updateCss({ [CSS_PROPERTIES.OPACITY]: cssValue }, permanent);
+  }
+
+  updateLineThickness(cssValue, permanent) {
+    this.updateCss({ [CSS_PROPERTIES.BORDER_TOP]: cssValue }, permanent, 1);
+    this.updateRect();
   }
 
   updateLineWidth(cssValue, permanent) {

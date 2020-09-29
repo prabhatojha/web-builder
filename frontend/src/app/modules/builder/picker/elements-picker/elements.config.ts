@@ -32,8 +32,7 @@ export function getLineItems() {
 
   return LINE_STYLES.map(line => {
     const can = CommonUtils.cloneDeep(canvasElement);
-    can.children[0].style['border-top'] = `${line.border} solid`;
-    can.children[0].style['border-style'] = line.style;
+    can.children[0].style['border-top'] = `${line.border} ${line.style}`;
     return {
       imageUrl: line.image,
       backgroundSize: 'fixed',

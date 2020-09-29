@@ -4,7 +4,8 @@
     <div class="element-content">
       <ul>
         <li class="image-li" draggable *ngFor="let value of item.values" (dragstart)="dragStart($event, value)"
-          (click)="onClick($event, value)" [ngStyle]="{'background-image':'url('+ value.imageUrl +')'}">
+          (click)="onClick($event, value)">
+          <img [src]="value.imageUrl">
         </li>
       </ul>
     </div>

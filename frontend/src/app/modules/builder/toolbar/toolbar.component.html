@@ -83,10 +83,10 @@
     </ng-container>
 
     <!-- Line thickness -->
-    <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.OPACITY]">
+    <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.LINE_WIDTH]">
       <div class="toolbar-item">
         <app-line-width [disabled]="isLocked" [selectedCanvasElement]="firstCanvasElement"
-          (slideChange)="updateOpacity($event, false)" (slideStop)="updateOpacity($event, true)">
+          (slideChange)="updateLineThickness($event, false)" (slideStop)="updateLineThickness($event, true)">
         </app-line-width>
       </div>
     </ng-container>

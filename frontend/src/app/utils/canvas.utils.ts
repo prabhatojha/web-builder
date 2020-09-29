@@ -126,7 +126,16 @@ export class CanvasUtils {
 
   // CSS application start
 
-  static applyCss(node: HTMLElement, item: CanvasElement, styles, permanent?: boolean) {
+  /**
+   *
+   * @param node html element
+   * @param item canvasElement
+   * @param styles An object of style
+   * @param permanent Should we add the style to Canvas Element as well of not
+   * @param level On which level of elment, CSS needed to be applied
+   */
+  static applyCss(nodeOriginal: HTMLElement, itemOriginal: CanvasElement, styles, permanent?: boolean, level = 0) {
+    const { node, item } = this.findLevelItem(nodeOriginal, itemOriginal, level);
     Object.keys(styles).forEach(prop => {
       const value = this._getStyleValue(prop, styles[prop]);
       node.style[prop] = value;
@@ -135,6 +144,18 @@ export class CanvasUtils {
         item.style[prop] = value;
       }
     });
+  }
+
+  private static findLevelItem(node: HTMLElement, item: CanvasElement, level: number) {
+    while (level > 0) {
+      node = node.children[0] as HTMLElement;
+      item = item.children[0];
+      level--;
+    }
+
+    return {
+      node, item
+    };
   }
 
   static _getStyleValue(key: string, value: string | number) {

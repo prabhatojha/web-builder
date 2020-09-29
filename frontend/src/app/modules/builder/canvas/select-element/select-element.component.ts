@@ -74,7 +74,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   constructor(private cd: ChangeDetectorRef, private resizeEventer: ResizeEventerService,
     private eventerService: EventerService, private undoService: UndoService) {
     this.resizeEventer.get().subscribe(event => {
-      this.moveable.updateRect();
+      this.updateRect();
     });
 
     this.eventerService.get().subscribe((event: EventModal) => {
@@ -96,6 +96,10 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
           groupedTranform: this.groupedTranform,
           groupedDimention: this.groupedDimention
         });
+      }
+
+      if (event.type === EventTypes.UPDATE_RECT) {
+        this.updateRect();
       }
     });
   }
@@ -192,8 +196,12 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
       } else {
         this.undoService.undo();
       }
-      this.moveable.updateRect();
+      this.updateRect();
     }
+  }
+
+  updateRect() {
+    this.moveable.updateRect();
   }
 
   getFirstCanvasElement() {
@@ -246,7 +254,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
     const keyDownListener = (e) => {
       setTimeout(() => {
-        this.moveable.updateRect();
+        this.updateRect();
       });
       e.stopPropagation();
     };

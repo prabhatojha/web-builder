@@ -11,7 +11,6 @@ import { AppAnimations } from 'src/style/_angular-animations';
 })
 export class LineWidthComponent implements OnChanges {
 
-  @Input() selectedOpacity = 1;
   @Input() disabled;
   @Input() selectedCanvasElement: CanvasElement;
 
@@ -21,31 +20,36 @@ export class LineWidthComponent implements OnChanges {
 
   selectedValue = 100;
   isOpacitySelectorOpen = false;
+  borderStyle = '';
 
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.selectedValue = this.selectedOpacity ? Math.floor(this.selectedOpacity * 100) : 100;
-
     if (changes.selectedCanvasElement && this.selectedCanvasElement) {
       this.selectedValue = this.getParsedValue();
     }
   }
 
   getParsedValue() {
-    return parseInt(this.selectedCanvasElement.children[0].style[CSS_PROPERTIES.BORDER_TOP], 10);
+    const borderTop = this.selectedCanvasElement.children[0].style[CSS_PROPERTIES.BORDER_TOP];
+    this.borderStyle = borderTop.split(' ')[1];
+    return parseInt(borderTop, 10);
   }
 
   onValueChange(e) {
     if (e) {
-      this.slideChange.emit(e.value / 100);
+      this.slideChange.emit(this.getValue(e.value));
     }
   }
 
   onSliderStop(e) {
     if (e) {
-      this.slideStop.emit(e.value / 100);
+      this.slideStop.emit(this.getValue(e.value));
     }
+  }
+
+  getValue(value) {
+    return `${value}px ${this.borderStyle}`;
   }
 
 }
