@@ -26,7 +26,8 @@ export enum ELEMENT_TYPES {
   VECTOR,
   GROUP,
   MULTIPLE_SELECTION,
-  LINE
+  LINE,
+  BOX
 }
 
 export const ERROR_MSG = {

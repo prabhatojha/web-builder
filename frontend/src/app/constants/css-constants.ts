@@ -17,6 +17,8 @@ export const CSS_PROPERTIES = {
   BG_IMAGE: 'background-image',
   LETTER_SPACING: 'letter-spacing',
   LINE_HEIGHT: 'line-height',
+  BORDER: 'border',
+  BORDER_RADIUS: 'border-radius',
   BORDER_TOP: 'border-top',
   BG_SIZE: 'background-size',
   BG_POSITION: 'background-position',

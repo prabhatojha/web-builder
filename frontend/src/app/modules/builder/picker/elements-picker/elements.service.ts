@@ -9,7 +9,7 @@ import { getVectorElementInstance } from '../image-picker/image.config';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { MOCK_IMAGES } from '../mock-images';
 import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
-import { getLineItems } from './elements.config';
+import { getLineItems, getShapeItems } from './elements.config';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +26,8 @@ export class ElementsService {
   EXTRA_DELAY = 10;
 
   constructor(private httpService: HttpService) {
-    this.addLineItems();
-    // this.addBoxItems();
+    // this.addLineItems();
+    this.addBoxItems();
   }
 
   addLineItems() {
@@ -42,7 +42,7 @@ export class ElementsService {
   addBoxItems() {
     const item = {
       label: 'Boxes',
-      values: getLineItems()
+      values: getShapeItems()
     };
 
     this.elements.push(item);

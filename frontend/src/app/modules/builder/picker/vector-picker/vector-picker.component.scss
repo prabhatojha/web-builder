@@ -43,7 +43,7 @@ $contentMargin: 7px;
     }
 
     &:hover {
-      background-color: #6b7c95;
+      background-color: $pickerItemBackgroundHover;
     }
   }
 }
