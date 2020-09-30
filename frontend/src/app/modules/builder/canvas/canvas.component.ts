@@ -82,7 +82,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   onDuplicateSelectedItem({ canvasElements }) {
     canvasElements.forEach(element => {
-      const newElement = CommonUtils.cloneDeep(element);
+      const newElement: CanvasElement = CommonUtils.cloneDeep(element);
+      newElement.locked = false;
       CanvasUtils.setDuplicateNodeLocation(newElement);
       this.addNewNode(newElement);
     });

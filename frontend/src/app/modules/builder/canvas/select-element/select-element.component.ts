@@ -106,6 +106,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.selectedNodes && this.selectedNodes && this.selectedNodes.length) {
+      console.log('NgOn Changes');
       this.init();
     }
 
@@ -168,7 +169,9 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   startCustomDrag(event: any) {
     if (!this.moveable.isMoveableElement(event.target)) {
-      this.moveable.ngDragStart(event);
+      // setTimeout(() => {
+        this.moveable.ngDragStart(event);
+      // }, 50);
     }
   }
 
@@ -207,6 +210,11 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   getFirstCanvasElement() {
     return this.selectedCanvasElements[0];
   }
+
+  getFirstTransform(): ElementTranform {
+    return this.transformations[0];
+  }
+
   getFirstNode() {
     return this.selectedNodes[0];
   }
@@ -291,9 +299,16 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     }
   }
 
+  onDragStart(e) {
+    console.log('Drag start');
+    const transform = this.getFirstTransform();
+    e.set([transform.translateX, transform.translateY]);
+    this.onStart();
+  }
+
   onDrag(e, index = 0) {
     const transform: ElementTranform = this.transformations[index];
-    this.updateTranslate(transform, e.beforeDelta);
+    this.updateTranslate(transform, e.beforeTranslate);
     this.updateNodeCss({
       transform: ElementTranform.toCss(transform)
     }, index);
@@ -374,8 +389,8 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   updateTranslate(transform: ElementTranform, values: Array<number>) {
-    transform.translateX += values[0];
-    transform.translateY += values[1];
+    transform.translateX = values[0];
+    transform.translateY = values[1];
   }
 
   updatScale(transform: ElementTranform, event) {

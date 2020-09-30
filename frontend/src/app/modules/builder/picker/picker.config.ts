@@ -46,12 +46,12 @@ export const LEFT_MENU_ITEMS = [
     label: 'Upload',
     icon: 'cloud_upload'
   },
-  {
-    id: 1,
-    label: 'Layouts',
-    icon: 'view_comfy',
-    type: 'text'
-  },
+  // {
+  //   id: 1,
+  //   label: 'Layouts',
+  //   icon: 'view_comfy',
+  //   type: 'text'
+  // },
   // {
   //   id: 10,
   //   label: 'Stickers',

@@ -50,8 +50,8 @@ const SHAPES_STYLES = [
   { style: CSS_SHAPES.egg, image: '/assets/images/pickers/egg.png' },
   { style: CSS_SHAPES.triangle, image: '/assets/images/pickers/triangle.png' },
   { style: CSS_SHAPES.triangleTopLeft, image: '/assets/images/pickers/triangleTopLeft.png' },
-  { style: CSS_SHAPES.trapezoid, image: '/assets/images/pickers/triangleTopLeft.png' },
-  { style: CSS_SHAPES.parallelogram, image: '/assets/images/pickers/triangleTopLeft.png' },
+  { style: CSS_SHAPES.trapezoid, image: '/assets/images/pickers/trapezoid.png' },
+  { style: CSS_SHAPES.parallelogram, image: '/assets/images/pickers/parallelogram.png' },
 ];
 
 export function getShapeItems() {
