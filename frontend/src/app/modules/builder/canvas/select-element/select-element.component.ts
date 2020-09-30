@@ -70,6 +70,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   horizontalGuideLines = [];
   verticalGuideLines = [];
+  isMouseDown = false;
 
   constructor(private cd: ChangeDetectorRef, private resizeEventer: ResizeEventerService,
     private eventerService: EventerService, private undoService: UndoService) {
@@ -106,7 +107,6 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.selectedNodes && this.selectedNodes && this.selectedNodes.length) {
-      console.log('NgOn Changes');
       this.init();
     }
 
@@ -169,9 +169,11 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   startCustomDrag(event: any) {
     if (!this.moveable.isMoveableElement(event.target)) {
-      // setTimeout(() => {
-        this.moveable.ngDragStart(event);
-      // }, 50);
+      setTimeout(() => {
+        if (this.isMouseDown) {
+          this.moveable.ngDragStart(event);
+        }
+      }, 50);
     }
   }
 
@@ -179,6 +181,16 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   onKeyDown(e: KeyboardEvent) {
     this.handleCustomDrag(e);
     this.handleUndoRedo(e);
+  }
+
+  @HostListener('document:mousedown', ['$event'])
+  onMouseDown(e: MouseEvent) {
+    this.isMouseDown = true;
+  }
+
+  @HostListener('document:mouseup', ['$event'])
+  onMouseUp(e: MouseEvent) {
+    this.isMouseDown = false;
   }
 
   handleCustomDrag(e) {
@@ -300,7 +312,6 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   onDragStart(e) {
-    console.log('Drag start');
     const transform = this.getFirstTransform();
     e.set([transform.translateX, transform.translateY]);
     this.onStart();
@@ -314,11 +325,19 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
     }, index);
   }
 
+  onGroupDragStart(e) {
+    e.events.forEach((ev, i) => {
+      const transform = this.transformations[i];
+      ev.set([transform.translateX, transform.translateY]);
+    });
+    this.onStart();
+  }
+
   onGroupDrag(e) {
     e.events.forEach((ev, i) => {
       this.onDrag(ev, i);
     });
-    this.updateTranslate(this.groupedTranform, e.beforeDelta);
+    this.updateTranslate(this.groupedTranform, e.beforeTranslate);
   }
 
   onGroupResizeStart({ events }) {
@@ -385,7 +404,7 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
 
   updateGroupTransformScale(e) {
     this.updatScale(this.groupedTranform, e);
-    this.updateTranslate(this.groupedTranform, e.drag.beforeDelta);
+    this.updateTranslate(this.groupedTranform, e.drag.beforeTranslate);
   }
 
   updateTranslate(transform: ElementTranform, values: Array<number>) {
@@ -423,7 +442,6 @@ export class SelectElementComponent implements OnChanges, OnDestroy {
   }
 
   onGroupRotateStart(e) {
-    console.log(e);
     e.events.forEach((ev, i) => {
       const transform = this.transformations[i];
       ev.set(transform.rotate);
