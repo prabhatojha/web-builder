@@ -32,7 +32,7 @@ export const LEFT_MENU_ITEMS = [
   },
   {
     id: 12,
-    label: 'Elements',
+    label: 'Shapes',
     icon: 'signal_cellular_null',
     type: 'text'
   },

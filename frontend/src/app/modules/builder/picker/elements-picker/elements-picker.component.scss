@@ -2,14 +2,15 @@
 @import "../../../../../style/structure";
 
 .elements-picker-container {
-  padding: 20px;
-  height: 100%;
+  padding: 20px 0 15px 15px;
+  height: calc(100vh - #{$headerHeight} - 5px);
   overflow-y: auto;
 }
 
 .element-content {
+  padding-right: 15px;
   ul {
-    margin-top: 20px;
+    // margin-top: 20px;
     display: flex;
     justify-content: left;
     flex-wrap: wrap;

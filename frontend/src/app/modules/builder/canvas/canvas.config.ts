@@ -25,7 +25,8 @@ export const ELE_VS_RESIZABLE = {
   [ELEMENT_TYPES.GROUP]: false,
   [ELEMENT_TYPES.MULTIPLE_SELECTION]: false,
   [ELEMENT_TYPES.LINE]: true,
-  [ELEMENT_TYPES.VECTOR]: true
+  [ELEMENT_TYPES.VECTOR]: true,
+  [ELEMENT_TYPES.BOX]: false
 };
 
 export const DEFAULT_PROJECT_SIZE = {
