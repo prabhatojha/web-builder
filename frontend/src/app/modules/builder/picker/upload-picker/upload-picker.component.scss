@@ -1,0 +1,30 @@
+@import "../../../../../style/colors.scss";
+@import "../../../../../style/structure";
+
+.upload-content {
+  padding: 15px;
+  width: 100%;
+}
+
+.img-uploader {
+  display: flex;
+  justify-content: center;
+
+  div {
+    font-size: $smallFont;
+    color: $gray-70;
+    .material-icons {
+      width: 90px;
+      height: 80px;
+      font-size: 90px;
+    }
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+.photos-grid-container {
+  margin-top: 20px;
+}

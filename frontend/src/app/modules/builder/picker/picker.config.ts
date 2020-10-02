@@ -4,7 +4,8 @@ export const LEFT_MENU_CONST = {
   UPLOAD_MENU_ID: 6,
   VECTOR_MENU_ID: 7,
   BG_MENU_ID: 8,
-  ELEMENTS_MENU_ID: 12
+  ELEMENTS_MENU_ID: 12,
+  UPLOAD_ID: 15,
 };
 
 export const LEFT_MENU_ITEMS = [
@@ -42,7 +43,7 @@ export const LEFT_MENU_ITEMS = [
     icon: 'wallpaper'
   },
   {
-    id: 9,
+    id: LEFT_MENU_CONST.UPLOAD_ID,
     label: 'Upload',
     icon: 'cloud_upload'
   },

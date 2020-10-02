@@ -1,0 +1,7 @@
+<div (click)="imageUploader.click()">
+  <ng-content>
+  </ng-content>
+</div>
+
+<input type='file' #imageUploader hidden (change)="onFileSelect($event)" [accept]="acceptableImg"
+  [multiple]="multiple" />

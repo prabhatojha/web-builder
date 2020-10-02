@@ -14,6 +14,8 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { RouterModule } from '@angular/router';
+import { ImageUploaderComponent } from './component/image-uploader/image-uploader.component';
+import { PhotosComponent } from './component/photos/photos.component';
 
 const components = [
   SingleSelectComponent,
@@ -22,7 +24,9 @@ const components = [
   PopupComponent,
   SearchBoxComponent,
   RemovePxPipe,
-  CanvasSizeComponent
+  CanvasSizeComponent,
+  ImageUploaderComponent,
+  PhotosComponent
 ];
 @NgModule({
   imports: [
@@ -33,7 +37,7 @@ const components = [
     FontAwesomeModule,
     RouterModule
   ],
-  declarations: [...components],
+  declarations: [...components, PhotosComponent],
   exports: [...components, FormsModule,
     ReactiveFormsModule, FontAwesomeModule]
 })

@@ -33,13 +33,15 @@ import { DownloadCanvasComponent } from './download-canvas/download-canvas.compo
 import { ElementLayeringComponent } from './toolbar/element-layering/element-layering.component';
 import { PickerErrorComponent } from './picker/picker-error/picker-error.component';
 import { LineWidthComponent } from './toolbar/line-width/line-width.component';
+import { UploadPickerComponent } from './picker/upload-picker/upload-picker.component';
 
 @NgModule({
   declarations: [PickersComponent, BuilderComponent, PickerComponent, CanvasComponent, ToolbarComponent,
     ToolbarPanelComponent, ColorPickerComponent, CanvasPreviewComponent, CanvasScaleComponent, TextAlignmentComponent,
     ImagePickerComponent, TextPickerComponent, FontFamilyComponent, VectorPickerComponent, FontSizeComponent,
     SelectElementComponent, DragElementComponent, LetterSpacingComponent, TextDecorationComponent, BackgroundPickerComponent,
-    ElementsPickerComponent, OpacityComponent, DownloadCanvasComponent, ElementLayeringComponent, PickerErrorComponent, LineWidthComponent],
+    ElementsPickerComponent, OpacityComponent, DownloadCanvasComponent, ElementLayeringComponent, PickerErrorComponent,
+    LineWidthComponent, UploadPickerComponent],
   imports: [
     CommonModule,
     BuilderRoutingModule,
