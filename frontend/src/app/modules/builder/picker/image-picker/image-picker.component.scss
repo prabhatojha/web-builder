@@ -15,35 +15,10 @@ $contentMargin: 3px;
   overflow-y: auto;
   padding: 0 8px 10px 13px;
   height: calc(#{$contentHeight} - 105px);
-}
 
-.picker-item {
   display: flex;
-  flex-direction: column;
-
-  li {
-    padding: 1px;
-    margin: $contentMargin;
-    border-radius: 3px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-  }
-
-  li:hover {
-    box-shadow: 0 0 4px 1px $gray-70;
-    transition: box-shadow 0.3s;
-  }
-
-  .image-li {
-    width: calc(100% - 3px);
-    img {
-      border-radius: 3px;
-    }
-    position: relative;
-
-    &:hover>.image-options {
-      visibility: visible;
-    }
+  flex-wrap: wrap;
+  .image-container-column {
+    width: 50%;
   }
 }

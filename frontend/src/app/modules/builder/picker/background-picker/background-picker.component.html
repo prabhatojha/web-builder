@@ -3,9 +3,9 @@
     <app-search-box [placeholder]="'Search Backgrounds'" (searchQuery)="onNewSearch($event)"></app-search-box>
   </div>
 
-  <div class="photos-grid-container" #photoContainer (scroll)="onScroll($event)">
-    <div class="d-flex">
-      <ul class="photos-grid">
+  <div class="photos-grid-container scrollbox" #photoContainer (scroll)="onScroll($event)">
+    <div>
+      <ul class="custom-li-items">
         <li class="image-li custom-li bg-color-selctor" (click)="backgroundPicker.open()" #colorSelector>
           <i class="material-icons">format_paint</i>
           Select Color
@@ -17,14 +17,9 @@
         <li class="image-li custom-li" (click)="onColorSelect('transparent')">
           Transparent
         </li>
-        <ng-container *ngFor="let item of backgroundService.backgrounds">
-          <li class="image-li" draggable (dragstart)="dragStart($event, item)" (click)="onClick($event, item)"
-            [ngStyle]="{'background-image':'url('+ item.imageUrl +')'}">
-            <!-- <img [src]="item.imageUrl"> -->
-          </li>
-        </ng-container>
       </ul>
     </div>
+    <app-photos [photos]="backgroundService.backgrounds" [photoAsBackground]="true" [boxShadow]="true"></app-photos>
     <div class="w-100 text-center spinner my-4" [class.invisible]="!backgroundService.isLoading">
       <div class="spinner-border"></div>
     </div>

@@ -1,13 +1,6 @@
 <div class="elements-picker-container scrollbox">
   <div class="element-container" *ngFor="let item of elementService.elements">
     <!-- <p>{{item.label}}</p> -->
-    <div class="element-content">
-      <ul>
-        <li class="image-li" draggable *ngFor="let value of item.values" (dragstart)="dragStart($event, value)"
-          (click)="onClick($event, value)">
-          <img [src]="value.imageUrl">
-        </li>
-      </ul>
-    </div>
+    <app-photos [photos]="item.values" [boxShadow]="0"></app-photos>
   </div>
 </div>

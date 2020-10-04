@@ -4,16 +4,10 @@
   </div>
 
   <div class="images-container scrollbox" #photoContainer (scroll)="onScroll($event)">
-    <div class="d-flex">
-      <ul class="picker-item" *ngFor="let row of imageService.rows">
-        <ng-container *ngFor="let item of row">
-          <li class="image-li" draggable (dragstart)="dragStart($event, item)" (click)="onClick($event, item)">
-            <img [src]="item.imageUrl" style="width: 100%;" [attr.id]="item.id">
-            <i class="material-icons image-options">more_vert</i>
-          </li>
-        </ng-container>
-      </ul>
+    <div *ngFor="let row of imageService.rows" class="image-container-column">
+      <app-photos [photos]="row" [photoAsBackground]="false" [fixHeight]="false" [twoImgInRow]="false"></app-photos>
     </div>
+
     <div class="w-100 text-center spinner my-4" [class.invisible]="!imageService.isLoading || imageService.isError">
       <div class="spinner-border"></div>
     </div>

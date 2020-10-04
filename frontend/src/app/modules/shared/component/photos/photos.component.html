@@ -1,10 +1,11 @@
 <div class="photos-grid">
-  <ul class="picker-item" *ngFor="let row of photos">
-    <ng-container *ngFor="let item of row">
-      <li class="image-li" draggable (dragstart)="dragStart($event, item)" (click)="onClick($event, item)">
-        <img [src]="item.imageUrl" [attr.id]="item.id">
-        <i class="material-icons image-options">more_vert</i>
-      </li>
-    </ng-container>
+  <ul class="picker-item">
+    <li class="image-li" [class.hover-effect-border]="boxShadow" *ngFor="let item of photos" draggable
+      (dragstart)="dragStart($event, item)" (click)="onClick($event, item)" [style.height]="fixHeight"
+      [ngStyle]="{'background-image': photoAsBackground ? 'url('+ item.imageUrl +')' : 'none'}"
+      [ngClass]="twoImgInRow? 'two-images-row': 'one-image-row'">
+      <img [src]="item.imageUrl" [attr.id]="item.id" *ngIf="!photoAsBackground">
+      <i class="material-icons image-options">more_vert</i>
+    </li>
   </ul>
 </div>

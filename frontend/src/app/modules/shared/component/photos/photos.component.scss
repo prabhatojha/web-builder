@@ -4,22 +4,25 @@
 $pickerItemBackgroundHover: #6b7c95;
 
 .photos-grid {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
 
   li {
     padding: 1px;
     margin: 3px;
     border-radius: 3px;
     cursor: pointer;
-    height: 130px;
     background-position: center;
-
-    width: calc(50% - 12px);
-    height: 130px;
     background-size: cover;
     -webkit-user-drag: element;
+    background-color: $pickerItemBackground;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     img {
       border-radius: 3px;
@@ -29,18 +32,30 @@ $pickerItemBackgroundHover: #6b7c95;
   }
 
   li:hover {
-    box-shadow: 0 0 4px 1px $gray-70;
-    transition: box-shadow 0.3s;
+    background-color: $pickerItemBackgroundHover;
   }
 }
 
-.hover-effect {
-  .background {
-    background-color: $pickerItemBackgroundHover;
-    transition: box-shadow 0.3s;
-  }
-  .border {
-    box-shadow: 0 0 4px 1px $gray-70;
-    transition: box-shadow 0.3s;
+.hover-effect-border {
+  box-shadow: 0 0 4px 1px $gray-70;
+  transition: box-shadow 0.3s;
+}
+
+.one-image-row {
+  width: calc(100% - 3px);
+}
+
+.two-images-row {
+  width: calc(50% - 6px);
+}
+
+.image-options {
+  position: absolute;
+  right: 0px;
+  top: 5px;
+  visibility: hidden;
+
+  &:hover {
+    background-color: rgba($color: #666666, $alpha: 0.3);
   }
 }

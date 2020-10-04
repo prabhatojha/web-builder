@@ -17,12 +17,18 @@ $contentMargin: 3px;
   height: calc(#{$contentHeight} - 105px);
 }
 
-.photos-grid {
-  .custom-li {
+.custom-li-items {
+  display: flex;
+  width: 100%;
+
+  li {
+    width: calc(50% - 3px);
+    height: 80px;
+    margin: 3px;
+    border-radius: 3px;
     display: flex;
-    align-items: center;
-    flex-direction: column;
     justify-content: center;
+    align-items: center;
     font-size: $smallFont;
   }
 }

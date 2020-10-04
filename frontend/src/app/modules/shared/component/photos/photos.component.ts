@@ -10,6 +10,11 @@ import { EventerService } from '../../services/eventer.service';
 export class PhotosComponent extends PickerActions implements OnInit {
 
   @Input() photos = [];
+  @Input() photoAsBackground = false;
+  @Input() boxShadow = false;
+  @Input() twoImgInRow = true;
+  @Input() fixHeight = '130px';
+
   constructor(protected eventer: EventerService) {
     super(eventer);
   }

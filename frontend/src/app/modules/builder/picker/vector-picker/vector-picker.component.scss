@@ -16,34 +16,3 @@ $contentMargin: 3px;
   padding: 0 8px 10px;
   height: calc(#{$contentHeight} - 105px);
 }
-
-.picker-item {
-  display: flex;
-  flex-wrap: wrap;
-  li {
-    padding: 1px;
-    margin: 3px;
-    border-radius: 3px;
-    cursor: pointer;
-    height: 130px;
-  }
-  .image-li {
-    width: calc(50% - 6px);
-    height: 130px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: $pickerItemBackground;
-    transition: background-color 0.3s;
-    padding: 10px;
-    img {
-      border-radius: 3px;
-      max-height: 100%;
-      max-width: 100%;
-    }
-
-    &:hover {
-      background-color: $pickerItemBackgroundHover;
-    }
-  }
-}

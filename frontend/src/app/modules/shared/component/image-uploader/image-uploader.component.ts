@@ -25,8 +25,6 @@ export class ImageUploaderComponent implements OnInit {
       reader.onload = (loadedFile) => {
         const image = new Image();
         image.onload = () => {
-          // console.log(e);
-          // images.push({ width, height, image });
           this.upload.emit(image);
         };
         image.src = loadedFile.target.result as string;
