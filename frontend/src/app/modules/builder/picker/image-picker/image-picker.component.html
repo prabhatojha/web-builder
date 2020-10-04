@@ -1,11 +1,12 @@
-<div>
+<div class="image-picker">
   <div class="search-box-wrapper">
     <app-search-box [placeholder]="'Search photos'" (searchQuery)="onNewSearch($event)"></app-search-box>
   </div>
 
   <div class="images-container scrollbox" #photoContainer (scroll)="onScroll($event)">
     <div *ngFor="let row of imageService.rows" class="image-container-column">
-      <app-photos [photos]="row" [photoAsBackground]="false" [fixHeight]="false" [twoImgInRow]="false"></app-photos>
+      <app-photos [photos]="row" [photoAsBackground]="false" [boxShadow]="true" [fixHeight]="false"
+        [twoImgInRow]="false"></app-photos>
     </div>
 
     <div class="w-100 text-center spinner my-4" [class.invisible]="!imageService.isLoading || imageService.isError">

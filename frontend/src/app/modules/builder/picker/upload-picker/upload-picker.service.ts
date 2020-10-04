@@ -12,7 +12,6 @@ export class UploadPickerService {
   constructor() { }
 
   add(newImage) {
-    console.log(Date.now().toString());
     const image: ImageCanvasElement = getImageElementInstance();
     image.id = Date.now().toString();
     image.imageUrl = newImage.src;

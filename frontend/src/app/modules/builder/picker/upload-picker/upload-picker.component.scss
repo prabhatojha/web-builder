@@ -1,6 +1,11 @@
 @import "../../../../../style/colors.scss";
 @import "../../../../../style/structure";
 
+.upload-picker {
+  overflow-y: auto;
+  height: calc(100vh - #{$headerHeight} - 5px);
+}
+
 .upload-content {
   padding: 15px;
   width: 100%;

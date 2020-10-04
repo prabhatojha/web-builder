@@ -1,10 +1,10 @@
-<div>
+<div class="vector-picker">
   <div class="search-box-wrapper">
     <app-search-box [placeholder]="'Search vectors'" (searchQuery)="onNewSearch($event)"></app-search-box>
   </div>
 
   <div class="images-container scrollbox" #photoContainer (scroll)="onScroll($event)">
-    <app-photos [photos]="vectorService.vectors" [boxShadow]="0"></app-photos>
+    <app-photos [photos]="vectorService.vectors" [boxShadow]="false"></app-photos>
     <div class="w-100 text-center spinner my-4" [class.invisible]="!vectorService.isLoading">
       <div class="spinner-border"></div>
     </div>

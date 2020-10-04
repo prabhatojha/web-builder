@@ -36,7 +36,7 @@ $pickerItemBackgroundHover: #6b7c95;
   }
 }
 
-.hover-effect-border {
+.hover-effect-border:hover {
   box-shadow: 0 0 4px 1px $gray-70;
   transition: box-shadow 0.3s;
 }

@@ -1,4 +1,4 @@
-<div class="upload-container">
+<div class="upload-picker">
   <div class="upload-content">
     <div class="img-uploader">
       <div>
@@ -12,13 +12,15 @@
       </div>
     </div>
     <div class="photos-grid-container">
-      <ul class="photos-grid">
+      <!-- <ul class="photos-grid">
         <ng-container *ngFor="let item of uploadPickerService.images">
           <li class="image-li" draggable (dragstart)="dragStart($event, item)" (click)="onClick($event, item)"
             [ngStyle]="{'background-image':'url('+ item.imageUrl +')'}">
           </li>
         </ng-container>
-      </ul>
+      </ul> -->
+
+      <app-photos [photos]="uploadPickerService.images" [photoAsBackground]="true" [boxShadow]="true"></app-photos>
     </div>
   </div>
 </div>

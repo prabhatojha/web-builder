@@ -3,8 +3,8 @@
 
 $contentMargin: 3px;
 
-:host {
-  padding: 10px 15px 0;
+.background-picker {
+  padding: 20px 0 0;
 }
 
 .search-box-wrapper {
@@ -13,8 +13,8 @@ $contentMargin: 3px;
 
 .photos-grid-container {
   overflow-y: auto;
-  padding: 0 8px 10px;
-  height: calc(#{$contentHeight} - 105px);
+  padding: 0px 4px 10px 12px;
+  height: calc(#{$contentHeight} - 85px);
 }
 
 .custom-li-items {

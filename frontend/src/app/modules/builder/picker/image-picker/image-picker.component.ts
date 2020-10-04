@@ -41,7 +41,6 @@ export class ImagePickerComponent extends PickerActions implements OnInit, OnCha
   }
 
   onScroll(e) {
-    console.log(e);
     this.imageService.onScroll(e);
     // if (this.imageService.isLoading) {
     //   return;

@@ -57,7 +57,6 @@ export class ImagesService extends ImageLoader {
   }
 
   updateWidth(canvasElement: CanvasElement, width, height) {
-    console.log(width, height);
     canvasElement.style.width = width + 'px';
     canvasElement.style.height = height + 'px';
   }
