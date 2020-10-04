@@ -30,6 +30,7 @@ export class ImageUploaderComponent implements OnInit {
           this.upload.emit(image);
         };
         image.src = loadedFile.target.result as string;
+        console.log(loadedFile.target.result);
       };
       reader.readAsDataURL(file);
     }

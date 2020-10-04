@@ -1,7 +1,7 @@
 @import "../../../../../style/colors.scss";
 @import "../../../../../style/structure";
 
-$contentMargin: 7px;
+$contentMargin: 3px;
 
 :host {
   padding: 10px 15px 0;
@@ -22,13 +22,13 @@ $contentMargin: 7px;
   flex-wrap: wrap;
   li {
     padding: 1px;
-    margin: $contentMargin;
+    margin: 3px;
     border-radius: 3px;
     cursor: pointer;
     height: 130px;
   }
   .image-li {
-    width: calc(50% - 14px);
+    width: calc(50% - 6px);
     height: 130px;
     display: flex;
     align-items: center;

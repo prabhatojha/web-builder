@@ -27,7 +27,7 @@ $contentMargin: 3px;
     border-radius: 3px;
     display: flex;
     align-items: center;
-    cursor: move;
+    cursor: pointer;
   }
 
   li:hover {
@@ -39,6 +39,11 @@ $contentMargin: 3px;
     width: calc(100% - 3px);
     img {
       border-radius: 3px;
+    }
+    position: relative;
+
+    &:hover>.image-options {
+      visibility: visible;
     }
   }
 }

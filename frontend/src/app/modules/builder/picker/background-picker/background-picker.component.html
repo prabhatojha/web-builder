@@ -3,9 +3,9 @@
     <app-search-box [placeholder]="'Search Backgrounds'" (searchQuery)="onNewSearch($event)"></app-search-box>
   </div>
 
-  <div class="images-container" #photoContainer (scroll)="onScroll($event)">
+  <div class="photos-grid-container" #photoContainer (scroll)="onScroll($event)">
     <div class="d-flex">
-      <ul class="picker-item">
+      <ul class="photos-grid">
         <li class="image-li custom-li bg-color-selctor" (click)="backgroundPicker.open()" #colorSelector>
           <i class="material-icons">format_paint</i>
           Select Color

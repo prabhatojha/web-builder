@@ -1,1 +1,10 @@
-<p>photos works!</p>
+<div class="photos-grid">
+  <ul class="picker-item" *ngFor="let row of photos">
+    <ng-container *ngFor="let item of row">
+      <li class="image-li" draggable (dragstart)="dragStart($event, item)" (click)="onClick($event, item)">
+        <img [src]="item.imageUrl" [attr.id]="item.id">
+        <i class="material-icons image-options">more_vert</i>
+      </li>
+    </ng-container>
+  </ul>
+</div>
