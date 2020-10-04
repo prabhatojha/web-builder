@@ -19,6 +19,7 @@ $pickerItemBackgroundHover: #6b7c95;
     background-size: cover;
     -webkit-user-drag: element;
     background-color: $pickerItemBackground;
+    // transition: background-color 0.3s;
 
     display: flex;
     align-items: center;

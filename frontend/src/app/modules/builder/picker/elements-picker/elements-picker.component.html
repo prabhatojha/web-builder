@@ -1,6 +1,7 @@
 <div class="elements-picker-container scrollbox">
   <div class="element-container" *ngFor="let item of elementService.elements">
     <!-- <p>{{item.label}}</p> -->
-    <app-photos [photos]="item.values" [boxShadow]="0"></app-photos>
+    <app-photos [photos]="item.values" [boxShadow]="0" [handleErrorLoading]="false" [boxShadow]="true">
+    </app-photos>
   </div>
 </div>

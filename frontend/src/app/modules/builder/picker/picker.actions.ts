@@ -9,8 +9,6 @@ export class PickerActions {
 
   dragStart(ev, item) {
     ev.dataTransfer.setData(CONST_VAR.PICKER_ITEM,
-
-      // Json. stringify will also clone the item.
       JSON.stringify(this.buildData(ev, item)));
   }
 

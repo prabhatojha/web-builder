@@ -16,6 +16,7 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
 import { RouterModule } from '@angular/router';
 import { ImageUploaderComponent } from './component/image-uploader/image-uploader.component';
 import { PhotosComponent } from './component/photos/photos.component';
+import { PickerErrorComponent } from './component/picker-error/picker-error.component';
 
 const components = [
   SingleSelectComponent,
@@ -26,7 +27,8 @@ const components = [
   RemovePxPipe,
   CanvasSizeComponent,
   ImageUploaderComponent,
-  PhotosComponent
+  PhotosComponent,
+  PickerErrorComponent
 ];
 @NgModule({
   imports: [

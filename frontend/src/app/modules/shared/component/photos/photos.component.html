@@ -9,3 +9,16 @@
     </li>
   </ul>
 </div>
+
+<ng-container *ngIf="handleErrorLoading">
+  <div class="w-100 text-center spinner my-4" [class.invisible]="!isLoading" *ngIf="!isError">
+    <div class="spinner-border"></div>
+  </div>
+
+  <app-picker-error class="w-100 my-3" [errorMsg]="ERROR_MSG.WENT_WRONG" [tryAgainBtn]="true" *ngIf="isError"
+    (tryAgain)="retry.emit()">
+  </app-picker-error>
+  <app-picker-error class="w-100 my-3" [errorMsg]="photos.length ? ERROR_MSG.NO_MORE_PHOTOS : ERROR_MSG.NO_RESULT"
+    *ngIf="endOfResult">
+  </app-picker-error>
+</ng-container>

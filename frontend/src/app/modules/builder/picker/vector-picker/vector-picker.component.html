@@ -4,15 +4,9 @@
   </div>
 
   <div class="images-container scrollbox" #photoContainer (scroll)="onScroll($event)">
-    <app-photos [photos]="vectorService.vectors" [boxShadow]="false"></app-photos>
-    <div class="w-100 text-center spinner my-4" [class.invisible]="!vectorService.isLoading">
-      <div class="spinner-border"></div>
-    </div>
-
-    <app-picker-error [errorMsg]="ERROR_MSG.WENT_WRONG" [tryAgainBtn]="true" *ngIf="vectorService.isError">
-    </app-picker-error>
-    <app-picker-error [errorMsg]="vectorService.vectors.length ? ERROR_MSG.NO_MORE_PHOTOS : ERROR_MSG.NO_RESULT"
-      *ngIf="vectorService.endOfResult">
-    </app-picker-error>
+    <app-photos [photos]="vectorService.vectors" [boxShadow]="false" [isLoading]="vectorService.isLoading"
+      [boxShadow]="true" [isError]="vectorService.isError" [endOfResult]="vectorService.endOfResult"
+      (retry)="vectorService.onTryAgain()">
+    </app-photos>
   </div>
 </div>

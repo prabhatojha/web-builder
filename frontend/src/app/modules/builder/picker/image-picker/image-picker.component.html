@@ -6,17 +6,19 @@
   <div class="images-container scrollbox" #photoContainer (scroll)="onScroll($event)">
     <div *ngFor="let row of imageService.rows" class="image-container-column">
       <app-photos [photos]="row" [photoAsBackground]="false" [boxShadow]="true" [fixHeight]="false"
-        [twoImgInRow]="false"></app-photos>
+        [twoImgInRow]="false" [handleErrorLoading]="false"></app-photos>
     </div>
 
-    <div class="w-100 text-center spinner my-4" [class.invisible]="!imageService.isLoading || imageService.isError">
+    <div class="w-100 text-center spinner my-4" [class.invisible]="!imageService.isLoading"
+      *ngIf="!imageService.isError">
       <div class="spinner-border"></div>
     </div>
 
-    <app-picker-error [errorMsg]="ERROR_MSG.WENT_WRONG" [tryAgainBtn]="true" *ngIf="imageService.isError"
+    <app-picker-error class="w-100" [errorMsg]="ERROR_MSG.WENT_WRONG" [tryAgainBtn]="true" *ngIf="imageService.isError"
       (tryAgain)="imageService.onTryAgain()">
     </app-picker-error>
-    <app-picker-error [errorMsg]="imageService.rows[0].length ? ERROR_MSG.NO_MORE_PHOTOS : ERROR_MSG.NO_RESULT"
+    <app-picker-error class="w-100"
+      [errorMsg]="imageService.rows[0].length ? ERROR_MSG.NO_MORE_PHOTOS : ERROR_MSG.NO_RESULT"
       *ngIf="imageService.endOfResult">
     </app-picker-error>
 

@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from 'src/app/modules/shared/services/http-service/http.service';
-import { MyHttpRequest } from '../../../shared/services/http-service/http.service';
-import { of } from 'rxjs';
-import { delay } from 'rxjs/operators';
 import { HOT_KEYWORD, ELEMENT_TYPES } from 'src/app/constants/contants';
 import { ImageCanvasElement } from 'src/app/models/image.element.model';
 import { getImageElementInstance } from './image.config';
-import { MOCK_IMAGES } from '../mock-images';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { ImageLoader } from 'src/app/modules/shared/logic/image-loader';
 import { API_ENDPOINT } from 'src/app/constants/api-endpoint';
@@ -17,7 +13,6 @@ import { API_ENDPOINT } from 'src/app/constants/api-endpoint';
 export class ImagesService extends ImageLoader {
 
   rows = [[], []];
-  GET_IMAGES = '/api/images';
 
   // Will be used to place image in left or right container based on the total height
   leftHeight = 0;

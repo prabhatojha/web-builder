@@ -31,7 +31,6 @@ import { ElementsPickerComponent } from './picker/elements-picker/elements-picke
 import { OpacityComponent } from './toolbar/opacity/opacity.component';
 import { DownloadCanvasComponent } from './download-canvas/download-canvas.component';
 import { ElementLayeringComponent } from './toolbar/element-layering/element-layering.component';
-import { PickerErrorComponent } from './picker/picker-error/picker-error.component';
 import { LineWidthComponent } from './toolbar/line-width/line-width.component';
 import { UploadPickerComponent } from './picker/upload-picker/upload-picker.component';
 
@@ -40,7 +39,7 @@ import { UploadPickerComponent } from './picker/upload-picker/upload-picker.comp
     ToolbarPanelComponent, ColorPickerComponent, CanvasPreviewComponent, CanvasScaleComponent, TextAlignmentComponent,
     ImagePickerComponent, TextPickerComponent, FontFamilyComponent, VectorPickerComponent, FontSizeComponent,
     SelectElementComponent, DragElementComponent, LetterSpacingComponent, TextDecorationComponent, BackgroundPickerComponent,
-    ElementsPickerComponent, OpacityComponent, DownloadCanvasComponent, ElementLayeringComponent, PickerErrorComponent,
+    ElementsPickerComponent, OpacityComponent, DownloadCanvasComponent, ElementLayeringComponent,
     LineWidthComponent, UploadPickerComponent],
   imports: [
     CommonModule,

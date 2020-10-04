@@ -19,15 +19,9 @@
         </li>
       </ul>
     </div>
-    <app-photos [photos]="backgroundService.backgrounds" [photoAsBackground]="true" [boxShadow]="true"></app-photos>
-    <div class="w-100 text-center spinner my-4" [class.invisible]="!backgroundService.isLoading">
-      <div class="spinner-border"></div>
-    </div>
-
-    <app-picker-error [errorMsg]="ERROR_MSG.WENT_WRONG" [tryAgainBtn]="true" *ngIf="backgroundService.isError">
-    </app-picker-error>
-    <app-picker-error [errorMsg]="backgroundService.backgrounds.length ? ERROR_MSG.NO_MORE_PHOTOS : ERROR_MSG.NO_RESULT"
-      *ngIf="backgroundService.endOfResult">
-    </app-picker-error>
+    <app-photos [photos]="backgroundService.backgrounds" [photoAsBackground]="true" [boxShadow]="true"
+      [isLoading]="backgroundService.isLoading" [isError]="backgroundService.isError"
+      [endOfResult]="backgroundService.endOfResult" (retry)="backgroundService.onTryAgain()">
+    </app-photos>
   </div>
 </div>

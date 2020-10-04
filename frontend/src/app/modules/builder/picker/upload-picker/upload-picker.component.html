@@ -12,15 +12,8 @@
       </div>
     </div>
     <div class="photos-grid-container">
-      <!-- <ul class="photos-grid">
-        <ng-container *ngFor="let item of uploadPickerService.images">
-          <li class="image-li" draggable (dragstart)="dragStart($event, item)" (click)="onClick($event, item)"
-            [ngStyle]="{'background-image':'url('+ item.imageUrl +')'}">
-          </li>
-        </ng-container>
-      </ul> -->
-
-      <app-photos [photos]="uploadPickerService.images" [photoAsBackground]="true" [boxShadow]="true"></app-photos>
+      <app-photos [photos]="uploadPickerService.images" [photoAsBackground]="true" [boxShadow]="true"
+        [handleErrorLoading]="false" [boxShadow]="true"></app-photos>
     </div>
   </div>
 </div>
