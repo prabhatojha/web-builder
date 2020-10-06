@@ -52,7 +52,6 @@ export class ImagesService extends ImageLoader {
       this.rows[1].push(image);
       this.rightHeight += height;
     }
-    console.log(this.leftHeight, this.rightHeight);
   }
 
   findImageHeight(newPhoto) {

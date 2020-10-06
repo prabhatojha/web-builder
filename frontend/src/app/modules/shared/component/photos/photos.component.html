@@ -5,10 +5,12 @@
       [ngStyle]="{'background-image': photoAsBackground ? 'url('+ item.imageUrl +')' : 'none'}"
       [ngClass]="twoImgInRow? 'two-images-row': 'one-image-row'">
       <img [src]="item.imageUrl" [attr.id]="item.id" *ngIf="!photoAsBackground">
-      <i class="material-icons image-options" (click)="onSettings($event, item)" #myButton>
+      <i class="material-icons image-options" (click)="onSettings($event, item)" #myButton
+        [class.d-block]="item._showSettings" *ngIf="settingOptions.length">
         more_vert
         <div class="dropdown-menu show" (appClickOutside)="toggleSettings(item)" [srcElement]="myButton"
-          *ngIf="item._showSettings" [@SlideDown]>
+          *ngIf="item._showSettings" [@SlideDown] [style.top]="settingsLocationTop  + 'px'"
+          [style.left]="settingsLocationLeft + 'px'">
           <div class="dropdown-item py-2" *ngFor="let item of settingOptions" (click)="sendEvent(item)">
             {{item.label}}
           </div>

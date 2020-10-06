@@ -8,6 +8,7 @@ import { EventerService, EventTypes } from '../../shared/services/eventer.servic
 import { UndoService, UndoRedoType } from '../../shared/services/undo-redo/undo.service';
 import { LayeringActions } from '../../shared/services/layering/layering.service';
 import { AppAnimations } from 'src/style/_angular-animations';
+import { CSSUtils } from 'src/app/utils/css.utils';
 
 @Component({
   selector: 'app-toolbar',
@@ -173,9 +174,11 @@ export class ToolbarComponent implements OnInit, OnChanges {
   }
 
   onFlip(x, y) {
+    const child = this.firstCanvasElement.children[0];
+    const scale = CSSUtils.getTransformValue(child.style.transform, 'scale');
     // Updating the img element directly, so that the parent doesn't affect while doing transfromation
-    CanvasUtils.applyCss(this.firstNode.firstElementChild as HTMLElement, this.firstCanvasElement.children[0], {
-      [CSS_PROPERTIES.TRANSFORM]: `scale(${x}, ${y})`
+    CanvasUtils.applyCss(this.firstNode.firstElementChild as HTMLElement, child, {
+      [CSS_PROPERTIES.TRANSFORM]: `scale(${scale.x * x}, ${scale.y * y})`
     }, true);
   }
 

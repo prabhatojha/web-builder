@@ -23,7 +23,7 @@ export class CSSUtils {
       case CSS_PROPERTIES.TRANSLATE:
         return this.getTranslateValue(transformStyle, this.TRANSFORM_TRANSLATE);
       case CSS_PROPERTIES.SCALE:
-        return this.getTranslateValue(transformStyle, this.TRANSFORM_SCALE);
+        return this.getScaleValue(transformStyle, this.TRANSFORM_SCALE);
     }
   }
 
@@ -39,6 +39,21 @@ export class CSSUtils {
     return {
       x: 0,
       y: 0
+    };
+  }
+
+  private static getScaleValue(transformStyle, regex) {
+    const val = this.matchReg(transformStyle, regex);
+    if (val) {
+      return {
+        x: parseFloat(val.split(',')[0]),
+        y: parseFloat(val.split(',')[1])
+      };
+    }
+
+    return {
+      x: 1,
+      y: 1
     };
   }
 

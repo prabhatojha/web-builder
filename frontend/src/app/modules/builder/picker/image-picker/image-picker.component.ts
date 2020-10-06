@@ -17,6 +17,7 @@ export class ImagePickerComponent extends PickerActions implements OnInit, OnCha
   imagesSub: Subscription;
   scrollTimer = null;
   ERROR_MSG = ERROR_MSG;
+  settingOptions = [];
 
 
   @ViewChild('photoContainer', { static: true }) photoContainer: ElementRef;
@@ -42,20 +43,5 @@ export class ImagePickerComponent extends PickerActions implements OnInit, OnCha
 
   onScroll(e) {
     this.imageService.onScroll(e);
-    // if (this.imageService.isLoading) {
-    //   return;
-    // }
-
-    // if (this.scrollTimer !== null) {
-    //   clearTimeout(this.scrollTimer);
-    // }
-    // this.scrollTimer = setTimeout(() => {
-
-    //   const el = this.photoContainer.nativeElement;
-    //   if ((el.scrollTop + el.offsetHeight + 50) > el.scrollHeight) {
-    //     this.imageService.getPhotos();
-    //   }
-
-    // }, 50);
   }
 }

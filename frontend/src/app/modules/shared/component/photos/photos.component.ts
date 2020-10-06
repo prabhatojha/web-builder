@@ -21,12 +21,14 @@ export class PhotosComponent extends PickerActions implements OnInit {
   @Input() isLoading = true;
   @Input() isError = false;
   @Input() handleErrorLoading = true;
-  @Input() settingOptions = [{ label: 'Set as background', value: '1' }];
+  @Input() settingOptions = [];
 
   @Output() retry = new EventEmitter();
 
   ERROR_MSG = ERROR_MSG;
   showSettings = false;
+  settingsLocationLeft = 0;
+  settingsLocationTop = 0;
 
   constructor(protected eventer: EventerService) {
     super(eventer);
@@ -37,7 +39,14 @@ export class PhotosComponent extends PickerActions implements OnInit {
 
   onSettings(e, item) {
     e.stopPropagation();
+    this.setOptionsLocation(e);
     this.toggleSettings(item);
+  }
+
+  setOptionsLocation(e) {
+    const { top, left } = e.target.getClientRects()[0];
+    this.settingsLocationLeft = left;
+    this.settingsLocationTop = top + 23;
   }
 
   toggleSettings(item) {
@@ -45,6 +54,5 @@ export class PhotosComponent extends PickerActions implements OnInit {
   }
 
   sendEvent(item) {
-    console.log(item);
   }
 }
