@@ -14,6 +14,8 @@ export class ImagesService extends ImageLoader {
 
   rows = [[], []];
 
+  IMAGE_WIDTH = 130;
+
   // Will be used to place image in left or right container based on the total height
   leftHeight = 0;
   rightHeight = 0;
@@ -41,14 +43,20 @@ export class ImagesService extends ImageLoader {
     this.isLoading = false;
   }
 
-  findContainer(image: ImageCanvasElement, rawPhoto) {
+  findContainer(image: ImageCanvasElement, newPhoto) {
+    const height = this.findImageHeight(newPhoto);
     if (this.leftHeight <= this.rightHeight) {
       this.rows[0].push(image);
-      this.leftHeight += rawPhoto.height;
+      this.leftHeight += height;
     } else {
       this.rows[1].push(image);
-      this.rightHeight += rawPhoto.height;
+      this.rightHeight += height;
     }
+    console.log(this.leftHeight, this.rightHeight);
+  }
+
+  findImageHeight(newPhoto) {
+    return newPhoto.height * this.IMAGE_WIDTH / newPhoto.width;
   }
 
   updateWidth(canvasElement: CanvasElement, width, height) {

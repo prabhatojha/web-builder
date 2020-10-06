@@ -18,7 +18,7 @@
   font-size: $smallestFont;
   width: $leftMenu;
   height: $contentHeight;
-  background-color: $pickersBg;
+  background-color: $leftMenuBg;
   // box-shadow: 2px 0 0 $gray-200;
   overflow-y: auto;
 
@@ -45,7 +45,7 @@
       }
 
       &.selected {
-        background-color: #5c6d84;
+        background-color: $leftMenuSelected;
         border-radius: 3px;
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
@@ -55,9 +55,9 @@
         position: absolute;
         content: "";
         opacity: 0;
-        border: 3px 3px 0 0 solid #5c6d84;
-        border-bottom: 3px solid #5c6d84;
-        border-right: 3px solid #5c6d84;
+        border: 3px 3px 0 0 solid $leftMenuSelected;
+        border-bottom: 3px solid $leftMenuSelected;
+        border-right: 3px solid $leftMenuSelected;
         border-bottom-right-radius: 9px;
         right: -3px;
         top: -7px;
@@ -73,9 +73,9 @@
         position: absolute;
         content: "";
         opacity: 0;
-        border: 3px 3px 0 0 solid #5c6d84;
-        border-top: 3px solid #5c6d84;
-        border-right: 3px solid #5c6d84;
+        border: 3px 3px 0 0 solid $leftMenuSelected;
+        border-top: 3px solid $leftMenuSelected;
+        border-right: 3px solid $leftMenuSelected;
         border-top-right-radius: 9px;
         right: -3px;
         bottom: -7px;

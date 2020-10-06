@@ -1,9 +1,12 @@
-$primaryTheme: rgb(49 66 90);
+$primaryTheme: rgb(51 58 65);
+$secondaryTheme: rgb(71 78 85);
+
+// button color 253, 116, 109
 
 // Left Pickers, photo, text etc selector
 $leftMenuBg: $primaryTheme;
-$leftMenuSelected: #3072b9;
-$pickersBg: $primaryTheme;
+$leftMenuSelected: $secondaryTheme;
+$pickersBg: $secondaryTheme;
 
 // Header
 $headerBg: $primaryTheme;

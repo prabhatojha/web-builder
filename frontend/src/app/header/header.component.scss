@@ -15,7 +15,7 @@
     display: flex;
     height: 100%;
     a {
-      height: 38px;
+      height: 34px;
     }
 
     img {
@@ -71,4 +71,11 @@
 
 .user-account:hover {
   // color: black;
+}
+
+.header-menu-icon {
+  font-size: 30px;
+  width: 30px;
+  height: 30px;
+  margin-right: 0;
 }
