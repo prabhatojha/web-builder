@@ -6,7 +6,7 @@
     <ul class="picker-item">
       <ng-container *ngFor="let item of textPickerService.customText">
         <ng-container *ngIf="item.type === TextPickerTypes.TEXT">
-          <li class="text-li custom-text-li" draggable="true" (dragstart)="dragStart($event, item)"
+          <li class="text-li custom-text-li picker-item-bg" draggable="true" (dragstart)="dragStart($event, item)"
             (click)="onClick($event, item)">
             <p [style.fontFamily]="item.fontFamily" [style.fontSize]="item.fontSize">{{item.innerText}}</p>
           </li>

@@ -154,3 +154,12 @@ button {
   color: $gray-70;
   font-size: $smallFont;
 }
+
+.picker-item-bg {
+  background-color: $pickerItemBackground;
+  transition: background-color 0.4s;
+}
+
+.picker-item-bg:hover {
+  background-color: $pickerItemBackgroundHover;
+}

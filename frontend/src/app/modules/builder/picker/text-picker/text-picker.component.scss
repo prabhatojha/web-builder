@@ -43,16 +43,9 @@
   .custom-text-li {
     width: calc(100% - 7px);
     padding: 7px 10px;
-    background-color: $pickerItemBackground;
     color: $gray-20;
-    transition: background-color 0.2s;
     box-shadow: none;
   }
-
-  .custom-text-li:hover {
-    background-color: #6b7c95;
-  }
-
   //31425ae3
 }
 

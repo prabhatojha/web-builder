@@ -35,7 +35,6 @@ $pickerItemBackgroundHover: #6b7c95;
 
   .image-li:hover {
     background-color: $pickerItemBackgroundHover;
-
     .image-options {
       display: block;
     }
@@ -43,7 +42,7 @@ $pickerItemBackgroundHover: #6b7c95;
 }
 
 .hover-effect-border:hover {
-  box-shadow: 0 0 4px 1px $gray-70;
+  box-shadow: 0 0 2px 1px $gray-70;
   transition: box-shadow 0.3s;
 }
 
