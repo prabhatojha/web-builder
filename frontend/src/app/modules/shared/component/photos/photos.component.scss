@@ -1,8 +1,6 @@
 @import "../../../../../style/colors.scss";
 @import "../../../../../style/structure";
 
-$pickerItemBackgroundHover: #6b7c95;
-
 .photos-grid {
   ul {
     display: flex;
@@ -72,6 +70,6 @@ $pickerItemBackgroundHover: #6b7c95;
   left: auto;
   top: auto;
   min-width: 100px;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   font-size: $mediumFont;
 }

@@ -12,10 +12,11 @@ router.get('/', function (req: Request, res: Response, next: any) {
     try {
         imageService.getPhotos(query, page, limit, source).then((images: ImageModel[]) => {
             res.send(images);
+        }, (error) => {
+            handleError(res, error);
         })
-    } catch (e) {
-        console.error(e);
-        res.send([]);
+    } catch (error) {
+        handleError(res, error);
     }
 });
 
@@ -24,13 +25,16 @@ router.get('/vectors', function (req: Request, res: Response, next: any) {
     try {
         imageService.getVectors(query, page, limit, source).then((images: ImageModel[]) => {
             res.send(images);
-        }).catch((err) => {
-            res.send([]);
+        }).catch((error) => {
+            handleError(res, error);
         })
-    } catch (e) {
-        console.error(e);
-        res.send([]);
+    } catch (error) {
+        handleError(res, error);
     }
 });
+
+function handleError(res, error) {
+    res.status(500).send({ error: 'Something went wrong' });
+}
 
 module.exports = router;
