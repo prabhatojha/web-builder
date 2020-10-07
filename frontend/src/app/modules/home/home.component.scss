@@ -1,4 +1,44 @@
-.home-content {
-  height: calc(100vh - 60px);
-  // background: url(~src/assets/images/bg.jpg);
+@import "../../../style/colors";
+@import "../../../style/structure";
+
+.home-page-front {
+  height: calc(100vh - #{$headerHeight});
+  width: 100%;
+  text-align: center;
+  background: #f5f6fa;
+  background: url(/assets/images/bg1.jpg);
+}
+
+.home-page-header {
+  position: absolute;
+  top: 0;
+  height: 50px;
+  width: 100%;
+  padding: 0 70px;
+  img {
+    height: 100%;
+  }
+}
+
+.header-logo {
+  height: 100%;
+}
+
+.front-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 100px;
+
+  h1 {
+    font-size: 70px;
+  }
+
+  a {
+    margin-top: 100px;
+    background: $primaryTheme;
+    font-size: 24px;
+    padding: 10px 70px;
+  }
 }

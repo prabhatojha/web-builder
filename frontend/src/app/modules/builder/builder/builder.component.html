@@ -4,7 +4,8 @@
   </div>
 
   <div class="builder-canvas" *ngIf="project">
-    <app-canvas [project]="project" [projectDimention]="projectDimention" (openDownloadPopup)="openDownloadPopup($event)"></app-canvas>
+    <app-canvas [project]="project" [projectDimention]="projectDimention"
+      (openDownloadPopup)="openDownloadPopup($event)"></app-canvas>
   </div>
 
   <app-download-canvas [project]="project" [projectDimention]="projectDimention" #downloadCanvasModal>
