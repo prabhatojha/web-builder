@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: HomeComponent
+    redirectTo: 'build'
     // loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule)
   },
   {

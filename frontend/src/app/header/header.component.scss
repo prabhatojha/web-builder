@@ -31,9 +31,7 @@
   }
 
   .header-right-menu {
-    height: 100%;
     ul {
-      height: 100%;
       display: flex;
       li {
         display: flex;
@@ -56,8 +54,8 @@
 }
 
 .btn-info:hover {
-  background-color: #3b4e69e0;
-  color: $gray-20;
+  background-color: #4c535a;
+  color: white;
 }
 
 .user-account {

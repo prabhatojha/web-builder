@@ -3,7 +3,7 @@
 
     <!-- Font Family-->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.FONT_FAMILY]" [@InOut]>
-      <div class="toolbar-item">
+      <div class="toolbar-item" matTooltip="Font Family" matTooltipPosition="above">
         <app-font-family [selectedFont]="styles[CSS_PROPS.FONT_FAMILY]" (fontSelect)="onFontFamilySelect($event)"
           [disabled]="isLocked">
         </app-font-family>
@@ -12,7 +12,7 @@
 
     <!-- Font Size-->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.FONT_SIZE]" [@InOut]>
-      <div class="toolbar-item">
+      <div class="toolbar-item" matTooltip="Font Size" matTooltipPosition="above">
         <app-font-size (valueChange)="onFontSizeSelect($event)" [disabled]="isLocked"
           [selectedValue]="styles[CSS_PROPS.FONT_SIZE]">
         </app-font-size>
@@ -154,7 +154,7 @@
     <!-- Duplicate Item -->
     <ng-container *ngIf="avaToolbarOptions[AVA_TOOLBAR_OPTIONS.DUPLICATE]">
       <div class="toolbar-item">
-        <button mat-icon-button class="toolbar-icon-size" (click)="duplicate()" matTooltip='Duplicate Item'
+        <button mat-icon-button class="toolbar-icon-size" (click)="duplicate()" matTooltip='Duplicate Element'
           matTooltipPosition="above">
           <i class="material-icons">file_copy</i>
         </button>

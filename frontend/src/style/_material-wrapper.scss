@@ -1,4 +1,5 @@
 @import "./colors.scss";
+@import "./structure";
 
 .mat-button {
   color: white;
@@ -40,5 +41,7 @@ button:focus {
 }
 
 .mat-tooltip {
-  color: yellow;
+  color: $gray-20 !important;
+  background: black;
+  font-size: $mediumFont;
 }

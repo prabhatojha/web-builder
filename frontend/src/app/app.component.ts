@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FontFamilyService } from './modules/shared/services/font/font-family.service';
 import { FaConfig } from '@fortawesome/angular-fontawesome';
@@ -13,5 +13,10 @@ export class AppComponent {
   constructor(private httpClient: HttpClient, private fontService: FontFamilyService, faConfig: FaConfig) {
     faConfig.fixedWidth = true;
     this.fontService.loadFonts();
+    window.addEventListener('beforeunload', (e) => {
+      e.preventDefault();
+      e.returnValue = '';
+      return e;
+    });
   }
 }
