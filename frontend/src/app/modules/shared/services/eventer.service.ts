@@ -9,7 +9,8 @@ export enum EventTypes {
   UPDATE_DIRECTION_HANLDES,
   UPDATE_RECT,
   GROUP_ITEMS,
-  UNGROUP_ITEMS
+  UNGROUP_ITEMS,
+  UPDATE_CANVAS_SIZE // Temparory only
 }
 
 export class EventModal {

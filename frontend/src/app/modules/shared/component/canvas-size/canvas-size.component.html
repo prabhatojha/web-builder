@@ -1,6 +1,19 @@
-<div class="dropdown-menu" [class.show]="showCanvasSizeOptions" (appClickOutside)="showCanvasSizeOptions = false">
-  <a class="dropdown-item" *ngFor="let item of canvasSizes" [routerLink]="['/build']"
-    [queryParams]="{id: item.id, type: PROJECT_TYPE.BLANK}" target="_blank">
-    <span>{{item.label}} </span>
+<div class="dropdown-menu show" (appClickOutside)="showCanvasSizeOptions = false" [@SlideDown]
+  *ngIf="showCanvasSizeOptions">
+  <a class="dropdown-item" *ngFor="let item of canvasSizes" (click)="onClick($event, item)">
+    <!-- [routerLink]="[APP_ROUTES.BUILD]" [queryParams]="{id: item.id, type: PROJECT_TYPE.BLANK}" target="_blank" -->
+    <span>{{item.label}} <span class="dimention">{{item.dimention.w}} x {{item.dimention.h}}</span> </span>
   </a>
+  <div class="dropdown-divider"></div>
+
+  <div class="dropdown-item p-none custom-size-container">
+    <label>Custom</label>
+    <div class="custom-size">
+      <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+        placeholder="Width" [(ngModel)]="width" (keydown)="$event.stopPropagation()">
+      <input type="text" class="form-control my-1" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+        placeholder="Height" [(ngModel)]="height" (keydown)="$event.stopPropagation()">
+      <button type="button" class="btn btn-light" (click)="onCustomSize()">Create</button>
+    </div>
+  </div>
 </div>

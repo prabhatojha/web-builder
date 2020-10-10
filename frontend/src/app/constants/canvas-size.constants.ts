@@ -1,3 +1,5 @@
+export const CUSTOM_CANVAS_SIZE_ID = 'custom-size';
+
 export const CANVAS_SIZES = [
   {
     id: 'facebook-post',

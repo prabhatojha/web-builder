@@ -1,10 +1,11 @@
-@import '../../../../../style/colors.scss';
-@import '../../../../../style/structure';
+@import "../../../../../style/colors.scss";
+@import "../../../../../style/structure";
 
 .dropdown-item {
-  font-size: $mediumFont;
+  font-size: $largeFont;
   display: flex;
   align-items: center;
+  // justify-content: space-between;
   .icon {
     width: 20px;
     height: 20px;
@@ -22,4 +23,34 @@
   }
 
   cursor: pointer;
+}
+
+.custom-size-container {
+  flex-direction: column;
+  align-items: flex-start;
+
+  .custom-size {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  input,
+  button {
+    font-size: $smallFont;
+    pointer-events: auto;
+  }
+
+  button {
+    margin-top: 5px;
+    background-color: $primaryButtonBg;
+    color: white;
+    align-self: flex-end;
+    font-size: $largeFont;
+  }
+
+  button:hover {
+    background-color: $primaryButtonHoverBg;
+  }
 }

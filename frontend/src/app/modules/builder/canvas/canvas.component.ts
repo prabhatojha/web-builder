@@ -313,7 +313,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   subscribeEventer() {
-    this.eventer.get().pipe(filter((t: EventModal) => this.CANVAS_EVENTS.includes(t.type))).subscribe((event: EventModal) => {
+    this.eventer.get().subscribe((event: EventModal) => {
       this.processEventer(event);
     });
   }
@@ -329,7 +329,21 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       case EventTypes.CANVAS_DOWNLOAD:
         this.openDownloadPopup.emit(this.projectNode);
         break;
-
+      case EventTypes.UPDATE_CANVAS_SIZE:
+        this.updateCanvasSize(event.value);
+        break;
     }
+  }
+
+  getProjectCanvasElement() {
+    return this.project.canvasElement as CanvasElement;
+  }
+
+  updateCanvasSize(e) {
+    const canvasElement = this.getProjectCanvasElement();
+    canvasElement.style[CSS_PROPERTIES.WIDTH] = e.w + 'px';
+    canvasElement.style[CSS_PROPERTIES.HEIGHT] = e.h + 'px';
+    this.projectNode.style[CSS_PROPERTIES.WIDTH] = e.w + 'px';
+    this.projectNode.style[CSS_PROPERTIES.HEIGHT] = e.h + 'px';
   }
 }
