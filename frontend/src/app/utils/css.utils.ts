@@ -3,9 +3,9 @@ import { CanvasElement } from '../models/canvas.element.model';
 
 export class CSSUtils {
 
-  static TRANSFORM_ROTATE = /(?<=rotate\()(.*)(?=\s*deg\))/;
-  static TRANSFORM_TRANSLATE = /(?<=translate\()(.*)(?=\s*\))/;
-  static TRANSFORM_SCALE = /(?<=scale\()(.*)(?=\s*\))/;
+  static TRANSFORM_ROTATE = /rotate\(([^)]+)deg\)/;
+  static TRANSFORM_TRANSLATE = /translate\(([^)]+)\)/;
+  static TRANSFORM_SCALE = /scale\(([^)]+)\)/;
   static matrixPattern = /-?\d+\.?\d*/g;
   static MATRIX_2D_LOCATION = {
     [CSS_PROPERTIES.TRANSLATE]: [4, 5]
@@ -59,6 +59,7 @@ export class CSSUtils {
 
   private static matchReg(value, reg) {
     const result = value && value.match(reg);
+    console.log(result);
     return result && result[0];
   }
 
