@@ -1,6 +1,6 @@
 <div class="input-group input-group-sm">
   <input #fontSizeInput type="number" class="form-control font-size-input" [(ngModel)]="value"
-    (change)="onInputChange()" [disabled]="disabled">
+    (change)="onInputChange()" (keydown)="$event.stopPropagation()" [disabled]="disabled">
 
   <div class="input-group-append" #fontSizeButton>
     <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"

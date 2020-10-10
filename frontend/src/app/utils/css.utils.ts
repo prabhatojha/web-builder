@@ -59,8 +59,7 @@ export class CSSUtils {
 
   private static matchReg(value, reg) {
     const result = value && value.match(reg);
-    console.log(result);
-    return result && result[0];
+    return result && result[1];
   }
 
   static updateTransformValue(styles: any, field: 'rotate' | 'translate' | 'scale', fieldValue): any {
