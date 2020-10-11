@@ -1,9 +1,9 @@
 <div class="builder-container">
   <div class="pickers-container">
-    <app-pickers></app-pickers>
+    <app-pickers (pickerVisible)="onPickerVisibility($event)"></app-pickers>
   </div>
 
-  <div class="builder-canvas" *ngIf="project">
+  <div class="builder-canvas" [class.builder-canvas-without-picker]="pickerVisible" *ngIf="project">
     <app-canvas [project]="project" [projectDimention]="projectDimention"
       (openDownloadPopup)="openDownloadPopup($event)"></app-canvas>
   </div>

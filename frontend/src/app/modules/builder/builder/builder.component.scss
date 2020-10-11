@@ -1,11 +1,16 @@
-@import '../../../../style/structure';
+@import "../../../../style/structure";
 
 .builder-container {
   display: flex;
-  justify-content: space-between;
 }
 
 .builder-canvas {
-  width: 100%;
+  // width: calc(100vw - #{$leftMenu} - #{$pickerWidth});
   background-color: #fdfff8;
+  min-width: calc(100vw - #{$leftMenu});
+  transition: min-width 0.4s ease-in;
+}
+
+.builder-canvas-without-picker {
+  min-width: calc(100vw - #{$leftMenu} - #{$pickerWidth});
 }

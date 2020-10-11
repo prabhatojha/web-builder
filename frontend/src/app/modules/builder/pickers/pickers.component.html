@@ -8,5 +8,5 @@
       </li>
     </ul>
   </div>
-  <app-picker [picker]="selectedPicker" [(showPicker)]="showPicker"></app-picker>
+  <app-picker [picker]="selectedPicker" [showPicker]="showPicker" (showPickerChange)="closePicker()"></app-picker>
 </div>

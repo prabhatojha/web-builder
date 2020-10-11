@@ -15,6 +15,7 @@ export class BuilderComponent implements OnInit {
 
   @ViewChild('downloadCanvasModal') downloadCanvasModal: DownloadCanvasComponent;
 
+  pickerVisible = false;
   project;
   projectDimention: { w: number, h: number } = DEFAULT_PROJECT_SIZE;
 
@@ -34,6 +35,11 @@ export class BuilderComponent implements OnInit {
       default:
         this.initBlankProject(id);
     }
+  }
+
+  onPickerVisibility(e) {
+    console.log(e);
+    this.pickerVisible = e;
   }
 
   initBlankProject(id) {

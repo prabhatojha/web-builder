@@ -32,5 +32,19 @@ export const AppAnimations = {
       animate(150, style({ height: '*' }))
     ])
   ]
+  ),
+
+  SlideRight: trigger('SlideRight', [
+    state('*', style({})),
+    state('void', style({})),
+    transition('* => void', [
+      style({ height: '*', overflow: 'hidden' }),
+      animate(400, style({ width: 0 })),
+    ]),
+    transition('void => *', [
+      style({ height: '0', overflow: 'hidden' }),
+      animate(400, style({ width: '*' }))
+    ])
+  ]
   )
 };

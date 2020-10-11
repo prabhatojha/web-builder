@@ -6,11 +6,13 @@ import { CONST_VAR } from 'src/app/constants/contants';
 import { PICKERS } from './picker.mock';
 import { LEFT_MENU_CONST } from './picker.config';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { AppAnimations } from 'src/style/_angular-animations';
 
 @Component({
   selector: 'app-picker',
   templateUrl: './picker.component.html',
-  styleUrls: ['./picker.component.scss']
+  styleUrls: ['./picker.component.scss'],
+  animations: [AppAnimations.SlideRight]
 })
 export class PickerComponent implements OnChanges {
 

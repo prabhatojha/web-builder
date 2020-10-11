@@ -17,13 +17,14 @@ $toolBarHeight: 50px;
   height: calc(#{$contentHeight} - #{$toolBarHeight});
   position: relative;
   display: flex;
-  justify-content: center;
   overflow: auto;
   background-color: $gray-20;
 }
 
 .canvas-wrapper {
   outline: none;
+  margin: auto;
+  padding: 0 50px;
 }
 
 .canvas {
