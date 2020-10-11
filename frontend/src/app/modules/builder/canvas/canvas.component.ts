@@ -20,7 +20,7 @@ import { AppAnimations } from 'src/style/_angular-animations';
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  animations: [AppAnimations.InOut]
+  animations: [AppAnimations.InOut, AppAnimations.SlideDown]
 })
 export class CanvasComponent implements OnInit, AfterViewInit {
 

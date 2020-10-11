@@ -1,6 +1,10 @@
 @import "../../../../../style/colors.scss";
 @import "../../../../../style/structure";
 
+.dropdown-menu {
+  z-index: $toolbarZ + 1;
+}
+
 .dropdown-item {
   font-size: $largeFont;
   display: flex;

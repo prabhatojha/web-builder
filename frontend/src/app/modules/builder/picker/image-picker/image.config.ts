@@ -23,11 +23,10 @@ export const IMAGE_TAG_DEFAULT_ATTRIBUTE = {
 };
 
 export function getImageElementInstance(): ImageCanvasElement {
-  const attr = CommonUtils.cloneDeep(IMAGE_TAG_DEFAULT_ATTRIBUTE);
   const imgStyle = CommonUtils.cloneDeep(IMAGE_TAG_DEFAULT_STYLE);
   const containerStyle = CommonUtils.cloneDeep(IMAGE_ELEMENT_STYLES);
 
-  const child = new CanvasElement('img', attr, imgStyle, []);
+  const child = new CanvasElement('div', {}, imgStyle, []);
   const canvasElement = new CanvasElement('div', {}, containerStyle, [child]);
 
   return new ImageCanvasElement(canvasElement);

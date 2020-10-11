@@ -6,6 +6,7 @@ import { getImageElementInstance } from './image.config';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { ImageLoader } from 'src/app/modules/shared/logic/image-loader';
 import { API_ENDPOINT } from 'src/app/constants/api-endpoint';
+import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class ImagesService extends ImageLoader {
       const image: ImageCanvasElement = getImageElementInstance();
       image.id = photo.id;
       image.imageUrl = photo.thumb;
-      image.canvasElement.children[0].attribute.src = photo.imageUrl;
+      image.canvasElement.children[0].style[CSS_PROPERTIES.BG] = `url(${photo.imageUrl}) center center / cover`;
       image.canvasElement.type = ELEMENT_TYPES.PHOTO;
       // this.updateWidth(image.canvasElement, photo.width, photo.height);
       this.findContainer(image, photo);

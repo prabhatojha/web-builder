@@ -1,5 +1,5 @@
 <div class='my-modal-header'>
-  <h5 class="modal-title">Preview</h5>
+  <label class="modal-title">Preview</label>
   <div>
     <!-- <button mat-icon-button matTooltip="Close" matTooltipPosition="above" (click)="print()">
       <i class="material-icons">print</i>
@@ -11,7 +11,9 @@
   </div>
 </div>
 <div class="canvas-preview-container" id="canvas-preview-container">
-  <div #canvasPreview class="canvas-preview fit-content" id="canvas-preview">
+  <div class="canvas-preview-wrapper">
+    <div #canvasPreview class="canvas-preview" id="canvas-preview">
+    </div>
   </div>
 </div>
 <app-canvas-scale [node]="canvasPreview"></app-canvas-scale>
