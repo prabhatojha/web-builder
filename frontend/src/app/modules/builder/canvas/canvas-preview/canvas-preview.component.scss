@@ -3,8 +3,8 @@
 
 .my-modal-header {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
+  justify-content: flex-end;
+  margin-bottom: 5px;
   font-size: $largeFont;
 }
 
@@ -15,7 +15,6 @@
   background-color: $gray-20;
   border: 1px solid gainsboro;
   display: flex;
-  // justify-content: center;
 }
 
 .canvas-preview-wrapper {

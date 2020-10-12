@@ -21,6 +21,7 @@
   background-color: $leftMenuBg;
   // box-shadow: 2px 0 0 $gray-200;
   overflow-y: auto;
+  overflow-x: hidden;
 
   ul {
     margin: 0;

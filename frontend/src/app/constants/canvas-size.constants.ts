@@ -5,8 +5,8 @@ export const CANVAS_SIZES = [
     id: 'facebook-post',
     label: 'Facebook Post',
     dimention: {
-      w: 524,
-      h: 524
+      w: 1200,
+      h: 628
     },
     icon: ''
   },
@@ -15,7 +15,7 @@ export const CANVAS_SIZES = [
     label: 'Facebook Cover',
     dimention: {
       w: 800,
-      h: 300
+      h: 312
     },
     icon: ''
   },
@@ -23,17 +23,26 @@ export const CANVAS_SIZES = [
     id: 'instagram-post',
     label: 'Instagram Post',
     dimention: {
-      w: 524,
-      h: 524
+      w: 1080,
+      h: 1080
     },
     icon: ''
   },
   {
-    id: 'instagram-post',
+    id: 'instagram-story',
+    label: 'Instagram Story',
+    dimention: {
+      w: 1080,
+      h: 1920
+    },
+    icon: ''
+  },
+  {
+    id: 'twitter-post',
     label: 'Twitter Post',
     dimention: {
-      w: 524,
-      h: 524
+      w: 1024,
+      h: 512
     },
     icon: ''
   },
@@ -41,8 +50,8 @@ export const CANVAS_SIZES = [
     id: 'A5',
     label: 'A5 Document',
     dimention: {
-      w: 524,
-      h: 524
+      w: 1240,
+      h: 874
     },
     icon: ''
   },
@@ -50,8 +59,8 @@ export const CANVAS_SIZES = [
     id: 'A4',
     label: 'A4 Document',
     dimention: {
-      w: 524,
-      h: 524
+      w: 1754,
+      h: 1240
     },
     icon: ''
   },
@@ -59,8 +68,8 @@ export const CANVAS_SIZES = [
     id: 'A3',
     label: 'A3 Document',
     dimention: {
-      w: 524,
-      h: 524
+      w: 1653.7,
+      h: 1201.7
     },
     icon: ''
   }

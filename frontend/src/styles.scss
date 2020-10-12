@@ -105,17 +105,21 @@ button {
   cursor: pointer;
 }
 
+.rotate-on-hover {
+  transition: transform 0.2s ease-in-out;
+  &:hover {
+    transform: rotate(90deg);
+  }
+}
+
 .close-button {
   position: absolute;
   right: 10px;
   top: 10px;
   cursor: pointer;
   color: $gray-400;
-  transition: transform 0.2s ease-in-out;
-  transform-origin: center;
-  &:hover {
-    transform: rotate(90deg);
-  }
+
+  @extend .rotate-on-hover;
 }
 
 .scrollbox {
