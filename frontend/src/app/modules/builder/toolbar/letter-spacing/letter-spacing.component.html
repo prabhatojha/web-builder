@@ -6,7 +6,7 @@
 </section>
 
 <section class="toolbar-item-drop letter-spacing" *ngIf="isVisible" (appClickOutside)="toggle()"
-  [srcElement]="spacingButton" [@InOut]>
+  [srcElement]="spacingButton" [@SlideDown]>
   <div>
     <p>Letter Spacing</p>
     <div class="letter-spacing-content">
@@ -17,6 +17,8 @@
       <span>{{(initialStyles[CSS_PROPERTIES.LETTER_SPACING] | removePx) || 0}}</span>
     </div>
   </div>
+
+  <div class="dropdown-divider"></div>
 
   <div>
     <p>Line Height</p>

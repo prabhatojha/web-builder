@@ -1,10 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { ResizeEventerService } from 'src/app/modules/shared/services/resize-eventer/resize-eventer.service';
+import { AppAnimations } from 'src/style/_angular-animations';
 
 @Component({
   selector: 'app-font-size',
   templateUrl: './font-size.component.html',
-  styleUrls: ['./font-size.component.scss']
+  styleUrls: ['./font-size.component.scss'],
+  animations: [AppAnimations.SlideDown]
 })
 export class FontSizeComponent implements OnChanges {
 

@@ -1,11 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FontFamilyService } from 'src/app/modules/shared/services/font/font-family.service';
 import { ResizeEventerService } from 'src/app/modules/shared/services/resize-eventer/resize-eventer.service';
+import { AppAnimations } from 'src/style/_angular-animations';
 
 @Component({
   selector: 'app-font-family',
   templateUrl: './font-family.component.html',
-  styleUrls: ['./font-family.component.scss']
+  styleUrls: ['./font-family.component.scss'],
+  animations: [AppAnimations.InOut]
 })
 export class FontFamilyComponent implements OnInit {
 

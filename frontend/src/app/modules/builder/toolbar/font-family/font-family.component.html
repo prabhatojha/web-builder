@@ -3,7 +3,8 @@
   <span>{{selectedFont}}</span>
 </button>
 
-<div class="left-raiser-container" *ngIf="isVisible" (appClickOutside)="toggleOptions()" [srcElement]="buttonSource">
+<div class="left-raiser-container" *ngIf="isVisible" [@InOut] (appClickOutside)="toggleOptions()"
+  [srcElement]="buttonSource">
   <div class="py-4">
     <div class="mb-4 search-box-container">
       <app-search-box [minQueryLength]="0" (searchValueChange)="filterResult($event)"></app-search-box>

@@ -6,7 +6,7 @@ import { AppAnimations } from 'src/style/_angular-animations';
   selector: 'app-text-alignment',
   templateUrl: './text-alignment.component.html',
   styleUrls: ['./text-alignment.component.scss'],
-  animations: [AppAnimations.InOut]
+  animations: [AppAnimations.SlideDown]
 })
 export class TextAlignmentComponent implements OnInit {
 

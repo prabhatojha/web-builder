@@ -7,7 +7,7 @@ import { AppAnimations } from 'src/style/_angular-animations';
   selector: 'app-letter-spacing',
   templateUrl: './letter-spacing.component.html',
   styleUrls: ['./letter-spacing.component.scss'],
-  animations: [AppAnimations.InOut]
+  animations: [AppAnimations.SlideDown]
 })
 export class LetterSpacingComponent implements OnInit {
 

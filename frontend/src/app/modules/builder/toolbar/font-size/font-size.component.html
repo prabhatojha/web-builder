@@ -7,7 +7,7 @@
       aria-expanded="false" (click)="toggleOptions()" [disabled]="disabled"></button>
   </div>
 
-  <div class="font-size-dropdown" *ngIf="showOptions" (appClickOutside)="toggleOptions()" [srcElement]="fontSizeButton">
+  <div class="font-size-dropdown" *ngIf="showOptions" [@SlideDown] (appClickOutside)="toggleOptions()" [srcElement]="fontSizeButton">
     <ul>
       <li class="dropdown-item" *ngFor="let item of AVAILABLE_FONT_SIZE" (click)="onValueChange(item.value)">
         {{item.label}}

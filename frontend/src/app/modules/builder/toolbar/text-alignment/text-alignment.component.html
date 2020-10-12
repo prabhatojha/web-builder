@@ -4,7 +4,7 @@
     <i class="material-icons">subject</i>
   </button>
 </section>
-<div class="toolbar-item-drop" *ngIf="isVisible" (appClickOutside)="toggle()" [srcElement]="myButton" [@InOut]>
+<div class="toolbar-item-drop" *ngIf="isVisible" (appClickOutside)="toggle()" [srcElement]="myButton" [@SlideDown]>
   <!-- <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
     <ng-container *ngFor="let opt of availableOtions">
       <mat-button-toggle (click)="selction.emit(opt.cssValue)">
