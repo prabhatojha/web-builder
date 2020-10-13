@@ -5,6 +5,8 @@ import { CANVAS_PROJECT, DEFAULT_PROJECT_SIZE } from '../canvas/canvas.config';
 import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
 import { CommonUtils } from 'src/app/utils/common.utils';
 import { DownloadCanvasComponent } from '../download-canvas/download-canvas.component';
+import { CanvasUtils } from 'src/app/utils/canvas.utils';
+import { CanvasElement } from 'src/app/models/canvas.element.model';
 
 @Component({
   selector: 'app-builder',
@@ -38,19 +40,18 @@ export class BuilderComponent implements OnInit {
   }
 
   onPickerVisibility(e) {
-    console.log(e);
     this.pickerVisible = e;
   }
 
   initBlankProject(id) {
     const newProject = CommonUtils.cloneDeep(CANVAS_PROJECT);
+    const canvasElement: CanvasElement = newProject.canvasElement;
     const blankPojectSize = CANVAS_SIZES.find(t => t.id === id);
     if (blankPojectSize) {
       this.projectDimention = blankPojectSize.dimention;
-      newProject.canvasElement.style[CSS_PROPERTIES.WIDTH] = blankPojectSize.dimention.w + 'px';
-      newProject.canvasElement.style[CSS_PROPERTIES.HEIGHT] = blankPojectSize.dimention.h + 'px';
+      canvasElement.style[CSS_PROPERTIES.WIDTH] = blankPojectSize.dimention.w + 'px';
+      canvasElement.style[CSS_PROPERTIES.HEIGHT] = blankPojectSize.dimention.h + 'px';
     }
-
     this.project = newProject;
   }
 

@@ -4,10 +4,9 @@
   </div>
 
   <div class="builder-canvas" [class.builder-canvas-without-picker]="pickerVisible" *ngIf="project">
-    <app-canvas [project]="project" [projectDimention]="projectDimention"
-      (openDownloadPopup)="openDownloadPopup($event)"></app-canvas>
+    <app-canvas [project]="project" (openDownloadPopup)="openDownloadPopup($event)"></app-canvas>
   </div>
 
-  <app-download-canvas [project]="project" [projectDimention]="projectDimention" #downloadCanvasModal>
+  <app-download-canvas [project]="project" #downloadCanvasModal>
   </app-download-canvas>
 </div>

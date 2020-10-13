@@ -186,4 +186,36 @@ export class CanvasUtils {
       return CSSUtils.toText(CommonUtils.cloneDeep(t.style));
     });
   }
+
+  static adjustCanvasSize(projectElement: CanvasElement) {
+    const docWidth = document.documentElement.offsetWidth;
+    const docHeight = document.documentElement.offsetHeight;
+
+    let width = parseFloat(projectElement.style[CSS_PROPERTIES.WIDTH]);
+    let height = parseFloat(projectElement.style[CSS_PROPERTIES.HEIGHT]);
+
+    const avaWidth = docWidth - 70 - 310 - 100;
+    const avaHeight = docHeight - 50 - 50 - 100;
+
+    if (width > avaWidth) {
+      height = avaWidth * height / width;
+      width = avaWidth;
+    }
+
+    if (height > avaHeight) {
+      width = avaHeight * width / height;
+      height = avaHeight;
+    }
+
+    projectElement.style[CSS_PROPERTIES.WIDTH] = width + 'px';
+    projectElement.style[CSS_PROPERTIES.HEIGHT] = height + 'px';
+  }
+
+  private static adjustWidth() {
+
+  }
+
+  private static adjustHeight() {
+
+  }
 }

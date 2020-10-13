@@ -3,6 +3,7 @@ import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 import { DEFAULT_PROJECT_SIZE } from '../canvas/canvas.config';
 import { AppAnimations } from 'src/style/_angular-animations';
+import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
 
 export enum DownloadType {
   PDF,
@@ -17,7 +18,6 @@ export enum DownloadType {
 export class DownloadCanvasComponent implements OnInit {
 
   @Input() project;
-  @Input() projectDimention = DEFAULT_PROJECT_SIZE;
   DownloadTypes = DownloadType;
   activeType: DownloadType = DownloadType.PNG;
   downloadOptions = [
@@ -120,8 +120,8 @@ export class DownloadCanvasComponent implements OnInit {
   }
 
   saveAsPDF = (uri) => {
-    const w = this.projectDimention.w;
-    const h = this.projectDimention.h;
+    const w = parseFloat(this.projectNode.style[CSS_PROPERTIES.WIDTH]);
+    const h = parseFloat(this.projectNode.style[CSS_PROPERTIES.HEIGHT]);
     const mode = w <= h ? 'p' : 'l'; // Weather to print landscape-'l' or portrait-'p'
     const doc = new jsPDF(mode, 'px', [w, h]);
     doc.addImage(uri, 'PNG', 0, 0, w, h);

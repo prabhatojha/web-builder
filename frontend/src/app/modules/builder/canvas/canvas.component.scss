@@ -65,3 +65,7 @@ $toolBarHeight: 50px;
 .selected-item-guide {
   outline: 1px dashed $gray-100;
 }
+
+.canvas-template {
+  transition: width 0.6s ease-out, height 0.6s ease-out;
+}

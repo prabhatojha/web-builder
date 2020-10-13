@@ -45,7 +45,7 @@ export class CanvasSizeComponent implements OnInit {
     if (APP_REGEX.ONLY_NUMBER.test(this.width) && APP_REGEX.ONLY_NUMBER.test(this.height)) {
       const width = parseInt(this.width, 10);
       const height = parseInt(this.height, 10);
-      if (width > 0 && height > 0 && width < 2000 && height < 2000) {
+      if (width > 0 && height > 0 && width < 10000 && height < 10000) {
         this.sendEvent({ w: width, h: height });
       }
     }

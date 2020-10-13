@@ -14,6 +14,7 @@ import { SelectElementComponent } from './select-element/select-element.componen
 import { ElementTranform } from 'src/app/models/element.transform.modal';
 import { LayeringActions, LayeringService } from '../../shared/services/layering/layering.service';
 import { AppAnimations } from 'src/style/_angular-animations';
+import { DEFAULT_PROJECT_SIZE } from './canvas.config';
 
 @Component({
   selector: 'app-canvas',
@@ -25,8 +26,6 @@ import { AppAnimations } from 'src/style/_angular-animations';
 export class CanvasComponent implements OnInit, AfterViewInit {
 
   @Input() project;
-  @Input() projectDimention;
-
   @Output() openDownloadPopup = new EventEmitter<any>();
 
   @ViewChild('canvas', { static: true }) canvas: ElementRef;
@@ -41,6 +40,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   selectedNode: any;
   selectedNodes: Element[];
   selectedCanvasElements: CanvasElement[];
+  projectDimention = DEFAULT_PROJECT_SIZE;
+
 
   // Project node is the first canvas element from CANVAS_PROJECT
   projectNode: HTMLElement;
@@ -60,6 +61,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.createInitialView();
     this.subscribeEventer();
+    this.onWindowResize()
   }
 
   ngAfterViewInit(): void {
@@ -340,10 +342,24 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   updateCanvasSize(e) {
-    const canvasElement = this.getProjectCanvasElement();
-    canvasElement.style[CSS_PROPERTIES.WIDTH] = e.w + 'px';
-    canvasElement.style[CSS_PROPERTIES.HEIGHT] = e.h + 'px';
-    this.projectNode.style[CSS_PROPERTIES.WIDTH] = e.w + 'px';
-    this.projectNode.style[CSS_PROPERTIES.HEIGHT] = e.h + 'px';
+    const projectElement = this.getProjectCanvasElement();
+    projectElement.style[CSS_PROPERTIES.WIDTH] = e.w;
+    projectElement.style[CSS_PROPERTIES.HEIGHT] = e.h;
+    this.onWindowResize();
+    this.projectNode.style[CSS_PROPERTIES.WIDTH] = projectElement.style[CSS_PROPERTIES.WIDTH];
+    this.projectNode.style[CSS_PROPERTIES.HEIGHT] = projectElement.style[CSS_PROPERTIES.HEIGHT];
+  }
+
+  onWindowResize() {
+    CanvasUtils.adjustCanvasSize(this.getProjectCanvasElement());
+    this.setProjectDimention();
+  }
+
+  setProjectDimention() {
+    const projectElement = this.getProjectCanvasElement();
+    this.projectDimention = {
+      w: parseFloat(projectElement.style[CSS_PROPERTIES.WIDTH]),
+      h: parseFloat(projectElement.style[CSS_PROPERTIES.HEIGHT])
+    };
   }
 }

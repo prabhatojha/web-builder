@@ -40,8 +40,8 @@ export const CANVAS_PROJECT = {
   id: 'jfaslj12o4u12oi',
   currentZindex: 0,
   zIndex: {
-    [ELEMENT_TYPES.PHOTO]: 500,
-    [ELEMENT_TYPES.ANY]: 5000
+    [ELEMENT_TYPES.PHOTO]: 1000,
+    [ELEMENT_TYPES.ANY]: 1000
   },
   canvasElement: {
     type: ELEMENT_TYPES.BACKGROUND,
