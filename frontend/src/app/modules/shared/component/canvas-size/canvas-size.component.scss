@@ -9,7 +9,7 @@
   font-size: $largeFont;
   display: flex;
   align-items: center;
-  // justify-content: space-between;
+
   .icon {
     width: 20px;
     height: 20px;
@@ -32,6 +32,11 @@
 .custom-size-container {
   flex-direction: column;
   align-items: flex-start;
+
+  &:hover {
+    background-color: white;
+    color: $gray-400;
+  }
 
   .custom-size {
     margin-top: 5px;
