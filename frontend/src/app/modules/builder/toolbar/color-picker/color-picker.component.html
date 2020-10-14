@@ -6,7 +6,7 @@
   [srcElement]="externalSourseElement || srcElement" [@InOut]>
   <div class="py-2">
     <div id="toolbarNewColorPicker" #toolbarNewColorPicker></div>
-    <div class="color-picker" id="colorPalette" *ngIf="showDropdown" (appClickOutside)="close()"
+    <div class="color-picker" id="colorPalette" (appClickOutside)="close()"
       [srcElement]="srcElement">
       <div class="color-picker-heading">
         <h5>
@@ -17,8 +17,8 @@
       <div class="my-color-header position-relative">
         <h5>My Colors</h5>
         <button type="button" class="btn btn-outline-info btn-sm" (click)="showColorPicker = true;">+ Add</button>
-        <div class="color-sketch" *ngIf="showColorPicker">
-          <color-chrome (onChangeComplete)="unsavedColor = $event.color"></color-chrome>
+        <div class="color-sketch" *ngIf="showColorPicker" [@ScaleInOut]>
+          <color-chrome (onChangeComplete)="unsavedColor = $event.color" [color]="selectedColor"></color-chrome>
           <div class="d-flex justify-content-end">
             <button type="button" class="btn btn-outline-secondary btn-sm mr-2"
               (click)="$event.stopPropagation(); showColorPicker = false;">Cancel</button>

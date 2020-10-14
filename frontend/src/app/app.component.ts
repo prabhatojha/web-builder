@@ -13,10 +13,14 @@ export class AppComponent {
   constructor(private httpClient: HttpClient, private fontService: FontFamilyService, faConfig: FaConfig) {
     faConfig.fixedWidth = true;
     this.fontService.loadFonts();
-    // window.addEventListener('beforeunload', (e) => {
-    //   e.preventDefault();
-    //   e.returnValue = 'Stay';
-    //   return 'Stay';
-    // });
+    this.confirmReload();
+  }
+
+  confirmReload() {
+    window.addEventListener('beforeunload', (e) => {
+      e.preventDefault();
+      e.returnValue = 'Stay';
+      return 'Stay';
+    });
   }
 }

@@ -6,7 +6,7 @@ import { AppAnimations } from 'src/style/_angular-animations';
   selector: 'app-color-picker',
   templateUrl: './color-picker.component.html',
   styleUrls: ['./color-picker.component.scss'],
-  animations: [AppAnimations.InOut, AppAnimations.SlideDown]
+  animations: [AppAnimations.InOut, AppAnimations.SlideDown, AppAnimations.ScaleInOut]
 })
 export class ColorPickerComponent implements OnInit, AfterViewInit {
 
@@ -54,7 +54,8 @@ export class ColorPickerComponent implements OnInit, AfterViewInit {
     e.stopPropagation();
     this.showColorPicker = false;
     const rgb = this.unsavedColor.rgb;
-    this.customColors.push(`rgba(${rgb.r},${rgb.g},${rgb.b},${rgb.a})`);
+    this.selectedColor = `rgba(${rgb.r},${rgb.g},${rgb.b},${rgb.a})`;
+    this.customColors.push(this.selectedColor);
   }
 
   open() {
@@ -67,6 +68,7 @@ export class ColorPickerComponent implements OnInit, AfterViewInit {
   }
 
   onClick(color) {
+    this.selectedColor = color;
     this.colorSelect.emit(color);
   }
 
