@@ -10,11 +10,11 @@ export class ImageService {
 
     }
 
-    getPhotos(query: string, page: number, limit: number, source: string): Promise<ImageModel[]> {
+    getPhotos(query: string, page: any, limit: any, source: any): Promise<ImageModel[]> {
         return this.unsplashService.getPhotos(query, page, limit);
     }
 
-    getVectors(query: string, page: number, limit: number, source: string): Promise<ImageModel[]> {
+    getVectors(query: string, page: any, limit: any, source: any): Promise<ImageModel[]> {
         return this.pixabay.getVectors(query, page, limit);
     }
 }

@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var app = require('../app.ts');
+var app = require('../build/app.js');
 var debug = require('debug')('web-builder-be:server');
 var http = require('http');
 

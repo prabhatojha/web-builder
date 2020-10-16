@@ -10,7 +10,7 @@ const imageService = new ImageService();
 router.get('/', function (req: Request, res: Response, next: any) {
     const { query, page, limit, source } = req.query;
     try {
-        imageService.getPhotos(query, page, limit, source).then((images: ImageModel[]) => {
+        imageService.getPhotos(query as string, page, limit, source).then((images: ImageModel[]) => {
             res.send(images);
         }, (error) => {
             handleError(res, error);
@@ -23,7 +23,7 @@ router.get('/', function (req: Request, res: Response, next: any) {
 router.get('/vectors', function (req: Request, res: Response, next: any) {
     const { query, page, limit, source } = req.query;
     try {
-        imageService.getVectors(query, page, limit, source).then((images: ImageModel[]) => {
+        imageService.getVectors(query as string, page, limit, source).then((images: ImageModel[]) => {
             res.send(images);
         }).catch((error) => {
             handleError(res, error);
