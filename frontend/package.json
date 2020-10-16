@@ -34,7 +34,6 @@
     "ngx-moveable": "^0.14.3",
     "ngx-selecto": "^1.5.2",
     "rxjs": "~6.5.4",
-    "textfit": "^2.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
   },

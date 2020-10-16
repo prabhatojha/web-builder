@@ -9,10 +9,10 @@ import { SearchBoxComponent } from './component/search-box/search-box.component'
 import { MaterialModule } from 'src/app/material.module';
 import { RemovePxPipe } from './pipes/remove-px/remove-px.pipe';
 import { CanvasSizeComponent } from './component/canvas-size/canvas-size.component';
-import { far } from '@fortawesome/free-regular-svg-icons';
-import { fas } from '@fortawesome/free-solid-svg-icons';
-import { fab } from '@fortawesome/free-brands-svg-icons';
-import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+// import { far } from '@fortawesome/free-regular-svg-icons';
+// import { fas } from '@fortawesome/free-solid-svg-icons';
+// import { fab } from '@fortawesome/free-brands-svg-icons';
+// import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { RouterModule } from '@angular/router';
 import { ImageUploaderComponent } from './component/image-uploader/image-uploader.component';
 import { PhotosComponent } from './component/photos/photos.component';
@@ -36,15 +36,19 @@ const components = [
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    FontAwesomeModule,
+    // FontAwesomeModule,
     RouterModule
   ],
   declarations: [...components, PhotosComponent],
   exports: [...components, FormsModule,
-    ReactiveFormsModule, FontAwesomeModule]
+    ReactiveFormsModule,
+    // FontAwesomeModule
+  ]
 })
 export class SharedModule {
-  constructor(library: FaIconLibrary) {
-    library.addIconPacks(fas, far, fab);
+  constructor(
+    // library: FaIconLibrary
+    ) {
+    // library.addIconPacks(fas, far, fab);
   }
 }

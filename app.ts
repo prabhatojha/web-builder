@@ -3,12 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const mongoose=require('mongoose');
+// const mongoose=require('mongoose');
 const bodyparser=require('body-parser');
 
 var app = express();
-mongoose.connect('mongodb://localhost/First');
-mongoose.Promise=global.Promise;
+// mongoose.connect('mongodb://localhost/First');
+// mongoose.Promise=global.Promise;
 
 var indexRouter = require('./routes/project');
 var imageRouter = require('./routes/image');
@@ -18,7 +18,7 @@ app.use(bodyparser.json());
 
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+// app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(logger('dev'));
