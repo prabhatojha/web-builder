@@ -1,8 +1,8 @@
 export class HttpRequest {
-    headers: {
+    headers?: {
         [header: string]: string;
     } = {};
-    params: {
+    params?: {
         [param: string]: string | number;
     } = {};
     body?: any;

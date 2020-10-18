@@ -50,8 +50,8 @@ export const CANVAS_SIZES = [
     id: 'A5',
     label: 'A5 Document',
     dimention: {
-      w: 1240,
-      h: 874
+      w: 2480,
+      h: 1748
     },
     icon: ''
   },
@@ -59,8 +59,8 @@ export const CANVAS_SIZES = [
     id: 'A4',
     label: 'A4 Document',
     dimention: {
-      w: 1754,
-      h: 1240
+      w: 3508,
+      h: 2480
     },
     icon: ''
   },
@@ -68,8 +68,8 @@ export const CANVAS_SIZES = [
     id: 'A3',
     label: 'A3 Document',
     dimention: {
-      w: 1653.7,
-      h: 1201.7
+      w: 4961,
+      h: 3605
     },
     icon: ''
   }

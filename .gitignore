@@ -2,7 +2,7 @@
 
 # compiled output
 /dist
-# /public
+# /build
 /frontend/dist
 /tmp
 /out-tsc

@@ -6,7 +6,7 @@ import { HttpService } from '../http-service/http.service';
 })
 export class FontFamilyService {
 
-  FONT_URL = 'https://www.googleapis.com/webfonts/v1/webfonts';
+  FONT_URL = 'api/fonts';
 
   customTextFonts = [
     {
@@ -75,14 +75,8 @@ export class FontFamilyService {
   }
 
   private getData() {
-    const options = {
-      params: {
-        sort: 'popularity',
-        key: 'AIzaSyCvow7GWJspMK_3yWHOiLt09S8-QmKg4wQ'
-      }
-    };
 
-    return this.http.get(this.FONT_URL, options);
+    return this.http.get(this.FONT_URL);
   }
 
   loadFonts() {
@@ -118,8 +112,7 @@ export class FontFamilyService {
     const newStyle = document.createElement('style');
     newStyle.appendChild(document.createTextNode('\@font-face {\
       font-family: ' + family + ';\
-      src: url(\'' + url + '\')}'));
-
+      src: url(\'' + (url && url.replace('http', 'https')) + '\')}'));
     document.head.appendChild(newStyle);
   }
 }

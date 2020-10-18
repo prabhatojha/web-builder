@@ -3,9 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node bin/www",
-    "prod": "npm run tsc && node build/app.js",
-    "run-prod": "node bin/www",
+    "start-local": "ts-node-dev --respawn --transpileOnly ./bin/www",
+    "start": "npm run tsc && npm run build-ui && node server.js",
+    "prod": "npm run tsc && node server.js",
+    "build-ui": "npm i --prefix frontend && npm run build --prefix frontend && npm run copy-ui",
+    "copy-ui": "cp -R frontend/dist/frontend build/public",
     "tsc": "tsc"
   },
   "engines": {
@@ -18,10 +20,9 @@
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "http-errors": "^1.6.3",
-    "jade": "~1.11.0",
     "mongoose": "^5.9.17",
     "morgan": "^1.9.1",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "query-string": "^6.13.0",
     "request": "^2.88.2",
     "request-promise": "^4.2.5",

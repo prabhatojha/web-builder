@@ -59,9 +59,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.onWindowResize();
     this.createInitialView();
     this.subscribeEventer();
-    this.onWindowResize()
   }
 
   ngAfterViewInit(): void {

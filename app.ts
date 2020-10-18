@@ -12,6 +12,7 @@ var app = express();
 
 var indexRouter = require('./routes/project');
 var imageRouter = require('./routes/image');
+var fontRouter = require('./routes/fonts');
 global.fetch = require('node-fetch');
 
 app.use(bodyparser.json());
@@ -19,7 +20,7 @@ app.use(bodyparser.json());
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+// app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Add all the routes here
 app.use('/api/projects', indexRouter);
 app.use('/api/images', imageRouter);
+app.use('/api/fonts', fontRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req: any, res: any, next: (arg0: any) => void) {

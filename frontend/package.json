@@ -31,14 +31,14 @@
     "jspdf": "^2.1.1",
     "moveable": "^0.17.10",
     "ngx-color": "^6.0.4",
-    "ngx-moveable": "^0.14.3",
+    "ngx-moveable": "^0.15.4",
     "ngx-selecto": "^1.5.2",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.901.7",
+    "@angular-devkit/build-angular": "^0.1001.7",
     "@angular-devkit/build-ng-packagr": "~0.900.5",
     "@angular/cli": "~9.0.5",
     "@angular/compiler-cli": "~9.0.5",

@@ -188,14 +188,26 @@ export class CanvasUtils {
   }
 
   static adjustCanvasSize(projectElement: CanvasElement) {
+    const MIN_WIDTH = 300;
+    const WIDTH_MARGIN = 70 + 310 + 100; // Left Menu + Left Opened Picker + Buffer
+    const HEIGHT_MARGIN = 50 + 50 + 100; // Header Height + Toolbar Height + Buffer
+
     const docWidth = document.documentElement.offsetWidth;
     const docHeight = document.documentElement.offsetHeight;
 
     let width = parseFloat(projectElement.style[CSS_PROPERTIES.WIDTH]);
     let height = parseFloat(projectElement.style[CSS_PROPERTIES.HEIGHT]);
 
-    const avaWidth = docWidth - 70 - 310 - 100;
-    const avaHeight = docHeight - 50 - 50 - 100;
+    let avaWidth = docWidth - WIDTH_MARGIN;
+    let avaHeight = docHeight - HEIGHT_MARGIN;
+
+    if (avaWidth < MIN_WIDTH) {
+      avaWidth = MIN_WIDTH;
+    }
+
+    if (avaHeight < MIN_WIDTH) {
+      avaHeight = MIN_WIDTH;
+    }
 
     if (width > avaWidth) {
       height = avaWidth * height / width;
