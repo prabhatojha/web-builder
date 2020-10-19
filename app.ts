@@ -27,11 +27,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// app.get('/*', (req, res) => {
-//   res.sendFile(__dirname + 'build/public/index.html');
-// });
-
-
 app.use(express.static(path.join(__dirname, 'build/public'), {
   maxAge: '31556952000', // uses milliseconds per docs
   etag: true  // Will enable cache for static content, by default is also true
