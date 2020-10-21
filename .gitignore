@@ -2,7 +2,8 @@
 
 # compiled output
 /dist
-/build
+# /build
+/build/public/assets/icons
 /frontend/dist
 /tmp
 /out-tsc

@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "start-local": "ts-node-dev --respawn --transpileOnly ./bin/www",
-    "start": "npm run tsc && npm run build-ui && node server.js",
+    "start": "npm run build && node server.js",
     "prod": "npm run tsc && node server.js",
+    "build": "npm run tsc && npm run build-ui",
     "build-ui": "npm i --prefix frontend && npm run build --prefix frontend && npm run copy-ui",
     "copy-ui": "cp -R frontend/dist/frontend build/public",
     "tsc": "tsc"
