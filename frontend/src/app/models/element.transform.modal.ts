@@ -1,4 +1,3 @@
-import { RectInfo } from 'moveable';
 
 export class ElementTranform {
   rotate = 0;
@@ -8,7 +7,7 @@ export class ElementTranform {
   scaleY = 1;
 
   groupableInfo?: ElementTranform;
-  rect?: RectInfo;
+  rect?: any;
 
   constructor(element?: ElementTranform) {
     if (element) {
