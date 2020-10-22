@@ -26,7 +26,7 @@
   </div>
 </div>
 
-<app-popup *ngIf="showPreview" [@ScaleInOut]>
+<app-popup *ngIf="showPreview">
   <app-canvas-preview [canvasElement]="project?.canvasElement" (closePreview)="showPreview = false">
   </app-canvas-preview>
 
