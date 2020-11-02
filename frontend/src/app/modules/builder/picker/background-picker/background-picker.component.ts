@@ -6,6 +6,10 @@ import { Subscription } from 'rxjs';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { ELEMENT_TYPES, ERROR_MSG } from 'src/app/constants/contants';
 import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
+import { PhotoSettingsOption, SettingOptionEvent } from 'src/app/modules/shared/component/photos/photos.component';
+import { ImagesService } from '../image-picker/images.service';
+import { PickerItemModal } from 'src/app/models/pickers/picker-itemmodal';
+import { buildImagePickerItem } from '../image-picker/image.config';
 
 @Component({
   selector: 'app-background-picker',
@@ -14,15 +18,21 @@ import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
 })
 export class BackgroundPickerComponent extends PickerActions implements OnChanges {
 
+  @ViewChild('photoContainer', { static: true }) photoContainer: ElementRef;
+
   items = [];
   rows = [[], []];
   imagesSub: Subscription;
   scrollTimer = null;
   ERROR_MSG = ERROR_MSG;
+  PHOTO_VAL = '1';
+  settingOptions: PhotoSettingsOption[] = [{
+    label: 'Use as photo',
+    value: this.PHOTO_VAL
+  }];
 
-  @ViewChild('photoContainer', { static: true }) photoContainer: ElementRef;
-
-  constructor(public backgroundService: BackgroundService, protected eventer: EventerService) {
+  constructor(public backgroundService: BackgroundService, protected eventer: EventerService,
+    protected imageService: ImagesService) {
     super(eventer);
   }
 
@@ -49,5 +59,13 @@ export class BackgroundPickerComponent extends PickerActions implements OnChange
 
   onScroll(e) {
     this.backgroundService.onScroll(e);
+  }
+
+  onSettingSelection(event: SettingOptionEvent) {
+    if (event.setting.value === this.PHOTO_VAL) {
+      const item: PickerItemModal = event.item;
+      const newImage = buildImagePickerItem(item.photo);
+      super.onClick(null, newImage);
+    }
   }
 }

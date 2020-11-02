@@ -1,7 +1,10 @@
 import { ImageCanvasElement } from 'src/app/models/image.element.model';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { CommonUtils } from 'src/app/utils/common.utils';
-import { CSS_CLASSES, IMAGE_ELEMENT_STYLES } from 'src/app/constants/css-constants';
+import { CSS_CLASSES, CSS_PROPERTIES, IMAGE_ELEMENT_STYLES } from 'src/app/constants/css-constants';
+import { ImageModalFe } from 'src/app/models/services/image.modal-fe';
+import { PickerItemModal } from 'src/app/models/pickers/picker-itemmodal';
+import { ELEMENT_TYPES } from 'src/app/constants/contants';
 
 export const IMAGE_TAG_DEFAULT_STYLE = {
   'width': '100%',
@@ -30,6 +33,19 @@ export function getImageElementInstance(): ImageCanvasElement {
   const canvasElement = new CanvasElement('div', {}, containerStyle, [child]);
 
   return new ImageCanvasElement(canvasElement);
+}
+
+export function buildImagePickerItem(photo: ImageModalFe) {
+  const image: PickerItemModal = getImageElementInstance();
+  image.id = photo.id;
+  image.imageUrl = photo.thumb;
+  image.originalImgUrl = photo.imageUrl;
+  image.canvasElement.children[0].style[CSS_PROPERTIES.BG] = `url(${photo.imageUrl}) center center / cover`;
+  image.canvasElement.type = ELEMENT_TYPES.PHOTO;
+  image.photo = photo;
+  // this.updateWidth(image.canvasElement, photo.width, photo.height);
+
+  return image;
 }
 
 

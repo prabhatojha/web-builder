@@ -5,6 +5,9 @@ import { Subscription } from 'rxjs';
 import { EventerService, EventTypes } from 'src/app/modules/shared/services/eventer.service';
 import { PickerActions } from '../picker.actions';
 import { PhotoSettingsOption, SettingOptionEvent } from 'src/app/modules/shared/component/photos/photos.component';
+import { CommonUtils } from 'src/app/utils/common.utils';
+import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
+import { PickerItemModal } from 'src/app/models/pickers/picker-itemmodal';
 
 @Component({
   selector: 'app-image-picker',
@@ -54,8 +57,12 @@ export class ImagePickerComponent extends PickerActions implements OnInit, OnCha
     console.log(event);
 
     if (event.setting.value === this.BACKGROUND_VAL) {
-      event.item.canvasElement.type = ELEMENT_TYPES.BACKGROUND;
-      super.onClick(null, event.item);
+      const item: PickerItemModal = CommonUtils.cloneDeep(event.item);
+      item.canvasElement.type = ELEMENT_TYPES.BACKGROUND;
+      item.canvasElement.style = {
+        [CSS_PROPERTIES.BG]: `url('${item.originalImgUrl}') center/cover`
+      };
+      super.onClick(null, item);
     }
   }
 }

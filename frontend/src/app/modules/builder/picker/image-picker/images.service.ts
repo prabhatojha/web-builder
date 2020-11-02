@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpService } from 'src/app/modules/shared/services/http-service/http.service';
 import { HOT_KEYWORD, ELEMENT_TYPES } from 'src/app/constants/contants';
 import { ImageCanvasElement } from 'src/app/models/image.element.model';
-import { getImageElementInstance } from './image.config';
+import { buildImagePickerItem, getImageElementInstance } from './image.config';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { ImageLoader } from 'src/app/modules/shared/logic/image-loader';
 import { API_ENDPOINT } from 'src/app/constants/api-endpoint';
 import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
+import { PickerItemModal } from 'src/app/models/pickers/picker-itemmodal';
+import { ImageModalFe } from 'src/app/models/services/image.modal-fe';
 
 @Injectable({
   providedIn: 'root'
@@ -30,21 +32,16 @@ export class ImagesService extends ImageLoader {
     super.resetPage(query);
   }
 
-  processPhotos(photos: Array<any>) {
-    photos.forEach(photo => {
-      const image: ImageCanvasElement = getImageElementInstance();
-      image.id = photo.id;
-      image.imageUrl = photo.thumb;
-      image.canvasElement.children[0].style[CSS_PROPERTIES.BG] = `url(${photo.imageUrl}) center center / cover`;
-      image.canvasElement.type = ELEMENT_TYPES.PHOTO;
-      // this.updateWidth(image.canvasElement, photo.width, photo.height);
+  processPhotos(photos: Array<ImageModalFe>) {
+    photos.forEach((photo: ImageModalFe) => {
+      const image: PickerItemModal = buildImagePickerItem(photo);
       this.findContainer(image, photo);
     });
 
     this.isLoading = false;
   }
 
-  findContainer(image: ImageCanvasElement, newPhoto) {
+  findContainer(image: PickerItemModal, newPhoto) {
     const height = this.findImageHeight(newPhoto);
     if (this.leftHeight <= this.rightHeight) {
       this.rows[0].push(image);

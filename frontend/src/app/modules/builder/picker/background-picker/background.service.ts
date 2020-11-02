@@ -11,6 +11,8 @@ import { MOCK_BACKGROUNDS } from '../mock-images';
 import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
 import { ImageLoader } from 'src/app/modules/shared/logic/image-loader';
 import { API_ENDPOINT } from 'src/app/constants/api-endpoint';
+import { ImageModalFe } from 'src/app/models/services/image.modal-fe';
+import { PickerItemModal } from 'src/app/models/pickers/picker-itemmodal';
 
 const BACKGROUND_TXT = ' background';
 @Injectable({
@@ -30,15 +32,16 @@ export class BackgroundService extends ImageLoader {
     super.resetPage(query + BACKGROUND_TXT);
   }
 
-  processPhotos(photos: Array<any>) {
+  processPhotos(photos: Array<ImageModalFe>) {
     photos.forEach(photo => {
-      const image: ImageCanvasElement = getVectorElementInstance();
+      const image: PickerItemModal = getVectorElementInstance();
       image.id = photo.id;
       image.imageUrl = photo.thumb;
       image.canvasElement.type = ELEMENT_TYPES.BACKGROUND;
       image.canvasElement.style = {
         [CSS_PROPERTIES.BG]: `url('${photo.imageUrl}') center/cover`
       };
+      image.photo = photo;
       this.backgrounds.push(image);
     });
 

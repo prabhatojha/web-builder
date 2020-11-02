@@ -21,7 +21,8 @@
     </div>
     <app-photos [photos]="backgroundService.backgrounds" [photoAsBackground]="true" [boxShadow]="true"
       [isLoading]="backgroundService.isLoading" [isError]="backgroundService.isError"
-      [endOfResult]="backgroundService.endOfResult" (retry)="backgroundService.onTryAgain()">
+      [endOfResult]="backgroundService.endOfResult" (retry)="backgroundService.onTryAgain()"
+      [settingOptions]="settingOptions" (settingOptionSelection)="onSettingSelection($event)">
     </app-photos>
   </div>
 </div>
