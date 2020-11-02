@@ -1,8 +1,19 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ERROR_MSG } from 'src/app/constants/contants';
+import { PickerItemModal } from 'src/app/models/pickers/picker-itemmodal';
 import { PickerActions } from 'src/app/modules/builder/picker/picker.actions';
 import { AppAnimations } from 'src/style/_angular-animations';
 import { EventerService } from '../../services/eventer.service';
+
+export class PhotoSettingsOption {
+  label: string;
+  value: string;
+}
+
+export class SettingOptionEvent {
+  setting: PhotoSettingsOption;
+  item: PickerItemModal;
+}
 
 @Component({
   selector: 'app-photos',
@@ -21,9 +32,10 @@ export class PhotosComponent extends PickerActions implements OnInit {
   @Input() isLoading = true;
   @Input() isError = false;
   @Input() handleErrorLoading = true;
-  @Input() settingOptions = [];
+  @Input() settingOptions: PhotoSettingsOption[] = [];
 
   @Output() retry = new EventEmitter();
+  @Output() settingOptionSelection = new EventEmitter<SettingOptionEvent>();
 
   ERROR_MSG = ERROR_MSG;
   showSettings = false;
@@ -53,6 +65,10 @@ export class PhotosComponent extends PickerActions implements OnInit {
     item._showSettings = !item._showSettings;
   }
 
-  sendEvent(item) {
+  sendEvent(setting: PhotoSettingsOption, item: PickerItemModal) {
+    this.settingOptionSelection.emit({
+      setting,
+      item
+    });
   }
 }

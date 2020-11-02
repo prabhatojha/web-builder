@@ -10,6 +10,8 @@ import { FaConfig } from '@fortawesome/angular-fontawesome';
 })
 export class AppComponent {
   title = 'frontend';
+  ENABLE_UNSAVED_RELOAD = false;
+
   constructor(private httpClient: HttpClient, private fontService: FontFamilyService, faConfig: FaConfig) {
     faConfig.fixedWidth = true;
     this.fontService.loadFonts();
@@ -18,9 +20,11 @@ export class AppComponent {
 
   confirmReload() {
     window.addEventListener('beforeunload', (e) => {
-      e.preventDefault();
-      e.returnValue = 'Stay';
-      return 'Stay';
+      if (this.ENABLE_UNSAVED_RELOAD) {
+        e.preventDefault();
+        e.returnValue = 'Stay';
+        return 'Stay';
+      }
     });
   }
 }

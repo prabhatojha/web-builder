@@ -31,12 +31,12 @@ export const LEFT_MENU_ITEMS = [
     label: 'Vectors',
     icon: 'design_services'
   },
-  // {
-  //   id: 12,
-  //   label: 'Shapes',
-  //   icon: 'signal_cellular_null',
-  //   type: 'text'
-  // },
+  {
+    id: 12,
+    label: 'Shapes',
+    icon: 'signal_cellular_null',
+    type: 'text'
+  },
   {
     id: LEFT_MENU_CONST.BG_MENU_ID,
     label: 'Background',

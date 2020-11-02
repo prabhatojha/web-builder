@@ -1,9 +1,10 @@
 import { Component, OnInit, OnChanges, SimpleChanges, ElementRef, ViewChild, HostListener } from '@angular/core';
-import { CONST_VAR, ERROR_MSG } from 'src/app/constants/contants';
+import { CONST_VAR, ELEMENT_TYPES, ERROR_MSG } from 'src/app/constants/contants';
 import { ImagesService } from './images.service';
 import { Subscription } from 'rxjs';
 import { EventerService, EventTypes } from 'src/app/modules/shared/services/eventer.service';
 import { PickerActions } from '../picker.actions';
+import { PhotoSettingsOption, SettingOptionEvent } from 'src/app/modules/shared/component/photos/photos.component';
 
 @Component({
   selector: 'app-image-picker',
@@ -17,7 +18,11 @@ export class ImagePickerComponent extends PickerActions implements OnInit, OnCha
   imagesSub: Subscription;
   scrollTimer = null;
   ERROR_MSG = ERROR_MSG;
-  settingOptions = [];
+  BACKGROUND_VAL = '1';
+  settingOptions: PhotoSettingsOption[] = [{
+    label: 'Set as background',
+    value: this.BACKGROUND_VAL
+  }];
 
 
   @ViewChild('photoContainer', { static: true }) photoContainer: ElementRef;
@@ -43,5 +48,14 @@ export class ImagePickerComponent extends PickerActions implements OnInit, OnCha
 
   onScroll(e) {
     this.imageService.onScroll(e);
+  }
+
+  onOptionSelection(event: SettingOptionEvent) {
+    console.log(event);
+
+    if (event.setting.value === this.BACKGROUND_VAL) {
+      event.item.canvasElement.type = ELEMENT_TYPES.BACKGROUND;
+      super.onClick(null, event.item);
+    }
   }
 }

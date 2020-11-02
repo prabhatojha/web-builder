@@ -11,8 +11,8 @@
         <div class="dropdown-menu show" (appClickOutside)="toggleSettings(item)" [srcElement]="myButton"
           *ngIf="item._showSettings" [@SlideDown] [style.top]="settingsLocationTop  + 'px'"
           [style.left]="settingsLocationLeft + 'px'">
-          <div class="dropdown-item py-2" *ngFor="let item of settingOptions" (click)="sendEvent(item)">
-            {{item.label}}
+          <div class="dropdown-item py-2" *ngFor="let setting of settingOptions" (click)="sendEvent(setting, item)">
+            {{setting.label}}
           </div>
         </div>
       </i>

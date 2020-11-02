@@ -188,7 +188,7 @@ export class CanvasUtils {
   }
 
   static adjustCanvasSize(projectElement: CanvasElement) {
-    const MIN_WIDTH = 300;
+    const MIN_WIDTH = 450;
     const WIDTH_MARGIN = 70 + 310 + 100; // Left Menu + Left Opened Picker + Buffer
     const HEIGHT_MARGIN = 50 + 50 + 100; // Header Height + Toolbar Height + Buffer
 

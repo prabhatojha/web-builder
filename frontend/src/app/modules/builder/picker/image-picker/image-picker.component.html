@@ -6,7 +6,8 @@
   <div class="images-container scrollbox" #photoContainer (scroll)="onScroll($event)">
     <div *ngFor="let row of imageService.rows" class="image-container-column">
       <app-photos [photos]="row" [photoAsBackground]="false" [boxShadow]="true" [fixHeight]="false"
-        [twoImgInRow]="false" [handleErrorLoading]="false" [settingOptions]="settingOptions"></app-photos>
+        [twoImgInRow]="false" [handleErrorLoading]="false" [settingOptions]="settingOptions"
+        (settingOptionSelection)="onOptionSelection($event)"></app-photos>
     </div>
 
     <div class="w-100 text-center spinner my-4" [class.invisible]="!imageService.isLoading"

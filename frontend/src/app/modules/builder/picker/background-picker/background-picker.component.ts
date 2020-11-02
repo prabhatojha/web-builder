@@ -42,7 +42,9 @@ export class BackgroundPickerComponent extends PickerActions implements OnChange
     const canvasElement = new CanvasElement('div', {}, {}, []);
     canvasElement.type = ELEMENT_TYPES.BACKGROUND;
     canvasElement.style[CSS_PROPERTIES.BG] = color;
-    this.onClick(null, { canvasElement });
+    this.onClick(null, {
+      canvasElement
+    });
   }
 
   onScroll(e) {
