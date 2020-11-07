@@ -6,13 +6,15 @@ import { HomeComponent } from './modules/home/home.component';
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
-    redirectTo: 'build'
-    // loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule)
+    loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule)
   },
   {
     path: 'build',
     loadChildren: () => import('./modules/builder/builder.module').then(m => m.BuilderModule)
+  },
+  {
+    path: 'user',
+    loadChildren: () => import('./modules/users/users.module').then(m => m.UsersModule)
   },
   {
     path: 'mockup',

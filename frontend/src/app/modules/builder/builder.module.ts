@@ -4,7 +4,7 @@ import { PickersComponent } from './pickers/pickers.component';
 import { BuilderComponent } from './builder/builder.component';
 import { PickerComponent } from './picker/picker.component';
 import { CanvasComponent } from './canvas/canvas.component';
-import { BuilderRoutingModule } from '../builder-routing.module';
+import { BuilderRoutingModule } from './builder-routing.module';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { SharedModule } from '../shared/shared.module';
 import { ToolbarPanelComponent } from './toolbar/toolbar-panel/toolbar-panel.component';
@@ -33,6 +33,7 @@ import { DownloadCanvasComponent } from './download-canvas/download-canvas.compo
 import { ElementLayeringComponent } from './toolbar/element-layering/element-layering.component';
 import { LineWidthComponent } from './toolbar/line-width/line-width.component';
 import { UploadPickerComponent } from './picker/upload-picker/upload-picker.component';
+import { HeaderComponent } from 'src/app/header/header.component';
 
 @NgModule({
   declarations: [PickersComponent, BuilderComponent, PickerComponent, CanvasComponent, ToolbarComponent,
@@ -40,7 +41,7 @@ import { UploadPickerComponent } from './picker/upload-picker/upload-picker.comp
     ImagePickerComponent, TextPickerComponent, FontFamilyComponent, VectorPickerComponent, FontSizeComponent,
     SelectElementComponent, DragElementComponent, LetterSpacingComponent, TextDecorationComponent, BackgroundPickerComponent,
     ElementsPickerComponent, OpacityComponent, DownloadCanvasComponent, ElementLayeringComponent,
-    LineWidthComponent, UploadPickerComponent],
+    LineWidthComponent, UploadPickerComponent, HeaderComponent],
   imports: [
     CommonModule,
     BuilderRoutingModule,

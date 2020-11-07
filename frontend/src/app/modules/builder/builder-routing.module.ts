@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { BuilderComponent } from './builder/builder/builder.component';
+import { BuilderComponent } from './builder/builder.component';
 
 
 const routes: Routes = [

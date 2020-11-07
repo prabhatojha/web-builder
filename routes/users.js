@@ -4,9 +4,15 @@ var uid = require('uid-safe');
 var router = express.Router();
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/login', function (req, res, next) {
   var strUid = uid.sync(18);
-	res.json({guid: strUid});
+  res.json({ guid: strUid });
+});
+
+/* GET users listing. */
+router.get('/signup', function (req, res, next) {
+  var strUid = uid.sync(18);
+  res.json({ guid: strUid });
 });
 
 module.exports = router;

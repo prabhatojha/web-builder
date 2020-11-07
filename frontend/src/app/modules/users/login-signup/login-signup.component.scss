@@ -1,0 +1,32 @@
+@import "../../../../style/colors.scss";
+@import "../../../../style/structure";
+
+.login-page {
+  display: flex;
+  min-height: 100vh;
+  > div {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .login-page-left {
+    background-color: $primaryTheme;
+  }
+
+  .login-page-right-content {
+    margin-top: 6rem;
+    min-width: 300px;
+
+    button,
+    input {
+      width: 100%;
+    }
+  }
+
+  .email-login-content{
+    a {
+      font-size: $mediumFont;
+    }
+  }
+}

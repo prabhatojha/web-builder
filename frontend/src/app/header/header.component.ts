@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { APP_ROUTES } from '../constants/app-routes';
 import { EventTypes, EventerService } from '../modules/shared/services/eventer.service';
 
 @Component({
@@ -9,6 +10,7 @@ import { EventTypes, EventerService } from '../modules/shared/services/eventer.s
 export class HeaderComponent implements OnInit {
 
   showCanvasSizeOptions = false;
+  APP_ROUTES = APP_ROUTES;
 
   constructor(private eventer: EventerService) { }
 
