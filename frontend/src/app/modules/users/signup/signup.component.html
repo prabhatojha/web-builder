@@ -1,1 +1,31 @@
-<app-login-signup [isLogin]="false" [type]="'Signup'"></app-login-signup>
+<div class="login-content">
+  <div class="easy-login-container">
+    <!-- <p>{{type}} with</p> -->
+    <app-easy-login [type]="'Sign Up'"></app-easy-login>
+  </div>
+  <hr>
+  <div class="email-login-container">
+    <div class="email-login-content">
+      <p class="description">Sign Up with email</p>
+      <div class="mt-3">
+        <form>
+          <div>
+            <input class="form-control" type="text" placeholder="Full Name" required>
+          </div>
+          <div class="mt-3">
+            <input class="form-control" type="text" placeholder="Email" required>
+          </div>
+          <div class="mt-3">
+            <input class="form-control" type="password" placeholder="Password">
+          </div>
+          <div class="mt-3">
+            <button type="submit" class="btn btn-light submit-button">Create an account</button>
+          </div>
+        </form>
+      </div>
+      <div class="mt-3">
+        <a [routerLink]="APP_ROUTES.LOGIN">Already have an account? Login</a>
+      </div>
+    </div>
+  </div>
+</div>

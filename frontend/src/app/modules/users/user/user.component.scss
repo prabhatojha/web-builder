@@ -1,0 +1,21 @@
+@import "../../../../style/colors.scss";
+@import "../../../../style/structure";
+
+.user-page {
+  display: flex;
+  min-height: 100vh;
+  > div {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .user-page-left {
+    background-color: $primaryTheme;
+  }
+
+  .user-page-content {
+    margin-top: 6rem;
+    width: 300px;
+  }
+}

@@ -7,11 +7,10 @@ import { SignupComponent } from './signup/signup.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetForgotPasswordComponent } from './reset-forgot-password/reset-forgot-password.component';
 import { EasyLoginComponent } from './easy-login/easy-login.component';
-import { LoginSignupComponent } from './login-signup/login-signup.component';
 import { UsersRoutingModule } from './users-routing.module';
 
 @NgModule({
-  declarations: [LoginComponent, SignupComponent, LoginSignupComponent,
+  declarations: [LoginComponent, SignupComponent, UserComponent,
     ForgotPasswordComponent, ResetForgotPasswordComponent, EasyLoginComponent],
   imports: [
     CommonModule,

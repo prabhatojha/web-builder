@@ -1,0 +1,23 @@
+@import "../../../../style/colors.scss";
+@import "../../../../style/structure";
+
+.login-content {
+  .description {
+    font-size: $largeFont;
+  }
+
+  input {
+    font-size: $mediumFont;
+  }
+
+  a {
+    font-size: $mediumFont;
+  }
+
+  .submit-button {
+    width: 100%;
+    justify-content: center;
+    background: $primaryTheme;
+    color: white;
+  }
+}
