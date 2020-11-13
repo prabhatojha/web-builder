@@ -1,18 +1,22 @@
+import { LoginService } from "../services/users/login-service";
+import { handleError } from "./error-handler";
+
 var express = require('express');
-var uid = require('uid-safe');
 
 var router = express.Router();
+const loginService = new LoginService();
 
 /* GET users listing. */
 router.get('/login', function (req, res, next) {
-  var strUid = uid.sync(18);
-  res.json({ guid: strUid });
 });
 
 /* GET users listing. */
 router.get('/signup', function (req, res, next) {
-  var strUid = uid.sync(18);
-  res.json({ guid: strUid });
+  try {
+    loginService.signup(req, res);
+  } catch (error) {
+    handleError(res, error);
+  }
 });
 
 module.exports = router;

@@ -1,0 +1,14 @@
+@import "./colors.scss";
+@import "./structure";
+
+$primaryButtonFontSize: 20px;
+
+.dp-primary-button {
+  background: black;
+  color: white;
+
+  &:hover {
+    background: white;
+    color: black;
+  }
+}

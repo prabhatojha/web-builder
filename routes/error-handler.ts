@@ -1,3 +1,3 @@
-export function handleError(res, error) {
-    res.status(500).send({ error: 'Something went wrong' });
+export function handleError(res, errors, errorCode = 500) {
+    res.status(errorCode).send({ errors, errorCode, time: Date.now() });
 }
