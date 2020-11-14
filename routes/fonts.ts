@@ -20,7 +20,7 @@ router.get('/', function (req: Request, res: Response, next: any) {
 
         });
     } catch (error) {
-        handleError(res, error);
+        handleError(res);
     }
 });
 

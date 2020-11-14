@@ -1,6 +1,6 @@
 // import { Document, Model, model, Types, Schema, Query } from "mongoose"
 import mongoose, { Schema, Document } from 'mongoose';
-
+var bcrypt = require('bcryptjs');
 
 const UserSchema = new Schema({
 	name: {
@@ -33,19 +33,24 @@ export interface User {
 }
 
 export interface UserDocument extends User, Document {
+
 }
 
 
 
-// UserSchema.pre<UserDocument>('save', function (next) {
-// 	console.log('Pre hook called');
-// 	if (this.isModified('password')) {
-// 		this.password = hashPassword(this.password)
-// 	}
-// });
+UserSchema.pre<UserDocument>('save', function (next) {
+	if (this.isModified('password')) {
+		this.password = hashPassword(this.password)
+	}
+	next();
+});
 
-function hashPassword(pass) {
-	return pass + '-Hashed password';
+export function hashPassword(pass) {
+	return bcrypt.hashSync(pass, 10);
+}
+
+export function comparePassword(password, hash) {
+	return bcrypt.compareSync(password, hash);
 }
 
 export default mongoose.model<UserDocument>('User', UserSchema);

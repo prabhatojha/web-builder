@@ -7,15 +7,20 @@ var router = express.Router();
 const loginService = new LoginService();
 
 /* GET users listing. */
-router.get('/login', function (req, res, next) {
+router.post('/login', function (req, res, next) {
+  try {
+    loginService.login(req, res);
+  } catch (error) {
+    handleError(res);
+  }
 });
 
 /* GET users listing. */
-router.get('/signup', function (req, res, next) {
+router.post('/create', function (req, res, next) {
   try {
     loginService.signup(req, res);
   } catch (error) {
-    handleError(res, error);
+    handleError(res);
   }
 });
 

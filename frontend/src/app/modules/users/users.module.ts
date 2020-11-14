@@ -8,13 +8,18 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ResetForgotPasswordComponent } from './reset-forgot-password/reset-forgot-password.component';
 import { EasyLoginComponent } from './easy-login/easy-login.component';
 import { UsersRoutingModule } from './users-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [LoginComponent, SignupComponent, UserComponent,
     ForgotPasswordComponent, ResetForgotPasswordComponent, EasyLoginComponent],
   imports: [
     CommonModule,
-    UsersRoutingModule
+    FormsModule,
+    ReactiveFormsModule,
+    UsersRoutingModule,
+    SharedModule
   ],
   exports: []
 })

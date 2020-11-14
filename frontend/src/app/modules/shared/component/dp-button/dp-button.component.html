@@ -1,0 +1,10 @@
+<button [type]="type" class="btn btn-light submit-button dp-primary-button" [disabled]="disabled">
+  <ng-container *ngIf="loading else normalFlow">
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    <span class="ml-1">{{loadingTitle}}</span>
+  </ng-container>
+
+  <ng-template #normalFlow>
+    <span>{{title}}</span>
+  </ng-template>
+</button>

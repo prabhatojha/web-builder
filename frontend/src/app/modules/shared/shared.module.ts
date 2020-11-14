@@ -17,6 +17,7 @@ import { RouterModule } from '@angular/router';
 import { ImageUploaderComponent } from './component/image-uploader/image-uploader.component';
 import { PhotosComponent } from './component/photos/photos.component';
 import { PickerErrorComponent } from './component/picker-error/picker-error.component';
+import { DpButtonComponent } from './component/dp-button/dp-button.component';
 
 const components = [
   SingleSelectComponent,
@@ -28,7 +29,8 @@ const components = [
   CanvasSizeComponent,
   ImageUploaderComponent,
   PhotosComponent,
-  PickerErrorComponent
+  PickerErrorComponent,
+  DpButtonComponent
 ];
 @NgModule({
   imports: [
