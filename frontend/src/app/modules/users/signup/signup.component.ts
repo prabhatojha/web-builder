@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { delay } from 'rxjs/operators';
 import { APP_ROUTES } from 'src/app/constants/app-routes';
+import { AppAnimations } from 'src/style/_angular-animations';
 import { UserModelFe, UserService } from '../user.service';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss']
+  styleUrls: ['./signup.component.scss'],
+  animations: [AppAnimations.ScaleInOut]
 })
 export class SignupComponent implements OnInit {
 

@@ -20,7 +20,7 @@ router.get('/', function (req, res, next) {
         });
     }
     catch (error) {
-        error_handler_1.handleError(res, error);
+        error_handler_1.handleError(res);
     }
 });
 module.exports = router;

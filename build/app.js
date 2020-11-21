@@ -3,14 +3,15 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-// const mongoose=require('mongoose');
+var mongoose = require('mongoose');
 var bodyparser = require('body-parser');
 var app = express();
-// mongoose.connect('mongodb://localhost/First');
-// mongoose.Promise=global.Promise;
+mongoose.connect('mongodb://localhost:27017/drawposter');
+mongoose.Promise = global.Promise;
 var indexRouter = require('./routes/project');
 var imageRouter = require('./routes/image');
 var fontRouter = require('./routes/fonts');
+var userRouter = require('./routes/users');
 global.fetch = require('node-fetch');
 app.use(bodyparser.json());
 // view engine setup
@@ -28,13 +29,10 @@ app.use(express.static(path.join(__dirname, 'build/public'), {
 app.use('/api/projects', indexRouter);
 app.use('/api/images', imageRouter);
 app.use('/api/fonts', fontRouter);
+app.use('/api/users', userRouter);
 app.use(function (req, res) {
     res.sendFile(path.join(__dirname, 'build/public/index.html'));
 });
-// catch 404 and forward to error handler
-// app.use((req, res) => {
-//   res.sendFile(__dirname + 'build/public/index.html');
-// });
 // error handler
 app.use(function (err, req, res, next) {
     // set locals, only providing error in development
