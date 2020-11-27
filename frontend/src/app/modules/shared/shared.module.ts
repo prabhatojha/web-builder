@@ -18,6 +18,7 @@ import { ImageUploaderComponent } from './component/image-uploader/image-uploade
 import { PhotosComponent } from './component/photos/photos.component';
 import { PickerErrorComponent } from './component/picker-error/picker-error.component';
 import { DpButtonComponent } from './component/dp-button/dp-button.component';
+import { ToastComponent } from './component/toast/toast.component';
 
 const components = [
   SingleSelectComponent,
@@ -41,7 +42,7 @@ const components = [
     // FontAwesomeModule,
     RouterModule
   ],
-  declarations: [...components, PhotosComponent],
+  declarations: [...components, PhotosComponent, ToastComponent],
   exports: [...components, FormsModule,
     ReactiveFormsModule,
     // FontAwesomeModule

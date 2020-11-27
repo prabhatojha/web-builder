@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     MatButtonToggleModule,
     MatIconModule,
     MatSliderModule,
-    ScrollingModule
+    ScrollingModule,
+    MatSnackBarModule
   ]
 })
 export class MaterialModule { }

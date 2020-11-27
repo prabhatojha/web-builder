@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { delay } from 'rxjs/operators';
 import { APP_ROUTES } from 'src/app/constants/app-routes';
 import { AppAnimations } from 'src/style/_angular-animations';
+import { SnackbarService } from '../../shared/services/snackbar/snackbar.service';
 import { UserModelFe, UserService } from '../user.service';
 
 @Component({
@@ -22,7 +24,7 @@ export class SignupComponent implements OnInit {
 
   isLoading: boolean;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private snackbar: SnackbarService) { }
 
   ngOnInit(): void {
   }
@@ -34,8 +36,10 @@ export class SignupComponent implements OnInit {
     const user = new UserModelFe(controls.name.value, controls.email.value, controls.password.value);
     this.userService.signup(user).pipe(delay(3000)).subscribe(t => {
       this.isLoading = false;
+      this.snackbar.open('User created successfully', 0, true);
     }, err => {
       this.isLoading = false;
+      this.snackbar.open('User already exist', 0, true);
     });
   }
 }
