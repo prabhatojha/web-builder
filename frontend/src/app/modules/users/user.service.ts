@@ -27,4 +27,12 @@ export class UserService {
   login(user: UserModelFe) {
     return this.httpService.post(API_ENDPOINT.USER_LOGIN, user, {});
   }
+
+  resetPassword(user: UserModelFe) {
+    return this.httpService.post(API_ENDPOINT.FORGOT_PASSWORD, user, {});
+  }
+
+  confirmResetPassword(user) {
+    return this.httpService.post(API_ENDPOINT.CONFIRM_FORGOT_PASSWORD, user, {});
+  }
 }

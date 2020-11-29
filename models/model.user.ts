@@ -19,7 +19,9 @@ const UserSchema = new Schema({
 	createdDate: { type: Date, default: Date.now },
 	updatedDate: { type: Date, default: Date.now },
 	isLocked: { type: Boolean, default: false },
-	isVerified: { type: Boolean, default: false }
+	isVerified: { type: Boolean, default: false },
+	resetPasswordToken: { type: String },
+	resetTokenExpiryTime: Number
 });
 
 export interface User {
@@ -30,6 +32,8 @@ export interface User {
 	updatedDate?: Date;
 	isLocked?: boolean;
 	isVerified?: boolean;
+	resetPasswordToken?: string;
+	resetTokenExpiryTime?: number;
 }
 
 export interface UserDocument extends User, Document {
@@ -47,6 +51,10 @@ UserSchema.pre<UserDocument>('save', function (next) {
 
 export function hashPassword(pass) {
 	return bcrypt.hashSync(pass, 10);
+}
+
+export function getRandomToken() {
+	return bcrypt.ran( 10);
 }
 
 export function comparePassword(password, hash) {

@@ -6,7 +6,6 @@ var express = require('express');
 var router = express.Router();
 const loginService = new LoginService();
 
-/* GET users listing. */
 router.post('/login', function (req, res, next) {
   try {
     loginService.login(req, res);
@@ -15,10 +14,25 @@ router.post('/login', function (req, res, next) {
   }
 });
 
-/* GET users listing. */
 router.post('/create', function (req, res, next) {
   try {
     loginService.signup(req, res);
+  } catch (error) {
+    handleError(res);
+  }
+});
+
+router.post('/reset', function (req, res, next) {
+  try {
+    loginService.resetPassword(req.body, res);
+  } catch (error) {
+    handleError(res);
+  }
+});
+
+router.post('/confirm', function (req, res, next) {
+  try {
+    loginService.confirmResetPassword(req.body, res);
   } catch (error) {
     handleError(res);
   }

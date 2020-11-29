@@ -1,5 +1,6 @@
-import modelUser, { UserDocument, User, comparePassword } from '../../models/model.user';
+import modelUser, { UserDocument, User, comparePassword, getUniqueToken } from '../../models/model.user';
 import { handleError, handleSuccess } from '../../routes/error-handler';
+import { HashUtils } from '../../utils/hash.util';
 
 export class LoginService {
     public login(req, res) {
@@ -51,11 +52,38 @@ export class LoginService {
 
     }
 
-    public resetPassword() {
-
+    public resetPassword(body, res) {
+        modelUser.findOne({ email: body.email }).then((user: UserDocument) => {
+            console.log(user);
+            if (user) {
+                user.resetPasswordToken = HashUtils.getRandomToken();
+                user.save();
+                handleSuccess(res, { emailSent: true });
+                // Send email here
+            } else {
+                handleError(res, ['User doesn\'t exist'], 404);
+            }
+        }, err => {
+            handleError(res);
+        });
     }
 
-    public confirmResetPassword() {
+    public confirmResetPassword({ password, token }, res) {
+        if (!token) {
+            handleError(res, ['Invalid token, please click the link given in the email']);
+        }
+        modelUser.findOne({ resetPasswordToken: token }).then((user: UserDocument) => {
+            if (user) {
+                user.resetPasswordToken = '';
+                user.password = password;
+                user.save();
+                handleSuccess(res, { passwordChanged: true });
+            } else {
+                handleError(res, ['Invalid token, please click the link given in the email'], 404);
+            }
+        }, err => {
+            handleError(res);
+        });
 
     }
 }

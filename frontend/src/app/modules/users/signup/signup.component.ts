@@ -29,7 +29,7 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(event, form) {
+  onSubmit(event) {
     event.preventDefault();
     this.isLoading = true;
     const controls = this.userForm.controls;

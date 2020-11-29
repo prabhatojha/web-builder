@@ -8,7 +8,7 @@
     <div class="email-login-content">
       <p class="description">Create an account with email</p>
       <div class="mt-3">
-        <form [formGroup]="userForm" (ngSubmit)="onSubmit($event, userForm)">
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit($event)">
           <div>
             <input class="form-control" type="text" formControlName="name" placeholder="Full name">
           </div>
