@@ -1,29 +1,27 @@
-import { NextFunction, Response, Request } from "express";
+import { Response, Request } from "express";
+import { LoginService } from "../services/users/login-service";
 
 var express = require('express');
 var router = express.Router();
 const Project = require('../models/project.model');
 
-router.post('/', function (req: Request, res: Response, next: any) {
+router.post('/', LoginService.authenticateRequest, function (req: Request, res: Response, next: any) {
   Project.create(req.body).then(function (project) {
     res.send(project);
   });
 });
 
-router.delete('/', function (req, res, next) {
+router.delete('/', LoginService.authenticateRequest, function (req, res, next) {
   Project.findByIdAndRemove({ id: req.body.id }).then(function (project) {
     req.send(project);
   });
 });
 
-router.get('/', function (req: Request, res: Response, next: any) {
-  // Project.find({}).then(function (projects) {
-    res.send('hello dear, what are you doing');
-  // });
-
+router.get('/', LoginService.authenticateRequest, function (req: Request, res: Response, next: any) {
+  res.send('hello dear, what are you doing');
 });
 
-router.put('/', function (req, res, next) {
+router.put('/', LoginService.authenticateRequest, function (req, res, next) {
   Project.findByIdAndUpdate({ _id: req.body._id }, req.body).then(function (project) {
     res.send(project);
   });

@@ -1,8 +1,12 @@
-import modelUser, { UserDocument, User, comparePassword, getUniqueToken } from '../../models/model.user';
+import { Request, Response } from 'express';
+import { COOKIES_NAME } from '../../constants';
+import modelUser, { UserDocument, User, comparePassword } from '../../models/model.user';
 import { handleError, handleSuccess } from '../../routes/error-handler';
 import { HashUtils } from '../../utils/hash.util';
+import { JWTTokenUtil } from './jwt-token.service';
 
 export class LoginService {
+
     public login(req, res) {
         this.findAndauthenticateUser(req.body, res);
     }
@@ -32,7 +36,7 @@ export class LoginService {
             console.log(user);
             if (user) {
                 if (comparePassword(password, user.password)) {
-                    this.loginSuccessHandler(email, res);
+                    this.loginSuccessHandler(user, res);
                 } else {
                     handleError(res, ['Incorrect password'], 403);
                 }
@@ -44,9 +48,11 @@ export class LoginService {
         });
     }
 
-    private loginSuccessHandler(email, res) {
+    private loginSuccessHandler(user: UserDocument, res) {
+        this.attachCookie(res, COOKIES_NAME.JWT, JWTTokenUtil.sign(user), false);
         handleSuccess(res, { login: true });
     }
+
 
     public confirmEmail() {
 
@@ -86,4 +92,22 @@ export class LoginService {
         });
 
     }
+
+    private attachCookie(res: Response, key, value, httpOnly = true) {
+        res.cookie(key, value); // options is optional
+    }
+
+    static authenticateRequest(req: Request, res, next) {
+        try {
+            const token = req.cookies[COOKIES_NAME.JWT];
+            if (token) {
+                const user: User = JWTTokenUtil.verify(token);
+                next();
+            } else {
+                handleError(res, ['Token is present'], 403);
+            }
+        } catch (e) {
+            handleError(res, ['Auth failed'], 403);
+        }
+    };
 }

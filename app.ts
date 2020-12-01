@@ -10,7 +10,7 @@ var app = express();
 mongoose.connect('mongodb://localhost:27017/drawposter');
 mongoose.Promise = global.Promise;
 
-var indexRouter = require('./routes/project');
+var projectRouter = require('./routes/project');
 var imageRouter = require('./routes/image');
 var fontRouter = require('./routes/fonts');
 var userRouter = require('./routes/users');
@@ -34,7 +34,7 @@ app.use(express.static(path.join(__dirname, 'build/public'), {
 }));
 
 // Add all the routes here
-app.use('/api/projects', indexRouter);
+app.use('/api/projects', projectRouter);
 app.use('/api/images', imageRouter);
 app.use('/api/fonts', fontRouter);
 app.use('/api/users', userRouter);
