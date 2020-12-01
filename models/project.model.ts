@@ -1,33 +1,28 @@
+import mongoose, { Schema, Document } from 'mongoose';
+import { Canvas } from './canvas.model';
 
-// const ProjectSchema = new Schema({
-//     currentZIndex: {
-//         type: Number,
-//         required: [true, 'CurrentZIndex is required']
-//     },
-//     name: {
-//         type: String,
-//         required: [true, 'Name is required']
-//     },
-//     id: {
-//         type: String,
-//         required: [true, 'Id is required']
-//     },
-//     pages: [{
+const ProjectSchema = new Schema({
+    name: {
+        type: String,
+        required: [true, 'Name is required']
+    },
+    userId: {
+        type: String,
+        required: [true, 'User Id is required']
+    },
+    pages: {
+        type: Array
+    }
+});
 
-//         pageId: {
-//             type: String,
-//         },
-//         style: {
-//             type: Array
-//         },
-//         attribute: {
-//             type: Array
-//         },
-//         children: {
-//             type: Array
-//         }
-//     }]
-// });
+export interface Project {
+    userId?: string;
+    name: string;
+    pages: Canvas[]
+}
 
-// const project = mongoose.model('project', ProjectSchema);
-// module.exports = project;
+export interface ProjectDocument extends Project, Document {
+
+}
+
+export default mongoose.model<ProjectDocument>('Project', ProjectSchema);

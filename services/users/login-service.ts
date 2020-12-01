@@ -102,6 +102,7 @@ export class LoginService {
             const token = req.cookies[COOKIES_NAME.JWT];
             if (token) {
                 const user: User = JWTTokenUtil.verify(token);
+                res.locals.user = user;
                 next();
             } else {
                 handleError(res, ['Token is present'], 403);

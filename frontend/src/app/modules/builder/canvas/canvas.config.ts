@@ -38,18 +38,11 @@ export const DEFAULT_PROJECT_SIZE = {
 export const CANVAS_PROJECT = {
   elementId: 'my-first-element',
   id: 'jfaslj12o4u12oi',
-  currentZindex: 0,
-  zIndex: {
-    [ELEMENT_TYPES.PHOTO]: 1000,
-    [ELEMENT_TYPES.ANY]: 1000
-  },
   canvasElement: {
     type: ELEMENT_TYPES.BACKGROUND,
     tag: 'div',
     locked: false,
     innerText: '',
-    resizable: false,
-    increaseZIndex: false,
     transform: new ElementTranform(),
     ratio: {
       x: '0',

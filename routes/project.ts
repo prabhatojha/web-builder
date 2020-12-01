@@ -1,30 +1,40 @@
 import { Response, Request } from "express";
+import { ProjectsService } from "../services/projects/projects.service";
 import { LoginService } from "../services/users/login-service";
+import { handleError } from "./error-handler";
 
 var express = require('express');
 var router = express.Router();
-const Project = require('../models/project.model');
+
+const projectService = new ProjectsService();
 
 router.post('/', LoginService.authenticateRequest, function (req: Request, res: Response, next: any) {
-  Project.create(req.body).then(function (project) {
-    res.send(project);
-  });
+  try {
+    projectService.createProject(req, res);
+  } catch (error) {
+    handleError(res);
+  }
 });
 
 router.delete('/', LoginService.authenticateRequest, function (req, res, next) {
-  Project.findByIdAndRemove({ id: req.body.id }).then(function (project) {
-    req.send(project);
-  });
+  // Project.findByIdAndRemove({ id: req.body.id }).then(function (project) {
+  //   req.send(project);
+  // });
 });
 
 router.get('/', LoginService.authenticateRequest, function (req: Request, res: Response, next: any) {
-  res.send('hello dear, what are you doing');
+  try {
+    projectService.getProjects(req, res);
+  } catch (error) {
+    handleError(res);
+  }
+  // res.send('hello dear, what are you doing');
 });
 
 router.put('/', LoginService.authenticateRequest, function (req, res, next) {
-  Project.findByIdAndUpdate({ _id: req.body._id }, req.body).then(function (project) {
-    res.send(project);
-  });
+  // Project.findByIdAndUpdate({ _id: req.body._id }, req.body).then(function (project) {
+  //   res.send(project);
+  // });
 });
 
 module.exports = router;

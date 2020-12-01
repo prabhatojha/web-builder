@@ -242,7 +242,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   attachEventListner(node, canvasElement, enableRotate = true) {
     this.selectElement(node, canvasElement, enableRotate);
-    this.addZIndex(node, canvasElement);
   }
 
   selectElement(node, canvasElement, enableRotate) {
@@ -255,16 +254,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   getInitialRotateDeg() {
     const val = this.selectedNode.style.transform;
     return val ? parseInt(val.split('rotate(')[1], 10) : 0;
-  }
-
-  addZIndex(node, canvasElement: CanvasElement) {
-    // In case if user select same item or click on the same Items multiple times. then ignore the z-index update
-    if (canvasElement.locked || canvasElement.style[CSS_PROPERTIES.Z_INDEX] === this.project.currentZindex - 1) {
-      return;
-    }
-    // CanvasUtils.applyCss(node, canvasElement, {
-    //   [CSS_PROPERTIES.Z_INDEX]: this.project.currentZindex++
-    // }, true);
   }
 
   onItemRemove({ canvasElements, nodes }, selectNextElement = true) {
