@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose';
-import { Canvas } from './canvas.model';
+import { CanvasPage } from './canvas.model';
 
 const ProjectSchema = new Schema({
     name: {
@@ -11,14 +11,15 @@ const ProjectSchema = new Schema({
         required: [true, 'User Id is required']
     },
     pages: {
-        type: Array
+        type: Array,
+        default: []
     }
 });
 
 export interface Project {
-    userId?: string;
+    userId: string;
     name: string;
-    pages: Canvas[]
+    pages: CanvasPage[]
 }
 
 export interface ProjectDocument extends Project, Document {

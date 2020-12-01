@@ -1,14 +1,9 @@
-import { Schema } from "mongoose";
 
-export const CanvasSchema = new Schema({
-    tag: String,
-    locked: Boolean,
-    innerText: String,
-    transform: Object,
-    children: {
-        type: Array
-    }
-});
+export interface CanvasPage {
+    name: string;
+    previewImage: string;
+    canvas: Canvas;
+}
 
 export interface Canvas {
     tag: string,
