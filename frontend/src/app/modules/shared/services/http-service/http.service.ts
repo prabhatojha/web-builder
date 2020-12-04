@@ -26,4 +26,8 @@ export class HttpService {
   post(url, body: any, options?: MyHttpRequest) {
     return this.http.post(url, body, options);
   }
+
+  put(url, body: any, options?: MyHttpRequest) {
+    return this.http.put(url, body, options);
+  }
 }

@@ -6,6 +6,8 @@ export const API_ENDPOINT = {
   USER_PROFILE: '/api/users',
   FORGOT_PASSWORD: '/api/users/reset',
   CONFIRM_FORGOT_PASSWORD: '/api/users/confirm',
+
+  PROJECTS: '/api/projects',
 };
 
 export const IMAGE_SOURCE = {
