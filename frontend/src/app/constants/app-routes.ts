@@ -1,5 +1,5 @@
 export const APP_ROUTES = {
-  BUILD: '/create-poster',
+  BUILD: '/build',
   DASHBOARD: '/dashboard',
   LOGIN: '/user/login',
   SIGNUP: '/user/signup',

@@ -1,5 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { APP_ROUTES } from 'src/app/constants/app-routes';
+import { CommonUtils } from 'src/app/utils/common.utils';
+import { CANVAS_PROJECT } from '../../builder/canvas/canvas.config';
 import { ProjectsService } from '../../shared/services/projects/projects.service';
 
 @Component({
@@ -10,7 +14,7 @@ import { ProjectsService } from '../../shared/services/projects/projects.service
 export class DashboardComponent implements OnInit, OnDestroy {
   projectsSub: Subscription;
 
-  constructor(private projectService: ProjectsService) { }
+  constructor(private projectService: ProjectsService, private router: Router) { }
 
   ngOnInit(): void {
     this.projectsSub = this.projectService.getProjects().subscribe(result => {
@@ -21,6 +25,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   processProjects(result) {
 
+  }
+
+  createNewProject() {
+    const newProject = {
+      name: 'My Project 1',
+      pages: [CANVAS_PROJECT]
+    };
+    this.projectService.createProject(newProject).subscribe((res: any) => {
+      this.router.navigateByUrl(APP_ROUTES.BUILD + `/${res.id}`);
+    });
   }
 
   ngOnDestroy() {

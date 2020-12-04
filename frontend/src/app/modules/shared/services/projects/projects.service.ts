@@ -22,7 +22,7 @@ export class ProjectsService {
 
   createProject(project: any) {
     const url = API_ENDPOINT.PROJECTS;
-    return this.httpService.put(url, project);
+    return this.httpService.post(url, project);
   }
 
   saveProject(projectId, project: any) {

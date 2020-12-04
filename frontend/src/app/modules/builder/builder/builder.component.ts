@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PROJECT_TYPE, CANVAS_SIZES } from 'src/app/constants/canvas-size.constants';
 import { CANVAS_PROJECT, DEFAULT_PROJECT_SIZE } from '../canvas/canvas.config';
 import { CSS_PROPERTIES } from 'src/app/constants/css-constants';
@@ -7,6 +7,8 @@ import { CommonUtils } from 'src/app/utils/common.utils';
 import { DownloadCanvasComponent } from '../download-canvas/download-canvas.component';
 import { CanvasUtils } from 'src/app/utils/canvas.utils';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
+import { APP_ROUTES } from 'src/app/constants/app-routes';
+import { ProjectsService } from '../../shared/services/projects/projects.service';
 
 @Component({
   selector: 'app-builder',
@@ -21,7 +23,7 @@ export class BuilderComponent implements OnInit {
   project;
   projectDimention: { w: number, h: number } = DEFAULT_PROJECT_SIZE;
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private projectService: ProjectsService) { }
 
   ngOnInit(): void {
     this.init();
@@ -29,13 +31,11 @@ export class BuilderComponent implements OnInit {
 
   init() {
     const routSnapshot = this.activatedRoute.snapshot;
-    const id = routSnapshot.queryParams.id;
-    const type = routSnapshot.queryParams.type;
-
-    switch (type) {
-      case PROJECT_TYPE.BLANK:
-      default:
-        this.initBlankProject(id);
+    const id = routSnapshot.params.id;
+    if (id) {
+      this.loadProject(id);
+    } else {
+      this.router.navigateByUrl(APP_ROUTES.DASHBOARD);
     }
   }
 
@@ -43,16 +43,17 @@ export class BuilderComponent implements OnInit {
     this.pickerVisible = e;
   }
 
-  initBlankProject(id) {
-    const newProject = CommonUtils.cloneDeep(CANVAS_PROJECT);
-    const canvasElement: CanvasElement = newProject.canvasElement;
-    const blankPojectSize = CANVAS_SIZES.find(t => t.id === id);
-    if (blankPojectSize) {
-      this.projectDimention = blankPojectSize.dimention;
-      canvasElement.style[CSS_PROPERTIES.WIDTH] = blankPojectSize.dimention.w + 'px';
-      canvasElement.style[CSS_PROPERTIES.HEIGHT] = blankPojectSize.dimention.h + 'px';
-    }
-    this.project = newProject;
+  loadProject(id) {
+    this.projectService.getProjectById(id).subscribe(res => {
+      console.log(res);
+      this.initProject(res);
+    }, err => {
+      console.log(err);
+    });
+  }
+
+  initProject(project) {
+    this.project = project.pages[0];
   }
 
   openDownloadPopup(projectNode) {

@@ -22,13 +22,20 @@ router.delete('/', LoginService.authenticateRequest, function (req, res, next) {
   // });
 });
 
+router.get('/:id', LoginService.authenticateRequest, function (req: Request, res: Response, next: any) {
+  try {
+    projectService.getProjectById(req, res);
+  } catch (error) {
+    handleError(res);
+  }
+});
+
 router.get('/', LoginService.authenticateRequest, function (req: Request, res: Response, next: any) {
   try {
     projectService.getProjects(req, res);
   } catch (error) {
     handleError(res);
   }
-  // res.send('hello dear, what are you doing');
 });
 
 router.put('/', LoginService.authenticateRequest, function (req, res, next) {
