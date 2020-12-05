@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { APP_ROUTES } from '../constants/app-routes';
 import { EventTypes, EventerService } from '../modules/shared/services/eventer.service';
+import { ProjectsService } from '../modules/shared/services/projects/projects.service';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,7 @@ export class HeaderComponent implements OnInit {
   showCanvasSizeOptions = false;
   APP_ROUTES = APP_ROUTES;
 
-  constructor(private eventer: EventerService) { }
+  constructor(private eventer: EventerService, public projectService: ProjectsService) { }
 
   ngOnInit(): void {
   }
@@ -23,5 +24,9 @@ export class HeaderComponent implements OnInit {
 
   downloadCanvas() {
     this.eventer.send({ type: EventTypes.CANVAS_DOWNLOAD, value: '' });
+  }
+
+  saveProject() {
+    this.projectService.saveProject();
   }
 }

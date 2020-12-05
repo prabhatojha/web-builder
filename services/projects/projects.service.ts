@@ -1,8 +1,9 @@
 import { User, UserDocument } from '../../models/model.user';
-import modelProject, { Project } from '../../models/project.model';
+import modelProject, { Project, ProjectDocument } from '../../models/project.model';
 import { handleError, handleSuccess } from '../../routes/error-handler';
-
 export class ProjectsService {
+
+
     createProject(req, res) {
         const user: UserDocument = res.locals.user;
         const project: Project = Object.assign(req.body, {
@@ -28,15 +29,30 @@ export class ProjectsService {
         });
     }
 
+    saveProject(req, res) {
+        const reqProject = req.body;
+        const user: UserDocument = res.locals.user;
+        modelProject.findOne({
+            userId: user.id,
+            _id: reqProject._id
+        }).then((project: ProjectDocument) => {
+            project.pages = reqProject.pages;
+            project.save();
+            handleSuccess(res, { saved: true });
+        }).catch(err => {
+            console.log(err);
+            handleError(res);
+        });
+    }
+
     getProjectById(req, res) {
         const id = req.params['id'];
         const user: UserDocument = res.locals.user;
-        console.log(id, user);
-        modelProject.find({
+        modelProject.findOne({
             userId: user.id,
             _id: id
         }).then(d => {
-            handleSuccess(res, d[0]);
+            handleSuccess(res, d);
         }).catch(err => {
             console.debug(err);
             handleError(res);

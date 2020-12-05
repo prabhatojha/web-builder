@@ -23,7 +23,9 @@ export class BuilderComponent implements OnInit {
   project;
   projectDimention: { w: number, h: number } = DEFAULT_PROJECT_SIZE;
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private projectService: ProjectsService) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private projectService: ProjectsService) {
+    CanvasUtils.setProjectService(projectService);
+  }
 
   ngOnInit(): void {
     this.init();
@@ -47,6 +49,7 @@ export class BuilderComponent implements OnInit {
     this.projectService.getProjectById(id).subscribe(res => {
       console.log(res);
       this.initProject(res);
+      // this.projectService.saveProject(res).subscribe(t => { });
     }, err => {
       console.log(err);
     });

@@ -17,9 +17,6 @@ router.post('/', LoginService.authenticateRequest, function (req: Request, res: 
 });
 
 router.delete('/', LoginService.authenticateRequest, function (req, res, next) {
-  // Project.findByIdAndRemove({ id: req.body.id }).then(function (project) {
-  //   req.send(project);
-  // });
 });
 
 router.get('/:id', LoginService.authenticateRequest, function (req: Request, res: Response, next: any) {
@@ -39,9 +36,12 @@ router.get('/', LoginService.authenticateRequest, function (req: Request, res: R
 });
 
 router.put('/', LoginService.authenticateRequest, function (req, res, next) {
-  // Project.findByIdAndUpdate({ _id: req.body._id }, req.body).then(function (project) {
-  //   res.send(project);
-  // });
+  try {
+    projectService.saveProject(req, res);
+  } catch (error) {
+    console.log(error);
+    handleError(res);
+  }  
 });
 
 module.exports = router;

@@ -4,10 +4,21 @@ import { CommonUtils } from './common.utils';
 import { Hasher } from '../constants/hasher';
 import { CSSUtils } from './css.utils';
 import { ElementTranform } from '../models/element.transform.modal';
+import { ProjectsService } from '../modules/shared/services/projects/projects.service';
 
 export class CanvasUtils {
 
   // Building DOM element start here ----------------
+
+  static projectService: ProjectsService;
+
+  constructor() {
+
+  }
+
+  static setProjectService(service) {
+    this.projectService = service;
+  }
 
   static buildDom(node: CanvasElement) {
     const ele = document.createElement(node.tag);
@@ -144,6 +155,8 @@ export class CanvasUtils {
         item.style[prop] = value;
       }
     });
+
+    this.projectService.submitSaveRequest();
   }
 
   private static findLevelItem(node: HTMLElement, item: CanvasElement, level: number) {

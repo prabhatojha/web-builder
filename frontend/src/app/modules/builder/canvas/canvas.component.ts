@@ -15,6 +15,7 @@ import { ElementTranform } from 'src/app/models/element.transform.modal';
 import { LayeringActions, LayeringService } from '../../shared/services/layering/layering.service';
 import { AppAnimations } from 'src/style/_angular-animations';
 import { DEFAULT_PROJECT_SIZE } from './canvas.config';
+import { ProjectsService } from '../../shared/services/projects/projects.service';
 
 @Component({
   selector: 'app-canvas',
@@ -55,7 +56,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
   guidingElements = []; // Is used to set elementGuidelines to ngx-moveable
 
-  constructor(private eventer: EventerService, private undoService: UndoService, private layeringService: LayeringService) {
+  constructor(private eventer: EventerService, private undoService: UndoService, private layeringService: LayeringService,
+    private projectService: ProjectsService) {
   }
 
   ngOnInit(): void {
@@ -92,6 +94,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   addNewNode(canvasElement: CanvasElement) {
+    this.projectService.submitSaveRequest();
     switch (canvasElement.type) {
       case ELEMENT_TYPES.BACKGROUND:
         this.handleBackgroundChange(canvasElement);
@@ -270,6 +273,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       this.selectedCanvasElements = children.length ? [children[children.length - 1]] : [];
       this.selectedNodes = childNodes.length ? [childNodes[childNodes.length - 1]] : [];
     }
+    this.projectService.submitSaveRequest();
   }
 
   onItemGroup(e) {
@@ -350,5 +354,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       w: parseFloat(projectElement.style[CSS_PROPERTIES.WIDTH]),
       h: parseFloat(projectElement.style[CSS_PROPERTIES.HEIGHT])
     };
+
+    this.projectService.submitSaveRequest();
   }
 }
