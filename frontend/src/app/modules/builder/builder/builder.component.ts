@@ -9,6 +9,7 @@ import { CanvasUtils } from 'src/app/utils/canvas.utils';
 import { CanvasElement } from 'src/app/models/canvas.element.model';
 import { APP_ROUTES } from 'src/app/constants/app-routes';
 import { ProjectsService } from '../../shared/services/projects/projects.service';
+import { AuthService } from '../../shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-builder',
@@ -23,7 +24,8 @@ export class BuilderComponent implements OnInit {
   project;
   projectDimention: { w: number, h: number } = DEFAULT_PROJECT_SIZE;
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private projectService: ProjectsService) {
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private projectService: ProjectsService,
+    private authService: AuthService) {
     CanvasUtils.setProjectService(projectService);
   }
 
@@ -47,11 +49,9 @@ export class BuilderComponent implements OnInit {
 
   loadProject(id) {
     this.projectService.getProjectById(id).subscribe(res => {
-      console.log(res);
       this.initProject(res);
       // this.projectService.saveProject(res).subscribe(t => { });
     }, err => {
-      console.log(err);
     });
   }
 

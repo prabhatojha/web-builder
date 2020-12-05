@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { delay } from 'rxjs/operators';
 import { APP_ROUTES } from 'src/app/constants/app-routes';
+import { QUERY_PARAMS } from 'src/app/constants/query-params';
 import { AppAnimations } from 'src/style/_angular-animations';
+import { AuthService } from '../../shared/services/auth/auth.service';
 import { SnackbarService } from '../../shared/services/snackbar/snackbar.service';
 import { UserModelFe, UserService } from '../user.service';
 
@@ -22,7 +25,8 @@ export class LoginComponent implements OnInit {
 
   isLoading: boolean;
 
-  constructor(private userService: UserService, private snackbar: SnackbarService) { }
+  constructor(private userService: UserService, private snackbar: SnackbarService,
+    private activatedRoute: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -32,13 +36,17 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     const controls = this.userForm.controls;
     const user = new UserModelFe(null, controls.email.value, controls.password.value);
-    this.userService.login(user).pipe(delay(3000)).subscribe(t => {
-      this.isLoading = false;
-      this.snackbar.open('Logged in successfully', 0, true);
+    this.userService.login(user).subscribe(t => {
+      this.onSuccess();
     }, err => {
       this.isLoading = false;
-      console.log(err);
       this.snackbar.open(err.error.errors.join(), 0, true);
     });
+  }
+
+  onSuccess() {
+    this.authService.login();
+    const redirectTo = this.activatedRoute.snapshot.queryParams[QUERY_PARAMS.redirect];
+    this.router.navigateByUrl(redirectTo || APP_ROUTES.DASHBOARD);
   }
 }

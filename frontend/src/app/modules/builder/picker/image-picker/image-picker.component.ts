@@ -54,7 +54,6 @@ export class ImagePickerComponent extends PickerActions implements OnInit, OnCha
   }
 
   onOptionSelection(event: SettingOptionEvent) {
-    console.log(event);
 
     if (event.setting.value === this.BACKGROUND_VAL) {
       const item: PickerItemModal = CommonUtils.cloneDeep(event.item);

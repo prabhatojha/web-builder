@@ -9,7 +9,6 @@ export class SnackbarService {
   closeOnClick: boolean;
   constructor(private snackbar: MatSnackBar) {
     document.addEventListener('click', () => {
-      console.log('Closing');
       if (this.closeOnClick) {
         this.snackbar.dismiss();
       }

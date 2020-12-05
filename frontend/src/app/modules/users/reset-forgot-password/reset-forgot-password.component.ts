@@ -30,7 +30,6 @@ export class ResetForgotPasswordComponent implements OnInit {
   ngOnInit(): void {
     const { token } = this.activatedRoute.snapshot.queryParams;
     this.token = token;
-    console.log(this.token);
   }
 
   onSubmit(event) {

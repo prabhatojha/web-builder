@@ -18,7 +18,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.projectsSub = this.projectService.getProjects().subscribe(result => {
-      console.log('projects', result);
       this.processProjects(result);
     });
   }
