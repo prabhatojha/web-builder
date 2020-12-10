@@ -50,8 +50,8 @@ export class BuilderComponent implements OnInit {
   loadProject(id) {
     this.projectService.getProjectById(id).subscribe(res => {
       this.initProject(res);
-      // this.projectService.saveProject(res).subscribe(t => { });
     }, err => {
+      this.router.navigateByUrl(APP_ROUTES.DASHBOARD);
     });
   }
 

@@ -13,7 +13,7 @@ import { ProjectsService } from '../../shared/services/projects/projects.service
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   projectsSub: Subscription;
-
+  projects = [];
   constructor(private projectService: ProjectsService, private router: Router) { }
 
   ngOnInit(): void {
@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   processProjects(result) {
-
+    this.projects = result;
   }
 
   createNewProject() {

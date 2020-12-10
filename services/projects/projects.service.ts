@@ -52,7 +52,11 @@ export class ProjectsService {
             userId: user.id,
             _id: id
         }).then(d => {
-            handleSuccess(res, d);
+            if (d) {
+                handleSuccess(res, d);
+            } else {
+                handleError(res, ['Not found'], 404);
+            }
         }).catch(err => {
             console.debug(err);
             handleError(res);
