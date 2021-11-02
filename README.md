@@ -5,6 +5,9 @@ Angular scaffolded application to create and download poster online with various
 
 With thrid party library https://unsplash.com/ integration to fetch and use GIFs/Images.
 
+Domain expired - Oct 2021
+Application is no more available on http://drawposter.com/
+
 ## Development server
 
 ### Frontend
