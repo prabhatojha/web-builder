@@ -1,4 +1,10 @@
 
+## About this app
+
+Angular scaffolded application to create and download poster online with various public fonts and plug and play elements to play with.
+
+With thrid party library https://unsplash.com/ integration to fetch and use GIFs/Images.
+
 ## Development server
 
 ### Frontend
